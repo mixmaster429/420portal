@@ -1,0 +1,48 @@
+{
+  "private": true,
+  "scripts": {
+    "dev": "nuxt -c client/nuxt.config.js",
+    "build": "nuxt build -c client/nuxt.config.js",
+    "start": "nuxt start -c client/nuxt.config.js",
+    "lint": "eslint --fix --ext .js,.vue client/"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.26",
+    "@fortawesome/free-brands-svg-icons": "^5.12.0",
+    "@fortawesome/free-regular-svg-icons": "^5.12.0",
+    "@fortawesome/free-solid-svg-icons": "^5.12.0",
+    "@fortawesome/vue-fontawesome": "^0.1.9",
+    "@nuxtjs/router": "^1.5.0",
+    "axios": "^0.19.1",
+    "bootstrap": "^4.4.1",
+    "child_process": "^1.0.2",
+    "dotenv": "^8.2.0",
+    "emojionearea": "^3.4.2",
+    "firebase": "^8.0.0",
+    "fs": "0.0.1-security",
+    "jquery": "^3.4.1",
+    "js-cookie": "^2.2.1",
+    "jsdom": "^16.4.0",
+    "lodash": "^4.17.20",
+    "mobile-device-detect": "^0.4.3",
+    "net": "^1.0.2",
+    "nuxt": "^2.11.0",
+    "popper.js": "^1.16.0",
+    "sweetalert2": "^8.19.0",
+    "tls": "0.0.1",
+    "vform": "^1.0.1",
+    "vue-autosuggest": "^2.2.0",
+    "vue-i18n": "^8.15.3",
+    "vue-infinite-loading": "^2.4.5",
+    "vue-trix": "^1.2.0",
+    "vuesax": "^3.12.2"
+  },
+  "devDependencies": {
+    "@nuxtjs/eslint-config": "^1.1.2",
+    "babel-eslint": "^10.0.3",
+    "eslint": "^6.8.0",
+    "fs-extra": "^8.1.0",
+    "node-sass": "^4.13.0",
+    "sass-loader": "^7.3.1"
+  }
+}
