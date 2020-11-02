@@ -248,7 +248,7 @@ export default {
                 $("#loginmodal").modal("show");
             }
         },
-        imageLoad(item) {            
+        imageLoad(item) {
             if(item.charAt(0) != '/'){item = '/' + item;}
             try {
                 return process.env.serverUrl + item;
@@ -264,7 +264,6 @@ export default {
     components: {
         FixedComment,
         PageFooter,
-        // InfiniteLoading,
     }
 };
 </script>

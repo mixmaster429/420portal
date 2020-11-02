@@ -34,7 +34,6 @@
 
 <script>
     import FixedComment from "../FixedComment";
-    import InfiniteLoading from 'vue-infinite-loading';
     import firebase from "../../Firebase";
     import axios from "axios";
     import { mapGetters } from "vuex";
@@ -44,7 +43,6 @@
         name: "StrainMedia",
         components: {
             FixedComment,
-            InfiniteLoading,
         },
         data() {
             return {
