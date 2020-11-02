@@ -39,7 +39,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <!-- <edit-description class="strain__modal__content" type="strain-modal" :strain="{{strain_dta}}" :auth="user"></edit-description> -->
+                            <edit-description class="strain__modal__content" type="strain-modal" :strain="modal_data" :auth="user"></edit-description>
                         </div>
                     </div>
                 </div>
@@ -71,10 +71,23 @@ export default {
             ],
         }
     },
-
+    serverPrefetch () {
+        return this.getModalData()
+    },
     computed: mapGetters({
         user: 'auth/user',
         is_mobile: 'auth/is_mobile',
+        modal_data: 'strain/modal_data',
     }),
+    mounted: function () {
+        if (!this.modal_data) {
+            this.getModalData();
+        }
+    },
+    methods: {
+        getModalData(){
+            return this.$store.dispatch('strain/getModalData');
+        }
+    }
 }
 </script>

@@ -37,6 +37,7 @@
     import InfiniteLoading from 'vue-infinite-loading';
     import firebase from "../../Firebase";
     import axios from "axios";
+    import { mapGetters } from "vuex";
 
     export default {
         props: ["strain", "mobile"],
@@ -56,8 +57,14 @@
                 last_page: 0,
             };
         },
+        computed: mapGetters({
+            user: 'auth/user',
+            is_mobile: 'auth/is_mobile',
+        }),
         mounted() {
-            this.scroll();
+            if (process.client) {
+                this.scroll();
+            }
         },
         created() {  },
         methods: {
@@ -97,7 +104,6 @@
                 var sticky = sticky - 175;
 
                 window.onscroll = () => {
-
                     if (window.pageYOffset > sticky) {
                         header.classList.remove("original");
                     } else {
@@ -106,7 +112,7 @@
                 };
             },
             likeMedia(item) {
-                if (window.user) {
+                if (this.user) {
                     const params = {
                         target_id: item.id,
                         target_model: "post"
@@ -118,10 +124,10 @@
                             item.user_liked = false;
                         } else {
                             item.user_liked = true;
-                            if(window.user != item.user_id) {                           
+                            if(this.user.id != item.user_id) {                           
                                 let noti_fb = firebase.database().ref('notifications/' + item.user_id).push();
                                 noti_fb.set({
-                                    notifier_id: window.user,
+                                    notifier_id: this.user.id,
                                     type: 'like',
                                 }); 
                             }
@@ -132,6 +138,7 @@
                 }
             },
             serverUrl(item) {
+                if(item.charAt(0) != '/'){item = '/' + item;}
                 try {
                     return process.env.serverUrl + item;
                 } catch (error) {

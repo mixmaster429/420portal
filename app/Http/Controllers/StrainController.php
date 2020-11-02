@@ -25,13 +25,20 @@ class StrainController extends Controller
      */
     public function index()
     {
+        // $strains = Strain::all();
+
+        // $modalData = Generic::where('type', 'strain-modal-description')->first();
+
+        // return view('strain.index', [
+        //     'modalData' => $modalData,
+        // ]);
         $strains = Strain::all();
+        return response()->json($strains);
+    }
 
+    public function getModalData(Request $request) {
         $modalData = Generic::where('type', 'strain-modal-description')->first();
-
-        return view('strain.index', [
-            'modalData' => $modalData,
-        ]);
+        return response()->json($modalData);
     }
 
     public function api()
@@ -281,26 +288,34 @@ class StrainController extends Controller
     }
     
     public function update(Request $request, $id) {
-        $this->middleware('auth');
 
         $validateRequest = $this->validate($request, [
             'description' => 'required',
         ]);
 
         $strain = Strain::findOrFail($id);
+        if($request->name != ''){
+            $strain->name = $request->name;
+        }
 
-        $strain->name = $request->name;
-        $strain->category_id = $request->category_id;
-        $strain->slug = $request->slug;
-        $strain->description = $request->description;
+        if($request->category_id != ''){
+            $strain->category_id = $request->category_id;
+        }
+
+        if($request->slug != ''){
+            $strain->slug = $request->slug;
+        }
+
+        if($request->description != ''){
+            $strain->description = $request->description;
+        }
+        
         $strain->save();
 
         return response()->json($strain);
     }
 
-    public function updateModal(Request $request, $id)
-    {
-        $this->middleware('auth');
+    public function updateModal(Request $request, $id) {
 
         $validateRequest = $this->validate($request, [
             'description' => 'required',

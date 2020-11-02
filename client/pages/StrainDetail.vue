@@ -21,8 +21,8 @@
                             </div>                    
                         </div>
                         <div class="strain-information text-center strain-action">
-                            <img src="~assets/imgs/follow-icon.png" alt class="btn-follow st-follow" :class="{'d-none': strain_data.is_follower == 1}" />
-                            <img src="~assets/imgs/unfollow.png" alt class="btn-follow st-unfollow" :class="{'d-none': strain_data.is_follower != 1}" />
+                            <img src="~assets/imgs/follow-icon.png" alt class="btn-follow st-follow" @click="follow" :class="{'d-none': strain_data.is_follower == 1}" />
+                            <img src="~assets/imgs/unfollow.png" alt class="btn-follow st-unfollow" @click="follow" :class="{'d-none': strain_data.is_follower != 1}" />
                             <div class="single__comment mt-1 mx-auto" style="width: 60px;" data-toggle="modal" data-target="#commentModal">
                                 <fa :icon="['far', 'comment']" fixed-width class="single__icon" />
                                 <p id="count_comments">0</p>
@@ -33,7 +33,7 @@
                 <div class="single__content mb-5">
                     <h1 class="single__name mt-2 text-white">
                         {{ strain_data.strain.name }}                  
-                        <a href="javascript:;" data-toggle="modal" data-target="#editModal" v-if="user && user.name == '420portal'">
+                        <a href="#" v-if="user && user.name == '420portal'" @click.prevent="openEditPopup = true">
                             <img class="portal__edit" src="~assets/imgs/edit.png" width="28" alt />
                         </a>                        
                     </h1>
@@ -106,6 +106,11 @@
                 <strain-media :strain="strain_data.strain" v-else></strain-media>
             </template>
         </div>
+        <client-only>
+            <vs-popup v-if="user && strain_data && user.id == 1" class="strains__popup" type="border" title="Edit Strain" :active.sync="openEditPopup">
+                <edit-strain :from="strain_data.strain"></edit-strain>
+            </vs-popup>
+        </client-only>
     </div>
 </template>
 <script>
@@ -115,6 +120,7 @@
     import StrainNav from "~/components/strain/StrainNav";
     import StrainMenu from "~/components/strain/StrainMenu";
     import StrainMedia from "~/components/strain/StrainMedia";
+    import EditStrain from "~/components/strain/EditStrain";
     import EditDescription from "~/components/strain/EditDescription";
 
     export default {
@@ -123,23 +129,28 @@
             StrainMenu,
             StrainMedia,
             EditDescription,
+            EditStrain,
         },
         head () {
             return { 
-                title: this.$route.params.strain,
+                title: this.strain_data.strain.name,
+                meta: [
+                    { hid: 'title', name: 'title', content: `${this.strain_data.strain.name} Marijuana Strains - ${this.strain_data.strain.name} Cannabis` },
+                    { hid: 'keywords', name: 'keywords', content: `${this.strain_data.strain.name}, marijuana, weed, cannabis, strains, pictures, videos, images` },
+                    { hid: 'description', name: 'description', content: `Find ${this.strain_data.strain.name} Marijuana Strains Near You. View ${this.strain_data.strain.name} Cannabis Pictures and Videos. ${this.strain_data.strain.name} Weed Strain` }
+                ],
             }
         },
         data() {
             return {
                 slug: this.$route.params.strain,
+                openEditPopup: false,
             }
         },
         watch: {
             $route: "fetchStrainData",
         },
         serverPrefetch () {
-            // return the Promise from the action
-            // so that the component waits before rendering
             return this.fetchStrainData()
         },
         computed: {
@@ -152,7 +163,6 @@
         mounted() {
             if (!this.strain_data) {
                 this.fetchStrainData();
-                console.log('fetched strain data');
             }
         },
         methods: {
@@ -170,7 +180,27 @@
                     this.tagged_media = response.data.taggedMedia;
                 })
             },
+            follow() {
+                if(!this.user) {
+                    $("#loginmodal").modal();
+                } else {
+                    let url = `/marijuana-strains/follow`;
+                    let params = {user_id : this.user.id, follower_id : this.strain_data.strain.id};
+                    axios.post(url, params).then(response => {
+                        if(response.data.status == 200) {
+                            $("#followers_count").text(response.data.count);
+                            $(".btn-follow").hide();
+                            if(response.data.is_follower) {
+                                $(".st-unfollow").removeClass('d-none').show();
+                            } else {
+                                $(".st-follow").removeClass('d-none').show();
+                            }
+                        }
+                    });
+                }
+            },
             serverUrl(item) {
+                if(item.charAt(0) != '/'){item = '/' + item;}
                 try {
                     return process.env.serverUrl + item;
                 } catch (error) {

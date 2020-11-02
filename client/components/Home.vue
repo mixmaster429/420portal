@@ -175,8 +175,7 @@ export default {
                 this.bookmark = true;
                 this.keywordChange('bookmark');
             } else {
-                console.log('get bookmark');
-                // $("#loginmodal").modal("show");
+                $("#loginmodal").modal("show");
             }
         },
         getfollowingposts(){
@@ -249,7 +248,8 @@ export default {
                 $("#loginmodal").modal("show");
             }
         },
-        imageLoad(item) {
+        imageLoad(item) {            
+            if(item.charAt(0) != '/'){item = '/' + item;}
             try {
                 return process.env.serverUrl + item;
             } catch (error) {
