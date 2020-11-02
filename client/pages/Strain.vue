@@ -1,6 +1,6 @@
 <template>
     <div class="row">
-        <div class="strains">
+        <div class="col-12 strains px-0">
             <strain-nav></strain-nav>
             <div class="container">
                 <h1 class="text-center my-4 clickable-title" data-toggle="modal" data-target="#headingModal">
@@ -45,15 +45,14 @@
                 </div>
             </div>
         </div>
-
         <page-footer></page-footer>
     </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import EditDescription from '~/components/Strain/EditDescription'
-import StrainNav from '~/components/Strain/StrainNav'
+import EditDescription from '~/components/strain/EditDescription'
+import StrainNav from '~/components/strain/StrainNav'
 import PageFooter from '~/components/PageFooter'
 
 export default {
@@ -70,7 +69,6 @@ export default {
                 { hid: 'keywords', name: 'keywords', content: 'marijuana, strains, cannabis, weed' },
                 { hid: 'description', name: 'description', content: 'Search Thousands of Marijuana Strains. Find Cannabis Strains Near You.' }
             ],
-
         }
     },
 

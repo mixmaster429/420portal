@@ -206,7 +206,7 @@
 </template>
 
 <script>
-    import EditMedia from "./Media/EditMedia";
+    import EditMedia from "./media/EditMedia";
     import firebase from "../Firebase";    
     import { mapGetters } from 'vuex'
     import axios from 'axios';

@@ -28,6 +28,7 @@
 
 <script>
 import axios from "axios";
+import { mapGetters } from "vuex";
 
 export default {
     name: "EditDescription",
@@ -35,6 +36,10 @@ export default {
     components: {
         // VueTrix
     },
+    computed: mapGetters({
+        user: 'auth/user',
+        is_mobile: 'auth/is_mobile',
+    }),
     data() {
         return {
             editMode: false,
@@ -95,7 +100,7 @@ export default {
             this.editMode = false;
         },
         deleteItem() {
-            if(!window.user) {
+            if(!this.user) {
                 $("loginmodal").modal('show');
                 return false;
             } else {

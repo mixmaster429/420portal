@@ -107,8 +107,8 @@ export default {
         },
         getSuggestionValue(suggestion) {
             let { name, item, slug } = suggestion;
-            this.$router.push({ name: 'strain_detail', params: {strain: item.slug} });
-            // window.open(`/marijuana-strains/${item.slug}`, '_self');
+            // this.$router.push({ name: 'strain_detail', params: {strain: item.slug} });
+            window.open(`/marijuana-strains/${item.slug}`, '_self');
 
         },
         hideFooter() {
@@ -125,80 +125,80 @@ export default {
 };
 </script>
 
-<style>
+<style lang="css">
 
-#autosuggest__input {
-    outline: none;
-    position: relative;
-    display: block;
-    /* border: 1px solid #616161; */
-    /* padding: 10px; */
-    /* width: 100%; */
-    box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-}
-
-#autosuggest__input.autosuggest__input-open {
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-}
-
-.autosuggest__results-container {
-    position: relative;
-    width: 100%;
-}
-
-@media only screen and (max-width: 800px) {
-    .autosuggest__results-container {
-        width: 140%;
+    #autosuggest__input {
+        outline: none;
+        position: relative;
+        display: block;
+        /* border: 1px solid #616161; */
+        /* padding: 10px; */
+        /* width: 100%; */
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
     }
-}
 
-.autosuggest__results {
-    font-weight: 300;
-    font-size: 16px;
-    margin: 0;
-    position: absolute;
-    z-index: 10000001;
-    width: 100%;
-    border: 1px solid #706f6f;
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
-    background: #000;
-    /* padding: 1rem; */
-    max-height: 350px;
-    overflow-y: scroll;
-    text-align: left;
-}
+    #autosuggest__input.autosuggest__input-open {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
 
-.autosuggest__results ul {
-    list-style: none;
-    padding-left: 0;
-    margin: 0;
-}
+    .autosuggest__results-container {
+        position: relative;
+        width: 100%;
+    }
 
-.autosuggest__results .autosuggest__results-item {
-    cursor: pointer;
-    padding: 10px;
-}
+    @media only screen and (max-width: 800px) {
+        .autosuggest__results-container {
+            width: 140%;
+        }
+    }
 
-#autosuggest ul:nth-child(1) > .autosuggest__results_title {
-    border-top: none;
-}
+    .autosuggest__results {
+        font-weight: 300;
+        font-size: 16px;
+        margin: 0;
+        position: absolute;
+        z-index: 10000001;
+        width: 100%;
+        border: 1px solid #706f6f;
+        border-bottom-left-radius: 4px;
+        border-bottom-right-radius: 4px;
+        background: #000;
+        /* padding: 1rem; */
+        max-height: 350px;
+        overflow-y: scroll;
+        text-align: left;
+    }
 
-.autosuggest__results .autosuggest__results-before {
-    color: gray;
-    font-size: 11px !important;
-    margin-left: 0;
-    /* padding: 15px 13px 5px; */
-    /* border-top: 1px solid lightgray; */
-}
+    .autosuggest__results ul {
+        list-style: none;
+        padding-left: 0;
+        margin: 0;
+    }
 
-.autosuggest__results .autosuggest__results-item:active,
-.autosuggest__results .autosuggest__results-item:hover,
-.autosuggest__results .autosuggest__results-item:focus,
-.autosuggest__results .autosuggest__results-item.autosuggest__results-item--highlighted {
-    background-color: #f6f6f6;
-}
+    .autosuggest__results .autosuggest__results-item {
+        cursor: pointer;
+        padding: 10px;
+    }
+
+    #autosuggest ul:nth-child(1) > .autosuggest__results_title {
+        border-top: none;
+    }
+
+    .autosuggest__results .autosuggest__results-before {
+        color: gray;
+        font-size: 11px !important;
+        margin-left: 0;
+        /* padding: 15px 13px 5px; */
+        /* border-top: 1px solid lightgray; */
+    }
+
+    .autosuggest__results .autosuggest__results-item:active,
+    .autosuggest__results .autosuggest__results-item:hover,
+    .autosuggest__results .autosuggest__results-item:focus,
+    .autosuggest__results .autosuggest__results-item.autosuggest__results-item--highlighted {
+        background-color: #f6f6f6;
+    }
 </style>
