@@ -15,7 +15,7 @@
                                 <div class="single__post__count">{{strain_data.posts_count}}</div>
                                 <div class="single__post__label">Posts</div>
                             </div>
-                            <div class="single__follow__container" style="cursor: pointer;">
+                            <div class="single__follow__container" style="cursor: pointer;" @click="openFollowerPopup = true">
                                 <div class="single__follow__count btn-open-modal" id="followers_count">{{strain_data.followers_count}}</div>
                                 <div class="single__follow__label btn-open-modal">Followers</div>
                             </div>                    
@@ -110,6 +110,10 @@
             <vs-popup v-if="user && strain_data && user.id == 1" class="strains__popup" type="border" title="Edit Strain" :active.sync="openEditPopup">
                 <edit-strain :from="strain_data.strain"></edit-strain>
             </vs-popup>
+
+            <vs-popup v-if="strain_data" class="strains__popup strain_followers_popup" type="border" title="Edit Strain" :active.sync="openFollowerPopup">
+                <strain-followers :strain="strain_data.strain"></strain-followers>
+            </vs-popup>
         </client-only>
     </div>
 </template>
@@ -122,6 +126,7 @@
     import StrainMedia from "~/components/strain/StrainMedia";
     import EditStrain from "~/components/strain/EditStrain";
     import EditDescription from "~/components/strain/EditDescription";
+    import StrainFollowers from "~/components/strain/StrainFollowers";
 
     export default {
         components: {
@@ -130,6 +135,7 @@
             StrainMedia,
             EditDescription,
             EditStrain,
+            StrainFollowers,
         },
         head () {
             return { 
@@ -145,6 +151,7 @@
             return {
                 slug: this.$route.params.strain,
                 openEditPopup: false,
+                openFollowerPopup: false,
             }
         },
         watch: {
@@ -277,5 +284,6 @@
     #editModal {
         color: #FFF;
         font-size: 16px;
-    }
+    }   
+
 </style>

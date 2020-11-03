@@ -1,0 +1,79 @@
+.default-tabs {
+    position: relative;
+    margin-bottom: 10px;
+    &__item {
+      display: inline-block;
+      margin: 0;
+      padding: 5px 0;
+      font-size: 16px;
+      letter-spacing: 0.8px;
+      color: black;
+      width: 50% !important;
+      text-decoration: none;
+      border: none;
+      background-color: white;
+      cursor: pointer;
+      transition: all 0.25s;
+      &_active {
+        color: white;
+        background: #efa720;
+      }
+      &:hover {
+        color: black;
+      }
+      &:focus {
+        outline: none;
+        color: white;
+      }
+      &:first-child {
+        margin-left: 0;
+      }
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+  .tabs-content {
+    height: 250px;
+    min-height: 250px;
+    overflow-y: scroll;
+    div {
+        ul {
+            li {
+                margin-bottom: 15px;
+                display:flex;
+                align-items:center;
+                cursor: pointer;
+                .follower-logo {
+                    width: 18%;
+                    img {
+                        width: 40px;
+                        height: 40px;
+                        border-radius: 100%;
+                        object-fit: cover;
+                    }
+                }
+                .username {
+                    width: 45%;
+                    font-size: 16px;
+                    line-height: 1.2;
+                    p {
+                        margin-bottom: 0px;
+                    }
+                    img {
+                        width: 20px;
+                        height: 20px;
+                        border-radius: 100%;
+                    }
+                }
+                .action {
+                    width: 37%;
+                    text-align: center;
+                    img {
+                      height: 25px;
+                    }
+                }
+            }
+        }
+    }
+  }

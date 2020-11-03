@@ -6,6 +6,7 @@
 /storage/*.key
 /vendor
 /public/.well-known
+/client/nuxt.config.js
 .env
 .env.backup
 .phpunit.result.cache
