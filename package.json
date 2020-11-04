@@ -12,6 +12,7 @@
     "@fortawesome/free-regular-svg-icons": "^5.12.0",
     "@fortawesome/free-solid-svg-icons": "^5.12.0",
     "@fortawesome/vue-fontawesome": "^0.1.9",
+    "@nuxtjs/device": "^1.2.7",
     "@nuxtjs/router": "^1.5.0",
     "axios": "^0.19.1",
     "bootstrap": "^4.4.1",
@@ -24,7 +25,6 @@
     "js-cookie": "^2.2.1",
     "jsdom": "^16.4.0",
     "lodash": "^4.17.20",
-    "mobile-device-detect": "^0.4.3",
     "net": "^1.0.2",
     "nuxt": "^2.11.0",
     "popper.js": "^1.16.0",
@@ -35,6 +35,7 @@
     "vue-i18n": "^8.15.3",
     "vue-infinite-loading": "^2.4.5",
     "vue-trix": "^1.2.0",
+    "vue2-touch-events": "^2.3.2",
     "vuesax": "^3.12.2"
   },
   "devDependencies": {

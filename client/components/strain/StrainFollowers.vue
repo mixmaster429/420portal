@@ -1,5 +1,5 @@
 <template>
-    <div class="tabs-content pt-3" id="strain_followers">
+    <div class="tabs-content pt-2" id="strain_followers">
         <button class="btn btn-primary btn-block">Followers</button>
         <div class="followers mt-1">
             <ul>
@@ -35,7 +35,6 @@
         },        
         computed: mapGetters({
             user: 'auth/user',
-            is_mobile: 'auth/is_mobile',
         }),
         mounted() {
             this.getAllFollows();

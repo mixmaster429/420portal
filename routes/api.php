@@ -22,6 +22,7 @@ Route::post('/strain/get_menus', 'StrainController@getMenus');
 Route::post('/strain-media/{slug}', 'StrainController@getMedia');
 Route::get('/strain/get_modal_data', 'StrainController@getModalData');
 Route::resource('/marijuana-strains', 'StrainController');
+Route::post('/marijuana-strains/get_all_follows', 'StrainController@getAllFollows');
 
 Route::middleware(['auth:api'])->group(function ($router){
     $router->post('/profile/like', 'LikeController@likeProfile');
@@ -70,7 +71,6 @@ Route::middleware(['auth:api'])->group(function ($router){
     $router->get('/strain/show/{id}', 'StrainController@show_mobile');
     $router->post('/marijuana-strains/follow', 'StrainController@follow');
     $router->put('/marijuana-strains/modal/{id}', 'StrainController@updateModal');
-    $router->post('/marijuana-strains/get_all_follows', 'StrainController@getAllFollows');
 
     //Brand
     $router->get('/brand/get_all', 'BrandController@getBrands');

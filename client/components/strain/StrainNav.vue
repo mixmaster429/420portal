@@ -112,12 +112,12 @@ export default {
 
         },
         hideFooter() {
-            if(window.is_mobile) {
+            if(this.$device.isMobile) {
                 $("#footer_bar").hide();
             }
         },
         showFooter() {
-            if(window.is_mobile) {
+            if(this.$device.isMobile) {
                 $("#footer_bar").show();
             }
         }

@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-4 media_container" v-for="(item, index) of posts" :key="index">
                     <div v-if="mobile" class="media">
-                        <router-link :to="{ name: 'Weedgram', hash:`#${index+1}`, params: {allpost : posts, start_index: index+1, page: page}}">
+                        <router-link :to="{ name: 'weedgram', hash:`#${index+1}`, params: {allpost : posts, start_index: index+1, page: page}}">
                             <img v-bind:src="serverUrl(item.url)" :alt="strain.name + ' marijuana'" v-if="item.type == 'image'" />
                             <video v-bind:src="serverUrl(item.url)" alt v-if="item.type == 'video'" disablePictureInPicture controlsList="nodownload" onclick="this.paused ? this.play() : this.pause();"></video>
                             <img class="video__tag__mobile" style="width:35px;" v-if="item.type==='video'" src="https://i.imgur.com/88aBgwi.png" alt="">
@@ -57,7 +57,6 @@
         },
         computed: mapGetters({
             user: 'auth/user',
-            is_mobile: 'auth/is_mobile',
         }),
         mounted() {
             if (process.client) {

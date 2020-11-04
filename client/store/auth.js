@@ -1,12 +1,10 @@
 import axios from 'axios'
 import Cookies from 'js-cookie'
-import { isMobile } from 'mobile-device-detect';
 
 // state
 export const state = () => ({
   user: null,
   token: null,
-  is_mobile: isMobile,
 })
 
 // getters
@@ -14,7 +12,6 @@ export const getters = {
   user: state => state.user,
   token: state => state.token,
   check: state => state.user !== null,
-  is_mobile: state => state.is_mobile,
 }
 
 // mutations

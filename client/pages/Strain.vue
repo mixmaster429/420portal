@@ -76,7 +76,6 @@ export default {
     },
     computed: mapGetters({
         user: 'auth/user',
-        is_mobile: 'auth/is_mobile',
         modal_data: 'strain/modal_data',
     }),
     mounted: function () {

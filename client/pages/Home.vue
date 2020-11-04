@@ -1,5 +1,5 @@
 <template>
-  <mobile-home v-if="is_mobile"></mobile-home>
+  <mobile-home v-if="$device.isMobile"></mobile-home>
   <desktop-home v-else></desktop-home>
 </template>
 
@@ -17,9 +17,12 @@ export default {
     return { title: '' }
   },
 
+  mounted() {
+    console.log(this.$device.isMobile);
+  },
+
   computed: mapGetters({
     user: 'auth/user',
-    is_mobile: 'auth/is_mobile',
   }),
 }
 </script>

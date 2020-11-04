@@ -10,7 +10,7 @@
                                 <p>Home</p>
                             </a>
                         </li>                        
-                        <li v-if="is_mobile">
+                        <li v-if="$device.isMobile">
                             <router-link to="/mobile/userlist">
                                 <a href="/mobile/userlist">
                                     <img src="~assets/imgs/messenger-mobile.png" alt="">                                    
@@ -28,7 +28,7 @@
                         </li>
                         <li>
                             <template v-if="user">
-                                <router-link v-if="is_mobile" to="/mobile/addmedia">
+                                <router-link v-if="$device.isMobile" to="/mobile/addmedia">
                                     <a href="/mobile/addmedia">
                                         <img src="~assets/imgs/add.png" alt="">
                                         <p>Add Media</p>
@@ -82,7 +82,6 @@ export default {
 
   computed: mapGetters({
     user: 'auth/user',
-    is_mobile: 'auth/is_mobile',
   }),
 
   methods: {

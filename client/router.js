@@ -8,8 +8,14 @@ const page = path => () => import(`~/pages/${path}`).then(m => m.default || m)
 
 const routes = [
   { path: '/', name: 'home', component: page('Home.vue') },
+  { path: '/mobile/slideshow', name: 'weedgram', component: page('mobile/Weedgram.vue') },
+  { path: '/mobile/comment', name: 'comment', component: page('mobile/Comment.vue') },
+
+
   { path: '/marijuana-strains', name: 'strain_index', component: page('Strain.vue') },
   { path: '/marijuana-strains/:strain', name: 'strain_detail', component: page('StrainDetail.vue') },
+
+  { path: '/mobile/media/edit', name: 'edit_media', component: page('media/EditMedia.vue') },
 
   { path: '/login', name: 'login', component: page('auth/login.vue') },
   { path: '/register', name: 'register', component: page('auth/register.vue') },

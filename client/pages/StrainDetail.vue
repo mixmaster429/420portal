@@ -99,7 +99,7 @@
                 <h2 class="text-center my-4 category__header">{{ strain_data.strain.name }} Weed Pictures & Videos</h2>
             </div>
             <template v-if="strain_data && strain_data.strain">                
-                <keep-alive v-if="is_mobile">
+                <keep-alive v-if="$device.isMobile">
                     <router-view></router-view>
                     <strain-mobile :strain="strain_data.strain"></strain-mobile>
                 </keep-alive>
@@ -163,7 +163,6 @@
         computed: {
             ...mapGetters({
                 user: 'auth/user',
-                is_mobile: 'auth/is_mobile',
                 strain_data: 'strain/data',
             }),
         },

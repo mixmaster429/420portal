@@ -1,5 +1,6 @@
 <template>
-    <div class="layout">
+    <div class="layout"  v-touch:swipe="toggleSidebar">
+        <left-sidebar :active="leftsidebarflag" v-if="$device.isMobile"></left-sidebar>
         <top-nav />
 
         <div class="container-fluid">
@@ -31,10 +32,26 @@
 import TopNav from '~/components/TopNav'
 import BottomNav from '~/components/BottomNav'
 import Login from '~/components/Login'
+import LeftSidebar from '~/components/mobile/LeftSidebar'
 
 export default {
     components: {
-        TopNav, BottomNav, Login
-    }
+        TopNav, BottomNav, Login, LeftSidebar
+    },
+    data(){
+        return {
+            leftsidebarflag: false,
+        }
+    },
+    methods: {
+        toggleSidebar(direction) {
+            if (direction == 'right') {
+                this.leftsidebarflag = true;
+            } else if (direction == 'left') {
+                this.leftsidebarflag = false;
+            }
+        },
+
+    },
 }
 </script>

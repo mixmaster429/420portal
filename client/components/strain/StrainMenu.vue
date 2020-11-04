@@ -65,7 +65,6 @@
         },
         computed: mapGetters({
             user: 'auth/user',
-            is_mobile: 'auth/is_mobile',
         }),
         created() {
             if (navigator.geolocation) {
