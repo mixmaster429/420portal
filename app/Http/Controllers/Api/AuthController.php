@@ -43,7 +43,7 @@ class AuthController extends Controller
         $mdata = array();
         $mdata['user_name'] = $user->name;
         $toEmail = $user->email;
-        Mail::to($toEmail)->send(new SendEmail($mdata, $user));
+        // Mail::to($toEmail)->send(new SendEmail($mdata, $user));
 
         return sendResponse($success, 'User register successfully.');
     }

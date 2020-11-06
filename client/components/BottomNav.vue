@@ -56,7 +56,7 @@
                         </li>
                         <li class="myaccount">                            
                             <a v-if="user" href="#">                                
-                                <img src="~assets/imgs/account.png" style="padding:5px;border-radius:100px;object-fit:cover;" alt="">
+                                <img :src="serverUrl(user.profile_pic ? user.profile_pic.url : '/imgs/default_sm.png')" style="padding:5px;border-radius:100px;object-fit:cover;" alt="">
                                 <p>Account</p>
                             </a>                        
                             <a v-else href="#" class="myprofile">
@@ -76,17 +76,24 @@ import { mapGetters } from 'vuex'
 
 export default {
 
-  data: () => ({
-    appName: process.env.appName
-  }),
+    data: () => ({
+        appName: process.env.appName
+    }),
 
-  computed: mapGetters({
-    user: 'auth/user',
-  }),
+    computed: mapGetters({
+        user: 'auth/user',
+    }),
 
-  methods: {
-      
-  }
+    methods: {
+        serverUrl(item) {
+            if(item.charAt(0) != '/'){item = '/' + item;}
+            try {
+                return process.env.serverUrl + item;
+            } catch (error) {
+                return 'imgs/default.png';
+            }
+        }
+    }
 }
 </script>
 

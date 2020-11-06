@@ -98,15 +98,13 @@
                     force-use-infinite-wrapper="#media_scroll_wrapper"
                 ><div slot="no-more"></div></infinite-loading>
             </div>
-        </div>        
-        <!-- <page-footer></page-footer> -->
+        </div>
     </div>
 </template>
 
 <script>
 import PageFooter from "../PageFooter";
 import { mapGetters } from 'vuex'
-import axios from 'axios';
 import _ from 'lodash';
 
 var pressTimer = null;
@@ -176,7 +174,7 @@ export default {
                 page : this.page,
             };
             this.loading = true;
-            axios.post(uri, params)
+            this.axios.post(uri, params)
                 .then(response => {
                     this.defaultpost = response.data.default;
                     if (response.data.allposts.data.length) {

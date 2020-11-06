@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import axios from 'axios'
+import VueAxios from 'vue-axios'
 import swal from 'sweetalert2'
+
+Vue.use(VueAxios, axios);
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
 

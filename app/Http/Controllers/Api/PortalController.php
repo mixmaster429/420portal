@@ -151,7 +151,7 @@ class PortalController extends Controller
         }
 
         if($portal->email) {
-            Mail::to($portal->email)->send(new PortalRegisterMail($portal));
+            // Mail::to($portal->email)->send(new PortalRegisterMail($portal));
         }
         return response()->json(['status' => 200, 'portal' => $portal]);
     }

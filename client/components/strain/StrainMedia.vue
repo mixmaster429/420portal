@@ -35,7 +35,6 @@
 <script>
     import FixedComment from "../FixedComment";
     import firebase from "../../Firebase";
-    import axios from "axios";
     import { mapGetters } from "vuex";
 
     export default {
@@ -73,7 +72,7 @@
                     page: this.page,
                 };
                 this.loading = true;
-                axios.post(uri, params).then(response => {
+                this.axios.post(uri, params).then(response => {
                     if (response.data.postdata.data.length) {
                         if(this.posts.length == 0) {
                             this.posts = response.data.postdata.data;
@@ -115,7 +114,7 @@
                         target_model: "post"
                     };
                     let uri = "/like/addlike";
-                    axios.post(uri, params).then(response => {
+                    this.axios.post(uri, params).then(response => {
                         item.likes = response.data;
                         if(item.user_liked) {
                             item.user_liked = false;

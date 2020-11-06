@@ -5,6 +5,7 @@ import Cookies from 'js-cookie'
 export const state = () => ({
   user: null,
   token: null,
+  profile: null,
 })
 
 // getters
@@ -12,6 +13,7 @@ export const getters = {
   user: state => state.user,
   token: state => state.token,
   check: state => state.user !== null,
+  profile: state => state.profile,
 }
 
 // mutations
@@ -35,6 +37,10 @@ export const mutations = {
 
   UPDATE_USER (state, { user }) {
     state.user = user
+  },
+
+  FETCH_PROFILE(state, data) {
+    state.profile = data
   }
 }
 
@@ -49,7 +55,6 @@ export const actions = {
   async fetchUser ({ commit }) {
     try {
       const { data } = await axios.get('/user')
-
       commit('FETCH_USER_SUCCESS', data)
     } catch (e) {
       Cookies.remove('token')
@@ -76,5 +81,17 @@ export const actions = {
     const { data } = await axios.post(`/oauth/${provider}`)
 
     return data.url
-  }
+  },
+
+  async fetchProfile ({ commit }, slug) {
+    try {
+      let url = `/get_profile/${slug}`;
+      const { data } = await axios.get(url)
+      if(data.status == 200) {
+        commit('FETCH_PROFILE', data.profile)
+      }      
+    } catch (e) {
+        console.log(e)
+    }
+  },
 }

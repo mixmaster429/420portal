@@ -23,7 +23,6 @@
 
 <script>
     import firebase from "../../Firebase";
-    import axios from "axios";
     import { mapGetters } from "vuex";
     export default {
         name: 'StrainFollowers',
@@ -43,7 +42,7 @@
             getAllFollows(){
                 let uri = '/marijuana-strains/get_all_follows';
                 let params = {id: this.strain.id};
-                axios.post(uri, params).then(response => {
+                this.axios.post(uri, params).then(response => {
                     this.followers = response.data.followers;
                 });
             },
@@ -56,7 +55,7 @@
                         user_id: this.user.id,
                         follower_id: item.id
                     };
-                    axios.post(uri, params).then(response => {
+                    this.axios.post(uri, params).then(response => {
                         item.is_follower = 1;
                     });
                 }else{
@@ -72,7 +71,7 @@
                         user_id: this.user.id,
                         follower_id: item.id
                     };
-                    axios.post(uri, params).then(response => {
+                    this.axios.post(uri, params).then(response => {
                         item.is_follower = 0;
                     });
                 }else{
@@ -88,7 +87,7 @@
                         user_id: this.user.id,
                         follower_id: item.id,
                     };
-                    axios.post(uri, params).then(response => {
+                    this.axios.post(uri, params).then(response => {
                         if(response.data.status == 2) {
                             let noti_fb = firebase.database().ref('notifications/' + item.id).push();
                             noti_fb.set({

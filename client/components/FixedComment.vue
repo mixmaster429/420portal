@@ -1,7 +1,7 @@
 <template>
     <div class="right_side" :class="{comment_fixed: comment_fixed}" v-show="selected">
-        <div class="comments" id="fixedcommentbox" :class="{ comments_menu: selected.menu && selected.menu.is_active }">
-            <div class="header" >
+        <div class="comments" id="fixedcommentbox" :class="{ comments_menu: selected && selected.menu && selected.menu.is_active }">
+            <div class="header" v-if="selected">
                 <div class="row">
                     <div class="col-9">
                         <div class="user_detail">
@@ -28,7 +28,7 @@
 
                     <div class="col-3 action">
                         <a href="#" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-ellipsis-h"></i>
+                            <fa icon="ellipsis-h" />
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                             <a class="dropdown-item" href="#" @click.prevent="showEditModal(selected.id)" v-if="selected.model === 'post' && (selected.loged_user || media.user_role === 1)">Edit</a>
@@ -40,7 +40,7 @@
                 </div>
             </div>
             <div class="comment_body" >
-                <div class="image_description" v-if="selected.description">
+                <div class="image_description" v-if="selected && selected.description">
                     <div class="userlogo">
                         <a :href="selected.user.username" v-if="selected.user">
                             <img :src="selected.user.profile_pic ? serverUrl(selected.user.profile_pic.url) : default_logo" alt />
@@ -150,7 +150,7 @@
                 </div>
             </div>
             <div class="footer">
-                <div class="menu-panel" v-if="selected.menu && selected.menu.is_active" :class="{'py-2': selected.user.type == 'brand'}">
+                <div class="menu-panel" v-if="selected && selected.menu && selected.menu.is_active" :class="{'py-2': selected.user.type == 'brand'}">
                     <p class="menu-category">
                         <span>{{selected.menu.category.price_type == 2 ? 'Flower | ' + selected.menu.category.name : selected.menu.category.name}}</span>
                         <span>{{selected.menu.strain ? ' | ' + selected.menu.strain.name : ''}}</span>
@@ -166,7 +166,7 @@
                         <span class="text-white pr-2" v-if="selected.menu.price_oz != null">{{selected.menu.price_oz}}<sup class="text-420">oz</sup></span>
                     </p>
                 </div>
-                <div class="icon-panel clearfix">
+                <div class="icon-panel clearfix" v-if="selected">
                     <div class="heart_icon" @click="likepost" v-if="!selected.user_liked">
                         <fa :icon="['far', 'heart']" fixed-width />
                         <p>{{selected.likes}}</p>
@@ -209,7 +209,6 @@
     import EditMedia from "./media/EditMedia";
     import firebase from "../Firebase";    
     import { mapGetters } from 'vuex'
-    import axios from 'axios';
 
     export default {
         name: "FixedComment",
@@ -272,7 +271,7 @@
                 }
                 let uri = `/media/${id}`;
                 let selectedItem = this.allposts;
-                axios.delete(uri).then(res => {
+                this.axios.delete(uri).then(res => {
                     const data = item => item.id === res.data.id;
                     const index = selectedItem.findIndex(data);
                     selectedItem.splice(index, 1);
@@ -288,7 +287,7 @@
                         target_id: this.selected.id,
                         target_model: 'media',
                     };
-                    axios.post(uri, params).then(response => {
+                    this.axios.post(uri, params).then(response => {
                         this.comments = response.data;
                     });
                 }
@@ -320,7 +319,7 @@
                 };
 
                 let uri = "/comment/update";
-                axios.post(uri, params).then(response => {
+                this.axios.post(uri, params).then(response => {
                         if(subindex != null && sub2index != null){
                             this.comments[index].sub_comment[subindex].sub2_comments[sub2index].text = text;
                         } else if(subindex != null && sub2index == null) {
@@ -351,7 +350,7 @@
                     let params = {
                         target_id: id
                     };
-                    axios.post(uri, params).then(response => {
+                    this.axios.post(uri, params).then(response => {
                         let action_comment = {};
                         if (parent1 != null && parent2 != null) {
                             // Sub2 Comment
@@ -387,7 +386,7 @@
                     let params = {
                         target_id: id
                     };
-                    axios.post(uri, params).then(response => {
+                    this.axios.post(uri, params).then(response => {
                         if (parent1 != null && parent2 != null) {
                             // Sub2 Comment
                             this.comments[parent2].sub_comment[parent1].sub2_comments[index].userliked = response.data.userliked;
@@ -423,7 +422,7 @@
                     target_model: 'media',
                 };
                 this.loading = true;
-                axios.post(uri, params).then(response => {
+                this.axios.post(uri, params).then(response => {
                     this.comments = response.data;
                     this.loading = false;
                 });
@@ -434,7 +433,7 @@
                     let params = {
                         target_id: this.selected.id
                     };
-                    axios.post(uri, params).then(response => {
+                    this.axios.post(uri, params).then(response => {
                         this.selected.user_saved = response.data;
                     });
                 } else {
@@ -446,7 +445,7 @@
                 let params = {
                     target_id: this.selected.id
                 };
-                axios.post(uri, params).then(response => {
+                this.axios.post(uri, params).then(response => {
                     this.selected.user_saved = response.data;
                 });
             },
@@ -472,7 +471,7 @@
 
                         let uri = "/comment/add";
 
-                        axios.post(uri, params).then(response => {
+                        this.axios.post(uri, params).then(response => {
                             this.comments = response.data;
                             if(this.user.id != this.selected.user_id) {                                
                                 let noti_fb = firebase.database().ref('notifications/' + this.selected.user.id).push();
@@ -503,7 +502,7 @@
                         target_model: "post"
                     };
                     let uri = "/like/addlike";
-                    axios.post(uri, params).then(response => {
+                    this.axios.post(uri, params).then(response => {
                         this.selected.likes = response.data;
                         this.selected.user_liked = true;
                         if(this.user.id != this.selected.user_id) {                           
@@ -525,7 +524,7 @@
                         target_model: "post"
                     };
                     let uri = "/like/unlike";
-                    axios.post(uri, params).then(response => {
+                    this.axios.post(uri, params).then(response => {
                         this.selected.likes = response.data;
                         this.selected.user_liked = false;
                     });
@@ -563,7 +562,7 @@
                         follower_user_id: post.user_id
                     }
 
-                    axios.post(uri, params).then(response => {
+                    this.axios.post(uri, params).then(response => {
                         if (response.data.status == 1)
                             this.isfollower = 1;
                         else
@@ -578,7 +577,7 @@
                         user_id: this.user.id,
                         follower_id: this.selected.user_id
                     };
-                    axios.post(uri, params).then(response => {
+                    this.axios.post(uri, params).then(response => {
                         this.isfollower = 1;
                     });
                 } else {
@@ -592,7 +591,7 @@
                         user_id: this.user.id,
                         follower_id: this.selected.user_id
                     };
-                    axios.post(uri, params).then(response => {
+                    this.axios.post(uri, params).then(response => {
                         this.isfollower = 0;
                     });
                 } else {
@@ -607,7 +606,7 @@
                         flaggable_id : id,
                         flaggable_type : "App\\Media",
                     }
-                    axios.post(url, params).then(response => {
+                    this.axios.post(url, params).then(response => {
                         if(response.data.status == 'success'){
                             toastr['success']('Flagged Media');
                             this.selected.is_flag = true;
@@ -694,7 +693,7 @@
         position: absolute;
         // bottom: -15px;
         left: 13px;
-        .reset_reply i {
+        .reset_reply svg {
             font-size: 15px !important;
         }
     }

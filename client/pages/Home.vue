@@ -13,13 +13,6 @@ export default {
     DesktopHome,
     MobileHome,
   },
-  head () {
-    return { title: '' }
-  },
-
-  mounted() {
-    console.log(this.$device.isMobile);
-  },
 
   computed: mapGetters({
     user: 'auth/user',

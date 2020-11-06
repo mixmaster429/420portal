@@ -24,6 +24,19 @@ Route::get('/strain/get_modal_data', 'StrainController@getModalData');
 Route::resource('/marijuana-strains', 'StrainController');
 Route::post('/marijuana-strains/get_all_follows', 'StrainController@getAllFollows');
 
+Route::get('/get_profile/{slug}', 'UserController@index');
+Route::post('/profile/getfollow', 'UserController@getfollow');
+Route::post('/user/allfollows', 'UserController@allfollows');
+Route::any('/profile/getallposts', 'UserController@getallpost');
+Route::post('/user/isblockuser', 'UserController@isblockuser');
+Route::post('/portal/get_distance', 'PortalController@getDistance');
+
+Route::post('/categories', 'CategoryController@get_all_categories');
+Route::post('/category/strains', 'CategoryController@get_strains');
+
+
+Route::post('/media/upload', 'MediaController@mediauplaod');
+
 Route::middleware(['auth:api'])->group(function ($router){
     $router->post('/profile/like', 'LikeController@likeProfile');
     $router->post('/profile/unlike', 'LikeController@unlikeProfile');
@@ -32,6 +45,7 @@ Route::middleware(['auth:api'])->group(function ($router){
     $router->post('/user/unfollow', 'UserController@unfollow');
     $router->post('/user/follow_request', 'UserController@followRequest');
     $router->post('/user/accept_follow_request', 'UserController@acceptFollowRequest');
+    $router->post('/profile/getisfollower', 'UserController@getisfollower')->middleware('auth');
     
     $router->post('/marijuana-strains/like', 'StrainController@like');
     
@@ -51,10 +65,7 @@ Route::middleware(['auth:api'])->group(function ($router){
 
     // $router->any('/logout', 'Api\AuthController@logout');
     $router->post('/portals/list', 'PortalController@list');
-    $router->post('/users/list', 'UserController@list');
-    
-    $router->any('/profile/getallposts', 'UserController@getallpost');
-    $router->post('/user/allfollows', 'UserController@allfollows');
+    $router->post('/users/list', 'UserController@list');   
     
 
     $router->post('/get/portal', 'Api\PortalController@getPortal');

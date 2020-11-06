@@ -49,7 +49,7 @@ class HomeController extends Controller
         $data = array([
             'message' => $message,
         ]);
-        Mail::to('420portal@gmail.com')->send(new ContactUsMail($data));
+        // Mail::to('420portal@gmail.com')->send(new ContactUsMail($data));
         return back()->with('success', 'Message Sent');
     }
 }

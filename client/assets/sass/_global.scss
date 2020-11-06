@@ -230,7 +230,7 @@ input.form-control:focus {
                     justify-content: flex-end;
                     align-items: center;
                     padding-right: 30px;
-                    i {
+                    svg {
                         margin-right: 5px;
                         color: #EFA720;
                         font-size: 20px;
@@ -394,6 +394,40 @@ input.form-control:focus {
     }
     .sub2_comment {
         margin-left: 60px;
+    }
+}
+
+// Emojionearea
+
+.emojionearea {
+    height: 100% !important;
+    padding-right: 70px !important;
+    background-color: black !important;
+    .emojionearea-filter {
+        padding: 0 !important;
+    }
+    .emojionearea-button {
+        // background-color: #383838;
+        border-radius: 100%;
+        // top: 12px !important;
+        opacity: 1;
+    }
+    .emojionearea-editor {
+        height: 100% !important;
+        min-height: unset !important;
+        // position: absolute;
+        width: 100%;
+        color: white !important;
+        white-space: pre-line !important;
+    }
+    @media (max-width: 600px) {
+        .emojionearea-picker {
+            height: 250px !important;
+            overflow: scroll !important;
+        } 
+        .emojionearea-button.active+.emojionearea-picker-position-top {
+            margin-top: -240px;
+        }
     }
 }
 

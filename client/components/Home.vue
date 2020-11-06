@@ -89,7 +89,6 @@
                 <fixed-comment :allposts="posts" :media="selected" v-if="selected"></fixed-comment>
             </div>
         </client-only>
-        <page-footer></page-footer>
     </div>
 </template>
 
@@ -97,7 +96,6 @@
 import FixedComment from "./FixedComment";
 import PageFooter from "./PageFooter";
 import { mapGetters } from 'vuex'
-import axios from 'axios';
 import _ from 'lodash';
 
 
@@ -148,7 +146,7 @@ export default {
                 page : this.page,
             };
             this.loading = true;
-            axios.post(uri, params).then(response => {
+            this.axios.post(uri, params).then(response => {
 
                 this.defaultpost = response.data.default;
                 // console.log(JSON.stringify(response.data.allposts.data[0]).length)
@@ -229,7 +227,7 @@ export default {
                     target_model: "post"
                 };
                 let uri = "/like/addlike";
-                axios.post(uri, params).then(response => {
+                this.axios.post(uri, params).then(response => {
                     item.likes = response.data;
                     if(item.user_liked) {
                         item.user_liked = false;

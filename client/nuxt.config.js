@@ -52,7 +52,9 @@ module.exports = {
     '~plugins/vuesax',
     { src: '~plugins/client', mode: 'client' },
     { src: '~plugins/bootstrap', mode: 'client' },
-    { src: '~plugins/infinite-loading', mode: 'client' }
+    { src: '~plugins/infinite-loading', mode: 'client' },
+    { src: '~plugins/vue2-google-maps', mode: 'client' },
+    { src: '~plugins/file-upload', mode: 'client' }
   ],
 
   modules: [
@@ -72,6 +74,7 @@ module.exports = {
         jquery: "jquery",
       })
     ],
+    transpile: [/^vue2-google-maps($|\/)/],
   },
 
   hooks: {

@@ -30,7 +30,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import { mapGetters } from "vuex";
 
 export default {
@@ -75,7 +74,7 @@ export default {
                 break;
             }
 
-            axios.put(url, data)
+            this.axios.put(url, data)
                 .then(res => {
                     this.editMode = false;
                     this.success = 1;
@@ -103,7 +102,7 @@ export default {
             } else {
                 if(window.confirm('Are you sure?')) {
                     let url = `/marijuana-strains/${this.strain.id}`;
-                    axios.delete(url)
+                    this.axios.delete(url)
                         .then(response => {
                             console.log(respnse.data)
                             if(response.data.status == 200) {

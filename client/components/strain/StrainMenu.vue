@@ -52,7 +52,6 @@
 </template>
 
 <script>
-    import axios from 'axios';
     import { mapGetters } from "vuex";
     export default {
         props : ['strain', 'category', 'type'],
@@ -84,7 +83,7 @@
                     latitude : this.latitude,
                     longitude : this.longitude,
                 };
-                axios.post(url, params).then(response => {
+                this.axios.post(url, params).then(response => {
                     this.menus = response.data;
                 });
             },

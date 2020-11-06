@@ -137,7 +137,6 @@
 <script>
     import firebase from "../../Firebase";
     import { mapGetters } from 'vuex'
-    import axios from 'axios';
     import _ from 'lodash';
     export default {
         name : 'Weedgram',
@@ -217,7 +216,7 @@
                     }; 
                 }
 
-                axios.post(uri, params)
+                this.axios.post(uri, params)
                     .then(response => {
                         this.defaultpost = response.data.default;
                         let allposts = this.model ? response.data.postdata : response.data.allposts;
@@ -237,7 +236,7 @@
                 let uri = `/media/${id}`;
                 let selectedItem = this.posts;
                 // console.log(selectedItem);
-                axios.delete(uri).then(res => {
+                this.axios.delete(uri).then(res => {
                     const data = item => item.id === res.data.id;
                     const index = selectedItem.findIndex(data);
                     selectedItem.splice(index, 1);
@@ -252,7 +251,7 @@
                         target_model: "post"
                     };
                     let uri = "/like/addlike";
-                    axios.post(uri, params).then(response => {
+                    this.axios.post(uri, params).then(response => {
                         this.posts[index].likes = response.data;
                         this.posts[index].user_liked = true;
                         if(widnow.user != this.posts[index].user_id) {                            
@@ -274,7 +273,7 @@
                         target_model: "post"
                     };
                     let uri = "/like/unlike";
-                    axios.post(uri, params).then(response => {
+                    this.axios.post(uri, params).then(response => {
                         this.posts[index].likes = response.data;
                         this.posts[index].user_liked = false;
                     });
@@ -298,7 +297,7 @@
                             target_model: "post"
                         };
                         let uri = "/like/addlike";
-                        axios.post(uri, params).then(response => {
+                        this.axios.post(uri, params).then(response => {
                             item.likes = response.data;
                             if(item.user_liked) {
                                 item.user_liked = false;
@@ -329,7 +328,7 @@
                         user_id: this.user.id,
                         follower_id: id
                     };
-                    axios.post(uri, params).then(response => {
+                    this.axios.post(uri, params).then(response => {
                         if(this.user.type == 'user') {
                             if(this.user.id != id) {
                                 let noti_fb = firebase.database().ref('notifications/' + id).push();
@@ -356,7 +355,7 @@
                         user_id: this.user.id,
                         follower_id: id
                     };
-                    axios.post(uri, params).then(response => {
+                    this.axios.post(uri, params).then(response => {
                         for (let i = 0; i < this.posts.length; i++) {
                             if (this.posts[i]['user']['id'] === id)
                                 this.posts[i]['isfollower'] = !this.posts[i]['isfollower'];
@@ -373,7 +372,7 @@
                     let params = {
                         target_id: this.posts[index].id,
                     };
-                    axios.post(uri, params).then(response => {
+                    this.axios.post(uri, params).then(response => {
                         this.posts[index].user_saved = response.data;
                     });
                 } else {
@@ -385,7 +384,7 @@
                 let params = {
                     target_id: this.posts[index].id,
                 };
-                axios.post(uri, params).then(response => {
+                this.axios.post(uri, params).then(response => {
                     this.posts[index].user_saved = response.data;
                 });
             },
@@ -445,7 +444,7 @@
 
                         let uri = "/comment/add";
 
-                        axios.post(uri, params).then(response => {
+                        this.axios.post(uri, params).then(response => {
                             if(this.user != this.posts[index].user_id) {                                
                                 let noti_fb = firebase.database().ref('notifications/' + this.posts[index].user_id).push();                                
                                 noti_fb.set({

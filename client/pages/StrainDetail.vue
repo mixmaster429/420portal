@@ -118,8 +118,7 @@
     </div>
 </template>
 <script>
-    import { mapGetters } from "vuex";    
-    import axios from 'axios';
+    import { mapGetters } from "vuex";
     import _ from 'lodash';
     import StrainNav from "~/components/strain/StrainNav";
     import StrainMenu from "~/components/strain/StrainMenu";
@@ -177,7 +176,7 @@
             },
             getStrain() {
                 let url = `/get_strain/${this.slug}`;
-                axios.get(url).then(response => {
+                this.axios.get(url).then(response => {
                     this.strain = response.data.strain;
                     this.posts_count = response.data.posts_count;
                     this.followers_count = response.data.followers_count;
@@ -192,7 +191,7 @@
                 } else {
                     let url = `/marijuana-strains/follow`;
                     let params = {user_id : this.user.id, follower_id : this.strain_data.strain.id};
-                    axios.post(url, params).then(response => {
+                    this.axios.post(url, params).then(response => {
                         if(response.data.status == 200) {
                             $("#followers_count").text(response.data.count);
                             $(".btn-follow").hide();

@@ -1,0 +1,178 @@
+#userprofile {
+    .profile-data{
+        color: #D2D1D0;
+        @media only screen and (min-width: 600px) {
+            max-width: calc(100% - 240px);
+        }    
+
+        .profile_header {
+            display: flex;
+
+            .pf-logo {
+                width: 170px;
+                height: 170px;
+                padding: 10px;
+                background: url("../imgs/profile-bg.png") center;
+                background-size: cover;
+                margin-right: 30px;
+                cursor: pointer;
+
+                @media only screen and (max-width: 800px) {
+                    width: 110px;
+                    height: 110px;
+                    margin-right: 20px;
+                }
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    border-radius: 100%;
+                }
+
+            }
+
+            .pf-details {
+                font-size: 20px;
+                .pf-username {
+                    font-size: 28px;
+                    color: white;
+                }
+
+                .info-container {
+                    // div {
+                    //     padding-right: 1.3rem;
+                    // }
+                    .info_followers {
+                        cursor: pointer;
+                    }
+                    .info_following {
+                        cursor: pointer;
+                    }
+                }
+
+                .pf-dashboard{
+                    a{
+                        font-size: 24px;
+                        color: #efa720;
+                    }
+
+                }
+
+                .pf-follow{
+                    width: 120px;
+                    margin-top: -10px;
+                    cursor: pointer;
+                }
+                .pf-unfollow {
+                    height: 30px;
+                }
+
+                .portal__extra {
+                    text-align: center;
+                    button {
+                        color: #fff;
+                    }
+                    .message {
+                        color: #d2d1d0;
+                        cursor: pointer;
+                        text-align: center;
+                        img {
+                            width: 30px;
+                        }
+                        p {
+                            font-size: 14px;
+                            margin-top: -5px;
+                        }
+                    }
+                }
+
+                @media only screen and (max-width: 800px) {
+                    width: 60%;
+                    font-family: sans-serif;
+                    span {
+                        font-size: 18px;
+                        font-weight: bold;
+                    }
+
+                    p {
+                        font-size: 14px;
+                        margin-bottom: 0;
+                        margin-top: -4px;
+                        font-weight: bold;
+                    }
+
+                    .pf-follow{
+                        width: 95px;
+                        margin-top: 5px;
+                    }
+
+                    
+                    .portal__extra {
+                        text-align: center;
+                        .btn-message {
+                            p {
+                                color: #D2D1D0;
+                                margin-top: 0;
+                                margin-bottom: 0;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .profile__information {
+            font-size: 16px;
+            .pf_username {
+                font-size: 28px;
+                color: white;
+            }
+
+            a{
+                color: #efa720;
+            }
+            .pf-dashboard{
+                a{
+                    font-size: 22px;
+                }
+            }
+            @media only screen and (max-width: 800px) {
+                .pf_username {
+                    font-size: 22px;
+                    color: white;
+                }
+            }
+            .is_private {
+                padding: 5px 0;
+                .lock-img {
+                    border: solid 1px #EFA720;
+                    border-radius: 100%;
+                    padding: 6px;
+                    img {
+                        width: 30px;
+                    }
+                }
+            }
+        }
+    }
+    // fixed comment
+    .postmedia .right_side {
+        font-size: 14px;
+        top: 75px;
+        max-width: 500px;
+        width: 30.2%;
+        transition: position .5s;
+        // height: calc(100vh - 140px);
+    }
+    .postmedia.original .right_side {
+        position: initial !important;
+        width: 100%;
+        max-width: 500px;
+    }
+}
+.userprofile__popup {
+    .vs-popup {
+      max-width: 320px !important;
+    }
+}

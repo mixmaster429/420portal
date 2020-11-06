@@ -26,15 +26,14 @@ class UserController extends Controller
     public function index($slug) {
         $auth_id = auth()->id();
         $user = User::where('username', $slug)->first();
-        if(!$user) {return abort(404);}
+        if(!$user) {return response()->json(['status' => 404, 'message' => 'User not found!']);}
         if($user->is_active != 1 && ($auth_id != $user->id && $auth_id != 1)) {
-            return back()->withErrors('active', ucfirst($user->type));
+            return response()->json(['status' => 400, 'message' => 'Inactive user!']);
         }
         if ($user->type == 'user') {
             $user->load('medias', 'profilePic');
-            return view('User.profile', ['user' => $user]);
+            return response()->json(['status' => 200, 'profile' => $user]);
         } else {
-
             // check private
             if(auth()->id()) {
                 $follow_users = Follow::where('user_id', auth()->id())->distinct()->pluck('follower_user_id')->toArray();
@@ -53,9 +52,9 @@ class UserController extends Controller
 
             $user->shop_status = $user->get_shop_status();
             $user->load('profilePic', 'medias', 'taggedMedia', 'taggedPortalMedia', 'coupon', 'menus');
-            return view('Portal.profile', ['portal' => $user]);
+            return response()->json(['status' => 200, 'profile' => $user]);
         }
-        return abort(404);
+        return response()->json(['status' => 404, 'message' => 'User not found!']);
     }
 
     public function dashboard() {
@@ -472,7 +471,7 @@ class UserController extends Controller
                 ]);
                 if($notification->user && $notification->user->check_notification_filter('follow')){
                     $toEmail = $notification->user->email;
-                    Mail::to($toEmail)->send(new NotificationMail($notification));
+                    // Mail::to($toEmail)->send(new NotificationMail($notification));
                 }  
             }
         }
@@ -501,7 +500,7 @@ class UserController extends Controller
             ]);
             if($notification->user && $notification->user->check_notification_filter('follow')){
                 $toEmail = $notification->user->email;
-                Mail::to($toEmail)->send(new NotificationMail($notification));
+                // Mail::to($toEmail)->send(new NotificationMail($notification));
             }
             return response()->json(['status' => 2]);
         }

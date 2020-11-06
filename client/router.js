@@ -11,6 +11,7 @@ const routes = [
   { path: '/mobile/slideshow', name: 'weedgram', component: page('mobile/Weedgram.vue') },
   { path: '/mobile/comment', name: 'comment', component: page('mobile/Comment.vue') },
 
+  { path: '/:username', name: 'profile', component: page('Profile.vue') },
 
   { path: '/marijuana-strains', name: 'strain_index', component: page('Strain.vue') },
   { path: '/marijuana-strains/:strain', name: 'strain_detail', component: page('StrainDetail.vue') },

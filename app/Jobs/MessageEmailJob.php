@@ -36,6 +36,6 @@ class MessageEmailJob implements ShouldQueue
      */
     public function handle()
     {
-        Mail::to($this->to_email)->send(new MessageMail($this->sender_name, $this->sender_link, $this->receiver_name, $this->receiver_link));
+        // Mail::to($this->to_email)->send(new MessageMail($this->sender_name, $this->sender_link, $this->receiver_name, $this->receiver_link));
     }
 }

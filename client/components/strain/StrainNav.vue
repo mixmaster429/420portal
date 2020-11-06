@@ -33,7 +33,6 @@
 
 <script>
 import { VueAutosuggest } from "vue-autosuggest";
-import axios from "axios";
 
 export default {
     name: "StrainNav",
@@ -68,7 +67,7 @@ export default {
         };
     },
     mounted() {
-        const strainsPromise = axios.get(this.strainsUrl);
+        const strainsPromise = this.axios.get(this.strainsUrl);
         strainsPromise.then((res) => {
             this.strains = res.data;
             this.suggestions.push({ name: "strains", data: res.data });
