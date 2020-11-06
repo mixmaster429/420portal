@@ -7,7 +7,7 @@
                         <div class="user_detail">
                             <div class="profile_image">
                                 <a :href="selected.user.username" v-if="selected.user">
-                                    <img :src="selected.user.profile_pic ? serverUrl(selected.user.profile_pic.url) : default_logo" alt />
+                                    <img :src="serverUrl(selected.user.profile_pic ? selected.user.profile_pic.url : default_logo)" alt />
                                 </a>
                             </div>
                             <div class="username">
@@ -18,9 +18,9 @@
                                     <img src="~assets/imgs/unfollow.png" alt class="pf-unfollow" @click="unfollow()" v-show="logged_user_id != selected.user_id" v-if="isfollower" />
                                 </p>
                                 <p v-if="selected.user.type != 'user'">
-                                    <img src="~assets/imgs/dispensary.png" alt v-if="selected.user.store_type === 1 || selected.user.store_type === 3" />
-                                    <img src="~assets/imgs/delivery.png" alt v-if="selected.user.store_type === 2 || selected.user.store_type === 3" />
-                                    <img src="~assets/imgs/brand.png" alt v-if="selected.user.type == 'brand'" />
+                                    <img src="/dispensary.png" alt v-if="selected.user.store_type === 1 || selected.user.store_type === 3" />
+                                    <img src="/imgs/delivery.png" alt v-if="selected.user.store_type === 2 || selected.user.store_type === 3" />
+                                    <img src="/imgs/brand.png" alt v-if="selected.user.type == 'brand'" />
                                 </p>
                             </div>
                         </div>
@@ -43,7 +43,7 @@
                 <div class="image_description" v-if="selected && selected.description">
                     <div class="userlogo">
                         <a :href="selected.user.username" v-if="selected.user">
-                            <img :src="selected.user.profile_pic ? serverUrl(selected.user.profile_pic.url) : default_logo" alt />
+                            <img :src="serverUrl(selected.user.profile_pic ? selected.user.profile_pic.url : default_logo)" alt />
                         </a>
                     </div>
                     <div class="description">
@@ -249,7 +249,7 @@
                 editSub2CommentIndex: null,
 
                 editText: '',
-                default_logo: '~assets/imgs/default_sm.png',
+                default_logo: '/imgs/default_sm.png',
                 isfollower: 0,
                 logged_user_id: 0,
                 comment_fixed: false,
