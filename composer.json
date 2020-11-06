@@ -7,14 +7,14 @@
     "require": {
         "php": "^7.2",
         "fideloper/proxy": "^4.0",
+        "fruitcake/laravel-cors": "^2.0",
+        "intervention/image": "^2.5",
         "laravel/framework": "^6.4",
+        "laravel/helpers": "^1.1",
         "laravel/socialite": "^4.3",
         "laravel/tinker": "~1.0",
-        "spatie/laravel-cors": "1.6.*",
-        "tymon/jwt-auth": "^1.0.0-rc.5",
-        
-        "laravel/helpers": "^1.1",        
-        "pbmedia/laravel-ffmpeg": "5.0"
+        "pbmedia/laravel-ffmpeg": "5.0",
+        "tymon/jwt-auth": "^1.0.0-rc.5"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

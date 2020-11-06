@@ -19,13 +19,13 @@
                 </vue-autosuggest>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="">Indica</a>
+                <a class="nav-link" href="/marijuana-strains/indica">Indica</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="">Sativa</a>
+                <a class="nav-link" href="/marijuana-strains/sativa">Sativa</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="">Hybrid</a>
+                <a class="nav-link" href="/marijuana-strains/hybrid">Hybrid</a>
             </li>
         </ul>
     </div>

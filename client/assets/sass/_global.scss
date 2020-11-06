@@ -41,6 +41,15 @@ select {
     label {
         color: white;
     }
+}  
+
+input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    margin-top: 0;
+    margin-bottom: 0;
+    vertical-align: middle;
 }
 
 input:focus,
@@ -56,6 +65,12 @@ input.form-control:focus {
     background-color: #EFA720;
     border-color: #EFA720;
     color: black;
+}
+
+.card,
+.card-body,
+.modal-body {
+    background-color: black !important;
 }
 
 // Components
@@ -522,6 +537,27 @@ input.form-control:focus {
     }
 }
 
+.modal {
+    .modal-dialog {
+        border: 1px solid white;
+    }
+    .modal-content {
+        border-radius: 0;
+    }
+}
+
+
+#user_agreement_modal {
+    .modal-body {
+        h3, h5 {
+            color: whitesmoke;
+        }
+        p {
+            color: whitesmoke !important;
+        }
+    }
+}
+
 
 
 
@@ -611,5 +647,12 @@ input.form-control:focus {
                 }
             }
         }
+    }
+}
+
+.file-uploads {
+    font-size: 16px;
+    label {
+        cursor: pointer;
     }
 }

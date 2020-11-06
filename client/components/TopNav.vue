@@ -1,59 +1,8 @@
 <template>
     <header class="sticky-top">
         <div class="container">
-            <!-- Mobile Nav -->
-
-            <div class="row mobile_nav" v-if="$device.isMobile">
-                <div class="logo_image">
-                    <a href="/"><img src="~assets/imgs/logo.png" height="50" alt=""></a>
-                </div>
-
-                <div class="nav_bar">
-                    <ul>
-                        <li class="nav-item">
-                            <a href="#">
-                                <img src="~assets/imgs/h_icon1.png" alt="">
-                                <p>Dispensary</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <router-link :to="{name: 'strain_index'}">
-                                <img src="~assets/imgs/h_icon2.png" alt="">
-                                <p>Strains</p>
-                            </router-link>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#">
-                                <img src="~assets/imgs/h_icon3.png" alt="">
-                                <p>Coupons</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#">
-                                <img src="~assets/imgs/brand_logo.png" alt="">
-                                <p>Brands</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#">
-                                <img src="~assets/imgs/h_icon4.png" alt="">
-                                <p>Forums</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#">
-                                <img src="~assets/imgs/news.png" alt="">
-                                <p>News</p>
-                            </a>
-                        </li>
-                    </ul>
-                    <a href="javascript:;" class="btn-login" data-toggle="modal" data-target="#loginmodal" v-if="!user">
-                        <img src="~assets/imgs/icon-sign-in.png" height="30" alt="">
-                    </a>
-                </div>
-            </div> 
             <!-- Desktop Nav -->
-            <div class="row desktop_nav" v-else>
+            <div class="row desktop_nav" v-if="!$device.isMobile">
                 <div class="col col-3 logo_image">
                     <a href="/">
                         <img src="~assets/imgs/logo.png" height="50" alt="">
@@ -116,12 +65,62 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="/register">
                                 <fa icon="user" fixed-width />
                                 <p>Register</p>
                             </a>
                         </li>
                     </ul>
+                </div>
+            </div> 
+            <!-- Mobile Nav -->
+            <div class="row mobile_nav" v-else>
+                <div class="logo_image">
+                    <a href="/"><img src="~assets/imgs/logo.png" height="50" alt=""></a>
+                </div>
+
+                <div class="nav_bar">
+                    <ul>
+                        <li class="nav-item">
+                            <a href="#">
+                                <img src="~assets/imgs/h_icon1.png" alt="">
+                                <p>Dispensary</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <router-link :to="{name: 'strain_index'}">
+                                <img src="~assets/imgs/h_icon2.png" alt="">
+                                <p>Strains</p>
+                            </router-link>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#">
+                                <img src="~assets/imgs/h_icon3.png" alt="">
+                                <p>Coupons</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#">
+                                <img src="~assets/imgs/brand_logo.png" alt="">
+                                <p>Brands</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#">
+                                <img src="~assets/imgs/h_icon4.png" alt="">
+                                <p>Forums</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#">
+                                <img src="~assets/imgs/news.png" alt="">
+                                <p>News</p>
+                            </a>
+                        </li>
+                    </ul>
+                    <a href="javascript:;" class="btn-login" data-toggle="modal" data-target="#loginmodal" v-if="!user">
+                        <img src="~assets/imgs/icon-sign-in.png" height="30" alt="">
+                    </a>
                 </div>
             </div>           
         </div>

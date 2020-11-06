@@ -11,7 +11,6 @@ const routes = [
   { path: '/mobile/slideshow', name: 'weedgram', component: page('mobile/Weedgram.vue') },
   { path: '/mobile/comment', name: 'comment', component: page('mobile/Comment.vue') },
 
-  { path: '/:username', name: 'profile', component: page('Profile.vue') },
 
   { path: '/marijuana-strains', name: 'strain_index', component: page('Strain.vue') },
   { path: '/marijuana-strains/:strain', name: 'strain_detail', component: page('StrainDetail.vue') },
@@ -25,13 +24,15 @@ const routes = [
   { path: '/email/verify/:id', name: 'verification.verify', component: page('auth/verification/verify.vue') },
   { path: '/email/resend', name: 'verification.resend', component: page('auth/verification/resend.vue') },
 
-  { path: '/settings',
-    component: page('settings/index.vue'),
-    children: [
-      { path: '', redirect: { name: 'settings.profile' } },
-      { path: 'profile', name: 'settings.profile', component: page('settings/profile.vue') },
-      { path: 'password', name: 'settings.password', component: page('settings/password.vue') }
-    ] }
+  // { path: '/settings',
+  //   component: page('settings/index.vue'),
+  //   children: [
+  //     { path: '', redirect: { name: 'settings.profile' } },
+  //     { path: 'profile', name: 'settings.profile', component: page('settings/profile.vue') },
+  //     { path: 'password', name: 'settings.password', component: page('settings/password.vue') }
+  //   ] 
+  // },
+  { path: '/:username', name: 'profile', component: page('Profile.vue') },
 ]
 
 export function createRouter () {

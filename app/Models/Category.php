@@ -13,6 +13,6 @@ class Category extends Model
 
     public function strains()
     {
-        return $this->hasMany('App\Strain')->orderBy('name');
+        return $this->hasMany('App\Models\Strain')->orderBy('name');
     }
 }

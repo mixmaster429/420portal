@@ -56,7 +56,7 @@
                             <fa icon="user-plus" fixed-width />
                         </span>
                     </div>
-                    <input type="text" class="form-control search_weedgram" ref="search_weedgram" placeholder="Search" @keypress="keywordChange($event)" v-model="keyword" />
+                    <input type="text" class="form-control search_weedgram" ref="search_weedgram" placeholder="Search" @keypress="keywordChange($event)" @focus="hideFooter()" @blur="showFooter()" v-model="keyword" />
                     <div class="input-group-prepend" @click="getbookmarked()">
                         <span class="input-group-text">
                             <fa icon="bookmark" fixed-width />
@@ -275,6 +275,14 @@ export default {
             } catch (error) {
                 return process.env.serverUrl + 'imgs/default.png';
             }
+        },
+        hideFooter() {
+            console.log('hide footer');
+            $("#footer_bar").hide();
+        },
+        showFooter() {
+            console.log('show footer');
+            $("#footer_bar").show();
         }
     }
 };

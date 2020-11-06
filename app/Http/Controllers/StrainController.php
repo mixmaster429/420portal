@@ -81,48 +81,50 @@ class StrainController extends Controller
 
     public function show($strain)
     {
-        if ('indica' === $strain || 'sativa' === $strain || 'hybrid' === $strain) {
+        $category_array = ['indica', 'sativa', 'hybrid'];
+        if (in_array($strain, $category_array)) {
             $category = Category::where('slug', $strain)->firstOrFail();
-
             return response()->json([
                 'status' => 200,
-                'strains' => $category->strains,
+                'type' => 'category',
+                // 'strains' => $category->strains,
                 'category' => $category,
             ]);
-        }
-
-        $strainDetail = Strain::where('slug', $strain)->firstOrFail();
-        $strain_menus = $strainDetail->menus->pluck('media_id')->unique()->toArray();
-        $strain_menus = array_filter($strain_menus);
-
-        // dd($strainDetail->id);
-
-        $taggedMedia = Media::with('strain')->where('tagged_strain', $strainDetail->id)->orderByDesc('id')->get();
-        // check private
-        if(auth()->id()) {
-            $follow_users = Follow::where('user_id', auth()->id())->distinct()->pluck('follower_user_id')->toArray();
-            $private_users = User::where('is_private', 1)->whereNotIn('id', $follow_users)->pluck('id')->toArray();
         } else {
-            $private_users = User::where('is_private', 1)->pluck('id')->toArray();
+            $strainDetail = Strain::where('slug', $strain)->firstOrFail();
+            $strain_menus = $strainDetail->menus->pluck('media_id')->unique()->toArray();
+            $strain_menus = array_filter($strain_menus);
+
+            // dd($strainDetail->id);
+
+            $taggedMedia = Media::with('strain')->where('tagged_strain', $strainDetail->id)->orderByDesc('id')->get();
+            // check private
+            if(auth()->id()) {
+                $follow_users = Follow::where('user_id', auth()->id())->distinct()->pluck('follower_user_id')->toArray();
+                $private_users = User::where('is_private', 1)->whereNotIn('id', $follow_users)->pluck('id')->toArray();
+            } else {
+                $private_users = User::where('is_private', 1)->pluck('id')->toArray();
+            }
+
+            $posts_count = Media::with('strain', 'menu')
+                    ->where('is_active', 1)->whereNotIn('user_id', $private_users)
+                    ->where(function($query) use($strainDetail, $strain_menus){
+                        return $query->where('tagged_strain', $strainDetail->id)
+                                    ->orWhereIn('id', $strain_menus);
+                    })->count();
+            $followers_count = Follow::where('follower_strain_id', $strainDetail->id)->count();
+            $is_follower = Follow::where('user_id', auth()->id())->where('follower_strain_id', $strainDetail->id)->count();
+
+            return response()->json([
+                'type' => 'strain',
+                'strain' => $strainDetail->load('category'),
+                'taggedMedia' => $taggedMedia,
+                'posts_count' => $posts_count,
+                'followers_count' => $followers_count,
+                'is_follower' => $is_follower,
+                'main_media' => $strainDetail->get_main_media(),
+            ]);
         }
-
-        $posts_count = Media::with('strain', 'menu')
-                ->where('is_active', 1)->whereNotIn('user_id', $private_users)
-                ->where(function($query) use($strainDetail, $strain_menus){
-                    return $query->where('tagged_strain', $strainDetail->id)
-                                ->orWhereIn('id', $strain_menus);
-                })->count();
-        $followers_count = Follow::where('follower_strain_id', $strainDetail->id)->count();
-        $is_follower = Follow::where('user_id', auth()->id())->where('follower_strain_id', $strainDetail->id)->count();
-
-        return response()->json([
-            'strain' => $strainDetail->load('category'),
-            'taggedMedia' => $taggedMedia,
-            'posts_count' => $posts_count,
-            'followers_count' => $followers_count,
-            'is_follower' => $is_follower,
-            'main_media' => $strainDetail->get_main_media(),
-        ]);
     }
 
     public function show_mobile($id) {

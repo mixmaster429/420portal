@@ -84,11 +84,9 @@
                 </div>
             </div>
         </div>
-        <client-only>
-            <div class="col-4">
-                <fixed-comment :allposts="posts" :media="selected" v-if="selected"></fixed-comment>
-            </div>
-        </client-only>
+        <div class="col-4">
+            <fixed-comment :allposts="posts" :media="selected" v-if="selected"></fixed-comment>
+        </div>
     </div>
 </template>
 
@@ -128,6 +126,7 @@ export default {
     },
     computed: mapGetters({
         user: 'auth/user',
+        
     }),
     methods: {
         getallposts($state) {
@@ -147,7 +146,6 @@ export default {
             };
             this.loading = true;
             this.axios.post(uri, params).then(response => {
-
                 this.defaultpost = response.data.default;
                 // console.log(JSON.stringify(response.data.allposts.data[0]).length)
                 if(response.data.allposts.data.length) {

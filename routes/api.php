@@ -23,6 +23,7 @@ Route::post('/strain-media/{slug}', 'StrainController@getMedia');
 Route::get('/strain/get_modal_data', 'StrainController@getModalData');
 Route::resource('/marijuana-strains', 'StrainController');
 Route::post('/marijuana-strains/get_all_follows', 'StrainController@getAllFollows');
+Route::post('/category-strains', 'CategoryController@getCategoryStrains');
 
 Route::get('/get_profile/{slug}', 'UserController@index');
 Route::post('/profile/getfollow', 'UserController@getfollow');
@@ -35,7 +36,8 @@ Route::post('/categories', 'CategoryController@get_all_categories');
 Route::post('/category/strains', 'CategoryController@get_strains');
 
 
-Route::post('/media/upload', 'MediaController@mediauplaod');
+Route::post('/media/upload', 'MediaController@mediauplaod')->middleware('cors');
+Route::post('/media/show/{id}', 'MediaController@show');
 
 Route::middleware(['auth:api'])->group(function ($router){
     $router->post('/profile/like', 'LikeController@likeProfile');
@@ -68,9 +70,7 @@ Route::middleware(['auth:api'])->group(function ($router){
     $router->post('/users/list', 'UserController@list');   
     
 
-    $router->post('/get/portal', 'Api\PortalController@getPortal');
-    
-    $router->post('/media/show/{id}', 'MediaController@show');
+    $router->post('/get/portal', 'Api\PortalController@getPortal');    
     
     $router->post('/portal/get_all_menus', 'Api\PortalController@get_all_menus');
 

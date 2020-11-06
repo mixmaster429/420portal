@@ -27,7 +27,7 @@
                     placeholder=" "
                     autocomplete="off">
                     <has-error :form="form" field="password" />
-                <label for="username">Password</label>
+                <label for="password">Password</label>
             </div>
 
             <div class="form-group row mb-0">
@@ -63,7 +63,8 @@
 
         <p class="text-center mt-3" style="color: white;font-size:16px;">
             Don't have an account?
-            <a class="btn-link" href="" style="color: #EFA720;">Sign up</a>
+            <!-- <nuxt-link to="/register" class="text-420">Sign up</nuxt-link> -->
+            <a class="btn-link" href="/register" style="color: #EFA720;">Sign up</a>
         </p>
     </div>
 </template>

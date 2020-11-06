@@ -8,17 +8,17 @@
 
                 <div class="row mt-2 justify-content-center">
                     <div class="col-4 col-md-3 px-1">
-                        <a href="#">
+                        <a href="/marijuana-strains/indica">
                             <img class="strains__img" src="~assets/imgs/strains/indica.png" alt="Indica">
                         </a>
                     </div>
                     <div class="col-4 col-md-3 px-1">
-                        <a href="#">
+                        <a href="/marijuana-strains/sativa">
                             <img class="strains__img" src="~assets/imgs/strains/sativa.png" alt="Sativa">
                         </a>
                     </div>
                     <div class="col-4 col-md-3 px-1">
-                        <a href="#">
+                        <a href="/marijuana-strains/hybrid">
                             <img class="strains__img" src="~assets/imgs/strains/hybrid.png" alt="Hybrid">
                         </a>
                     </div>

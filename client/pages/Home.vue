@@ -1,6 +1,6 @@
 <template>
-  <mobile-home v-if="$device.isMobile"></mobile-home>
-  <desktop-home v-else></desktop-home>
+  <desktop-home v-if="!$device.isMobile"></desktop-home>
+  <mobile-home v-else ></mobile-home>
 </template>
 
 <script>

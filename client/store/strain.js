@@ -3,12 +3,14 @@ import axios from 'axios'
 export const state = () => ({
   data: null,
   modal_data: '',
+  // default_media: null,
 })
 
 // getters
 export const getters = {
   data: state => state.data,
   modal_data: state => state.modal_data,
+  // default_media: state => state.default_media,
 }
 
 // mutations
@@ -18,7 +20,10 @@ export const mutations = {
   },
   GET_MODAL_DATA (state, description) {
     state.modal_data = description
-  }
+  },
+  // FETCH_DEFAULT_MEDIA (state, data) {
+  //   state.default_media = data;
+  // }
 }
 
 // actions
@@ -41,5 +46,15 @@ export const actions = {
     } catch (e) {
         console.log(e)
     }
-  },
+  },  
+
+  // async fetchDefaultMedia({commit}, params) {
+  //   try {
+  //     let url = '/get_default_media';
+  //     const { data } = await axios.post(url, params)
+  //     commit('FETCH_DEFAULT_MEDIA', data)
+  //   } catch (e) {
+  //       console.log(e)
+  //   }
+  // }
 }
