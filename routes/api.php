@@ -38,6 +38,7 @@ Route::post('/category/strains', 'CategoryController@get_strains');
 
 Route::post('/media/upload', 'MediaController@mediauplaod')->middleware('cors');
 Route::post('/media/show/{id}', 'MediaController@show');
+Route::post('/comment/count_comments', 'CommentController@count_comments');
 
 Route::middleware(['auth:api'])->group(function ($router){
     $router->post('/profile/like', 'LikeController@likeProfile');

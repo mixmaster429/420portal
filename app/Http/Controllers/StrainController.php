@@ -291,10 +291,6 @@ class StrainController extends Controller
     
     public function update(Request $request, $id) {
 
-        $validateRequest = $this->validate($request, [
-            'description' => 'required',
-        ]);
-
         $strain = Strain::findOrFail($id);
         if($request->name != ''){
             $strain->name = $request->name;

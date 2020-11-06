@@ -1,5 +1,5 @@
 <template>
-    <div class="row postmedia">
+    <div class="row postmedia" v-touch:swipe="showRightSidebar">
         <vs-sidebar position-right parent="body" default-index="1" color="primary" class="sidebarx" spacer v-model="active">
             <div class="search-body">
                 <form action="" @change="keywordChange('search')">
@@ -80,7 +80,7 @@
                         <div class="media">
                             <router-link @touchstart="mediaTouchStart()" @touchend="mediaTouchEnd()"
                                 :to="{ name: 'weedgram', hash:`#${index+2}`, 
-                                        params: {allpost : weedgram_posts, start_index: index+1, keyword: keyword, following: following, bookmark:bookmark, page: page}
+                                        params: {allpost : weedgram_posts, start_index: index+2, keyword: keyword, following: following, bookmark:bookmark, page: page}
                                     }"
                             >
                                 <img v-bind:src="serverUrl(item.url)" alt v-if="item.type == 'image'" />
@@ -283,6 +283,11 @@ export default {
         showFooter() {
             console.log('show footer');
             $("#footer_bar").show();
+        },
+        showRightSidebar(direction) {
+            if(direction == 'left') {
+                this.active = true;
+            }
         }
     }
 };

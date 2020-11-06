@@ -13,7 +13,7 @@
         "laravel/helpers": "^1.1",
         "laravel/socialite": "^4.3",
         "laravel/tinker": "~1.0",
-        "pbmedia/laravel-ffmpeg": "5.0",
+        "pbmedia/laravel-ffmpeg": "^7.4",
         "tymon/jwt-auth": "^1.0.0-rc.5"
     },
     "require-dev": {

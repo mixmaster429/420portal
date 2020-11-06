@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-12 strains px-0">
             <strain-nav></strain-nav>
-            <div class="container">
+            <div class="container" style="min-height: calc(100vh - 555px);">
                 <h1 class="text-center my-4 clickable-title" data-toggle="modal" data-target="#headingModal">
                     <img src="~assets/imgs/h_icon2.png" width="35" style="margin-top: -8px;" alt="" /> Marijuana Strains</h1>
 

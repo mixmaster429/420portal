@@ -125,8 +125,7 @@ export default {
         $route: "getallposts",
     },
     computed: mapGetters({
-        user: 'auth/user',
-        
+        user: 'auth/user',        
     }),
     methods: {
         getallposts($state) {

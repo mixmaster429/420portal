@@ -4,7 +4,7 @@
         <div class="weedgram-header" id="weedgram-header" ref="weedgram_header" v-if="prev_page == 'user_page' || prev_page == 'company_page'">
             <h4 class="my-1"><fa icon="arrow-left" fixed-width class="mr-2" @click="goBack()" /> {{username}}</h4>
         </div>
-        <div id="media_scroll_wrapper" style="overflow-y: auto;height:100vh">
+        <div id="media_scroll_wrapper" style="overflow-y: auto;height:100vh" ref="scroll_wrapper">
             <div :class="{header_show: prev_page == 'user_page' || prev_page == 'company_page'}" ref="slide_container" id="slide_container">
                 <div class="slide_media" v-for="(item, index) in posts" :key="index" :id="index+1">
                     <div class="media_header">
@@ -150,8 +150,8 @@
         }),
         data() {
             return {
-                posts: {},
-                start_index: 0,
+                posts: [],
+                start_index: this.$route.params.start_index,
                 from: 0,
                 auth_user: null,
                 logged_user_id: 0,
@@ -171,6 +171,45 @@
                 clicks: 0,
                 timer: null,
             };
+        },
+        created() {
+            this.posts = this.$route.params.allpost;
+            window.addEventListener('scroll', this.handleScroll);
+        },
+        mounted() {
+            if(process.client) {
+                let scroll_div = document.getElementById(this.start_index);
+                let offset = 63;
+                if(this.model == 'user' || this.model == 'portal') {
+                    offset = 105;
+                }
+                let scroll_to = scroll_div ? scroll_div.offsetTop - offset : 0;
+                this.$refs.scroll_wrapper.scrollTo(0, scroll_to); 
+            }
+            this.prev_page = localStorage.getItem("prev_page");
+            if(this.prev_page == 'company_page') {this.username = localStorage.getItem('portal_name');}
+            if(this.prev_page == 'user_page') {this.username = localStorage.getItem('username');}
+            if(!this.posts){
+                if(this.prev_page == 'homepage') { window.location.href = '/';}
+                else if(this.prev_page == 'company_page') {
+                    window.location.href = localStorage.getItem('portal_username');
+                } else if(this.prev_page == 'user_page') {
+                    window.location.href = localStorage.getItem('username');
+                } else {
+                    window.location.href = '/';
+                }
+            }
+            if (this.user) {
+                this.logged_user_id = this.user.id;
+            }
+            this.$nextTick(function(){
+                window.addEventListener('scroll', this.handleScroll);
+            });  
+
+            if(this.model == 'strain') {
+                $('#strain_show_page').hide();
+            }
+            
         },
         methods: {
             getallposts($state) {                
@@ -478,37 +517,6 @@
                     return process.env.serverUrl + 'imgs/default.png';
                 }
             }
-        },
-        created() {
-            this.posts = this.$route.params.allpost;
-            this.start_index = this.$route.params.start_index;
-            window.addEventListener('scroll', this.handleScroll);
-        },
-        mounted() {
-            this.prev_page = localStorage.getItem("prev_page");
-            if(this.prev_page == 'company_page') {this.username = localStorage.getItem('portal_name');}
-            if(this.prev_page == 'user_page') {this.username = localStorage.getItem('username');}
-            if(!this.posts){
-                if(this.prev_page == 'homepage') { window.location.href = '/';}
-                else if(this.prev_page == 'company_page') {
-                    window.location.href = localStorage.getItem('portal_username');
-                } else if(this.prev_page == 'user_page') {
-                    window.location.href = localStorage.getItem('username');
-                } else {
-                    window.location.href = '/';
-                }
-            }
-            if (this.user) {
-                this.logged_user_id = this.user.id;
-            }
-            this.$nextTick(function(){
-                window.addEventListener('scroll', this.handleScroll);
-            });  
-
-            if(this.model == 'strain') {
-                $('#strain_show_page').hide();
-            }
-            
         }
     };
 </script>

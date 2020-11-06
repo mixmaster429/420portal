@@ -48,7 +48,7 @@
                         </p>
                     </div>
                     <div class="actions">
-                        <fa icon="heart" @click="unlikecomment(item.id, index)" v-if="item.userliked"></fa>                        
+                        <fa icon="heart" @click="unlikecomment(item.id, index)" v-if="item.userliked"></fa>
                         <fa :icon="['far', 'heart']" @click="likecomment(item.id, index)" v-else></fa>
                         <fa icon="edit" v-if="item.owned" @click="editcomment(item.id, index)" />
                         <fa icon="trash-alt" v-if="item.owned" @click="deletecomment(item.id)" />

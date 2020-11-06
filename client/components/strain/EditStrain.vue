@@ -4,24 +4,24 @@
             <h4 class="text-420">Edit Strain</h4>
         </div>
         <form v-on:submit.prevent="save" v-if="strain">
-            <div class="form-group floating-label">
-                <input type="text" v-model="strain.name" class="floating-input" name="strain-name" placeholder=" " required>
+            <div class="form-group floating-label mt-4">
+                <input type="text" :value="name" class="floating-input" name="name" placeholder=" " required>
                 <label for="strain-name" class="col-form-label">Strain Name</label>
             </div>
-            <div class="form-group floating-label">
-                <select class="floating-select" v-model="strain.category_id">
+            <div class="form-group floating-label mt-5">
+                <select class="floating-select" name="category_id" :value="category_id" @change="changeCategory($event)">
                     <option value="1">Indica</option>
                     <option value="2">Sativa</option>
                     <option value="3">Hybrid</option>
                 </select>
                 <label :class="{focused: strain.category_id}">Strain Type</label>
             </div>
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <label class="col-form-label">Description</label>                
                 <client-only>
                     <vue-trix id="darkTrix" v-model="strain.description" placeholder="Enter your content..."></vue-trix>                    
                 </client-only>
-            </div>
+            </div> -->
             <div class="text-center">
                 <button v-on:click.prevent="save" class="btn btn-primary mx-auto">Save
                     <span v-if="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
@@ -40,15 +40,17 @@
             return {
                 strain: this.from,
                 loading: false,
+                name: this.from.name,
+                category_id: this.from.category_id,
             }
         },
         methods: {
             save: function() {
                 const params = {
-                    name: this.strain.name,
-                    category_id: this.strain.category_id,
-                    slug: this.strain.name.trim().toLowerCase().replace(/ /g, '-').replace(/#/g, '').replace(/---/g, '-'),
-                    description: this.strain.description,
+                    name: this.name,
+                    category_id: this.category_id,
+                    slug: this.name.trim().toLowerCase().replace(/ /g, '-').replace(/#/g, '').replace(/---/g, '-'),
+                    // description: this.strain.description,
                 }
                 this.loading = true;
                 this.axios.put(`/marijuana-strains/${this.strain.id}`, params)
@@ -56,6 +58,12 @@
                         this.loading = false;
                         window.location.reload();
                     });
+            },
+            changeName(e) {
+                this.name = e.target.value;
+            },
+            changeCategory(e) {
+                this.category_id = e.target.value;
             }
         }
     }

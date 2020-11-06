@@ -104,7 +104,7 @@
             <strain-media :strain="strain_data.strain" v-else></strain-media>
         </template>
         <client-only>
-            <vs-popup v-if="user && strain_data && user.id == 1" class="strains__popup" type="border" title="Edit Strain" :active.sync="openEditPopup">
+            <vs-popup v-if="user && strain_data && user.id == 1" class="strains__popup strain_edit_popup" type="border" title="Edit Strain" :active.sync="openEditPopup">
                 <edit-strain :from="strain_data.strain"></edit-strain>
             </vs-popup>
 
@@ -112,6 +112,21 @@
                 <strain-followers :strain="strain_data.strain"></strain-followers>
             </vs-popup>
         </client-only>
+        
+        <!-- Comment Modal -->
+        <div class="modal fade" id="commentModal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content comment_page">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"><fa icon="arrow-left"></fa></span></button>
+                        <h5 class="modal-title ml-4" style="font-size: 1.3rem;color:#EFA720;">Reviews - Comments</h5>
+                    </div>
+                    <div class="modal-body" style="padding: 0;">
+                        <page-comment :page="strain_data.strain" model="strain"></page-comment>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 <script>
@@ -122,6 +137,7 @@
     import EditStrain from "./EditStrain";
     import EditDescription from "./EditDescription";
     import StrainFollowers from "./StrainFollowers";
+    import PageComment from "../PageComment";
     export default {
         name: 'StrainDetail',
         props: ['strain_data'],
@@ -131,6 +147,7 @@
             EditDescription,
             EditStrain,
             StrainFollowers,
+            PageComment,
         },
         data: function () {
             return {
@@ -245,4 +262,11 @@
         font-size: 16px;
     }   
 
+</style>
+<style lang="scss">
+    .strain_edit_popup {
+        .vs-popup {
+            height: 270px;
+        }
+    }
 </style>
