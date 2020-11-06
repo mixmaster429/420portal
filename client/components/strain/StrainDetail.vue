@@ -96,11 +96,11 @@
 
             <h2 class="text-center my-4 category__header">{{ strain_data.strain.name }} Weed Pictures & Videos</h2>
         </div>
-        <template v-if="strain_data && strain_data.strain">                
-            <keep-alive v-if="$device.isMobile">
-                <router-view></router-view>
-                <strain-mobile :strain="strain_data.strain"></strain-mobile>
-            </keep-alive>
+        <template>
+            <!-- <keep-alive v-if="$device.isMobile">
+                <router-view></router-view> -->
+                <strain-mobile :strain="strain_data.strain" v-if="$device.isMobile"></strain-mobile>
+            <!-- </keep-alive> -->
             <strain-media :strain="strain_data.strain" v-else></strain-media>
         </template>
         <client-only>
@@ -134,6 +134,7 @@
     import _ from 'lodash';
     import StrainMenu from "./StrainMenu";
     import StrainMedia from "./StrainMedia";
+    import StrainMobile from "../mobile/StrainMedia"
     import EditStrain from "./EditStrain";
     import EditDescription from "./EditDescription";
     import StrainFollowers from "./StrainFollowers";
@@ -148,6 +149,7 @@
             EditStrain,
             StrainFollowers,
             PageComment,
+            StrainMobile,
         },
         data: function () {
             return {

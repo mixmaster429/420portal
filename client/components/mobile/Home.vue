@@ -78,8 +78,10 @@
                 <div class="row">
                     <div class="col-4 media_container" v-for="(item, index) in posts" :key="index">
                         <div class="media">
-                            <router-link @touchstart="mediaTouchStart()" @touchend="mediaTouchEnd()"
-                                :to="{ name: 'weedgram', hash:`#${index+2}`, 
+                            <router-link 
+                                :to="{ 
+                                        name: 'weedgram',
+                                        hash:`#${index+2}`, 
                                         params: {allpost : weedgram_posts, start_index: index+2, keyword: keyword, following: following, bookmark:bookmark, page: page}
                                     }"
                             >
@@ -253,20 +255,6 @@ export default {
         },
         showPopUp(item, index) {
             
-        },
-        mediaTouchStart(){
-            console.log('touchstart')
-            pressTimer = setTimeout(function() {
-                alert('holddown');
-            },1300);
-        },
-        mediaTouchEnd(){
-            console.log(pressTimer);
-            clearTimeout(pressTimer);
-            pressTimer = null;
-        },
-        holdDown(item){
-            console.log(item)
         },
         serverUrl(item) {
             if(item.charAt(0) != '/'){item = '/' + item;}

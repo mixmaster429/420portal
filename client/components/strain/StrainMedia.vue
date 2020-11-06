@@ -1,5 +1,5 @@
 <template>
-    <div class="row postmedia original" ref="media_wrapper" id="portalprofile" style="margin-right: 15px;margin-bottom:100px;">
+    <div class="container-fluid row postmedia original justify-content-center" ref="media_wrapper" id="portalprofile" style="margin-right: 15px;margin-bottom:100px;">
         <div class="col-md-8 posts" style="min-height: calc(100vh - 250px);">
             <div class="row">
                 <div class="col-4 media_container" v-for="(item, index) of posts" :key="index">
