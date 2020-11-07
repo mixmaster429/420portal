@@ -11,9 +11,9 @@ const routes = [
   { path: '/mobile/slideshow', name: 'weedgram', component: page('mobile/Weedgram.vue') },
   { path: '/mobile/comment', name: 'comment', component: page('mobile/Comment.vue') },
 
-
   { path: '/marijuana-strains', name: 'strain_index', component: page('Strain.vue') },
   { path: '/marijuana-strains/:strain', name: 'strain_detail', component: page('StrainDetail.vue') },
+  { path: '/medical-recreational-marijuana-dispensary-delivery/:state?/:city?', name: 'map_page', component: page('MapPage.vue')},
 
   { path: '/mobile/media/edit', name: 'edit_media', component: page('media/EditMedia.vue') },
 

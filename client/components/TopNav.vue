@@ -11,7 +11,7 @@
                 <div class="col-7 nav_bar">
                     <ul>
                         <li class="nav-item">
-                            <a href="#">
+                            <a href="/medical-recreational-marijuana-dispensary-delivery">
                                 <img src="~assets/imgs/h_icon1.png" alt="">
                                 <p>Dispensary</p>
                             </a>
@@ -82,7 +82,7 @@
                 <div class="nav_bar">
                     <ul>
                         <li class="nav-item">
-                            <a href="#">
+                            <a href="/medical-recreational-marijuana-dispensary-delivery">
                                 <img src="~assets/imgs/h_icon1.png" alt="">
                                 <p>Dispensary</p>
                             </a>

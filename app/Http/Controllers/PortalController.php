@@ -351,20 +351,26 @@ class PortalController extends Controller
         return response()->json('success');
     }
 
-    public function searchmap($state_slug = null, $city_slug = null)
+    public function searchmap(Request $request)
     {
+        $state_slug = $request->get('state');
+        $city_slug = $request->get('city');
         $state = $city = '';
         if($state_slug) {
             $state_slug = str_replace('-', ' ', $state_slug);
             $state_slug = str_replace('_', ' ', $state_slug);
-            $state = State::where('name', $state_slug)->firstOrFail();
+            $state = State::where('name', $state_slug)->first();
         }
         if($city_slug) {
             $city_slug = str_replace('-', ' ', $city_slug);
             $city_slug = str_replace('_', ' ', $city_slug);
-            $city = City::where('name', $city_slug)->firstOrFail();
+            $city = City::where('name', $city_slug)->first();
         }
-        return view('Portal.mappage', compact('state', 'city'));
+        return response()->json([
+            'status' => 200,
+            'state' => $state,
+            'city' => $city,
+        ]);
     }
 
     public function list(Request $request) {

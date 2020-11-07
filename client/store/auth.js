@@ -6,6 +6,7 @@ export const state = () => ({
   user: null,
   token: null,
   profile: null,
+  map_location: null,
 })
 
 // getters
@@ -14,6 +15,7 @@ export const getters = {
   token: state => state.token,
   check: state => state.user !== null,
   profile: state => state.profile,
+  map_location: state => state.map_location,
 }
 
 // mutations
@@ -41,6 +43,10 @@ export const mutations = {
 
   FETCH_PROFILE(state, data) {
     state.profile = data
+  },
+
+  FETCH_MAP_LOCATION(state, data) {
+    state.map_location = data
   }
 }
 
@@ -94,4 +100,11 @@ export const actions = {
         console.log(e)
     }
   },
+
+  async fetchMapLocation({commit}, location) {
+    let url = `/medical-recreational-marijuana-dispensary-delivery`;
+    let params = {state: location.state, city: location.city};
+    const {data} = await axios.post(url, params);
+    commit('FETCH_MAP_LOCATION', data)
+  }
 }

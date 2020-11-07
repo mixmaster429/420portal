@@ -40,6 +40,9 @@ Route::post('/media/upload', 'MediaController@mediauplaod')->middleware('cors');
 Route::post('/media/show/{id}', 'MediaController@show');
 Route::post('/comment/count_comments', 'CommentController@count_comments');
 
+Route::post('/medical-recreational-marijuana-dispensary-delivery', 'PortalController@searchmap');
+Route::post('/portals/getall', 'PortalController@searchPortals');
+
 Route::middleware(['auth:api'])->group(function ($router){
     $router->post('/profile/like', 'LikeController@likeProfile');
     $router->post('/profile/unlike', 'LikeController@unlikeProfile');

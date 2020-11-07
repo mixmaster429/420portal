@@ -105,16 +105,10 @@
 </template>
 
 <script>
-import PageFooter from "../PageFooter";
 import { mapGetters } from 'vuex'
 import _ from 'lodash';
-
-var pressTimer = null;
 export default {
-    name: "Mediapost",
-    components : {
-        PageFooter,
-    },
+    name: "MobileHome",
     data() {
         return {
             keyword : '',
@@ -136,8 +130,6 @@ export default {
 
             latitude : 0,
             longitude : 0,
-
-            pressTimer : null,
         };
     },
     watch: {

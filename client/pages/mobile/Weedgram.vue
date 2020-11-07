@@ -4,7 +4,7 @@
         <div class="weedgram-header" id="weedgram-header" ref="weedgram_header" v-if="prev_page == 'user_page' || prev_page == 'company_page'">
             <h4 class="my-1"><fa icon="arrow-left" fixed-width class="mr-2" @click="goBack()" /> {{username}}</h4>
         </div>
-        <div id="media_scroll_wrapper" style="overflow-y: auto;height:100vh" ref="scroll_wrapper">
+        <div id="media_scroll_wrapper" style="max-height:100vh;overflow-y: auto;" ref="scroll_wrapper">
             <div :class="{header_show: prev_page == 'user_page' || prev_page == 'company_page'}" ref="slide_container" id="slide_container">
                 <div class="slide_media" v-for="(item, index) in posts" :key="index" :id="index+1">
                     <div class="media_header">

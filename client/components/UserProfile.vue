@@ -1,5 +1,5 @@
 <template>
-    <div class="row mt-3" v-if="user" id="userprofile">
+    <div class="row pt-3" v-if="user" id="userprofile" style="max-height:100vh;overflow-y:auto">
         <div class="container">
             <div v-if="userdata" class="profile-data">
                 <div class="profile_header row">
@@ -116,7 +116,7 @@
                             <div v-if="$device.isMobile" class="media">
                                 <router-link :to="{ name: 'weedgram', hash:`#${index+1}`, params: {allpost : posts, start_index: index+1, page: page, model: 'user', currentId : userdata.id}}">
                                     <img v-bind:src="serverUrl(item.url)" alt v-if="item.type == 'image'" />
-                                    <video v-bind:src="item.url" alt v-if="item.type == 'video'" disablePictureInPicture controlsList="nodownload" onclick="this.paused ? this.play() : this.pause();"></video>
+                                    <video v-bind:src="serverUrl(item.url)" alt v-if="item.type == 'video'" disablePictureInPicture controlsList="nodownload" onclick="this.paused ? this.play() : this.pause();"></video>
                                     <img class="video__tag__mobile" style="width:25px;" v-if="item.type==='video'" src="https://i.imgur.com/88aBgwi.png" alt="">
                                 </router-link>
                             </div>
@@ -131,7 +131,7 @@
                         :distance="300" 
                         spinner="spiral" 
                         @infinite="getallposts"
-                        force-use-infinite-wrapper="body"
+                        force-use-infinite-wrapper="#userprofile"
                     ><div slot="no-more"></div></infinite-loading>
                 </div>
                 <client-only>
@@ -144,7 +144,7 @@
         <vs-popup v-if="user.id == logged_user_id || logged_user_id == 1" class="strains__popup media__add" type="border" title="Edit User" :active.sync="openEditPopup">
             <profile-form :editData="user.id" :mainData="user" mode="edit"></profile-form>
         </vs-popup>
-        <page-footer></page-footer>
+        <!-- <page-footer></page-footer> -->
     </div>
 </template>
 
