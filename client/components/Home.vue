@@ -56,7 +56,7 @@
                 </div>
             </div>
             <div class="container">
-                <div id="media_scroll_wrapper" style="overflow-y: auto;height:100vh">  
+                <!-- <div id="media_scroll_wrapper" style="overflow-y: auto;height:100vh">   -->
                     <div class="row justify-content-center" v-if="defaultpost != null">
                         <div class="col-4 media_container">
                             <div class="media" @click="showdefault">
@@ -79,9 +79,8 @@
                         :identifier="infiniteId" 
                         spinner="spiral" 
                         @infinite="getallposts"
-                        force-use-infinite-wrapper="#media_scroll_wrapper"
                     ><div slot="no-more"></div></infinite-loading>
-                </div>
+                <!-- </div> -->
             </div>
         </div>
         <div class="col-4">
