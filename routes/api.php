@@ -23,7 +23,6 @@ Route::post('/strain-media/{slug}', 'StrainController@getMedia');
 Route::get('/strain/get_modal_data', 'StrainController@getModalData');
 Route::resource('/marijuana-strains', 'StrainController');
 Route::post('/marijuana-strains/get_all_follows', 'StrainController@getAllFollows');
-Route::post('/category-strains', 'CategoryController@getCategoryStrains');
 
 Route::get('/get_profile/{slug}', 'UserController@index');
 Route::post('/profile/getfollow', 'UserController@getfollow');
@@ -34,6 +33,8 @@ Route::post('/portal/get_distance', 'PortalController@getDistance');
 
 Route::post('/categories', 'CategoryController@get_all_categories');
 Route::post('/category/strains', 'CategoryController@get_strains');
+Route::post('/category-strains', 'CategoryController@getCategoryStrains');
+Route::put('/category/{id}', 'CategoryController@update');
 
 
 Route::post('/media/upload', 'MediaController@mediauplaod')->middleware('cors');
