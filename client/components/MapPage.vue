@@ -741,7 +741,6 @@
         },
     };
 </script>
-
 <style lang="scss" scoped>
     #portal_filter {
         padding-top: 20px;
@@ -1040,9 +1039,5 @@
     .multiselect__tags {
         padding-right: 0;
         min-height: 43px !important;
-    }
-
-    .multiselect__select {
-        display: none !important;
     }
 </style>

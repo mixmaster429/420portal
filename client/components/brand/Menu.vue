@@ -653,31 +653,6 @@ export default {
         -webkit-transition: 0.2s ease all;
     }
 
-    .multiselect {
-        &__tags {
-            background-color: #000 !important;
-        }
-        .multiselect__content-wrapper {
-            display: none !important;
-            visibility: hidden !important;
-            color: transparent !important;
-            background-color: #000 !important;
-            border: none !important;
-            z-index: -1 !important;
-            height: 0 !important;
-            max-height: 0 !important;
-            overflow: hidden;
-        }
-
-        .multiselect__option {
-            display: none !important;
-            padding: 0 !important;
-        }
-
-        &__tags .multiselect__input {
-            margin-bottom: 0 !important;
-        }
-    }
     label.focused,
     .floating-input:focus ~ label,
     .floating-select:focus ~ label,

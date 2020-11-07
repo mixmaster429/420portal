@@ -3,6 +3,9 @@
 @import '~sweetalert2/src/sweetalert2';
 @import '@fortawesome/fontawesome-svg-core/styles.css';
 
+
+// <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
+
 @import 'elements/card';
 @import 'elements/navbar';
 @import 'elements/buttons';
@@ -18,3 +21,5 @@
 @import 'mobile';
 @import 'userprofile';
 @import 'portalprofile';
+@import "vue-multiselect/dist/vue-multiselect.min.css";
+

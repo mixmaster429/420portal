@@ -456,6 +456,10 @@ input.form-control:focus {
     padding-left: 0px;
 }
 
+.multiselect__select {
+    display: none;
+}
+
 .multiselect__tags .multiselect__single {
     background : transparent !important;
     color: white;
