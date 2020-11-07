@@ -56,32 +56,29 @@
                 </div>
             </div>
             <div class="container">
-                <div id="media_scroll_wrapper" style="overflow-y: auto;height:100vh">  
-                    <div class="row justify-content-center" v-if="defaultpost != null">
-                        <div class="col-4 media_container">
-                            <div class="media" @click="showdefault">
-                                <img v-bind:src="imageLoad(defaultpost.url)" alt />
-                            </div>
+                <div class="row justify-content-center" v-if="defaultpost != null">
+                    <div class="col-4 media_container">
+                        <div class="media" @click="showdefault">
+                            <img v-bind:src="imageLoad(defaultpost.url)" alt />
                         </div>
                     </div>
-                                  
-                    <div class="row">
-                        <div class="col-4 media_container" v-for="(item, index) in posts" :key="index">
-                            <div class="media" @click="changeimage(index)" @dblclick="like(item)">
-                                <img v-bind:src="imageLoad(item.url)" alt v-if="item.type == 'image'" />
-                                <video v-bind:src="imageLoad(item.url)" alt v-if="item.type == 'video'" disablePictureInPicture controlsList="nodownload" onclick="this.paused ? this.play() : this.pause();"></video>
-                                <img class="video__tag__mobile" style="width:35px;" v-if="item.type==='video'" src="https://i.imgur.com/88aBgwi.png" alt="">
-                            </div>
-                        </div>
-                    </div>
-                    <infinite-loading 
-                        :distance="300" 
-                        :identifier="infiniteId" 
-                        spinner="spiral" 
-                        @infinite="getallposts"
-                        force-use-infinite-wrapper="#media_scroll_wrapper"
-                    ><div slot="no-more"></div></infinite-loading>
                 </div>
+                                
+                <div class="row">
+                    <div class="col-4 media_container" v-for="(item, index) in posts" :key="index">
+                        <div class="media" @click="changeimage(index)" @dblclick="like(item)">
+                            <img v-bind:src="imageLoad(item.url)" alt v-if="item.type == 'image'" />
+                            <video v-bind:src="imageLoad(item.url)" alt v-if="item.type == 'video'" disablePictureInPicture controlsList="nodownload" onclick="this.paused ? this.play() : this.pause();"></video>
+                            <img class="video__tag__mobile" style="width:35px;" v-if="item.type==='video'" src="https://i.imgur.com/88aBgwi.png" alt="">
+                        </div>
+                    </div>
+                </div>
+                <infinite-loading 
+                    :distance="300" 
+                    :identifier="infiniteId" 
+                    spinner="spiral" 
+                    @infinite="getallposts"
+                ><div slot="no-more"></div></infinite-loading>
             </div>
         </div>
         <div class="col-4">

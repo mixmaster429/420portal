@@ -36,7 +36,7 @@ Route::post('/categories', 'CategoryController@get_all_categories');
 Route::post('/category/strains', 'CategoryController@get_strains');
 
 
-Route::post('/media/upload', 'MediaController@mediauplaod')->middleware('cors');
+Route::post('/media/upload', 'MediaController@mediauplaod')->middleware('cors.api');
 Route::post('/media/show/{id}', 'MediaController@show');
 Route::post('/comment/count_comments', 'CommentController@count_comments');
 
