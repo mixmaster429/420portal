@@ -70,10 +70,8 @@ Route::middleware(['auth:api'])->group(function ($router){
     $router->post('/media/update', 'MediaController@api_update');    
     $router->get('/media/{media}', 'MediaController@destroy');
 
-    // $router->any('/logout', 'Api\AuthController@logout');
     $router->post('/portals/list', 'PortalController@list');
-    $router->post('/users/list', 'UserController@list');   
-    
+    $router->post('/users/list', 'UserController@list');    
 
     $router->post('/get/portal', 'Api\PortalController@getPortal');    
     
