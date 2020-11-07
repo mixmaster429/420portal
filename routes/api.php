@@ -36,7 +36,7 @@ Route::post('/categories', 'CategoryController@get_all_categories');
 Route::post('/category/strains', 'CategoryController@get_strains');
 
 
-Route::post('/media/upload', 'MediaController@mediauplaod')->middleware('cors.api');
+Route::post('/media/upload', 'MediaController@mediauplaod')->middleware('cors');
 Route::post('/media/show/{id}', 'MediaController@show');
 Route::post('/comment/count_comments', 'CommentController@count_comments');
 
@@ -51,7 +51,7 @@ Route::middleware(['auth:api'])->group(function ($router){
     $router->post('/user/unfollow', 'UserController@unfollow');
     $router->post('/user/follow_request', 'UserController@followRequest');
     $router->post('/user/accept_follow_request', 'UserController@acceptFollowRequest');
-    $router->post('/profile/getisfollower', 'UserController@getisfollower')->middleware('auth');
+    $router->post('/profile/getisfollower', 'UserController@getisfollower');
     
     $router->post('/marijuana-strains/like', 'StrainController@like');
     
