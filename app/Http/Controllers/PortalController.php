@@ -139,12 +139,12 @@ class PortalController extends Controller
         if($request->get('category') != '') {
             $flag_show_menu = 1;
             $category_id = $request->get('category');
-            $flower = [1,2,3];
-            if (in_array($category_id, $flower)) {
-                $menu_mod = $menu_mod->whereIn('category_id', $flower);
-            } else {
+            // $flower = [1,2,3];
+            // if (in_array($category_id, $flower)) {
+            //     $menu_mod = $menu_mod->whereIn('category_id', $flower);
+            // } else {
                 $menu_mod = $menu_mod->where('category_id', $category_id);
-            }
+            // }
 
             if($request->get('menu_price_type') != '') {
                 $price_type = $request->get('menu_price_type');

@@ -583,7 +583,7 @@
                 if (this.$device.isMobile) {
                     $("#mapinfowindow").modal('show');
                 } else {
-                    window.location.href = this.details.username;
+                    window.location.href = "/" + this.details.username;
                 }
             },
             closewindow() {
@@ -659,7 +659,7 @@
             selectPortal(selected_portal, id) {
                 // this.top_filter.portal = selected_portal.id;
                 $(".filter_portal").siblings('label').addClass('focused');
-                window.location.href = selected_portal.username;
+                window.location.href = "/" + selected_portal.username;
             },
             search_filter(filter_data) {
                 this.getportals();
@@ -675,6 +675,7 @@
                 this.top_filter.menu_strain = '';
                 this.top_filter.menu_price_type = '';
                 this.top_filter.menu_price_max = '';
+                this.top_filter.filters = [];
             },
             insetStrainData(data, params) {
                 data.forEach(portal => {
