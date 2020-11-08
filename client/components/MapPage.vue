@@ -612,10 +612,10 @@
                     this.axios.post(uri, params).then(response => {
                         this.search_count++;
                         this.portals = this.insetStrainData(response.data.portals, params);
-                        this.results_count = 0;
-                        this.portals.map(portal => {
-                            this.results_count += portal.menus.length;
-                        });
+                        this.results_count = this.portals.length;
+                        // this.portals.map(portal => {
+                        //     this.results_count += portal.menus.length;
+                        // });
                         if(this.search_count == 1) {
                             this.all_portals = this.portals;
                         }

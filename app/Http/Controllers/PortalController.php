@@ -126,7 +126,7 @@ class PortalController extends Controller
         array_push($type_array, 3);
         $mod = $mod->whereIn('store_type', $type_array);
 
-        if(in_array('recreational', $request->get('filters')) && !in_array('medical', $request->get('medical'))) {
+        if(in_array('recreational', $request->get('filters')) && !in_array('medical', $request->get('filters'))) {
             $mod = $mod->where('recreational', 1);
         }
         if(in_array('medical', $request->get('filters')) && !in_array('recreational', $request->get('filters'))) {
