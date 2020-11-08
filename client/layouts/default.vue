@@ -1,5 +1,5 @@
 <template>
-    <div class="layout"  v-touch:swipe="toggleSidebar">
+    <div class="layout" id="app" v-touch:swipe="toggleSidebar">
         <left-sidebar :active="leftsidebarflag" v-if="$device.isMobile"></left-sidebar>
         <top-nav />
 

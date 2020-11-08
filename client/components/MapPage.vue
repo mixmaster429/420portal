@@ -818,6 +818,7 @@
     .filter_mobile {
         display: none;
         color: #d2d1d0;
+        padding-bottom: 60px;
         .mobile_filter_portal {
             position: absolute;
             bottom: 0;
