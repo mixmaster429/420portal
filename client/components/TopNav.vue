@@ -17,10 +17,10 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <router-link :to="{name: 'strain_index'}">
+                            <a href="/marijuana-strains">
                                 <img src="~assets/imgs/h_icon2.png" alt="">
                                 <p>Strains</p>
-                            </router-link>
+                            </a>
                         </li>
                         <li class="nav-item">
                             <a href="#">
