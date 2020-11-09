@@ -44,6 +44,14 @@ Route::post('/comment/count_comments', 'CommentController@count_comments');
 Route::post('/medical-recreational-marijuana-dispensary-delivery', 'PortalController@searchmap');
 Route::post('/portals/getall', 'PortalController@searchPortals');
 
+Route::post('/marijuana-coupons', 'CouponController@show');
+
+//Brand
+Route::get('/brand/get_all', 'BrandController@getBrands');
+Route::post('/get/brand', 'BrandController@appGetBrand');
+Route::post('/brand/get_all_menus', 'BrandController@get_all_menus');
+Route::post('/brand/get_category_media', 'BrandController@getCategoryMedia');
+
 Route::middleware(['auth:api'])->group(function ($router){
     $router->post('/profile/like', 'LikeController@likeProfile');
     $router->post('/profile/unlike', 'LikeController@unlikeProfile');
@@ -77,6 +85,10 @@ Route::middleware(['auth:api'])->group(function ($router){
     
     $router->post('/portal/get_all_menus', 'Api\PortalController@get_all_menus');
 
+
+    $router->post('/coupon/store', 'CouponController@store');
+    $router->post('/coupon/{id}', 'CouponController@update');
+    $router->delete('/coupon/{id}', 'CouponController@destroy');
     // **** Forum ****
     $router->post('/forum/index', 'Api\ForumController@index');
     $router->post('/forum/get_user_topics', 'Api\ForumController@getUserTopics');
@@ -85,13 +97,6 @@ Route::middleware(['auth:api'])->group(function ($router){
     $router->get('/strain/show/{id}', 'StrainController@show_mobile');
     $router->post('/marijuana-strains/follow', 'StrainController@follow');
     $router->put('/marijuana-strains/modal/{id}', 'StrainController@updateModal');
-
-    //Brand
-    $router->get('/brand/get_all', 'BrandController@getBrands');
-    $router->post('/get/brand', 'BrandController@appGetBrand');
-    $router->post('/brand/get_all_menus', 'BrandController@get_all_menus');
-
-    $router->post('/brand/get_category_media', 'BrandController@getCategoryMedia');
 });
 
 Route::group(['middleware' => 'auth:api'], function () {

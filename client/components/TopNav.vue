@@ -23,13 +23,13 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#">
+                            <a href="/marijuana-coupons">
                                 <img src="~assets/imgs/h_icon3.png" alt="">
                                 <p>Coupons</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#">
+                            <a href="/marijuana-brands">
                                 <img src="~assets/imgs/brand_logo.png" alt="">
                                 <p>Brands</p>
                             </a>
@@ -94,13 +94,13 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#">
+                            <a href="/marijuana-coupons">
                                 <img src="~assets/imgs/h_icon3.png" alt="">
                                 <p>Coupons</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#">
+                            <a href="/marijuana-brands">
                                 <img src="~assets/imgs/brand_logo.png" alt="">
                                 <p>Brands</p>
                             </a>

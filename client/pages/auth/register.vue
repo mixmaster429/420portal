@@ -99,7 +99,7 @@ export default {
         PageFooter, Terms
     },
     head () {
-        return { title: 'Register' }
+        return { title: '420Portal - Register' }
     },
     watch: {
         'form.name': function (newName, oldName) {
@@ -116,7 +116,6 @@ export default {
         }),
         profile_pic: '',
         upload_url: process.env.serverUrl + '/api/media/upload',
-        uploading: false,
         files: [],
         uploadProgress: 5,
         uploading: false,

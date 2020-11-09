@@ -1,5 +1,5 @@
 <template>
-    <div id="brand_show">
+    <div id="brand_show" style="max-height:100vh;overflow-y: auto;">
         <h1 class="page-title">
             <img src="/imgs/brand.png" width="35" alt="" />
             &nbsp;Marijuana Brands
@@ -37,7 +37,7 @@
                 <div class="col-md-8 posts" style="min-height: calc(100vh - 250px);">
                     <div class="row mx-n1">
                         <div class="col-4 media_container" v-for="(item, index) of posts" :key="index">
-                            <div v-if="is_mobile" class="media">
+                            <div v-if="$device.isMobile" class="media">
                                 <router-link :to="{ name: 'Weedgram', hash:`#${index+1}`, params: {allpost : posts, start_index: index+1, page: page, model: 'brand', category : tab}}">
                                     <img :src="item.url" v-if="item.type == 'image'" />
                                     <video :src="item.url" alt v-if="item.type == 'video'" disablePictureInPicture controlsList="nodownload" onclick="this.paused ? this.play() : this.pause();"></video>
@@ -55,10 +55,16 @@
                             </div>
                         </div>
                     </div>
-                    <infinite-loading :distance="300" spinner="spiral" :identifier="infiniteId" @infinite="getallposts"><div slot="no-more"></div></infinite-loading>
+                    <infinite-loading 
+                        :distance="300" 
+                        spinner="spiral" 
+                        :identifier="infiniteId"
+                         @infinite="getallposts"
+                         force-use-infinite-wrapper="#brand_show"
+                    ><div slot="no-more"></div></infinite-loading>
                 </div>
-                <div class="col-md-4" v-if="!is_mobile && selected">
-                    <fixedcommentbox :user="selected" :allposts="posts" />
+                <div class="col-md-4" v-if="!$device.isMobile && selected">
+                    <fixed-comment :user="selected" :allposts="posts"></fixed-comment>
                 </div>
             </div>
         </div>
@@ -86,7 +92,7 @@
             <div class="row">
                 <div class="col-md-2 col-4 media_container px-1" v-for="(item, index) of brands" :key="index">
                     <div class="media" @click="goToProfile(item)">
-                        <img :src="item.profile_pic ? item.profile_pic.url : '/imgs/default.png'" />
+                        <img :src="serverUrl(item.profile_pic ? item.profile_pic.url : '/imgs/default.png')" />
                         <div class="menu-info">
                             <p class="item_name">{{item.name}}</p>
                         </div>
@@ -97,15 +103,15 @@
     </div>
 </template>
 <script>
-    import fixedcommentbox from "../fixedcommentbox";
-    import InfiniteLoading from 'vue-infinite-loading';
+    import FixedComment from "../FixedComment";
     import Multiselect from "vue-multiselect";
     import firebase from "../../Firebase";
+    import _ from "lodash";
+    import { mapGetters } from "vuex";
     export default {
         name: 'BrandShow',        
         components: {
-            fixedcommentbox,
-            InfiniteLoading,
+            FixedComment,
             Multiselect,
         },
         data() {
@@ -116,13 +122,17 @@
                 selected_brand: null,
                 selected: null,
                 page: 1,
-                is_mobile: window.is_mobile,
                 infiniteId: +new Date(),
             };
         },
+        computed: mapGetters({
+            auth_user: 'auth/user',        
+        }),
         mounted() {
             this.getBrands();
-            this.scroll();
+            if(process.client) {
+                this.scroll();
+            }
         },
         methods: {
             getBrands() {
@@ -168,7 +178,7 @@
                 this.selected = this.posts[index];
             },
             likeMedia(item) {
-                if (window.user) {
+                if (this.auth_user) {
                     const params = {
                         target_id: item.id,
                         target_model: "post"
@@ -180,10 +190,10 @@
                             item.user_liked = false;
                         } else {
                             item.user_liked = true;
-                            if(window.user != item.user_id) {                           
+                            if(this.auth_user.id != item.user_id) {                           
                                 let noti_fb = firebase.database().ref('notifications/' + item.user_id).push();
                                 noti_fb.set({
-                                    notifier_id: window.user,
+                                    notifier_id: this.auth_user.id,
                                     type: 'like',
                                 }); 
                             }
@@ -194,7 +204,7 @@
                 }
             },
             goToProfile(item) {
-                window.location.href = item.username;
+                window.location.href = "/" + item.username;
             },
             scroll() {
                 var header = document.getElementById("brand_menus");
@@ -210,7 +220,15 @@
             },
             selectBrand(selected_brand, id) {
                  $(".filter_portal").siblings('label').addClass('focused');
-                window.location.href = selected_brand.username;
+                window.location.href = "/" + selected_brand.username;
+            },
+            serverUrl(item) {
+                if(item.charAt(0) != '/'){item = '/' + item;}
+                try {
+                    return process.env.serverUrl + item;
+                } catch (error) {
+                    return process.env.serverUrl + 'imgs/default.png';
+                }
             }
         }
     }
@@ -231,6 +249,7 @@
     .brand-nav {
         .nav-item {
             .nav-link {
+                cursor: pointer;
                 color: #EFA720;
             }
         }

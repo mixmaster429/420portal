@@ -15,6 +15,9 @@ const routes = [
   { path: '/marijuana-strains/:strain', name: 'strain_detail', component: page('StrainDetail.vue') },
   { path: '/medical-recreational-marijuana-dispensary-delivery/:state?/:city?', name: 'map_page', component: page('MapPage.vue')},
 
+  { path: '/marijuana-coupons', name: 'coupon', component: page('Coupon.vue') },
+  { path: '/marijuana-brands', name: 'brand', component: page('Brand.vue') },
+
   { path: '/mobile/media/edit', name: 'edit_media', component: page('media/EditMedia.vue') },
 
   { path: '/login', name: 'login', component: page('auth/login.vue') },

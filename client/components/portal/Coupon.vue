@@ -11,20 +11,19 @@
                             </div>
                         </label>
                         <div style="width:50%;margin:auto;">
-                            <div class="pa_progress progress d-block" style="height:10px;" v-if="media_progress">
+                            <div class="pa_progress progress d-block" style="height:10px;" v-if="uploading">
                                 <div class="progress-bar progress-bar-striped progress-bar-animated" :style="{width: media_progress + '%'}"></div>
                             </div>
                         </div>
-                        <!-- <span class="btn-remove-media" @click="removeMedia()" v-if="is_edit && coupon_media"><i class="far fa-times-circle"></i></span> -->
-                        <!-- <input type="file" hidden id="coupon_media_select" name="postfile"  class="btn-file" accept="image/*" /> -->
 
                         <file-upload
+                            name="postfile"
                             class="text-420"
                             extensions="gif,jpg,jpeg,png,webp"
                             accept="image/png,image/gif,image/jpeg,image/webp"
                             ref="upload"
                             v-model="files"
-                            post-action="/media/upload"
+                            :post-action="upload_url"
                             @input-file="inputFile"
                             @input-filter="inputFilter"
                         >Add Media</file-upload>
@@ -74,8 +73,8 @@
         <div class="coupon-detail result-container" v-if="coupon && !is_edit">
             <div class="result-media">
                 <div class="media">
-                    <img :src="coupon.media.url" v-if="coupon.media && coupon.media.type == 'image'" alt="" />
-                    <img :src="portal.media.url" v-else-if="portal.media && portal.media.type == 'image'" alt="" />
+                    <img :src="serverUrl(coupon.media.url)" v-if="coupon.media && coupon.media.type == 'image'" alt="" />
+                    <img :src="serverUrl(portal.media.url)" v-else-if="portal.media && portal.media.type == 'image'" alt="" />
                     <img src="/imgs/default.png" v-else alt="" />
                 </div>
             </div>
@@ -138,6 +137,7 @@
                 selected_strain: null,
                 media_progress: 0,
                     
+                upload_url: process.env.serverUrl + '/api/media/upload',
                 files: [],
                 uploadProgress: 5,
                 uploading: false,
@@ -305,7 +305,6 @@
             selectedStrain(option) {
                 this.coupon_form.strain_id = option.id;
             },
-
             inputFile(newFile, oldFile){
                 let _this = this;
                 this.$refs.upload.active = true;
@@ -323,15 +322,11 @@
                     }
                     // Uploaded successfully
                     if (newFile.success !== oldFile.success) {
-                        // setTimeout(function(){
-                        //     // $(".progress").hide()
-                        //     _this.uploading = false;
-                        //     _this.$emit('messagesent', {
-                        //         message: newFile.response.url,
-                        //         file: true,
-                        //         created_at: newFile.response.created_at
-                        //     });
-                        // }, 1000);
+                        setTimeout(function(){
+                            _this.uploading = false;
+                            _this.coupon_form.media_url = newFile.response.fileurl,
+                            _this.coupon_media = process.env.serverUrl + newFile.response.fileurl;
+                        }, 1000);
                     }
                 }
             },
@@ -344,6 +339,14 @@
                     }
                 }
             },
+            serverUrl(item) {
+                if(item.charAt(0) != '/'){item = '/' + item;}
+                try {
+                    return process.env.serverUrl + item;
+                } catch (error) {
+                    return process.env.serverUrl + 'imgs/default.png';
+                }
+            }
         }
     }
 </script>

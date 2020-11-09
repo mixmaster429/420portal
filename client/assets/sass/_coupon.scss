@@ -1,0 +1,92 @@
+.coupon_page {
+    .coupon_header {
+        color: #EFA720;
+        padding: 10px;
+        border-radius: 5px;
+        position: sticky;
+        top: 75px;
+        background-color: black;
+        z-index: 8;
+        cursor: pointer;
+    }
+
+    .coupon-item {
+        padding: 6px 10px;
+        border: 1px solid white;
+        margin-bottom: 8px;
+        display: block;
+        text-decoration: none;
+        .coupon-header {
+            display: flex;
+            align-items: center;
+            .coupon-logo {
+                img {
+                    width: 50px;
+                    height: 50px;
+                    border-radius: 100px;
+                    object-fit: cover;
+                }
+            }
+
+            .company-details {
+                margin-left: 10px;
+                max-width: calc(100% - 60px);
+                p {
+                    margin: 0;
+                    text-decoration: none;
+                    &.company_name {
+                        color: #EFA720;
+                        font-size: 18px;
+                        overflow: auto;
+                        white-space: pre;
+                        text-overflow: ellipsis;
+                    }
+
+                    &.distance {
+                        color: white;
+                        line-height: 14px;
+                        margin-top: -2px;
+                    }
+                }
+            }
+        }
+
+        .coupon-body {
+            .coupon-desc {
+                p {
+                    line-height: 18px;
+                    color: #EFA720;
+                    margin: 8px 0 5px;
+                    overflow: auto;
+                    text-overflow: ellipsis;
+                    height: 37px;
+                    text-decoration: none;
+                }
+            }
+
+            .expire-date {
+                span {
+                    color: white;
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+}
+
+
+@media (max-width: 800px) {
+    .coupon_page {
+        padding-top: 55px;
+        .coupon_header {
+            position: fixed;
+            top: 43px;
+            left: 0;
+            padding-top: 15px;
+            font-size: 28px;
+            width: 100%;
+            border-bottom: solid 1px #FFF;
+            border-radius: 0;
+        }
+    }
+}
