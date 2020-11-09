@@ -1,6 +1,6 @@
 <template>
     <div class="layout" id="app" v-touch:swipe="toggleSidebar">
-        <left-sidebar :active="leftsidebarflag" v-if="$device.isMobile"></left-sidebar>
+        <left-sidebar :active="leftsidebarflag"></left-sidebar>
         <top-nav />
 
         <div class="container-fluid">

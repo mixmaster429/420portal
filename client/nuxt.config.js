@@ -6,6 +6,12 @@ const webpack = require("webpack");
 module.exports = {
   // mode: 'spa', // Comment this for SSR
 
+  generate: {
+    minify: {
+      collapseWhitespace: false
+    }
+  },
+
   server: {
     port: process.env.CLIENT_PORT, // default: 3000
   },

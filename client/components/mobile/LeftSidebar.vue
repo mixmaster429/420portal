@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="$device.isMobile">
         <vs-sidebar parent="body" default-index="1" color="primary" class="sidebarx" spacer v-model="flag">
             <div class="container-fluid">
                 <div class="row">

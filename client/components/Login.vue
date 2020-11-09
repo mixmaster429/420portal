@@ -106,8 +106,8 @@ export default {
 
             // Redirect home.
             //   this.$router.push({ name: 'home' })
-            window.location.reload();
-            // $("#loginmodal").modal('hide');
+            // window.location.reload();
+            $("#loginmodal").modal('hide');
         },
         async requestResetPassword() {
             console.log('request reset password');

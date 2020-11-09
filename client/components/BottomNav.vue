@@ -34,11 +34,10 @@
                                         <p>Add Media</p>
                                     </a>
                                 </router-link>                                
-                                <li v-else>
+                                <a href="#" v-else>
                                     <img src="~assets/imgs/add.png" alt="">
                                     <p>Add Media</p>
-                                </li>
-                                
+                                </a>                                
                             </template>
                             
                             <a v-else href="#" class="myprofile">
