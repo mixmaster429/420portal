@@ -100,6 +100,21 @@ Route::middleware(['auth:api'])->group(function ($router){
     $router->get('/strain/show/{id}', 'StrainController@show_mobile');
     $router->post('/marijuana-strains/follow', 'StrainController@follow');
     $router->put('/marijuana-strains/modal/{id}', 'StrainController@updateModal');
+
+    // Admin Panel
+
+    $router->any('/admin/post/all', 'AdminBlogController@index');
+    $router->get('/admin/post/add', 'AdminBlogController@create');
+    $router->post('/admin/post/add', 'AdminBlogController@store');
+    $router->post('/admin/post/{id}/update', 'AdminBlogController@update');
+    $router->get('/admin/post/{id}/delete', 'AdminBlogController@destroy');    
+
+    Route::get('/admin/category', 'AdminCategoryController@index');
+    Route::post('/admin/category/add', 'AdminCategoryController@store');
+    Route::post('/admin/category/{id}/update', 'AdminCategoryController@update');
+    Route::get('/admin/category/{id}/delete', 'AdminCategoryController@destroy');
+    Route::get('/admin/category/order/{id}/up', 'AdminCategoryController@upOrder');
+    Route::get('/admin/category/order/{id}/down', 'AdminCategoryController@downOrder');
 });
 
 Route::group(['middleware' => 'auth:api'], function () {

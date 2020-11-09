@@ -16,11 +16,10 @@ class AdminCategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
-    {
-        $categories = NewsCategory::orderBy('order')->paginate(4);
+    public function index(Request $request) {
+        $categories = NewsCategory::orderBy('order')->get();
         $max = $this->getNewOrder()-1;
-        return view('admin.category.index', compact('categories', 'max'));
+        return response()->json(['categories' => $categories, 'max' => $max]);
     }
 
     /**
@@ -86,15 +85,13 @@ class AdminCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreNewsCategory $request, $slug)
+    public function update(Request $request, $id)
     {
-        $request->validated();
-        $category = NewsCategory::where('slug', $slug)->first();
+        $category = NewsCategory::find($id);
         $category->name = $request->name;
         $category->slug = convertNameToSlug($request->name);
         $category->save();
-
-        return redirect()->route('admin.category');
+        return response()->json(['status' => 200]);
     }
 
     /**
@@ -155,7 +152,7 @@ class AdminCategoryController extends Controller
         $changeWillCategory->order = $remarkable_order + 1;
         $changeWillCategory->save();
 
-        return redirect()->back()->with('message', 'Changed category order');
+        return response()->json(['status' => 200]);
     }
 
     /**
@@ -175,6 +172,6 @@ class AdminCategoryController extends Controller
         $changeWillCategory->order = $remarkable_order - 1;
         $changeWillCategory->save();
 
-        return back()->with('message', 'Changed category order');
+        return response()->json(['status' => 200]);
     }
 }

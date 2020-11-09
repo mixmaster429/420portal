@@ -40,22 +40,22 @@ class AdminBlogController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StorePost $request)
+    public function store(Request $request)
     {
-        $request->validated();
         $post = new Post();
         $post->title = $request->title;
         $post->slug = convertNameToSlug($request->title);
         $post->description = $request->description;
-        $post->category = implode(',', $request->category);
+        $post->category = implode(',', $request->categories);
         $post->meta_title = $request->meta_title;
         $post->meta_description = $request->meta_description;
         $post->meta_keywords = $request->meta_keywords;
-        if($request->hasFile('image'))
-            $post->image = upload_file($request->file('image'), 'news');
+        // if($request->hasFile('image'))
+        //     $post->image = upload_file($request->file('image'), 'news');
+        $post->image = $request->get('image');
         $post->save();
-        $post->categories()->attach($request->category);        
-        return back()->with('message', 'Saved successfully.');
+        $post->categories()->attach($request->categories);        
+        return response()->json(['status' => 200, 'post' => $post]);
     }
 
     public function edit($id)
@@ -65,22 +65,22 @@ class AdminBlogController extends Controller
         return view('admin.blog.add', compact('post', 'categories'));
     }
 
-    public function update(StorePost $request, $id)
+    public function update(Request $request, $id)
     {
-        $request->validated();
         $post = Post::find($id);
         $post->title = $request->title;
         $post->slug = convertNameToSlug($request->title);
         $post->description = $request->description;
-        $post->category = implode(',', $request->category);
+        $post->category = implode(',', $request->categories);
         $post->meta_title = $request->meta_title;
         $post->meta_description = $request->meta_description;
         $post->meta_keywords = $request->meta_keywords;
-        if($request->hasFile('image'))
-            $post->image = upload_file($request->file('image'), 'news');
+        // if($request->hasFile('image'))
+        //     $post->image = upload_file($request->file('image'), 'news');
+        $post->image = $request->get('image');
         $post->save();
-        $post->categories()->sync($request->category);
-        return back()->with('message', 'Updated successful');
+        $post->categories()->sync($request->categories);
+        return response()->json(['status' => 200, 'post' => $post]);
     }
 
     /**
@@ -94,6 +94,6 @@ class AdminBlogController extends Controller
         $post = Post::find($id);
         remove_file($post->image);
         $post->delete();
-        return back()->with('message', 'Deleted successful');
+        return response()->json(['status' => 200]);
     }
 }

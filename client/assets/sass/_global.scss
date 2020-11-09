@@ -68,8 +68,11 @@ input.form-control:focus {
 }
 
 .card,
+.card-header,
 .card-body,
+.card-footer,
 .modal-body {
+    color: #FFF;
     background-color: black !important;
 }
 

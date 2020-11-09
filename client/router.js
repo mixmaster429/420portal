@@ -30,14 +30,27 @@ const routes = [
   { path: '/email/verify/:id', name: 'verification.verify', component: page('auth/verification/verify.vue') },
   { path: '/email/resend', name: 'verification.resend', component: page('auth/verification/resend.vue') },
 
-  // { path: '/settings',
-  //   component: page('settings/index.vue'),
-  //   children: [
-  //     { path: '', redirect: { name: 'settings.profile' } },
-  //     { path: 'profile', name: 'settings.profile', component: page('settings/profile.vue') },
-  //     { path: 'password', name: 'settings.password', component: page('settings/password.vue') }
-  //   ] 
-  // },
+  { path: '/settings',
+    component: page('settings/index.vue'),
+    children: [
+      { path: '', redirect: { name: 'settings.profile' } },
+      { path: 'profile', name: 'settings.profile', component: page('settings/profile.vue') },
+      { path: 'password', name: 'settings.password', component: page('settings/password.vue') }
+    ] 
+  },
+
+  { path: '/admin',
+    component: page('admin/Index.vue'),
+    children: [
+      { path: '', redirect: { name: 'admin.post' } },
+      { path: 'post', name: 'admin.post', component: page('admin/post/Index.vue') },
+      { path: 'post/:mode', name: 'admin.post_form', component: page('admin/post/Form.vue') },
+      { path: 'category', name: 'admin.category', component: page('admin/Category.vue') },
+    ] 
+  },
+
+
+
   { path: '/:username', name: 'profile', component: page('Profile.vue') },
 ]
 

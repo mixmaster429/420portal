@@ -44,9 +44,9 @@
                                 <p><a class="category-link" category-key="0" category-slug="all" style="color:#efa720;cursor:pointer;">All ({{news_data.posts.length}})</a></p>
                                 <p v-for="(category, c_index) of news_data.categories" :key="c_index"><a class="category-link" :category-key="category.id" :category-slug="category.slug" style="color:#efa720;cursor:pointer;" @click="selectCategory(category)">{{`${category.name} (${category.posts_count})`}}</a></p>
                                 <div class="marijuananews-admin">
-                                    <a href="#" v-if="auth_user && (auth_user.name == '420portal' || auth_user.name == 'writer')">
+                                    <router-link :to="{name: 'admin.post'}" v-if="auth_user && (auth_user.name == '420portal' || auth_user.name == 'writer')">
                                         <img src="/imgs/add1.png" />
-                                    </a>
+                                    </router-link>
                                 </div>
                             </div>
                             <div class="card comment-section original" id="news_comment_box">
