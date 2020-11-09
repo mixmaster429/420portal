@@ -14,7 +14,7 @@
                             <a href="javascript:;" v-else>⇓</a>
                         </td>
                         <td>{{item.name}}</td>
-                        <td width="150">
+                        <td width="110">
                             <a href="javascript:;" @click="editCategory(item)">Edit</a>
                             <a href="javascript:;" @click="deleteCategory(item)" class="ml-2">Delete</a>
                         </td>

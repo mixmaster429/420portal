@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-12">
             <div class="container px-0" id="news_show">
-                <div class="row marijuananewsec">
+                <div class="row marijuananewsec" style="margin-bottom: 70px;">
                     <div class="col-md-8 marijuananewsecleft">
                         <input type="hidden" name="selected_category" class="selected_category" value="0">
                         <div class="page-title">
@@ -57,7 +57,7 @@
                                     <page-comment :page="post" model="news"></page-comment>
                                 </div>
                             </div>
-                        </div>                        
+                        </div>
                     </div>
                 </div>
             </div>

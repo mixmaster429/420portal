@@ -6,7 +6,7 @@
                 <tbody>
                     <tr v-for="(post, index) of posts" :key="index">
                         <td>{{post.title}}</td>
-                        <td>
+                        <td width="110">
                             <router-link :to="{name: 'admin.post_form', params: {mode: 'edit', post: post}}">Edit</router-link>
                             <a href="javascript:;" @click="deletePost(post)" class="ml-2">Delete</a>
                         </td>
