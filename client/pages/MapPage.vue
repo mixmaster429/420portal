@@ -21,7 +21,7 @@
         },
         data: function () {
             return {
-                page_title: '',
+                page_title: 'Marijuana Dispensaries & Deliveries',
             }
         },
         watch: {
