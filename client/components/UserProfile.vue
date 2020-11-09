@@ -1,5 +1,5 @@
 <template>
-    <div class="row pt-3" v-if="user" id="userprofile" style="max-height:100vh;overflow-y:auto">
+    <div class="row pt-3 pb-5" v-if="user" id="userprofile" style="max-height:100vh;overflow-y:auto">
         <div class="container">
             <div v-if="userdata" class="profile-data">
                 <div class="profile_header row">
@@ -112,13 +112,19 @@
             <div class="row postmedia original" id="portaMedia" style="margin-right: 15px; margin: 0 auto;">
                 <div class="col-md-8 posts" style="min-height: calc(100vh - 395px);">
                     <div class="row">
-                        <div :key="item.id" class="col-4 media_container" v-for="(item, index) of posts">
+                        <div class="col-4 media_container" v-for="(item, index) of posts" :key="index">
                             <div v-if="$device.isMobile" class="media">
-                                <router-link :to="{ name: 'weedgram', hash:`#${index+1}`, params: {allpost : posts, start_index: index+1, page: page, model: 'user', currentId : userdata.id}}">
-                                    <img v-bind:src="serverUrl(item.url)" alt v-if="item.type == 'image'" />
-                                    <video v-bind:src="serverUrl(item.url)" alt v-if="item.type == 'video'" disablePictureInPicture controlsList="nodownload" onclick="this.paused ? this.play() : this.pause();"></video>
-                                    <img class="video__tag__mobile" style="width:25px;" v-if="item.type==='video'" src="https://i.imgur.com/88aBgwi.png" alt="">
-                                </router-link>
+                                <client-only>
+                                    <router-link :to="{ 
+                                            name: 'weedgram', 
+                                            hash:`#${index+1}`, 
+                                            params: {allpost: posts, start_index: index+1, page: page, model: 'user', currentId : userdata.id}
+                                        }">
+                                        <img v-bind:src="serverUrl(item.url)" alt v-if="item.type == 'image'" />
+                                        <video v-bind:src="serverUrl(item.url)" alt v-if="item.type == 'video'" disablePictureInPicture controlsList="nodownload" onclick="this.paused ? this.play() : this.pause();"></video>
+                                        <img class="video__tag__mobile" style="width:25px;" v-if="item.type==='video'" src="https://i.imgur.com/88aBgwi.png" alt="">
+                                    </router-link>
+                                </client-only>
                             </div>
                             <div v-else class="media" @click="changeimage(index)" @dblclick="likeMedia(item)">
                                 <img :src="serverUrl(item.url)" alt v-if="item.type == 'image'" />

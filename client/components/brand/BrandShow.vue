@@ -39,14 +39,14 @@
                         <div class="col-4 media_container" v-for="(item, index) of posts" :key="index">
                             <div v-if="$device.isMobile" class="media">
                                 <router-link :to="{ name: 'Weedgram', hash:`#${index+1}`, params: {allpost : posts, start_index: index+1, page: page, model: 'brand', category : tab}}">
-                                    <img :src="item.url" v-if="item.type == 'image'" />
-                                    <video :src="item.url" alt v-if="item.type == 'video'" disablePictureInPicture controlsList="nodownload" onclick="this.paused ? this.play() : this.pause();"></video>
+                                    <img :src="serverUrl(item.url)" v-if="item.type == 'image'" />
+                                    <video :src="serverUrl(item.url)" alt v-if="item.type == 'video'" disablePictureInPicture controlsList="nodownload" onclick="this.paused ? this.play() : this.pause();"></video>
                                     <img class="video__tag__mobile" style="width:35px;" v-if="item.type==='video'" src="https://i.imgur.com/88aBgwi.png" alt="">
                                 </router-link>
                             </div>
                             <div v-else class="media" @click="changeimage(index)" @dblclick="likeMedia(item)">
-                                <img :src="item.url" v-if="item.type == 'image'" />                            
-                                <video :src="item.url" alt v-if="item.type == 'video'" disablePictureInPicture controlsList="nodownload" onclick="this.paused ? this.play() : this.pause();"></video>
+                                <img :src="serverUrl(item.url)" v-if="item.type == 'image'" />                            
+                                <video :src="serverUrl(item.url)" alt v-if="item.type == 'video'" disablePictureInPicture controlsList="nodownload" onclick="this.paused ? this.play() : this.pause();"></video>
                                 <img class="video__tag__mobile" style="width:35px;" v-if="item.type==='video'" src="https://i.imgur.com/88aBgwi.png" alt="">
                                 <div class="menu-info">
                                     <p class="category">{{item.menu.category.price_type == 2 ? 'Flower | ' + item.menu.category.name : item.menu.category.name}}{{item.menu.strain ? ' | '+item.menu.strain.name : ''}}</p>

@@ -18,6 +18,9 @@ const routes = [
   { path: '/marijuana-coupons', name: 'coupon', component: page('Coupon.vue') },
   { path: '/marijuana-brands', name: 'brand', component: page('Brand.vue') },
 
+  { path: '/marijuana-news', name: 'news', component: page('News.vue') },
+  { path: '/marijuana-news/:slug', name: 'news_detail', component: page('NewsDetail.vue') },
+
   { path: '/mobile/media/edit', name: 'edit_media', component: page('media/EditMedia.vue') },
 
   { path: '/login', name: 'login', component: page('auth/login.vue') },

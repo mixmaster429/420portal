@@ -41,7 +41,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#">
+                            <a href="/marijuana-news">
                                 <img src="~assets/imgs/news.png" alt="">
                                 <p>News</p>
                             </a>
@@ -112,7 +112,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#">
+                            <a href="/marijuana-news">
                                 <img src="~assets/imgs/news.png" alt="">
                                 <p>News</p>
                             </a>

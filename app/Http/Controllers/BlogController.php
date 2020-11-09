@@ -21,12 +21,7 @@ class BlogController extends Controller
         }
 
         $posts = $mod->orderBy('created_at', 'desc')->get();
-
-        if($request->get('from') == 'app'){
-            return response()->json(['categories' => $categories, 'posts' => $posts]);
-        } else { 
-            return view('blog.index', compact('categories', 'posts'));
-        }
+        return response()->json(['categories' => $categories, 'posts' => $posts]);
     }
 
     /**
@@ -35,11 +30,11 @@ class BlogController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($slug)
-    {
+    public function show($slug) {
         $post = Post::where('slug', $slug)->first();
+        $post->load('comments');
         $categories = NewsCategory::withCount('posts')->orderBy('order', 'asc')->get();
-        return view('blog.show', compact('categories', 'post'));
+        return response()->json(['post' => $post, 'categories' => $categories]);
     }
 
     public function getNewsByCategory(Request $request)

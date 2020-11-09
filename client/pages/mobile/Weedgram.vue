@@ -9,14 +9,14 @@
                 <div class="slide_media" v-for="(item, index) in posts" :key="index" :id="index+1">
                     <div class="media_header">
                         <div class="user_logo">
-                            <a :href="item.user.username">
+                            <a :href="'/' + item.user.username">
                                 <img :src="serverUrl(item.user.profile_pic ? item.user.profile_pic.url : default_logo)" alt="Profile picture" />
                             </a>
                         </div>
                         <div class="user_details flex-column">
                             <div class="user_holder d-flex align-items-center">
                                 <div class="user_data">
-                                    <a :href="item.user.username" class="username">{{item.user.name}}</a>
+                                    <a :href="'/' + item.user.username" class="username">{{item.user.name}}</a>
                                     <span class="px-2" style="color: #fff !important;" v-show="logged_user_id != item.user_id">•</span>
                                     <span class="followuser" @click="follow(item.user_id)" v-show="logged_user_id != item.user_id" v-if="!item.isfollower">Follow</span>
                                     <img src="~assets/imgs/unfollow.png" alt class="pf-unfollow" @click="unfollow(item.user_id)" v-show="logged_user_id != item.user_id" v-if="item.isfollower" />
@@ -89,7 +89,7 @@
                     </div>
                     <div class="media_description">
                         <p v-if="item.description">
-                            <a :href="item.user.username">
+                            <a :href="'/' + item.user.username">
                                 <img :src="serverUrl(item.user.profile_pic ? item.user.profile_pic.url : default_logo)" alt />
                                 {{item.user.name}}
                             </a>
@@ -104,8 +104,8 @@
                         </router-link>
                         <div class="v_comment_box">
                             <div class="proifle-img">
-                                <img class="userlogo" :src="user.profile_pic.url" v-if="user !== null && user.profile_pic !== null" alt />
-                                <img class="userlogo" v-else src="~assets/imgs/default_sm.png" />
+                                <img class="userlogo" :src="serverUrl(user.profile_pic.url)" v-if="user !== null && user.profile_pic !== null" alt />
+                                <img class="userlogo" v-else src="/imgs/default_sm.png" />
                             </div>
                             <div class="commentbox">
                                 <textarea rows="1"
@@ -174,7 +174,9 @@
         },
         created() {
             this.posts = this.$route.params.allpost;
-            window.addEventListener('scroll', this.handleScroll);
+            if(process.client) {
+                window.addEventListener('scroll', this.handleScroll);
+            }
         },
         mounted() {
             if(process.client) {
@@ -202,9 +204,12 @@
             if (this.user) {
                 this.logged_user_id = this.user.id;
             }
-            this.$nextTick(function(){
-                window.addEventListener('scroll', this.handleScroll);
-            });  
+            if(process.client) {
+                this.$nextTick(function(){
+                    window.addEventListener('scroll', this.handleScroll);
+                });
+            }
+              
 
             if(this.model == 'strain') {
                 $('#strain_show_page').hide();
