@@ -240,10 +240,10 @@ class MediaController extends Controller
         } elseif (strstr($mime, 'image')) {
             $file_type = 'image';
             $destinationPath = 'uploaded/image';
-            $ImageUpload = Image::make($file)->resize(600, null, function ($constraint) {
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            })->orientate();
+            // $ImageUpload = Image::make($file)->resize(600, null, function ($constraint) {
+            //     $constraint->aspectRatio();
+            //     $constraint->upsize();
+            // })->orientate();
         }
 
         $ext = $file->getClientOriginalExtension();
@@ -254,11 +254,11 @@ class MediaController extends Controller
             $filename = get_filename($request->get('username'))."_marijuana_".time().'.'.$ext;
         }
 
-        if ('video' === $file_type) {
+        // if ('video' === $file_type) {
             $file->move($destinationPath, $filename);
-        } elseif ('image' === $file_type) {
-            $ImageUpload->save($destinationPath.'/'.$filename, 85);
-        }
+        // } elseif ('image' === $file_type) {
+        //     $ImageUpload->save($destinationPath.'/'.$filename, 85);
+        // }
 
         $return = [];
         $return['fileurl'] = '/'.$destinationPath.'/'.$filename;

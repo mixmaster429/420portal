@@ -18,7 +18,7 @@
                                     <img src="~assets/imgs/unfollow.png" alt class="pf-unfollow" @click="unfollow()" v-show="logged_user_id != selected.user_id" v-if="isfollower" />
                                 </p>
                                 <p v-if="selected.user.type != 'user'">
-                                    <img src="/dispensary.png" alt v-if="selected.user.store_type === 1 || selected.user.store_type === 3" />
+                                    <img src="/imgs/dispensary.png" alt v-if="selected.user.store_type === 1 || selected.user.store_type === 3" />
                                     <img src="/imgs/delivery.png" alt v-if="selected.user.store_type === 2 || selected.user.store_type === 3" />
                                     <img src="/imgs/brand.png" alt v-if="selected.user.type == 'brand'" />
                                 </p>

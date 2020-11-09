@@ -10,8 +10,8 @@
                             <div class="logo">
                                 <img :src="profile_pic" class="signup_logo" alt="" v-show="profile_pic">
                             </div>
-                            <div class="progress" id="progress_logo" style="height: 10px; width: 150px; margin: 10px auto; display: none;">
-                                <div class="progress-bar bg-warning progress-bar-striped progress-bar-animated"></div>
+                            <div class="progress" id="progress_logo" style="height: 10px; width: 150px; margin: 10px auto; display: none;" v-show="uploading">
+                                <div class="progress-bar bg-warning progress-bar-striped progress-bar-animated" :style="{width: uploadProgress + '%'}"></div>
                             </div>
                             <file-upload
                                 name="postfile"
@@ -101,10 +101,16 @@ export default {
     head () {
         return { title: 'Register' }
     },
+    watch: {
+        'form.name': function (newName, oldName) {
+            this.form.username = newName;
+        }
+    },
     data: () => ({
         form: new Form({
             logo: '',
             name: '',
+            username: '',
             email: '',
             password: '',
         }),
@@ -116,11 +122,10 @@ export default {
         uploading: false,
     }),
     methods: {
-
         async register () {
             // Register the user
             const { data } = await this.form.post('/register')
-            if (data.status) {
+            if (data) {
                 // Log in the user.
                 const { data: { token } } = await this.form.post('/login')
 
@@ -134,7 +139,6 @@ export default {
                 this.$router.push({ name: 'home' })
             }
         },
-
         
         inputFile(newFile, oldFile){
             let _this = this;
@@ -144,7 +148,6 @@ export default {
                     this.uploading = true
                 }
                 if (newFile.progress !== oldFile.progress) {
-                    // console.log('progress', newFile.progress)
                     this.uploadProgress = newFile.progress
                 }
                 // Uploaded error
@@ -161,8 +164,8 @@ export default {
                         //     file: true,
                         //     created_at: newFile.response.created_at
                         // });
-                        _this.form.logo = response.url;
-                        _this.profile_pic = process.env.serverUrl + response.url;
+                        _this.form.logo = newFile.response.fileurl;
+                        _this.profile_pic = process.env.serverUrl + newFile.response.fileurl;
                     }, 1000);
                 }
             }

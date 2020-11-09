@@ -4,10 +4,14 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\User;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+
+use App\Models\Media;
+use App\Mail\SendEmail;
+use Illuminate\Support\Facades\Mail;
 
 class RegisterController extends Controller
 {
@@ -30,14 +34,14 @@ class RegisterController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\JsonResponse
      */
-    protected function registered(Request $request, User $user)
-    {
-        if ($user instanceof MustVerifyEmail) {
-            return response()->json(['status' => trans('verification.sent')]);
-        }
+    // protected function registered(Request $request, User $user)
+    // {
+    //     if ($user instanceof MustVerifyEmail) {
+    //         return response()->json(['status' => trans('verification.sent')]);
+    //     }
 
-        return response()->json($user);
-    }
+    //     return response()->json($user);
+    // }
 
     /**
      * Get a validator for an incoming registration request.
@@ -50,7 +54,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|min:6|confirmed',
+            'password' => 'required|min:6',
         ]);
     }
 
@@ -62,10 +66,32 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
+            'username' => $data['name'],
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'is_active' => 1,
         ]);
+        $user_id = $user->id;
+
+        $media = Media::create([
+            'url' => $data['logo'],
+            'user_id' => $user_id,
+            'model' => 'profile',
+            'type' => 'image'
+        ]);
+
+        $media_id = $media->id;
+
+        $user->media_id = $media_id;
+        $user->save();
+
+        $mdata = array();
+        $mdata['user_name'] = $data['name'];
+        $toEmail = $data['email'];
+        // Mail::to($toEmail)->send(new SendEmail($mdata, $user));
+
+        return $user;
     }
 }
