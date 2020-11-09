@@ -551,16 +551,17 @@
             }
         },
         created() {
-
+            if(process.client) {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(this.showPosition);
+                } else {
+                    alert(
+                        "Geolocation is not supported by this browser. \n Please enable it."
+                    );
+                }   
+            }
         },
         mounted() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(this.showPosition);
-            } else {
-                alert(
-                    "Geolocation is not supported by this browser. \n Please enable it."
-                );
-            }
             this.init();
             var self = this;
             $(document).on('mouseleave', '.filter-dropdown-toggle', function(){

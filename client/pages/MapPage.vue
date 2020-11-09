@@ -1,7 +1,5 @@
 <template>
-    <client-only>
-        <map-page :page_title="page_title"></map-page>
-    </client-only>
+    <map-page :page_title="page_title"></map-page>
 </template>
 
 <script>
