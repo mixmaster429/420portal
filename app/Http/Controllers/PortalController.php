@@ -123,7 +123,9 @@ class PortalController extends Controller
         }
 
         $type_array = $request->get('business_type');
-        array_push($type_array, 3);
+        if(count($type_array) == 2) {
+            array_push($type_array, 3);
+        }        
         $mod = $mod->whereIn('store_type', $type_array);
 
         if(in_array('recreational', $request->get('filters')) && !in_array('medical', $request->get('filters'))) {
@@ -131,9 +133,6 @@ class PortalController extends Controller
         }
         if(in_array('medical', $request->get('filters')) && !in_array('recreational', $request->get('filters'))) {
             $mod = $mod->where('medical', 1);
-        }
-        if(!in_array('medical', $request->get('filters')) && !in_array('recreational', $request->get('filters'))) {
-            $mod = $mod->where('recreational', '!=', 1)->where('medical', '!=', 1);
         }
         $all_companies_array = User::whereType('company')->pluck('id');
         $menu_mod = new Menu();
