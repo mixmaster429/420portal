@@ -7,7 +7,7 @@
                         <!-- Name -->
                         <div class="profile_picture">
                             <h5 style="font-size: 22px;color:white;">Profile Photo</h5>
-                            <div class="logo">
+                            <div class="logo" @click="openFileDialog()">
                                 <img :src="profile_pic" class="signup_logo" alt="" v-show="profile_pic">
                             </div>
                             <div class="progress" id="progress_logo" style="height: 10px; width: 150px; margin: 10px auto; display: none;" v-show="uploading">
@@ -27,9 +27,9 @@
                             <input type="hidden" id="logo_url" name="logo" v-model="form.logo">
                         </div>
                         <div class="form-group floating-label">
-                            <input v-model="form.name" :class="{ 'is-invalid': form.errors.has('name') }" type="text" name="name" class="floating-input" placeholder=" " />
-                            <label class="">Name</label>
-                            <has-error :form="form" field="name" />              
+                            <input v-model="form.username" :class="{ 'is-invalid': form.errors.has('username') }" type="text" name="username" class="floating-input" placeholder=" " />
+                            <label class="">Username</label>
+                            <has-error :form="form" field="username" />              
                         </div>
 
                         <!-- Email -->
@@ -64,8 +64,8 @@
                             </div>
                         </div>
 
-                        <p style="color: white;font-size:18px;">
-                            Already have an account?<a href="#" style="color: #EFA720;" data-toggle="modal" data-target="#loginmodal">Sign in</a>
+                        <p style="color: white;font-size:18px;text-align:center">
+                            Already have an account? <a href="#" style="color: #EFA720;" data-toggle="modal" data-target="#loginmodal">Sign in</a>
                         </p>
                     </form>
                 </div>
@@ -102,8 +102,8 @@ export default {
         return { title: '420Portal - Register' }
     },
     watch: {
-        'form.name': function (newName, oldName) {
-            this.form.username = newName;
+        'form.username': function (newName, oldName) {
+            this.form.name = newName;
         }
     },
     data: () => ({
@@ -178,6 +178,9 @@ export default {
                 }
             }
         },
+        openFileDialog() {
+            // this.$refs.upload.open();
+        }
     }
 }
 </script>
