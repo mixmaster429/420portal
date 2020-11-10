@@ -165,7 +165,7 @@
                                     <div class="col-md-6 pl-md-0 pr-md-3" id="panel_menu_search">
                                         <div class="pt-md-5" style="width:170px;">
                                             <div class="form-group floating-label">
-                                                <input type="text" class="form-control floating-input" placeholder=" " id="filter_product" v-model="top_filter.menu_strain" autocomplete="off" />
+                                                <input type="text" class="form-control floating-input" placeholder=" " id="filter_product" :value="top_filter.menu_strain" @input="searchBrandProduct(e)" autocomplete="off" />
                                                 <label for="" style="font-size:14.4px">Search Brands &amp; Products</label>
                                             </div>
                                             <div class="form-group floating-label" v-if="top_filter.selected_category">
@@ -731,6 +731,9 @@
             },
             searchPortalClose(){
                 $("#app").removeClass('focus_comment');
+            },
+            searchBrandProduct(e) {
+                this.top_filter.menu_strain = e.target.value;
             },
             serverUrl(item) {
                 if(item.charAt(0) != '/'){item = '/' + item;}

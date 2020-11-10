@@ -16,7 +16,7 @@
                         <div class="media" @mouseover="item.show_description = true" @mouseleave="item.show_description = false" v-else>
                             <img src="~assets/imgs/default.png" alt="" />
                         </div>
-                        <div class="item-description" v-show="item.description && item.show_description" @mouseover="item.show_description = true" @mouseleave="item.show_description = false">{{item.description}}</div>
+                        <div class="item-description" v-if="item.description && item.show_description" @mouseover="item.show_description = true" @mouseleave="item.show_description = false">{{item.description}}</div>
                     </div>
                     <div class="result-data" @click="goPortalProfile(item)">
                         <p class="category-strain my-0">
@@ -135,8 +135,8 @@
             
             .item-description {
                 width: 520px;
-                top: 90px;
-                min-height: 80px;
+                top: 75px;
+                min-height: 70px;
                 border: solid 1px gray;
                 background-color: #000;
                 position: absolute;

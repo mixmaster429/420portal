@@ -1,14 +1,14 @@
 <template>
     <div class="tabs-content pt-2" id="strain_followers">
-        <button class="btn btn-primary btn-block">Followers</button>
+        <div class="bg-420 text-center py-1" style="font-size:18px;">Followers</div>
         <div class="followers mt-1">
             <ul>
                 <li class="mb-0" v-for="(follower, index) of followers" :key="index">
                     <div class="follower-logo" @click="goToUserProfile(follower)">
                         <img :src="serverUrl(follower.url)"/>
                     </div>
-                    <div class="username" @click="goToUserProfile(follower)">
-                        <p>{{follower.name}}</p>
+                    <div class="username">
+                        <span @click="goToUserProfile(follower)">{{follower.name}}</span>
                     </div>
                     <div class="action text-center">
                         <img src="~/assets/imgs/follow-icon.png" v-if="follower.is_follower == 0" @click="follower.is_private ? followRequest(follower) : follow(follower)"/>
@@ -102,7 +102,7 @@
                 }
             },
             goToUserProfile(item) {
-                // window.location.href = item.username;
+                window.location.href = "/" + item.name;
             },
             serverUrl(item) {
                 if(item.charAt(0) != '/'){item = '/' + item;}

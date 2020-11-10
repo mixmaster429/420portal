@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-12">
             <div class="container">
-                <div class="row mt-5">
+                <div class="row mt-5" style="margin-bottom: 80px;">
                     <div class="col-md-3">
                         <div class="card settings-card">
                             <div class="card-header"><h4 class="mb-0">Admin Panel</h4></div>

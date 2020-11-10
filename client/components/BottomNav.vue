@@ -34,10 +34,11 @@
                                         <p>Add Media</p>
                                     </a>
                                 </router-link>                                
-                                <a href="#" v-else>
+                                <!-- <a href="#" v-else>
                                     <img src="~assets/imgs/add.png" alt="">
                                     <p>Add Media</p>
-                                </a>                                
+                                </a> -->
+                                <add-media></add-media>
                             </template>
                             
                             <a v-else href="#" class="myprofile">
@@ -72,8 +73,12 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import AddMedia from "./media/AddMedia";
 
 export default {
+    components: {
+        AddMedia,
+    },
 
     data: () => ({
         appName: process.env.appName

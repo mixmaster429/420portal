@@ -43,7 +43,6 @@
                 margin-bottom: 15px;
                 display:flex;
                 align-items:center;
-                cursor: pointer;
                 .follower-logo {
                     width: 18%;
                     img {
@@ -51,6 +50,7 @@
                         height: 40px;
                         border-radius: 100%;
                         object-fit: cover;
+                        cursor: pointer;
                     }
                 }
                 .username {
@@ -60,6 +60,7 @@
                     p {
                         margin-bottom: 0px;
                     }
+                    span {cursor: pointer;}
                     img {
                         width: 20px;
                         height: 20px;
@@ -71,6 +72,7 @@
                     text-align: center;
                     img {
                       height: 25px;
+                      cursor: pointer;
                     }
                 }
             }

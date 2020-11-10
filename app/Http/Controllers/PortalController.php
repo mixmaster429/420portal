@@ -132,6 +132,9 @@ class PortalController extends Controller
         if(in_array('medical', $request->get('filters')) && !in_array('recreational', $request->get('filters'))) {
             $mod = $mod->where('medical', 1);
         }
+        if(!in_array('medical', $request->get('filters')) && !in_array('recreational', $request->get('filters'))) {
+            $mod = $mod->where('recreational', '!=', 1)->where('medical', '!=', 1);
+        }
         $all_companies_array = User::whereType('company')->pluck('id');
         $menu_mod = new Menu();
         $menu_mod = $menu_mod->where('is_active', 1)->whereIn('portal_id', $all_companies_array);

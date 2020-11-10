@@ -55,6 +55,11 @@ Route::post('/brand/get_category_media', 'BrandController@getCategoryMedia');
 Route::post('/marijuana-news', 'BlogController@index');
 Route::get('/marijuana-news/{slug}', 'BlogController@show');
 
+
+Route::post('/portals', 'PortalController@getAllPortals');
+Route::get('/users', 'UserController@api');
+Route::get('/marijuana-strains', 'StrainController@api');
+
 Route::middleware(['auth:api'])->group(function ($router){
     $router->post('/profile/like', 'LikeController@likeProfile');
     $router->post('/profile/unlike', 'LikeController@unlikeProfile');

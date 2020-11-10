@@ -66,13 +66,15 @@ input.form-control:focus {
     border-color: #EFA720;
     color: black;
 }
+.card-header {
+    color: #FFF;
+}
 
 .card,
 .card-header,
 .card-body,
 .card-footer,
 .modal-body {
-    color: #FFF;
     background-color: black !important;
 }
 
@@ -421,6 +423,9 @@ input.form-control:focus {
     height: 100% !important;
     padding-right: 70px !important;
     background-color: black !important;
+    &.focused {
+        box-shadow: none !important;
+    }
     .emojionearea-filter {
         padding: 0 !important;
     }

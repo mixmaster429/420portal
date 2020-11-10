@@ -184,4 +184,8 @@
             line-height: 2.5;
         }
     }
+    
+    .form-check-label {
+        cursor: pointer;
+    }
 </style>
