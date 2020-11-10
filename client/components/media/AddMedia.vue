@@ -12,11 +12,11 @@
                 <p>Media</p>
             </a>
         </div>
-        <div @click="addMedia=true" color="primary" text-color="#000" type="flat">
+        <div @click="addMedia = true" color="primary" text-color="#000" type="flat">
             <img class="img-fluid h-50" src="/imgs/add.png" alt="Add Strain" />
             <p>Add Media</p>
         </div>
-        <vs-popup v-if="addMedia" class="strains__popup media__add" type="border" title :active.sync="addMedia">
+        <vs-popup class="strains__popup media__add" type="border" title :active.sync="addMedia">
             <add-form :from="from"></add-form>
         </vs-popup>
     </div>

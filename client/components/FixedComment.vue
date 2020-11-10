@@ -198,23 +198,24 @@
                 </div>
             </div>
         </div>
-        <!-- <vs-popup v-if="sendata" class="strains__popup media__add" type="border" title="Edit Media" :active.sync="editMedia"> -->
-            <!-- {{editData}} -->
-            <!-- <add-form :mainData="selected" :editData="sendata" mode="edit" :from="from"></add-form>
-        </vs-popup> -->
+        <vs-popup class="strains__popup media__add" type="border" title="Edit Media" :active.sync="editMedia">
+            <add-form :mainData="selected" :editData="sendata" mode="edit" :from="from"></add-form>
+        </vs-popup>
     </div>
 </template>
 
 <script>
     import EditMedia from "./media/EditMedia";
-    import firebase from "../Firebase";    
-    import { mapGetters } from 'vuex'
+    import firebase from "../Firebase";
+    import { mapGetters } from 'vuex';
+    import AddForm from "./media/AddForm";
 
     export default {
         name: "FixedComment",
         props: ["media", "allposts"],
         components: {
             EditMedia,
+            AddForm,
         },
         watch: {
             media: function(newVal, oldVal) {
@@ -276,7 +277,7 @@
                     const index = selectedItem.findIndex(data);
                     selectedItem.splice(index, 1);
                     this.selected = selectedItem[0];
-                    toastr["success"]("Media has been deleted", "");
+                    this.$toast.success("Media has been deleted", "");
                 });
             },
             deletecomment(id) {

@@ -1,43 +1,43 @@
 <template>
-    <form @submit.prevent="type()" id="addMediaForm">
+    <form @submit.prevent="type()" id="addMediaForm" class="mt-3">
         <div class="form-group text-center">
             <div class="logo" v-if="mediaType !== 'video' && mode === 'edit'">
-                <img v-if="mediaType === 'image'" class="signup_logo" v-bind:src="mediaData" />
+                <img v-if="mediaType === 'image'" class="signup_logo" :src="mediaData" />
             </div>
             <div v-if="mediaData.length > 0">
                 <video v-if="mediaType === 'video'" width="320" height="240" controls disablepictureinpicture controlslist="nodownload">
-                    <source v-bind:src="mediaData" type="video/mp4" />
-                    <source v-bind:src="mediaData" type="video/webm" />
-                    <source v-bind:src="mediaData" type="video/ogg" />Your browser does not support the video tag.
+                    <source :src="mediaData" type="video/mp4" />
+                    <source :src="mediaData" type="video/webm" />
+                    <source :src="mediaData" type="video/ogg" />Your browser does not support the video tag.
                 </video>
             </div>
             <div v-if="mode==='add'">
                 <label v-if="mediaData" class="mt-2 upload__label" for="file">
                     <div class="logo" for="file" v-if="mediaType !== 'video'">
-                        <img v-if="mediaType === 'image'" class="signup_logo" v-bind:src="mediaData" style="image-orientation: from-image;" />
+                        <img v-if="mediaType === 'image'" class="signup_logo" :src="mediaData" style="image-orientation: from-image;" />
                     </div>Change
                 </label>
                 <label v-else class="mt-2 upload__label" for="file">
                     <div class="logo" for="file" v-if="mediaType !== 'video'">
-                        <img v-if="mediaType === 'image'" class="signup_logo" v-bind:src="mediaData" />
+                        <img v-if="mediaType === 'image'" class="signup_logo" :src="mediaData" />
                     </div>Add Media
                 </label>
                 <input type="file" hidden required id="file" name="file" class="btn-file" @change="previewImage" accept="image/*|video/*" />
             </div>
         </div>
 
-        <div class="floating-label" @click="handleScroll" v-show="!is_mobile || (is_mobile && mediaData != '')">
+        <div class="floating-label" @click="handleScroll" v-show="!$device.isMobile || ($device.isMobile && mediaData != '')">
             <textarea v-model="description" class="form-control media-description floating-textarea" rows="2" placeholder=" " id="media-description"></textarea>
             <label for="media-description">Description</label>
         </div>
 
-        <div class="floating-label" @click="handleScroll" style="position: relative" v-show="!is_mobile || (is_mobile && mediaData != '')" v-if="auth_user && auth_user.type == 'user'">
+        <div class="floating-label" @click="handleScroll" style="position: relative" v-show="!$device.isMobile || ($device.isMobile && mediaData != '')" v-if="auth_user && auth_user.type == 'user'">
             <label v-bind:class="[floatUserLabel ? 'multi-select__label float-label' : 'multi-select__label']" for="users__select">Tag Users</label>
-            <multiselect v-model="taggedUsers" id="users__select" class="users__select floating-input floating-select" label="name" open-direction="bottom" track-by="id" placeholder :options="users" :searchable="true" :multiple="true" :loading="userLoading" :showLabels="false" :internal-search="false" :clear-on-select="false" :close-on-select="true" :options-limit="5" :limit="8" :max-height="600" :show-no-results="false" :showNoOptions="false" :hide-selected="true" @search-change="asyncFind($event, 'user')" @open="floatUserLabel = true" @select="floatUserLabel = true" @close="taggedUsers.length >= 1 ? floatUserLabel = true : floatUserLabel = false" @remove="taggedUsers.length >= 1 ? '' : floatUserLabel = false">
+            <multiselect v-model="taggedUsers" class="users__select floating-input floating-select" label="name" open-direction="bottom" track-by="id" placeholder :options="users" :searchable="true" :multiple="true" :loading="userLoading" :showLabels="false" :internal-search="false" :clear-on-select="false" :close-on-select="true" :options-limit="5" :limit="8" :max-height="600" :show-no-results="false" :showNoOptions="false" :hide-selected="true" @search-change="asyncFind($event, 'user')" @open="floatUserLabel = true" @select="floatUserLabel = true" @close="taggedUsers.length >= 1 ? floatUserLabel = true : floatUserLabel = false" @remove="taggedUsers.length >= 1 ? '' : floatUserLabel = false">
                 <template slot="tag" slot-scope="{ option, remove }">
                     <span class="custom__tag">
                         <span>{{ option.name }}</span>
-                        <span class="custom__remove" @click="remove(option)"><i class="fas fa-times ml-1"></i></span>
+                        <span class="custom__remove" @click="remove(option)"><fa icon="times" fixed-width class="ml-1"></fa></span>
                     </span>
                 </template>
                 <template slot="clear" slot-scope="props">
@@ -49,14 +49,14 @@
             </multiselect>
         </div>
 
-        <div class="floating-label" @click="handleScroll" style="position: relative" v-show="!is_mobile || (is_mobile && mediaData != '')" v-if="!from && auth_user && auth_user.type == 'user'">
-            <label v-bind:class="[floatCompanyLabel ? 'multi-select__label float-label' : 'multi-select__label']" for="companies__select">Tag Companies</label>
-            <multiselect v-model="taggedCompanies" id="companies__select" class="companies__select floating-input floating-select" v-bind:class="[taggedCompanies.length >= 1 ? 'select__disable' : '']" label="username" track-by="id" placeholder open-direction="bottom" :options="companies" :searchable="isCompanySearchable" :multiple="true" :loading="companyLoading" :showLabels="false" :internal-search="false" :clear-on-select="true" :close-on-select="true" :options-limit="5" :limit="1" :max="1" :max-height="companyMaxHeight" :show-no-results="false" :showNoOptions="false" :hide-selected="true" @search-change="asyncFind($event, 'company')" @open="floatCompanyLabel = true" @select="onSelect('company')" @close="onClose('company')" @remove="onRemove('company')">
+        <div class="floating-label" @click="handleScroll" style="position: relative" v-show="!$device.isMobile || ($device.isMobile && mediaData != '')" v-if="!from && auth_user && auth_user.type == 'user'">
+            <label v-bind:class="[floatCompanyLabel ? 'multi-select__label float-label' : 'multi-select__label']">Tag Companies</label>
+            <multiselect v-model="taggedCompanies" class="companies__select floating-input floating-select" v-bind:class="[taggedCompanies.length >= 1 ? 'select__disable' : '']" label="username" track-by="id" placeholder open-direction="bottom" :options="companies" :searchable="isCompanySearchable" :multiple="true" :loading="companyLoading" :showLabels="false" :internal-search="false" :clear-on-select="true" :close-on-select="true" :options-limit="5" :limit="1" :max="1" :max-height="companyMaxHeight" :show-no-results="false" :showNoOptions="false" :hide-selected="true" @search-change="asyncFind($event, 'company')" @open="floatCompanyLabel = true" @select="onSelect('company')" @close="onClose('company')" @remove="onRemove('company')">
                 <template slot="tag" slot-scope="{ option, remove }">
                     <span class="custom__tag">
                 <span>{{ option.username }}</span>
                     <span class="custom__remove" @click="remove(option)">
-                <i class="fas fa-times ml-1"></i>
+                <fa icon="times" fixed-width class="ml-1"></fa>
                 </span>
                     </span>
                 </template>
@@ -70,11 +70,10 @@
             </multiselect>
         </div>
 
-        <div class="floating-label" @click="handleScroll" style="position: relative" v-show="!is_mobile || (is_mobile && mediaData != '')">
+        <div class="floating-label" @click="handleScroll" style="position: relative" v-show="!$device.isMobile || ($device.isMobile && mediaData != '')">
             <label v-bind:class="[floatStrainLabel ? 'multi-select__label float-label' : 'multi-select__label']" for="strains__select">Tag Marijuana Strain</label>
             <multiselect
                 v-model="taggedStrains"
-                id="strains__select"
                 class="strains__select floating-input floating-select"
                 label="name"
                 open-direction="bottom"
@@ -103,7 +102,7 @@
                     <span class="custom__tag">
                         <span>{{ option.name }}</span>
                         <span class="custom__remove" @click="remove(option)">
-                            <i class="fas fa-times ml-1"></i>
+                            <fa icon="times" fixed-width class="ml-1"></fa>
                         </span>
                     </span>
                 </template>
@@ -118,7 +117,7 @@
         </div>
 
         <input type="hidden" name="model" :value="model = 'post'" />
-        <div class="form-group" v-show="!is_mobile || (is_mobile && mediaData != '')">            
+        <div class="form-group" v-show="!$device.isMobile || ($device.isMobile && mediaData != '')">            
             <button class="btn btn-primary mt-2 d-block px-3 mx-auto d-flex align-items-center" style="font-size: 20px;" :disabled="loading">
                 <span v-if="loading" class="spinner-border text-dark spinner-border-sm mr-1"></span>
                 <span v-if="mode === 'add'">Post</span>
@@ -189,7 +188,6 @@ export default {
             strainMaxHeight: 600,
             isCompanySearchable: true,
             isStrainSearchable: true,
-            is_mobile: window.is_mobile,
         };
     },
     computed: mapGetters({
@@ -201,14 +199,14 @@ export default {
         this.$root.$on("eventing", () => {
             this.update();
         });
-        $("#media-description").emojioneArea({
+        $("#addMediaForm .media-description").emojioneArea({
             pickerPosition: "bottom",
             search: false,
             autocomplete: false,
             placeholder: " ",
             events: {
                 blur: function (editor, event) {
-                    _this.description = $("#media-description").data('emojioneArea').getText();
+                    _this.description = $("#addMediaForm .media-description").data('emojioneArea').getText();
                     if(_this.description == '') {
                         $("#media-description").siblings('label').removeClass('focused');
                     }
@@ -218,24 +216,25 @@ export default {
                 }
             }
         });
-        this.mode === "edit" && this.fetchData(this.editData);
+        console.log(this.mode)
+        this.mode === "edit" && this.editData && this.fetchData(this.editData);
     },
     watch: {
         editData: function(newVal, oldVal) {
-                this.selected = newVal;
-                this.fetchData(newVal);
-            }
-            // $route: 'fetchData(editData)'
+            this.selected = newVal;
+            this.fetchData(newVal);
+        }
+        // $route: 'fetchData(editData)'
     },
     methods: {
         fetchData(id) {
             this.description = this.mainData.description;
-            $("#media-description").data('emojioneArea').setText(this.mainData.description);
+            $("#addMediaForm .media-description").data('emojioneArea').setText(this.mainData.description);
             if(this.description) {
                 $("#media-description").siblings('label').addClass('focused');
             }
             this.mediaType = this.mainData.type;
-            this.mediaData = this.mainData.url;
+            this.mediaData = this.serverUrl(this.mainData.url);
             this.taggedUsers = this.mainData.tagged_usersData ? this.mainData.tagged_usersData : "";
             this.taggedCompanies = this.mainData.tagged_companyData ? this.mainData.tagged_companyData : "";
             this.taggedStrains = this.mainData.tagged_strainData ? this.mainData.tagged_strainData : "";
@@ -297,7 +296,7 @@ export default {
                 .then(res => {
                     this.loading = false;
                     // console.log('response data is', res.data);
-                    toastr["success"]("Edited Successfully.", "");
+                    this.$toast.success("Edited Successfully.", "");
                     if(this.auth_user) {
                         if(this.from) {
                             this.axios.post('/get/portal', {id : this.from}).then(response => {
@@ -310,7 +309,7 @@ export default {
                         window.location.href = '/';
                     }
                 })
-                .catch(e => {toastr["error"]("Error editing media", "");this.loading = false;});
+                .catch(e => {this.$toast.error("Error editing media", "");this.loading = false;});
             
         },
         save() {
@@ -342,15 +341,16 @@ export default {
             this.loading = true;
             this.axios.post(url, formData, headers)
                 .then(res => {
+                    console.log('success');
                     this.loading = false;
-                    toastr["success"]("Media has been added", "");
+                    this.$toast.success("Media has been added", "");
                     if(this.auth_user) {                        
-                        window.location.href = this.auth_user.username;                        
+                        window.location.href = "/" + this.auth_user.username;                        
                     } else {
                         window.location.href = '/';
                     }
                 })
-                .catch(e => {toastr["error"]("Error adding media", "");this.loading = true;});
+                .catch(e => {this.$toast.error("Error adding media", ""); console.log('error'); this.loading = true;});
         },
         getData() {
             const req1 = this.axios.post(this.companiesUrl);
@@ -580,6 +580,14 @@ export default {
             //   top: offsetPosition,
             //   behavior: "smooth"
             // });
+        },
+        serverUrl(item) {
+            if(item.charAt(0) != '/'){item = '/' + item;}
+            try {
+                return process.env.serverUrl + item;
+            } catch (error) {
+                return process.env.serverUrl + 'imgs/default.png';
+            }
         }
     }
 };
@@ -720,6 +728,8 @@ export default {
 .media__add .multiselect__content-wrapper {
     background-color: #000 !important;
 }
+
+
 </style>
 
 <style lang="scss">
@@ -730,10 +740,13 @@ export default {
                 border-bottom: solid 1px white;
                 border-radius: 0;
                 padding-right: 30px !important;
+                overflow-x: unset;
+                overflow-y: unset;
             }
             .emojionearea-editor {
                 white-space: normal !important;
                 padding-right: 0 !important;
+                min-height: 60px !important;
             }
             .emojionearea-button {
                 div {

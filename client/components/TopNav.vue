@@ -2,7 +2,7 @@
     <header class="sticky-top">
         <div class="container">
             <!-- Desktop Nav -->
-            <div class="row desktop_nav" v-if="!$device.isMobile">
+            <div class="row desktop_nav">
                 <div class="col col-3 logo_image">
                     <a href="/">
                         <img src="~assets/imgs/logo.png" height="50" alt="">
@@ -74,11 +74,10 @@
                 </div>
             </div> 
             <!-- Mobile Nav -->
-            <div class="row mobile_nav" v-else>
+            <div class="row mobile_nav">
                 <div class="logo_image">
                     <a href="/"><img src="~assets/imgs/logo.png" height="50" alt=""></a>
                 </div>
-
                 <div class="nav_bar">
                     <ul>
                         <li class="nav-item">

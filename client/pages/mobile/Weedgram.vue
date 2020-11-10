@@ -285,7 +285,7 @@
                     const index = selectedItem.findIndex(data);
                     selectedItem.splice(index, 1);
                     // this.selected = selectedItem[0];
-                    toastr["success"]("Media has been deleted", "");
+                    this.$toast.success("Media has been deleted", "");
                 });
             },
             likepost(index) {

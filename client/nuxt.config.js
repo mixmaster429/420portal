@@ -65,7 +65,8 @@ module.exports = {
 
   modules: [
     '@nuxtjs/router',
-    '@nuxtjs/device'
+    '@nuxtjs/device',
+    '@nuxtjs/toast',
   ],
 
   build: {
@@ -96,5 +97,10 @@ module.exports = {
         }
       }
     }
+  },
+
+  toast: {
+    position: 'top-right',
+    duration: 1000,
   }
 }

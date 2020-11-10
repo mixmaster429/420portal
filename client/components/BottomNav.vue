@@ -33,15 +33,11 @@
                                         <img src="~assets/imgs/add.png" alt="">
                                         <p>Add Media</p>
                                     </a>
-                                </router-link>                                
-                                <!-- <a href="#" v-else>
-                                    <img src="~assets/imgs/add.png" alt="">
-                                    <p>Add Media</p>
-                                </a> -->
-                                <add-media></add-media>
+                                </router-link>
+                                <add-media v-else></add-media>
                             </template>
                             
-                            <a v-else href="#" class="myprofile">
+                            <a v-else href="javascript:;" @click="openLoginModal()" class="myprofile">
                                 <img src="~assets/imgs/add.png" alt="">
                                 <p>Add Media</p>
                             </a>
@@ -89,6 +85,9 @@ export default {
     }),
 
     methods: {
+        openLoginModal() {
+            $("#loginmodal").modal();
+        },
         serverUrl(item) {
             if(item.charAt(0) != '/'){item = '/' + item;}
             try {

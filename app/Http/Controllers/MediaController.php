@@ -275,10 +275,10 @@ class MediaController extends Controller
             $destinationPath = 'uploaded/video';
         } elseif ('image' === $file_type) {
             $destinationPath = 'uploaded/image';
-            $ImageUpload = Image::make($file)->resize(600, null, function ($constraint) {
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            })->orientate();
+            // $ImageUpload = Image::make($file)->resize(600, null, function ($constraint) {
+            //     $constraint->aspectRatio();
+            //     $constraint->upsize();
+            // })->orientate();
         }
 
         $ext = $file->getClientOriginalExtension();
@@ -291,11 +291,11 @@ class MediaController extends Controller
             $filename = 'm-'.auth()->user()->name.'-'.auth()->id().'-'.time().'.'.$ext;
         }
 
-        if ('video' === $file_type) {
+        // if ('video' === $file_type) {
             $file->move($destinationPath, $filename);
-        } elseif ('image' === $file_type) {
-            $ImageUpload->save($destinationPath.'/'.$filename, 85);
-        }
+        // } elseif ('image' === $file_type) {
+        //     $ImageUpload->save($destinationPath.'/'.$filename, 85);
+        // }
 
         $media = new Media();
 
@@ -317,9 +317,9 @@ class MediaController extends Controller
         $media->user->update([
             'updated_at' => date('Y-m-d H:i:s'),
         ]);
-        if($media->type == 'video') {
-            $media->convert_video();
-        }
+        // if($media->type == 'video') {
+        //     $media->convert_video();
+        // }
         $media->taggedUsers()->attach(json_decode($request->taggedUsers));
 
         return response()->json($media);
@@ -437,10 +437,10 @@ class MediaController extends Controller
         } elseif (strstr($mime, 'image')) {
             $file_type = 'image';
             $destinationPath = 'uploaded/image';
-            $ImageUpload = Image::make($file)->resize(600, null, function ($constraint) {
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            })->orientate();
+            // $ImageUpload = Image::make($file)->resize(600, null, function ($constraint) {
+            //     $constraint->aspectRatio();
+            //     $constraint->upsize();
+            // })->orientate();
         }
 
         $ext = $file->getClientOriginalExtension();
@@ -452,17 +452,17 @@ class MediaController extends Controller
             $filename = get_filename($request->get('username'))."_marijuana_".time().'.'.$ext;
         }
 
-        if ('video' === $file_type) {
+        // if ('video' === $file_type) {
             $file->move($destinationPath, $filename);
-            $videoFilePath = $destinationPath .'/'. $filename;
-            $thumbnailFile = 'uploaded/image/m'.$fileTime.'.jpg';
-            FFMpeg::fromDisk('video_root')
-            ->open($videoFilePath)
-            ->frame(FFMpeg\Coordinate\TimeCode::fromSeconds(0.2))
-            ->save($thumbnailFile);
-        } elseif ('image' === $file_type) {
-            $ImageUpload->save($destinationPath.'/'.$filename, 85);
-        }
+            // $videoFilePath = $destinationPath .'/'. $filename;
+            // $thumbnailFile = 'uploaded/image/m'.$fileTime.'.jpg';
+            // FFMpeg::fromDisk('video_root')
+            // ->open($videoFilePath)
+            // ->frame(FFMpeg\Coordinate\TimeCode::fromSeconds(0.2))
+            // ->save($thumbnailFile);
+        // } elseif ('image' === $file_type) {
+        //     $ImageUpload->save($destinationPath.'/'.$filename, 85);
+        // }
 
         $return = [];
         $return['fileurl'] = '/'.$destinationPath.'/'.$filename;

@@ -80,6 +80,19 @@ input.form-control:focus {
 
 // Components
 
+
+header {
+    // position: fixed;
+    // top: 0;
+    z-index: 10;
+    width: 100%;
+    height: 73px;
+    background-color: white;
+    .mobile_nav {
+        display: none;
+    }
+}
+
 .postmedia {
     .posts {
         padding: 0 7%;

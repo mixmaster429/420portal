@@ -82,9 +82,13 @@ Route::middleware(['auth:api'])->group(function ($router){
     $router->post('/like/unlike', 'LikeController@delete');
     $router->post('/bookmark/store', 'SaveController@store');
     $router->post('/bookmark/delete', 'SaveController@destroy');
-    $router->post('/media', 'MediaController@api_store');
+
+    $router->post('/media/api_store', 'MediaController@api_store');
+    $router->post('/media', 'MediaController@store');
     $router->post('/media/update', 'MediaController@api_update');    
-    $router->get('/media/{media}', 'MediaController@destroy');
+    $router->get('/media/{media}', 'MediaController@destroy');   
+    $router->put('/media/{media}', 'MediaController@update'); 
+    $router->delete('/media/{media}', 'MediaController@destroy');
 
     $router->post('/portals/list', 'PortalController@list');
     $router->post('/users/list', 'UserController@list');    
