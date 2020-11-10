@@ -19,6 +19,8 @@ const routes = [
   { path: '/marijuana-news', name: 'news', component: page('News.vue') },
   { path: '/marijuana-news/:slug', name: 'news_detail', component: page('NewsDetail.vue') },
 
+  { path: '/media/:id', name: 'media', component: page('Media.vue') },
+
   { path: '/mobile/slideshow', name: 'weedgram', component: page('mobile/Weedgram.vue') },
   { path: '/mobile/comment', name: 'comment', component: page('mobile/Comment.vue') },
   { path: '/mobile/media/add', name: 'add_media', component: page('mobile/AddMedia.vue') },

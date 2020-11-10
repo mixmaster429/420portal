@@ -1,5 +1,5 @@
 <template>
-    <map-page :page_title="page_title"></map-page>
+    <map-page :page_title="map_location.page_title"></map-page>
 </template>
 
 <script>
@@ -17,11 +17,6 @@
                     { hid: 'keywords', name: 'keywords', content: `${this.map_location.city ? this.map_location.city.name.toLowerCase() + ', ' : ''}${this.map_location.state ? this.map_location.state.name.toLowerCase() + ', ' : ''}marijuana, weed, dispensary, collective, delivery, medical, recreational, cannabis`},
                     { hid: 'description', name: 'description', content: `Find Your Weed! Search for Marijuana Dispensaries, Deliveries and Collectives${this.map_location.state ? ' in ' : ''}${this.map_location.city ? this.map_location.city.name + ', ' : ''}${this.map_location.state ? this.map_location.state.name : ''}. Medical and Recreational Cannabis.`}
                 ],
-            }
-        },
-        data: function () {
-            return {
-                page_title: 'Marijuana Dispensaries & Deliveries',
             }
         },
         watch: {
@@ -43,7 +38,6 @@
             if (!this.map_location) {
                 this.fetchMapLocation();
             }
-            this.page_title = `${this.map_location.city ? this.map_location.city.name + ', ' : ''}${this.map_location.state ? this.map_location.state.name + ' - ' : ''}Marijuana Dispensaries & Deliveries`
         },
         methods: {
             fetchMapLocation () {

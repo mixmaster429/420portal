@@ -3,12 +3,14 @@ import axios from 'axios'
 export const state = () => ({
     news_data: '',
     news: '',
+    media: null,
 })
 
 // getters
 export const getters = {
     news_data: state => state.news_data,
     news: state => state.news,
+    media: state => state.media,
 }
 
 // mutations
@@ -19,6 +21,10 @@ export const mutations = {
 
     FETCH_NEWS (state, data) {
         state.news = data
+    },
+
+    FETCH_MEDIA(state, data) {
+        state.media = data
     }
 }
 
@@ -42,6 +48,16 @@ export const actions = {
             commit('FETCH_NEWS', data.post)
         } catch (e) {
             console.log(e)
+        }
+    },
+
+    async fetchMedia({commit}, id) {
+        try {
+            let uri = `/media/show/${id}`;
+            const { data } = await axios.get(uri);
+            commit ('FETCH_MEDIA', data);
+        } catch (e) {
+            console.log(e);
         }
     }
 }

@@ -420,11 +420,7 @@ class MediaController extends Controller
 
         $count_comment = $media->comments()->count();
         $media['count_comment'] = $count_comment;
-        if($request->get('type') == 'api') {
-            return response()->json($media);
-        } else {
-            return view('media.index', compact('media'));
-        }        
+        return response()->json($media);      
     }
 
     public function api_add(Request $request) {

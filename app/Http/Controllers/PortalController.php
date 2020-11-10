@@ -368,10 +368,20 @@ class PortalController extends Controller
             $city_slug = str_replace('_', ' ', $city_slug);
             $city = City::where('name', $city_slug)->first();
         }
+        $page_title = "Marijuana Dispensaries & Deliveries";
+        if ($state){
+                $page_title = $state->name . " - Marijuana Dispensaries & Deliveries";
+            if ($city){
+                $page_title = $city->name . ", " . $state->name . " - Marijuana Dispensaries & Deliveries";
+            }
+        }
+
+        // $page_title = $city != '' ? $city->name . ', ' : '' . $state != '' ? $state->name . ' - ' : '' . 'Marijuana Dispensaries & Deliveries';
         return response()->json([
             'status' => 200,
             'state' => $state,
             'city' => $city,
+            'page_title' => $page_title,
         ]);
     }
 
