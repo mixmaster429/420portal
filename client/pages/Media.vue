@@ -1,5 +1,16 @@
 <template>
-    
+    <div class="row justify-content-center mb-5 mb-md-0">
+        <div class="col-12">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-10">
+                        <show-media :selected="media"></show-media>
+                    </div>
+                </div>
+            </div>            
+        </div>
+        <page-footer v-if="$device.isDesktop"></page-footer>
+    </div>
 </template>
 
 <script>
@@ -13,16 +24,24 @@
         },        
         head () {
             return {
-                title: 'Marijuana News - Marijuana Blog',
+                title: this.media.meta.title,
                 meta: [
-                    { hid: 'title', name: 'title', content: 'Marijuana News - Marijuana Blog' },
-                    { hid: 'keywords', name: 'keywords', content: 'marijuana news, marijuana blog, marijuana articles' },
-                    { hid: 'description', name: 'description', content: "Keep up with Marijuana News from all over the World. We write Marijuana articles that's happening today." }
+                    { hid: 'title', name: 'title', content: this.media.meta.title },
+                    { hid: 'keywords', name: 'keywords', content: this.media.meta.keywords },
+                    { hid: 'description', name: 'description', content: this.media.meta.description }
                 ],
             }
         },
         serverPrefetch() {
             return this.fetchMedia();
+        },
+        data() {
+            return {
+                selected: null,
+            };
+        },
+        watch: {
+            media: 'setLocalState'
         },
         computed: mapGetters({
             media: 'prefetch/media',
@@ -34,7 +53,10 @@
         },
         methods: {
             fetchMedia() {
-                return this.$store.dispatch('prefetch/fetchMedia', this.$router.params.id);
+                return this.$store.dispatch('prefetch/fetchMedia', this.$route.params.id);
+            },
+            setLocalState(value) {
+                this.selected = Object.assign({}, value);
             }
         }
     }

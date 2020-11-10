@@ -8,7 +8,7 @@
                             <div class="user_detail">
                                 <div class="profile_image">
                                     <a :href="media.user.username">
-                                        <img :src="media.user.profile_pic ? media.user.profile_pic.url : default_logo" alt />
+                                        <img :src="serverUrl(media.user.profile_pic ? media.user.profile_pic.url : default_logo)" alt />
                                     </a>
                                 </div>
                                 <div class="username">
@@ -41,23 +41,23 @@
                 </div>
             </div>
             <div class="media">
-                <img :src="media.url" alt v-if="media.type == 'image'" />
-                <video :src="media.url" alt v-if="media.type == 'video'" disablePictureInPicture controlsList="nodownload" onclick="this.paused ? this.play() : this.pause();"></video>
+                <img :src="serverUrl(media.url)" alt v-if="media.type == 'image'" />
+                <video :src="serverUrl(media.url)" alt v-if="media.type == 'video'" disablePictureInPicture controlsList="nodownload" onclick="this.paused ? this.play() : this.pause();"></video>
                 <img class="video__tag__mobile" style="width:35px;" v-if="media.type==='video'" src="https://i.imgur.com/88aBgwi.png" alt="">
             </div>
-            <div class="icon-panel clearfix media_toolbar" v-if="$device.isMobile">
-                <div class="heart_icon" @click="likepost" v-if="!media.user_liked">
+            <div class="icon-panel clearfix media_toolbar" v-if="$device.isMobile && local_media">
+                <div class="heart_icon" @click="likepost" v-if="!local_media.user_liked">
                     <fa :icon="['far', 'heart']" fixed-width></fa>
-                    <p>{{media.likes}}</p>
+                    <p>{{local_media.likes}}</p>
                 </div>
                 <div class="heart_icon" @click="unlikepost" v-else>
                     <fa icon="heart" fixed-width></fa>
-                    <p>{{media.likes}}</p>
+                    <p>{{local_media.likes}}</p>
                 </div>
                 <div class="comment_icon" @click="focuscomment">
                     <fa :icon="['far', 'comment']" fixed-width></fa>
                 </div>
-                <div class="bookmark_icon" @click="addbookmark" v-if="!media.user_saved">
+                <div class="bookmark_icon" @click="addbookmark" v-if="!local_media.user_saved">
                     <fa :icon="['far', 'bookmark']" fixed-width></fa>
                 </div>
                 <div class="bookmark_icon" @click="removebookmark" v-else>
@@ -73,7 +73,7 @@
                             <div class="user_detail">
                                 <div class="profile_image">
                                     <a :href="media.user.username">
-                                        <img :src="media.user.profile_pic ? media.user.profile_pic.url : default_logo" alt />
+                                        <img :src="serverUrl(media.user.profile_pic ? media.user.profile_pic.url : default_logo)" alt />
                                     </a>
                                 </div>
                                 <div class="username">
@@ -108,7 +108,7 @@
                     <div class="image_description" v-if="media.description">
                         <div class="userlogo">
                             <a :href="media.user.username">
-                                <img :src="media.user.profile_pic ? media.user.profile_pic.url : default_logo" alt />
+                                <img :src="serverUrl(media.user.profile_pic ? media.user.profile_pic.url : default_logo)" alt />
                             </a>
                         </div>
                         <div class="description">
@@ -129,7 +129,7 @@
                         <div class="comment">
                             <div class="userlogo">
                                 <a :href="item.user.username">
-                                    <img :src="item.user.profile_pic ? item.user.profile_pic.url : default_logo" />
+                                    <img :src="serverUrl(item.user.profile_pic ? item.user.profile_pic.url : default_logo)" />
                                 </a>
                             </div>
 
@@ -156,7 +156,7 @@
                             <div class="sub_comment">
                                 <div class="userlogo">
                                     <a :href="sub_item.user.username">
-                                        <img :src="sub_item.user.profile_pic ? sub_item.user.profile_pic.url : default_logo" alt />
+                                        <img :src="serverUrl(sub_item.user.profile_pic ? sub_item.user.profile_pic.url : default_logo)" alt />
                                     </a>
                                 </div>
                                 <div class="description">
@@ -185,7 +185,7 @@
                                 <div class="sub2_comment">
                                     <div class="userlogo">
                                         <a :href="sub2_item.user.username">
-                                            <img :src="sub2_item.user.profile_pic ? sub2_item.user.profile_pic.url : default_logo" alt />
+                                            <img :src="serverUrl(sub2_item.user.profile_pic ? sub2_item.user.profile_pic.url : default_logo)" alt />
                                         </a>
                                     </div>
                                     <div class="description">
@@ -232,19 +232,19 @@
                             <span class="text-white pr-2" v-if="media.menu.price_oz != null">{{media.menu.price_oz}}<sup class="text-420">oz</sup></span>
                         </p>
                     </div>
-                    <div class="icon-panel clearfix" v-if="!$device.isMobile">
-                        <div class="heart_icon" @click="likepost" v-if="!media.user_liked">
+                    <div class="icon-panel clearfix" v-if="!$device.isMobile && local_media">
+                        <div class="heart_icon" @click="likepost" v-if="!local_media.user_liked">
                             <fa :icon="['far', 'heart']" fixed-width></fa>
-                            <p>{{media.likes}}</p>
+                            <p>{{local_media.likes}}</p>
                         </div>
                         <div class="heart_icon" @click="unlikepost" v-else>
                             <fa icon="heart" fixed-width></fa>
-                            <p>{{media.likes}}</p>
+                            <p>{{local_media.likes}}</p>
                         </div>
                         <div class="comment_icon" @click="focuscomment">
                             <fa :icon="['far', 'comment']" fixed-width></fa>
                         </div>
-                        <div class="bookmark_icon" @click="addbookmark" v-if="!media.user_saved">
+                        <div class="bookmark_icon" @click="addbookmark" v-if="!local_media.user_saved">
                             <fa :icon="['far', 'bookmark']" fixed-width></fa>
                         </div>
                         <div class="bookmark_icon" @click="removebookmark" v-else>
@@ -267,7 +267,7 @@
             </div>
         </div>
         <vs-popup class="strains__popup media__add" type="border" title="Edit Media" :active.sync="editMedia">
-            <add-form :mainData="media" :editData="media.id" mode="edit"></add-form>
+            <add-form v-if="local_media" :mainData="local_media" :editData="local_media.id" mode="edit"></add-form>
         </vs-popup>
     </div>
 </template>
@@ -283,7 +283,8 @@
         },
         data(){
             return {
-                media : this.selected,
+                media: this.selected,
+                local_media: null,
                 editMedia: false,
                 comments: [],
                 loading: true,
@@ -310,25 +311,29 @@
         mounted() {
             this.init();
             var self = this;
-            $(document).ready(function () {
-                $("#main_comment").emojioneArea({
-                    pickerPosition: "top",
-                    search: false,
-                    autocomplete: false,
-                    placeholder: "Write a comment...",
-                    events: {
-                        keypress: function (editor, event) {
-                            if(event.which == 13 && !event.shiftKey){
-                                self.postcomment();
-                            }
-                        },
-                    }
-                });
+            $("#main_comment").emojioneArea({
+                pickerPosition: "top",
+                search: false,
+                autocomplete: false,
+                placeholder: "Write a comment...",
+                events: {
+                    keypress: function (editor, event) {
+                        if(event.which == 13 && !event.shiftKey){
+                            self.postcomment();
+                        }
+                    },
+                }
             });
+            this.getMedia();
         },
         methods: {
             init() {
                 this.getcomment();
+            },
+            async getMedia() {
+                let uri = `/media/show/${this.selected.id}`;
+                const { data } = await this.axios.post(uri);
+                this.local_media = data;
             },
             getcomment() {
                 let uri = "/comment/getall";
@@ -494,7 +499,7 @@
                         target_id: this.media.id
                     };
                     this.axios.post(uri, params).then(response => {
-                        this.media.user_saved = response.data;
+                        this.local_media.user_saved = response.data;
                     });
                 } else {
                     $("#loginmodal").modal("show");
@@ -506,7 +511,7 @@
                     target_id: this.media.id
                 };
                 this.axios.post(uri, params).then(response => {
-                    this.media.user_saved = response.data;
+                    this.local_media.user_saved = response.data;
                 });
             },
             focuscomment() {
@@ -565,8 +570,8 @@
                     };
                     let uri = "/like/addlike";
                     this.axios.post(uri, params).then(response => {
-                        this.media.likes = response.data;
-                        this.media.user_liked = true;
+                        this.local_media.likes = response.data;
+                        this.local_media.user_liked = true;
                         if(this.auth_user.id != this.media.user_id) {                           
                             let noti_fb = firebase.database().ref('notifications/' + this.media.user_id).push();
                             noti_fb.set({
@@ -587,8 +592,8 @@
                     };
                     let uri = "/like/unlike";
                     this.axios.post(uri, params).then(response => {
-                        this.media.likes = response.data;
-                        this.media.user_liked = false;
+                        this.local_media.likes = response.data;
+                        this.local_media.user_liked = false;
                     });
                 } else {
                     $("#loginmodal").modal("show");
@@ -667,6 +672,14 @@
             showEditModal() {
                 this.editMedia = true;
             },
+            serverUrl(item) {
+                if(item.charAt(0) != '/'){item = '/' + item;}
+                try {
+                    return process.env.serverUrl + item;
+                } catch (error) {
+                    return process.env.serverUrl + 'imgs/default.png';
+                }
+            }
         },
     }
 </script>
@@ -761,7 +774,7 @@
                     justify-content: flex-end;
                     align-items: center;
                     padding-right: 30px;
-                    i {
+                    svg {
                         margin-right: 5px;
                         color: #EFA720;
                         font-size: 20px;
@@ -792,7 +805,7 @@
                 bottom: 10px;
                 padding: 2px 10px;
                 background-color: #000;
-                i {
+                svg {
                     font-size: 26px;
                     color: #EFA720;
                 }
@@ -887,7 +900,7 @@
                     justify-content: flex-end;
                     align-items: center;
                     padding-right: 30px;
-                    i {
+                    svg {
                         margin-right: 5px;
                         color: #EFA720;
                         font-size: 20px;
@@ -980,7 +993,7 @@
         }
     }
     .media_toolbar {
-        i {
+        svg {
             font-size: 26px;
             color: #EFA720;
         }
@@ -1005,8 +1018,11 @@
 </style>
 <style lang="scss">
     #media-page {
-        .emojionearea .emojionearea-button {
+        .emojionearea .emojionearea-button {            
             top: 10px;
+            div {
+                background-image: url(https://i.imgur.com/xljqgrH.png) !important;
+            }
         }
         .emojionearea .emojionearea-editor {
             white-space: normal !important;

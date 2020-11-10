@@ -200,7 +200,8 @@ export default {
             events: {
                 ready: function() {
                     if(_this.mode == 'edit' && _this.mainData) {
-                        this.setText(_this.mainData.description);
+                        let description = _this.mainData.description ? _this.mainData.description : ' ';
+                        this.setText(description);
                     }
                 },
                 blur: function (editor, event) {
@@ -227,7 +228,8 @@ export default {
     },
     methods: {
         fetchData(id) {
-            this.description = this.mainData.description;
+            this.description = this.mainData.description ? this.mainData.description : ' ';
+            $("#media_description_edit").data('emojioneArea').setText(this.description);
             if(this.description) {
                 $(".media-description").siblings('label').addClass('focused');
             }

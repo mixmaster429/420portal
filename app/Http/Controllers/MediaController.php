@@ -420,6 +420,25 @@ class MediaController extends Controller
 
         $count_comment = $media->comments()->count();
         $media['count_comment'] = $count_comment;
+
+        $username = $media->user->name ?? '';
+        if($media->portal) {
+            $username = $media->portal->name;
+        }
+        $meta_title = $username;
+        $meta_keywords = $username;
+        $meta_description= $media->description;
+        if($media->portal && $media->menu) {
+            $meta_title = $media->portal->name . " - " . $media->menu->item_name . " - " . $media->menu->brand;
+            $meta_keywords = $media->portal->name . ", " . $media->menu->item_name . ", " . $media->menu->brand;
+            $meta_description = $media->portal->name . " - " . $media->menu->item_name . " - " . $media->menu->brand . " - " . $media->description;
+        }
+        $media['meta'] = [
+            'title' => $meta_title,
+            'keywords' => $meta_keywords,
+            'description' => $meta_description,
+        ];
+        
         return response()->json($media);      
     }
 

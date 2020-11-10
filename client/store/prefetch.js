@@ -54,7 +54,7 @@ export const actions = {
     async fetchMedia({commit}, id) {
         try {
             let uri = `/media/show/${id}`;
-            const { data } = await axios.get(uri);
+            const { data } = await axios.post(uri);
             commit ('FETCH_MEDIA', data);
         } catch (e) {
             console.log(e);

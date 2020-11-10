@@ -1,5 +1,5 @@
 <template>
-    <div id="brand_show" style="max-height:100vh;overflow-y: auto;">
+    <div id="brand_show" style="max-height:100vh;overflow-y: auto;margin-left:-15px;margin-right:-15px;">
         <h1 class="page-title">
             <img src="/imgs/brand.png" width="35" alt="" />
             &nbsp;Marijuana Brands
@@ -34,7 +34,7 @@
         
         <div class="container-fluid" v-if="tab != 'all-brands'">
             <div class="row postmedia original" id="brand_menus">
-                <div class="col-md-8 posts" style="min-height: calc(100vh - 250px);">
+                <div class="col-md-8 posts" style="min-height: calc(100vh - 750px);">
                     <div class="row mx-n1">
                         <div class="col-4 media_container" v-for="(item, index) of posts" :key="index">
                             <div v-if="$device.isMobile" class="media">
@@ -100,10 +100,12 @@
                 </div>
             </div>
         </div>
+        <page-footer></page-footer>
     </div>
 </template>
 <script>
     import FixedComment from "../FixedComment";
+    import PageFooter from "../PageFooter";
     import Multiselect from "vue-multiselect";
     import firebase from "../../Firebase";
     import _ from "lodash";
@@ -113,6 +115,7 @@
         components: {
             FixedComment,
             Multiselect,
+            PageFooter,
         },
         data() {
             return  {
