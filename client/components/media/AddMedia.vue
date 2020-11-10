@@ -17,7 +17,7 @@
             <p>Add Media</p>
         </div>
         <vs-popup class="strains__popup media__add" type="border" title :active.sync="addMedia">
-            <add-form :from="from"></add-form>
+            <add-form :from="from" mode="add"></add-form>
         </vs-popup>
     </div>
 </template>

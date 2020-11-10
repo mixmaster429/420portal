@@ -31,7 +31,6 @@
                                         <fa icon="ellipsis-h" fixed-width class="dropdown-button"></fa>
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                                        <!-- <a class="dropdown-item" href="#" @click.prevent="showEdit(item.id)">Edit</a> -->
                                         <router-link :to="{ name: 'edit_media', params: {editData: item.id, mainData: item}}">
                                             <p v-if="item.model === 'post'" class="dropdown-item" style="color: #efa720;" href="#">Edit</p>
                                         </router-link>

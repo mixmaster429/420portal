@@ -28,17 +28,17 @@
                         </li>
                         <li>
                             <template v-if="user">
-                                <router-link v-if="$device.isMobile" to="/mobile/addmedia">
-                                    <a href="/mobile/addmedia">
-                                        <img src="~assets/imgs/add.png" alt="">
+                                <!-- <router-link v-if="$device.isMobile" to="/mobile/media/add"> -->
+                                    <a href="/mobile/media/add" v-if="$device.isMobile">
+                                        <img src="/imgs/add.png" alt="">
                                         <p>Add Media</p>
                                     </a>
-                                </router-link>
+                                <!-- </router-link> -->
                                 <add-media v-else></add-media>
                             </template>
                             
                             <a v-else href="javascript:;" @click="openLoginModal()" class="myprofile">
-                                <img src="~assets/imgs/add.png" alt="">
+                                <img src="/imgs/add.png" alt="">
                                 <p>Add Media</p>
                             </a>
                             

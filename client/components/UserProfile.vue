@@ -142,7 +142,7 @@
                 </div>
                 <client-only>
                     <div v-if="!$device.isMobile" class="col-md-4">
-                        <fixed-comment :media="selected" :allposts="posts" />
+                        <fixed-comment v-if="selected" :media="selected" :allposts="posts"></fixed-comment>
                     </div>
                 </client-only>
             </div>

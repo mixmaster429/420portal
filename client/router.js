@@ -8,8 +8,6 @@ const page = path => () => import(`~/pages/${path}`).then(m => m.default || m)
 
 const routes = [
   { path: '/', name: 'home', component: page('Home.vue') },
-  { path: '/mobile/slideshow', name: 'weedgram', component: page('mobile/Weedgram.vue') },
-  { path: '/mobile/comment', name: 'comment', component: page('mobile/Comment.vue') },
 
   { path: '/marijuana-strains', name: 'strain_index', component: page('Strain.vue') },
   { path: '/marijuana-strains/:strain', name: 'strain_detail', component: page('StrainDetail.vue') },
@@ -21,7 +19,10 @@ const routes = [
   { path: '/marijuana-news', name: 'news', component: page('News.vue') },
   { path: '/marijuana-news/:slug', name: 'news_detail', component: page('NewsDetail.vue') },
 
-  { path: '/mobile/media/edit', name: 'edit_media', component: page('media/EditMedia.vue') },
+  { path: '/mobile/slideshow', name: 'weedgram', component: page('mobile/Weedgram.vue') },
+  { path: '/mobile/comment', name: 'comment', component: page('mobile/Comment.vue') },
+  { path: '/mobile/media/add', name: 'add_media', component: page('mobile/AddMedia.vue') },
+  { path: '/mobile/media/edit', name: 'edit_media', props: true, component: page('mobile/EditMedia.vue') },
 
   { path: '/login', name: 'login', component: page('auth/login.vue') },
   { path: '/register', name: 'register', component: page('auth/register.vue') },

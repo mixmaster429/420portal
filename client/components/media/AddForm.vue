@@ -1,5 +1,5 @@
 <template>
-    <form @submit.prevent="type()" id="addMediaForm" class="mt-3">
+    <form @submit.prevent="type()" :id="'form_media_' + mode" class="form-media mt-3">
         <div class="form-group text-center">
             <div class="logo" v-if="mediaType !== 'video' && mode === 'edit'">
                 <img v-if="mediaType === 'image'" class="signup_logo" :src="mediaData" />
@@ -27,7 +27,7 @@
         </div>
 
         <div class="floating-label" @click="handleScroll" v-show="!$device.isMobile || ($device.isMobile && mediaData != '')">
-            <textarea v-model="description" class="form-control media-description floating-textarea" rows="2" placeholder=" " id="media-description"></textarea>
+            <textarea v-model="description" :id="'media_description_' + mode" class="form-control media-description floating-textarea" rows="2" placeholder=" "></textarea>
             <label for="media-description">Description</label>
         </div>
 
@@ -140,13 +140,6 @@ export default {
     components: {
         Multiselect
     },
-
-    // watch: {
-    //   editData: function(newVal, oldVal) {
-    //     this.editData = newVal;
-    //     // this.getcomment(this.selected.id);
-    //   }
-    // },
     props: {
         mode: {
             default: "add"
@@ -199,39 +192,44 @@ export default {
         this.$root.$on("eventing", () => {
             this.update();
         });
-        $("#addMediaForm .media-description").emojioneArea({
+        $(`#media_description_${this.mode}`).emojioneArea({
             pickerPosition: "bottom",
             search: false,
             autocomplete: false,
             placeholder: " ",
             events: {
+                ready: function() {
+                    if(_this.mode == 'edit' && _this.mainData) {
+                        this.setText(_this.mainData.description);
+                    }
+                },
                 blur: function (editor, event) {
-                    _this.description = $("#addMediaForm .media-description").data('emojioneArea').getText();
+                    _this.description = this.getText();
                     if(_this.description == '') {
-                        $("#media-description").siblings('label').removeClass('focused');
+                        $(".media-description").siblings('label').removeClass('focused');
                     }
                 },
                 focus: function (editor, event) {
-                    $("#media-description").siblings('label').addClass('focused');
+                    $(".media-description").siblings('label').addClass('focused');
                 }
             }
         });
-        console.log(this.mode)
-        this.mode === "edit" && this.editData && this.fetchData(this.editData);
+        this.mode === "edit" && this.fetchData(this.editData);
     },
     watch: {
         editData: function(newVal, oldVal) {
             this.selected = newVal;
-            this.fetchData(newVal);
+            if(this.mode == 'edit') {
+                this.fetchData(newVal);
+            }
         }
         // $route: 'fetchData(editData)'
     },
     methods: {
         fetchData(id) {
             this.description = this.mainData.description;
-            $("#addMediaForm .media-description").data('emojioneArea').setText(this.mainData.description);
             if(this.description) {
-                $("#media-description").siblings('label').addClass('focused');
+                $(".media-description").siblings('label').addClass('focused');
             }
             this.mediaType = this.mainData.type;
             this.mediaData = this.serverUrl(this.mainData.url);
@@ -283,8 +281,6 @@ export default {
                 taggedUsers: JSON.stringify(usersList),
                 taggedStrains: !_.isEmpty(this.taggedStrains) ? this.taggedStrains[0].id : ""
             };
-            // console.log('params are', params);
-            // return;
             const headers = {
                 headers: {
                     "Content-Type": "multipart/form-data"
@@ -300,10 +296,10 @@ export default {
                     if(this.auth_user) {
                         if(this.from) {
                             this.axios.post('/get/portal', {id : this.from}).then(response => {
-                                window.location.href = response.data.username;
+                                window.location.href = "/" + response.data.username;
                             });
                         } else {
-                            window.location.href = this.auth_user.name;
+                            window.location.href = "/" + this.auth_user.name;
                         }
                     } else {
                         window.location.href = '/';
@@ -316,8 +312,6 @@ export default {
             const url = "/media";
             const usersList = [];
             this.taggedUsers.map(user => usersList.push(user.id));
-
-            // this.$router.push({ path: "/" });
 
             const params = {
                 file: this.media,
@@ -364,7 +358,6 @@ export default {
                         this.companyData = responses[0].data;
                         this.strainData = responses[1].data;
                         this.userData = responses[2].data;
-                        // console.log("data loaded.");
                     })
                 )
                 .catch(errors => {
@@ -581,6 +574,14 @@ export default {
             //   behavior: "smooth"
             // });
         },
+        reset() {
+            console.log('reset');
+            this.description = '';
+            $(".media-description").data('emojioneArea').setText('');
+            this.taggedUsers = [];
+            this.taggedCompanies = [];
+            this.taggedStrains = [];
+        },
         serverUrl(item) {
             if(item.charAt(0) != '/'){item = '/' + item;}
             try {
@@ -595,145 +596,144 @@ export default {
 
 
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
-<style lang="scss" scoped> // .vs-popup {
-//   height: 80% !important;
-// }
-.logo {
-    height: 160px;
-    width: 160px;
-    background: url(/imgs/strains/template.png) center;
-    background-size: cover;
-    padding: 10px;
-    margin: auto;
-    border-radius: 100%;
-    cursor: pointer;
-    img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
+<style lang="scss" scoped>
+    // .vs-popup {
+    //   height: 80% !important;
+    // }
+    .logo {
+        height: 160px;
+        width: 160px;
+        background: url(/imgs/strains/template.png) center;
+        background-size: cover;
+        padding: 10px;
+        margin: auto;
         border-radius: 100%;
+        cursor: pointer;
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 100%;
+        }
+        .companies__select .multiselect {
+            color: #fff;
+        }
+        .companies__select .multiselect__tags {
+            background-color: transparent !important;
+        }
     }
-    .companies__select .multiselect {
-        color: #fff;
+
+    // Floating
+    .floating-label {
+        margin-bottom: 22px;
     }
-    .companies__select .multiselect__tags {
-        background-color: transparent !important;
+
+    .floating-input,
+    .floating-select {
+        // font-size: 14px;
+        padding: 4px 2px;
+        display: block;
+        width: 100%;
+        // height: 30px;
+        background-color: transparent;
+        border: none;
+        // border-bottom: 1px solid #757575;
     }
-}
 
-// Floating
-.floating-label {
-    margin-bottom: 22px;
-}
+    // .floating-input:focus,
+    // .floating-select:focus {
+    //   outline: none;
+    //   border-bottom: 2px solid #5264ae;
+    // }
+    .multi-select__label {
+        position: absolute;
+        z-index: 1;
+        top: 10px;
+    }
 
-.floating-input,
-.floating-select {
-    // font-size: 14px;
-    padding: 4px 2px;
-    display: block;
-    width: 100%;
-    // height: 30px;
-    background-color: transparent;
-    border: none;
-    // border-bottom: 1px solid #757575;
-}
+    .multi-select__label.float-label {
+        top: -13px;
+        color: gray;
+    }
 
-// .floating-input:focus,
-// .floating-select:focus {
-//   outline: none;
-//   border-bottom: 2px solid #5264ae;
-// }
-.multi-select__label {
-    position: absolute;
-    z-index: 1;
-    top: 10px;
-}
+    .floating-label label {
+        // color: #999;
+        // font-size: 14px;
+        // font-weight: normal;
+        position: absolute !important;
+        pointer-events: none;
+        // left: 5px;
+        top: 30%;
+        transition: 0.2s ease all;
+        -moz-transition: 0.2s ease all;
+        -webkit-transition: 0.2s ease all;
+    }
 
-.multi-select__label.float-label {
-    top: -13px;
-    color: gray;
-}
+    .multiselect {
+        .multiselect__content-wrapper {
+            display: none !important;
+            visibility: hidden !important;
+            color: transparent !important;
+            background-color: #000 !important;
+            border: none !important;
+            z-index: -1 !important;
+            height: 0 !important;
+            max-height: 0 !important;
+            overflow: hidden;
+        }
+        .multiselect__option {
+            display: none !important;
+            padding: 0 !important;
+        }
+        &__tags .multiselect__input {
+            margin-bottom: 0 !important;
+        }
+    }
 
-.floating-label label {
-    // color: #999;
-    // font-size: 14px;
-    // font-weight: normal;
-    position: absolute !important;
-    pointer-events: none;
-    // left: 5px;
-    top: 30%;
-    transition: 0.2s ease all;
-    -moz-transition: 0.2s ease all;
-    -webkit-transition: 0.2s ease all;
-}
+    .floating-textarea ~ label.focused,
+    .floating-input:focus ~ label,
+    .floating-input:not(:placeholder-shown) ~ label {
+        top: -15px;
+        color: gray;
+    }
 
-.multiselect {
-    .multiselect__content-wrapper {
-        display: none !important;
-        visibility: hidden !important;
-        color: transparent !important;
+    // .floating-select:focus ~ label,
+    // .floating-select:not([value=""]):valid ~ label {
+    //   top: -225px;
+    // }
+
+    /* active state */
+
+    .floating-input:focus ~ .bar:before,
+    .floating-input:focus ~ .bar:after,
+    .floating-select:focus ~ .bar:before,
+    .floating-select:focus ~ .bar:after {
+        width: 50%;
+    }
+
+    *,
+    *:before,
+    *:after {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    .floating-textarea {
+        min-height: 30px;
+        max-height: 260px;
+        // overflow: hidden;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+    .media__add .multiselect__content-wrapper {
         background-color: #000 !important;
-        border: none !important;
-        z-index: -1 !important;
-        height: 0 !important;
-        max-height: 0 !important;
-        overflow: hidden;
     }
-    .multiselect__option {
-        display: none !important;
-        padding: 0 !important;
-    }
-    &__tags .multiselect__input {
-        margin-bottom: 0 !important;
-    }
-}
-
-.floating-textarea ~ label.focused,
-.floating-input:focus ~ label,
-.floating-input:not(:placeholder-shown) ~ label {
-    top: -15px;
-    color: gray;
-}
-
-// .floating-select:focus ~ label,
-// .floating-select:not([value=""]):valid ~ label {
-//   top: -225px;
-// }
-
-/* active state */
-
-.floating-input:focus ~ .bar:before,
-.floating-input:focus ~ .bar:after,
-.floating-select:focus ~ .bar:before,
-.floating-select:focus ~ .bar:after {
-    width: 50%;
-}
-
-*,
-*:before,
-*:after {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
-
-.floating-textarea {
-    min-height: 30px;
-    max-height: 260px;
-    // overflow: hidden;
-    overflow-x: hidden;
-    overflow-y: auto;
-}
-
-.media__add .multiselect__content-wrapper {
-    background-color: #000 !important;
-}
-
-
 </style>
 
 <style lang="scss">
-    #addMediaForm {
+    .form-media {
         .emojionearea {
             &.floating-textarea {
                 border: none;
