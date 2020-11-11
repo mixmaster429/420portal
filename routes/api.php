@@ -63,10 +63,10 @@ Route::get('/marijuana-strains', 'StrainController@api');
 // Sitemap Routes
 
 Route::get('/sitemap', 'SitemapController@index');
-Route::get('/sitemap/marijuana-strains', 'SitemapController@strains');
+Route::get('/sitemap/strains', 'SitemapController@strains');
 Route::get('/sitemap/users', 'SitemapController@users');
 Route::get('/sitemap/companies', 'SitemapController@companies');
-Route::get('/sitemap/united-states', 'SitemapController@states');
+Route::get('/sitemap/states', 'SitemapController@states');
 Route::get('/sitemap/forums', 'SitemapController@forums');
 Route::get('/sitemap/news', 'SitemapController@news');
 

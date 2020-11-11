@@ -50,53 +50,74 @@ class SitemapController extends Controller
         return response()->json($routes);
     }
 
-    public function strains()
-    {
+    public function strains() {
         $strains = Strain::all();
-        return response()->view('sitemap.strains',[
-            'strains' => $strains,
-        ])->header('Content-Type','text/xml');
+        $routes = [];
+
+        foreach ($strains as $item) {
+            array_push($routes, ['url' => '/marijuana-strains/'.$item->slug, 'lastmod' => $item->updated_at->toAtomString(), 'priority' => 0.9 ]);
+        }
+
+        return response()->json($routes);
     }
 
-    public function users()
-    {
+    public function users() {
         $users = User::whereType('user')->where('is_active','1')->get();
-        return response()->view('sitemap.users',[
-            'users' => $users,
-        ])->header('Content-Type','text/xml');
+        $routes = [];
+
+        foreach ($users as $item) {
+            array_push($routes, ['url' => '/'.$item->name, 'lastmod' => $item->updated_at->toAtomString(), 'priority' => 0.9 ]);
+        }
+
+        return response()->json($routes);
+        
     }
 
-    public function companies()
-    {
+    public function companies() {
         $companies = User::whereType('company')->where('is_active', '1')->get();
-        return response()->view('sitemap.companies',[
-            'companies' => $companies,
-        ])->header('Content-Type', 'text/xml');
+        $routes = [];
+
+        foreach ($companies as $item) {
+            array_push($routes, ['url' => '/'.$item->username, 'lastmod' => $item->updated_at->toAtomString(), 'priority' => 0.9 ]);
+        }
+
+        return response()->json($routes);
     }
 
-    public function states()
-    {
-        $states = State::all();
-        $cities = City::all();
-        return response()->view('sitemap.states',[
-            'states' => $states,
-        ])->header('Content-Type','text/xml');
+    public function states() {
+        $states = State::all();$routes = [];
+        $routes = [];
+
+        foreach ($states as $state) {
+            array_push($routes, ['url' => '/medical-recreational-marijuana-dispensary-delivery/'.strtolower(str_replace(' ', '-', $state->name)), 'priority' => 0.9 ]);
+            foreach ($state->cities as $city) {
+                array_push($routes, ['url' => '/medical-recreational-marijuana-dispensary-delivery/'.strtolower(str_replace(' ', '-', $state->name)).'/'.strtolower(str_replace(' ', '-', $city->name)), 'priority' => 0.9 ]);
+            }
+        }
+
+        return response()->json($routes);        
     }
-    public function forums()
-    {
-        $forums = ForumList::where('mparent', '0')->get();        
-        return response()->view('sitemap.forum',[
-            'forums' => $forums,
-        ])->header('Content-Type','text/xml');
+    public function forums() {
+        $forums = ForumList::where('mparent', '0')->get();
+        $routes = [];
+
+        array_push($routes, ['url' => '/marijuana-forums', 'priority' => 0.9 ]);
+        foreach ($forums as $item) {
+            array_push($routes, ['url' => '/marijuana-forums/'.convertNameToSlug($item->title).'/'.$item->id, 'lastmod' => $item->updated_at->toAtomString(), 'priority' => 0.9 ]);
+        }
+
+        return response()->json($routes);
     }
-    public function news()
-    {
-        $data = Post::all();        
-        return response()->view('sitemap.news', compact('data'))->header('Content-Type','text/xml');
-    }
-    public function media()
-    {
-        $data = Media::all();        
-        return response()->view('sitemap.media', compact('data'))->header('Content-Type','text/xml');
+    public function news() {
+        $posts = Post::all();
+        $routes = [];
+        $last_updated_news = Post::orderBy('updated_at', 'desc')->first();
+        $lastmod = $last_updated_news ? $last_updated_news->created_at->toAtomString() : Carbon::now()->toAtomString();
+        array_push($routes, ['url' => '/marijuana-news', 'lastmod' => $lastmod, 'priority' => 0.9 ]);
+        foreach ($posts as $item) {
+            array_push($routes, ['url' => '/marijuana-news/'.$item->title, 'lastmod' => $item->updated_at->toAtomString(), 'priority' => 0.9 ]);
+        }
+
+        return response()->json($routes);
     }
 }

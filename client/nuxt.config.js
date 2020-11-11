@@ -112,17 +112,58 @@ module.exports = {
       {
         path: '/sitemap.xml',
         xmlNs: 'xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"',
-        defaults: {
-          priority: 0.9,
-          lastmod: new Date()
-        },
         routes: async () => {
           const { data } = await axios.get(process.env.APP_URL + '/api/sitemap')
           return data;
         }
       },
       {
-        path: '/marijuana-strains/sitemap.xml',
+        path: '/sitemap/marijuana-strains.xml',
+        xmlNs: 'xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"',
+        routes: async () => {
+          const { data } = await axios.get(process.env.APP_URL + '/api/sitemap/strains')
+          return data;
+        }
+      },
+      {
+        path: '/sitemap/users.xml',
+        xmlNs: 'xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"',
+        routes: async () => {
+          const { data } = await axios.get(process.env.APP_URL + '/api/sitemap/users')
+          return data;
+        }
+      },
+      {
+        path: '/sitemap/companies.xml',
+        xmlNs: 'xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"',
+        routes: async () => {
+          const { data } = await axios.get(process.env.APP_URL + '/api/sitemap/companies')
+          return data;
+        }
+      },
+      {
+        path: '/sitemap/united-states.xml',
+        xmlNs: 'xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"',
+        routes: async () => {
+          const { data } = await axios.get(process.env.APP_URL + '/api/sitemap/states')
+          return data;
+        }
+      },
+      {
+        path: '/sitemap/forums.xml',
+        xmlNs: 'xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"',
+        routes: async () => {
+          const { data } = await axios.get(process.env.APP_URL + '/api/sitemap/forums')
+          return data;
+        }
+      },
+      {
+        path: '/sitemap/news.xml',
+        xmlNs: 'xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"',
+        routes: async () => {
+          const { data } = await axios.get(process.env.APP_URL + '/api/sitemap/news')
+          return data;
+        }
       },
     ],
   }
