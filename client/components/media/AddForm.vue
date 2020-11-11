@@ -33,7 +33,7 @@
 
         <div class="floating-label" @click="handleScroll" style="position: relative" v-show="!$device.isMobile || ($device.isMobile && mediaData != '')" v-if="auth_user && auth_user.type == 'user'">
             <label v-bind:class="[floatUserLabel ? 'multi-select__label float-label' : 'multi-select__label']" for="users__select">Tag Users</label>
-            <multiselect v-model="taggedUsers" class="users__select floating-input floating-select" label="name" open-direction="bottom" track-by="id" placeholder :options="users" :searchable="true" :multiple="true" :loading="userLoading" :showLabels="false" :internal-search="false" :clear-on-select="false" :close-on-select="true" :options-limit="5" :limit="8" :max-height="600" :show-no-results="false" :showNoOptions="false" :hide-selected="true" @search-change="asyncFind($event, 'user')" @open="floatUserLabel = true" @select="floatUserLabel = true" @close="taggedUsers.length >= 1 ? floatUserLabel = true : floatUserLabel = false" @remove="taggedUsers.length >= 1 ? '' : floatUserLabel = false">
+            <multiselect v-model="taggedUsers" class="users__select floating-input floating-select" label="name" open-direction="bottom" track-by="id" placeholder :options="users" :searchable="true" :multiple="true" :loading="userLoading" :showLabels="false" :internal-search="false" :clear-on-select="false" :close-on-select="true" :options-limit="5" :limit="8" :max-height="600" :show-no-results="false" :showNoOptions="false" :hide-selected="true" @search-change="asyncFind($event, 'user')" @open="onOpen('user')" @select="floatUserLabel = true" @close="taggedUsers.length >= 1 ? floatUserLabel = true : floatUserLabel = false" @remove="taggedUsers.length >= 1 ? '' : floatUserLabel = false">
                 <template slot="tag" slot-scope="{ option, remove }">
                     <span class="custom__tag">
                         <span>{{ option.name }}</span>
@@ -51,7 +51,7 @@
 
         <div class="floating-label" @click="handleScroll" style="position: relative" v-show="!$device.isMobile || ($device.isMobile && mediaData != '')" v-if="!from && auth_user && auth_user.type == 'user'">
             <label v-bind:class="[floatCompanyLabel ? 'multi-select__label float-label' : 'multi-select__label']">Tag Companies</label>
-            <multiselect v-model="taggedCompanies" class="companies__select floating-input floating-select" v-bind:class="[taggedCompanies.length >= 1 ? 'select__disable' : '']" label="name" track-by="id" placeholder open-direction="bottom" :options="companies" :searchable="isCompanySearchable" :multiple="true" :loading="companyLoading" :showLabels="false" :internal-search="false" :clear-on-select="true" :close-on-select="true" :options-limit="5" :limit="1" :max="1" :max-height="companyMaxHeight" :show-no-results="false" :showNoOptions="false" :hide-selected="true" @search-change="asyncFind($event, 'company')" @open="floatCompanyLabel = true" @select="onSelect('company')" @close="onClose('company')" @remove="onRemove('company')">
+            <multiselect v-model="taggedCompanies" class="companies__select floating-input floating-select" v-bind:class="[taggedCompanies.length >= 1 ? 'select__disable' : '']" label="name" track-by="id" placeholder open-direction="bottom" :options="companies" :searchable="isCompanySearchable" :multiple="true" :loading="companyLoading" :showLabels="false" :internal-search="false" :clear-on-select="true" :close-on-select="true" :options-limit="5" :limit="1" :max="1" :max-height="companyMaxHeight" :show-no-results="false" :showNoOptions="false" :hide-selected="true" @search-change="asyncFind($event, 'company')" @open="onOpen('company')" @select="onSelect('company')" @close="onClose('company')" @remove="onRemove('company')">
                 <template slot="tag" slot-scope="{ option, remove }">
                     <span class="custom__tag">
                         <span>{{ option.name }}</span>
@@ -93,7 +93,7 @@
                 :showNoOptions="false"
                 :hide-selected="true"
                 @search-change="asyncFind($event, 'strain')"
-                @open="floatStrainLabel = true"
+                @open="onOpen('strain')"
                 @select="onSelect('strain')"
                 @close="onClose('strain')"
                 @remove="onRemove('strain')"
@@ -209,9 +209,15 @@ export default {
                     if(_this.description == '' || _this.description == ' ') {
                         $(".media-description").siblings('label').removeClass('focused');
                     }
+                    if(_this.$device.isMobile) {
+                        _this.showFooter();
+                    }
                 },
                 focus: function (editor, event) {
                     $(".media-description").siblings('label').addClass('focused');
+                    if(_this.$device.isMobile) {
+                        _this.hideFooter();
+                    }
                 }
             }
         });
@@ -506,6 +512,24 @@ export default {
                     break;
             }
         },
+        onOpen(type) {
+            switch (type) {
+                case "user":
+                    this.floatUserLabel = true;
+                    break;
+                case "company":
+                    this.floatCompanyLabel = true;
+                    break;
+                case "strain":
+                    this.floatStrainLabel = true;
+                    break;
+                default:
+                    break;
+            }
+            if(this.$device.isMobile) {
+                this.hideFooter();
+            } 
+        },
         onClose(type) {
             switch (type) {
                 case "company":
@@ -527,6 +551,9 @@ export default {
                 default:
                     break;
             }
+            if(this.$device.isMobile) {
+                this.showFooter();
+            }            
         },
         previewImage(event) {
             this.mediaData = "";
@@ -583,6 +610,12 @@ export default {
             this.taggedUsers = [];
             this.taggedCompanies = [];
             this.taggedStrains = [];
+        },
+        hideFooter() {
+            $("#app").addClass('focus_comment');
+        },
+        showFooter() {
+            $("#app").removeClass('focus_comment');
         },
         serverUrl(item) {
             if(item.charAt(0) != '/'){item = '/' + item;}
