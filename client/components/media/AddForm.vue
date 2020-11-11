@@ -327,7 +327,7 @@ export default {
             };
             const headers = {
                 headers: {
-                    "Content-Type": "multipart/form-data"
+                    "Content-Type": "multipart/form-data",
                 }
             };
             const formData = new FormData();

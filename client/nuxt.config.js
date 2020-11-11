@@ -2,6 +2,7 @@ require('dotenv').config()
 const { join } = require('path')
 const { copySync, removeSync } = require('fs-extra')
 const webpack = require("webpack");
+import axios from 'axios';
 
 module.exports = {
   // mode: 'spa', // Comment this for SSR
@@ -106,6 +107,7 @@ module.exports = {
   },
 
   sitemap: {
+    hostname: 'https://www.420portal.com',
     sitemaps: [
       {
         path: '/sitemap.xml',
@@ -114,15 +116,13 @@ module.exports = {
           priority: 0.9,
           lastmod: new Date()
         },
+        routes: async () => {
+          const { data } = await axios.get(process.env.APP_URL + '/api/sitemap')
+          return data;
+        }
       },
       {
         path: '/marijuana-strains/sitemap.xml',
-      },
-      {
-        path: '/sitemap/users.xml',
-      },
-      {
-        path: '/sitemap/companies.xml',
       },
     ],
   }

@@ -60,6 +60,16 @@ Route::post('/portals', 'PortalController@getAllPortals');
 Route::get('/users', 'UserController@api');
 Route::get('/marijuana-strains', 'StrainController@api');
 
+// Sitemap Routes
+
+Route::get('/sitemap', 'SitemapController@index');
+Route::get('/sitemap/marijuana-strains', 'SitemapController@strains');
+Route::get('/sitemap/users', 'SitemapController@users');
+Route::get('/sitemap/companies', 'SitemapController@companies');
+Route::get('/sitemap/united-states', 'SitemapController@states');
+Route::get('/sitemap/forums', 'SitemapController@forums');
+Route::get('/sitemap/news', 'SitemapController@news');
+
 Route::middleware(['auth:api'])->group(function ($router){
     $router->post('/profile/like', 'LikeController@likeProfile');
     $router->post('/profile/unlike', 'LikeController@unlikeProfile');
