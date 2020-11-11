@@ -7,9 +7,11 @@
                         <!-- Name -->
                         <div class="profile_picture">
                             <h5 style="font-size: 22px;color:white;">Profile Photo</h5>
-                            <div class="logo" @click="openFileDialog()">
-                                <img :src="profile_pic" class="signup_logo" alt="" v-show="profile_pic">
-                            </div>
+                            <label for="postfile" class="logo">
+                                <div @click="openFileDialog()">
+                                    <img :src="profile_pic" class="signup_logo" alt="" v-show="profile_pic">
+                                </div>
+                            </label>
                             <div class="progress" id="progress_logo" style="height: 10px; width: 150px; margin: 10px auto; display: none;" v-show="uploading">
                                 <div class="progress-bar bg-warning progress-bar-striped progress-bar-animated" :style="{width: uploadProgress + '%'}"></div>
                             </div>
@@ -135,7 +137,7 @@ export default {
                 await this.$store.dispatch('auth/updateUser', { user: data })
 
                 // Redirect home.
-                this.$router.push({ name: 'home' })
+                window.location.href = "/";
             }
         },
         
@@ -189,23 +191,27 @@ export default {
     #signup_page {
         .profile_picture {
             text-align: center;
-
-            .logo{
+            label.logo {
+                display: block;
                 height: 150px;
                 width: 150px;
-                background: url(/imgs/profile-bg.png) center;
-                background-size: cover;
-                padding: 10px;
                 margin: auto;
-                border-radius: 100%;
-
-                img{
+                div{
+                    background: url(/imgs/profile-bg.png) center;
+                    background-size: cover;
+                    padding: 10px;
+                    border-radius: 100%;
                     width: 100%;
                     height: 100%;
-                    object-fit: cover;
-                    border-radius: 100%;
+                    img{
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                        border-radius: 100%;
+                    }
                 }
             }
+            
             .logo:hover {
                 cursor: pointer;
             }

@@ -101,7 +101,9 @@ Route::middleware(['auth:api'])->group(function ($router){
     $router->delete('/media/{media}', 'MediaController@destroy');
 
     $router->post('/portals/list', 'PortalController@list');
-    $router->post('/users/list', 'UserController@list');    
+    $router->post('/users/list', 'UserController@list');  
+    $router->delete('/user/{id}', 'UserController@destroy');
+    $router->post('/user/activate', 'UserController@activate');  
 
     $router->post('/get/portal', 'Api\PortalController@getPortal');    
     

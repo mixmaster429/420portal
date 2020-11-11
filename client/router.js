@@ -54,6 +54,7 @@ const routes = [
 
 
 
+  { path: '/dashboard', name: 'dashboard', component: page('Dashboard.vue') },
   { path: '/:username', name: 'profile', component: page('Profile.vue') },
 ]
 
