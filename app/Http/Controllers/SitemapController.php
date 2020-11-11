@@ -115,7 +115,7 @@ class SitemapController extends Controller
         $lastmod = $last_updated_news ? $last_updated_news->created_at->toAtomString() : Carbon::now()->toAtomString();
         array_push($routes, ['url' => '/marijuana-news', 'lastmod' => $lastmod, 'priority' => 0.9 ]);
         foreach ($posts as $item) {
-            array_push($routes, ['url' => '/marijuana-news/'.$item->title, 'lastmod' => $item->updated_at->toAtomString(), 'priority' => 0.9 ]);
+            array_push($routes, ['url' => '/marijuana-news/'.$item->slug, 'lastmod' => $item->updated_at->toAtomString(), 'priority' => 0.9 ]);
         }
 
         return response()->json($routes);
