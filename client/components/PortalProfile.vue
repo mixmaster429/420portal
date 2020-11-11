@@ -254,6 +254,8 @@
             </div>
         </div>
 
+        <page-footer v-if="$device.isDesktop"></page-footer>
+
         <!-- Timing modal -->
         <div class="modal fade" id="companyTiming" tabindex="-1" role="dialog" aria-labelledby="companyTimingLabel" aria-hidden="true" v-if="portal_detail.type == 'company'">
             <div class="modal-dialog" role="document">
@@ -402,6 +404,7 @@
 
 <script>
 import FixedComment from "./FixedComment";
+import PageFooter from "./PageFooter";
 // import ProfileComment from "./ProfileComment";
 import PortalMenu from './portal/Menu';
 // import EditPortal from './portal/EditPortal';
@@ -413,10 +416,10 @@ import { mapGetters } from "vuex";
 
 export default {
     props: ["profile", "flatchat"],
-    name: "portalprofile",
+    name: "PortalProfile",
     components: {
         FixedComment,
-        // ProfileComment,
+        PageFooter,
         PortalMenu,
         BrandMenu,
         PortalCoupon,

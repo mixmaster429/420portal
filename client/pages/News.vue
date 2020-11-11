@@ -26,7 +26,7 @@
                         <div class="mobEditSubMenu">
                             <div class="mobileSubMenuNews">
                                 <ul>
-                                    <li class="category-link" category-key="0" category-slug="all">All ({{news_data.posts.length}})</li>                                    
+                                    <li class="category-link" category-key="0" category-slug="all" @click="selectCategory('all')">All ({{news_data.posts.length}})</li>                                    
                                     <li class="category-link" v-for="(category, c_index) of news_data.categories" :key="c_index" :category-key="category.id" :category-slug="category.slug" @click="selectCategory(category)">{{`${category.name} (${category.posts_count})`}}</li>
                                 </ul>
                             </div>
@@ -35,8 +35,8 @@
                     <div class="col-sm-4">
                         <div class="marijuananewsecright" style="margin-top:94px">
                             <h2>Categories </h2>
-                            <p><a class="category-link" category-key="0" category-slug="all" style="color:#efa720;cursor:pointer;">All ({{news_data.posts.length}})</a></p>
-                            <p v-for="(category, c_index) of news_data.categories" :key="c_index"><a class="category-link" :category-key="category.id" :category-slug="category.slug" style="color:#efa720;cursor:pointer;" @click="selectCategory(category)">{{`${category.name} (${category.posts_count})`}}</a></p>
+                            <p><a class="category-link" category-key="0" category-slug="all" style="color:#efa720;cursor:pointer;" @click="selectCategory('all')">All ({{news_data.total_count}})</a></p>
+                            <p v-for="(category, c_index) of news_data.categories" :key="c_index"><a class="category-link" :category-key="category.id" :category-slug="category.slug" style="color:#efa720;cursor:pointer;" @click="selectCategory(category.id)">{{`${category.name} (${category.posts_count})`}}</a></p>
                             <div class="marijuananews-admin">
                                 <router-link :to="{name: 'admin.post'}" v-if="auth_user && (auth_user.name == '420portal' || auth_user.name == 'writer')">
                                     <img src="/imgs/add1.png" />
@@ -82,20 +82,23 @@
             };
         },
         mounted() {
-            if (!this.news_data) {
-                this.getNewsData();
+            if (!this.news_data ) {
+                this.fetchNewsData();
+            }
+            if(this.$route.params.category_id) {
+                this.selectCategory(this.$route.params.category_id);
             }
         },
         methods: {
-            fetchNewsData() {
-                let category_id = this.category_id;
-                if(!category_id && process.client) {
-                    category_id = localStorage.getItem('news_category_id');
-                }
+            fetchNewsData() {             
                 return this.$store.dispatch('prefetch/fetchNewsData', this.category_id);
             },
-            selectCategory(item) {
-                this.category_id = item.id;
+            selectCategory(id) {
+                if(id == 'all') {
+                    this.category_id = '';
+                } else {
+                    this.category_id = id;
+                }                
                 this.fetchNewsData();
             },
             getPosts() {

@@ -41,8 +41,19 @@
                         <div class="right-panel" v-if="!$device.isMobile && news_data">
                             <div class="marijuananewsecright" style="margin-top:94px">
                                 <h2>Categories </h2>
-                                <p><a class="category-link" category-key="0" category-slug="all" style="color:#efa720;cursor:pointer;">All ({{news_data.posts.length}})</a></p>
-                                <p v-for="(category, c_index) of news_data.categories" :key="c_index"><a class="category-link" :category-key="category.id" :category-slug="category.slug" style="color:#efa720;cursor:pointer;" @click="selectCategory(category)">{{`${category.name} (${category.posts_count})`}}</a></p>
+                                <p>
+                                    <router-link :to="{name: 'news'}" class="category-link" style="color:#efa720;cursor:pointer;text-decoration:none;">
+                                    <!-- <a class="category-link" category-key="0" category-slug="all" style="color:#efa720;cursor:pointer;"> -->
+                                        All ({{news_data.total_count}})
+                                    <!-- </a> -->
+                                    </router-link>
+                                </p>
+                                <p v-for="(category, c_index) of news_data.categories" :key="c_index">
+                                    <router-link :to="{name: 'news', params:{category_id: category.id} }" class="category-link" style="color:#efa720;cursor:pointer;text-decoration:none;">
+                                        {{`${category.name} (${category.posts_count})`}}
+                                    </router-link>
+                                    <!-- <a class="category-link" :category-key="category.id" :category-slug="category.slug" style="color:#efa720;cursor:pointer;" @click="selectCategory(category)">{{`${category.name} (${category.posts_count})`}}</a> -->
+                                </p>
                                 <div class="marijuananews-admin">
                                     <router-link :to="{name: 'admin.post'}" v-if="auth_user && (auth_user.name == '420portal' || auth_user.name == 'writer')">
                                         <img src="/imgs/add1.png" />

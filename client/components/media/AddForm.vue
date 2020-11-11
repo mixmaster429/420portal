@@ -28,7 +28,7 @@
 
         <div class="floating-label" @click="handleScroll" v-show="!$device.isMobile || ($device.isMobile && mediaData != '')">
             <textarea v-model="description" :id="'media_description_' + mode" class="form-control media-description floating-textarea" rows="2" placeholder=" "></textarea>
-            <label for="media-description">Description</label>
+            <label :for="'media_description_' + mode">Description</label>
         </div>
 
         <div class="floating-label" @click="handleScroll" style="position: relative" v-show="!$device.isMobile || ($device.isMobile && mediaData != '')" v-if="auth_user && auth_user.type == 'user'">
@@ -51,13 +51,13 @@
 
         <div class="floating-label" @click="handleScroll" style="position: relative" v-show="!$device.isMobile || ($device.isMobile && mediaData != '')" v-if="!from && auth_user && auth_user.type == 'user'">
             <label v-bind:class="[floatCompanyLabel ? 'multi-select__label float-label' : 'multi-select__label']">Tag Companies</label>
-            <multiselect v-model="taggedCompanies" class="companies__select floating-input floating-select" v-bind:class="[taggedCompanies.length >= 1 ? 'select__disable' : '']" label="username" track-by="id" placeholder open-direction="bottom" :options="companies" :searchable="isCompanySearchable" :multiple="true" :loading="companyLoading" :showLabels="false" :internal-search="false" :clear-on-select="true" :close-on-select="true" :options-limit="5" :limit="1" :max="1" :max-height="companyMaxHeight" :show-no-results="false" :showNoOptions="false" :hide-selected="true" @search-change="asyncFind($event, 'company')" @open="floatCompanyLabel = true" @select="onSelect('company')" @close="onClose('company')" @remove="onRemove('company')">
+            <multiselect v-model="taggedCompanies" class="companies__select floating-input floating-select" v-bind:class="[taggedCompanies.length >= 1 ? 'select__disable' : '']" label="name" track-by="id" placeholder open-direction="bottom" :options="companies" :searchable="isCompanySearchable" :multiple="true" :loading="companyLoading" :showLabels="false" :internal-search="false" :clear-on-select="true" :close-on-select="true" :options-limit="5" :limit="1" :max="1" :max-height="companyMaxHeight" :show-no-results="false" :showNoOptions="false" :hide-selected="true" @search-change="asyncFind($event, 'company')" @open="floatCompanyLabel = true" @select="onSelect('company')" @close="onClose('company')" @remove="onRemove('company')">
                 <template slot="tag" slot-scope="{ option, remove }">
                     <span class="custom__tag">
-                <span>{{ option.username }}</span>
-                    <span class="custom__remove" @click="remove(option)">
-                <fa icon="times" fixed-width class="ml-1"></fa>
-                </span>
+                        <span>{{ option.name }}</span>
+                        <span class="custom__remove" @click="remove(option)">
+                            <fa icon="times" fixed-width class="ml-1"></fa>
+                        </span>
                     </span>
                 </template>
                 <template slot="clear" slot-scope="props">
@@ -206,7 +206,7 @@ export default {
                 },
                 blur: function (editor, event) {
                     _this.description = this.getText();
-                    if(_this.description == '') {
+                    if(_this.description == '' || _this.description == ' ') {
                         $(".media-description").siblings('label').removeClass('focused');
                     }
                 },
@@ -230,8 +230,8 @@ export default {
         fetchData(id) {
             this.description = this.mainData.description ? this.mainData.description : ' ';
             $("#media_description_edit").data('emojioneArea').setText(this.description);
-            if(this.description) {
-                $(".media-description").siblings('label').addClass('focused');
+            if(this.description != '' && this.description != ' ') {
+                $("#media_description_edit").siblings('label').addClass('focused');
             }
             this.mediaType = this.mainData.type;
             this.mediaData = this.serverUrl(this.mainData.url);

@@ -362,7 +362,8 @@
                     let uri = "/comment/deletecomment";
                     let params = {
                         comment_id: id,
-                        target_id: this.media.id
+                        target_id: this.media.id,
+                        target_model: 'media',
                     };
                     this.axios.post(uri, params).then(response => {
                         this.comments = response.data;
@@ -937,7 +938,8 @@
             position: absolute;
             // bottom: -15px;
             left: 13px;
-            .reset_reply i {
+            color: #EFA720;
+            .reset_reply svg {
                 font-size: 15px !important;
             }
         }

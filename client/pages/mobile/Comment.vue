@@ -504,7 +504,7 @@
         position: absolute;
         left: 13px;
         bottom: 32px;
-        color: white;
+        color: #EFA720;
         z-index: 1;
         .reset_reply svg {
             color: #EFA720;

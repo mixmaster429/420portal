@@ -693,6 +693,7 @@
     .link_reply {
         position: absolute;
         // bottom: -15px;
+        color: #EFA720;
         left: 13px;
         .reset_reply svg {
             font-size: 15px !important;

@@ -11,7 +11,7 @@ class BlogController extends Controller
 {
     public function index(Request $request) {
         $categories = NewsCategory::withCount('posts')->orderBy('order', 'asc')->get();
-
+        $total_count = Post::count();
         $mod = new Post();
         $mod = $mod->withCount('comments');
         if($request->get('category_id') != ''){
@@ -21,7 +21,7 @@ class BlogController extends Controller
         }
 
         $posts = $mod->orderBy('created_at', 'desc')->get();
-        return response()->json(['categories' => $categories, 'posts' => $posts]);
+        return response()->json(['categories' => $categories, 'posts' => $posts, 'total_count' => $total_count]);
     }
 
     /**

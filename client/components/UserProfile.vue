@@ -150,7 +150,7 @@
         <vs-popup v-if="user.id == logged_user_id || logged_user_id == 1" class="strains__popup media__add" type="border" title="Edit User" :active.sync="openEditPopup">
             <profile-form :editData="user.id" :mainData="user" mode="edit"></profile-form>
         </vs-popup>
-        <!-- <page-footer></page-footer> -->
+        <page-footer v-if="$device.isDesktop"></page-footer>
     </div>
 </template>
 
