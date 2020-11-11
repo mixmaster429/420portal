@@ -67,6 +67,7 @@ module.exports = {
     '@nuxtjs/router',
     '@nuxtjs/device',
     '@nuxtjs/toast',
+    '@nuxtjs/sitemap',
   ],
 
   build: {
@@ -102,5 +103,27 @@ module.exports = {
   toast: {
     position: 'top-right',
     duration: 1000,
+  },
+
+  sitemap: {
+    sitemaps: [
+      {
+        path: '/sitemap.xml',
+        xmlNs: 'xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"',
+        defaults: {
+          priority: 0.9,
+          lastmod: new Date()
+        },
+      },
+      {
+        path: '/marijuana-strains/sitemap.xml',
+      },
+      {
+        path: '/sitemap/users.xml',
+      },
+      {
+        path: '/sitemap/companies.xml',
+      },
+    ],
   }
 }

@@ -84,7 +84,7 @@ Route::middleware(['auth:api'])->group(function ($router){
     $router->post('/bookmark/delete', 'SaveController@destroy');
 
     $router->post('/media/api_store', 'MediaController@api_store');
-    $router->post('/media', 'MediaController@store');
+    $router->post('/media', 'MediaController@store')->middleware('cors.api');
     $router->post('/media/update', 'MediaController@api_update');    
     $router->get('/media/{media}', 'MediaController@destroy');   
     $router->put('/media/{media}', 'MediaController@update'); 
