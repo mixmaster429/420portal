@@ -9,9 +9,9 @@ use App\User;
 use App\Models\Portal;
 use App\Models\State;
 use App\Models\City;
-use App\Models\ForumList;
 use App\Models\Post;
 use App\Models\Media;
+use App\Models\ForumList;
 
 use Carbon\Carbon;
 
@@ -40,11 +40,11 @@ class SitemapController extends Controller
         array_push($routes, ['url' => '/marijuana-strains/hybrid', 'priority' => 0.9 ]);
 
         $last_created_forum = ForumList::orderBy('created_at', 'desc')->first();
-        $lastmod = $last_created_forum ? $last_created_forum->updated_at->toAtomString() : $current_date;
+        $lastmod = $last_created_forum ? $last_created_forum->created_at->toAtomString() : $current_date;
         array_push($routes, ['url' => '/marijuana-forums', 'lastmod' => $lastmod, 'priority' => 0.9 ]);
 
         $last_created_brand = User::where('type', 'brand')->orderBy('created_at', 'desc')->first();
-        $lastmod = $last_created_brand ? $last_created_brand->updated_at->toAtomString() : $current_date;
+        $lastmod = $last_created_brand ? $last_created_brand->created_at->toAtomString() : $current_date;
         array_push($routes, ['url' => '/marijuana-brands', 'lastmod' => $lastmod, 'priority' => 0.9 ]);
 
         return response()->json($routes);

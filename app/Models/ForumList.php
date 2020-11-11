@@ -16,19 +16,19 @@ class ForumList extends Model
     }
     public function children()
     {
-        return $this->hasMany('App\ForumList','mparent');
+        return $this->hasMany('App\Models\ForumList','mparent');
     }
     public function getSParent()
     {
-        return $this->belongsTo('App\ForumList','sparent');
+        return $this->belongsTo('App\Models\ForumList','sparent');
     }
     public function getMParent()
     {
-        return $this->belongsTo('App\ForumList','mparent');
+        return $this->belongsTo('App\Models\ForumList','mparent');
     }
     public function schildren()
     {
-        return $this->hasMany('App\ForumList','sparent');
+        return $this->hasMany('App\Models\ForumList','sparent');
     }
 
     public function likes() {
@@ -37,17 +37,17 @@ class ForumList extends Model
 
     // ---- xian relationships ----
     public function s_parent() {
-        return $this->belongsTo('App\ForumList','sparent');
+        return $this->belongsTo('App\Models\ForumList','sparent');
     }
     public function m_parent() {
-        return $this->belongsTo('App\ForumList','mparent');
+        return $this->belongsTo('App\Models\ForumList','mparent');
     }
 
     public function m_children() {
-        return $this->hasMany('App\ForumList','mparent');
+        return $this->hasMany('App\Models\ForumList','mparent');
     }
 
     public function s_children() {
-        return $this->hasMany('App\ForumList','sparent');
+        return $this->hasMany('App\Models\ForumList','sparent');
     }
 }
