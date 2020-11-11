@@ -80,6 +80,9 @@ input.form-control:focus {
 
 // Components
 
+.comments_menu .comment_body {
+    height: calc(100% - 245px);
+}
 
 header {
     // position: fixed;

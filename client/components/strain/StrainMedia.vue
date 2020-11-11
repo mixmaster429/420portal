@@ -97,7 +97,7 @@
             scroll() {
                 var header = this.$refs.media_wrapper;
                 var sticky = header.offsetTop;
-                var sticky = sticky - 175;
+                var sticky = sticky - 100;
 
                 window.onscroll = () => {
                     if (window.pageYOffset > sticky) {

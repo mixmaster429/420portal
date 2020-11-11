@@ -101,11 +101,9 @@
         </div>
         <div class="col-md-12" id="portal_filter" v-else>
             <div class="row">
-                <div class="col-12">
-                    <h1 class="text-center text-420" style="cursor:pointer;font-size:2.25rem;" data-toggle="modal" data-target="#titleModal">
-                        <img src="/imgs/h_icon1.png" width="35" style="margin-top: -8px;" alt="" />
-                        {{page_title}}
-                    </h1>
+                <div class="col-12 d-flex justify-content-center align-items-center">
+                    <img src="/imgs/h_icon1.png" width="35" height="35" style="margin-top: -8px;margin-right:7px" alt="" />
+                    <h1 @click="openTitleModal()">{{page_title}}</h1>
                 </div>
             </div>
             <div class="row">
@@ -435,7 +433,7 @@
             <div class="modal-dialog modal-lg border-0">
                 <div class="modal-content">
                     <div class="modal-header bg-white">
-                        <button type="button" class="close text-420" data-dismiss="modal"><i class="far fa-times-circle"></i></button>
+                        <button type="button" class="close text-420" data-dismiss="modal"><fa icon="times" fixed-width></fa></button>
                     </div>
                     <div class="modal-body" style="background:white !important;">
                         <div class="row">
@@ -732,6 +730,9 @@
             searchPortalClose(){
                 $("#app").removeClass('focus_comment');
             },
+            openTitleModal() {
+                $("#titleModal").modal();
+            },
             serverUrl(item) {
                 if(item.charAt(0) != '/'){item = '/' + item;}
                 try {
@@ -747,6 +748,12 @@
     #portal_filter {
         padding-top: 20px;
         padding-bottom: 8px;
+        h1 {
+            color: #EFA720;
+            text-align: center;
+            cursor: pointer;
+            font-size: 2.25rem;
+        }
         .filter-dropdown {
             position: relative;
             margin-top: 6px;

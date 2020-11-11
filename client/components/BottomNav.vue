@@ -5,7 +5,7 @@
                 <div class="col-12 col-md-6">
                     <ul class="footer_tollbar">
                         <li>
-                            <a href="#">
+                            <a href="/">
                                 <img src="~assets/imgs/home.png" alt="">
                                 <p>Home</p>
                             </a>
@@ -20,7 +20,7 @@
                             </router-link>
                         </li>
                         <li v-else>
-                            <a>
+                            <a href="javascript:;" @click="openMessenger()">
                                 <img src="~assets/imgs/messenger-mobile.png" alt="">                                   
                                 <span v-if="user" class="badge badge-pill badge-success messenger-unread" style="position:absolute;top: 5px;">{{user.unread_message_user_count == 0 ? '' : user.unread_message_user_count}}</span>
                                 <p>Messenger</p>
@@ -41,21 +41,20 @@
                                 <img src="/imgs/add.png" alt="">
                                 <p>Add Media</p>
                             </a>
-                            
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="javascript:;" @click="goNotification()">
                                 <img src="~assets/imgs/heart.png" alt="">
-                                    <span v-if="user" class="badge badge-pill badge-success notification-unread" style="position:absolute;top: 5px;">0</span>
+                                <span v-if="user" class="badge badge-pill badge-success notification-unread" style="position:absolute;top: 5px;">0</span>
                                 <p>Notifications</p>
                             </a>
                         </li>
                         <li class="myaccount">                            
-                            <a v-if="user" href="#">                                
+                            <a v-if="user" href="javascript:;" @click="goProfile()">                                
                                 <img :src="serverUrl(user.profile_pic ? user.profile_pic.url : '/imgs/default_sm.png')" style="padding:5px;border-radius:100px;object-fit:cover;" alt="">
                                 <p>Account</p>
                             </a>                        
-                            <a v-else href="#" class="myprofile">
+                            <a v-else href="javascript:;" @click="goProfile()" class="myprofile">
                                 <img src="~assets/imgs/account.png" alt="">
                                 <p>Account</p>
                             </a>                            
@@ -94,6 +93,27 @@ export default {
                 return process.env.serverUrl + item;
             } catch (error) {
                 return 'imgs/default.png';
+            }
+        },
+        openMessenger() {
+            if(this.user) {
+                
+            } else {
+                this.openLoginModal();
+            }
+        },
+        goProfile() {
+            if(this.user) {
+                window.location.href = "/" + this.user.username;
+            } else {
+                this.openLoginModal();
+            }
+        },
+        goNotification() {
+            if(this.user) {
+                window.location.href = "/notification";
+            } else {
+                this.openLoginModal();
             }
         }
     }

@@ -109,10 +109,10 @@
                                 </p>
                             </div>
                             <div class="actions">
-                                <i class="fas fa-heart" @click="unlikecomment(sub_item.id, subindex, index)" v-if="sub_item.userliked"></i>
-                                <i class="far fa-heart" @click="likecomment(sub_item.id, subindex, index)" v-else></i>
-                                <i class="fas fa-edit" v-if="sub_item.owned" @click="editcomment(sub_item.id, index, subindex)"></i>
-                                <i class="fas fa-trash-alt" v-if="sub_item.owned" @click="deletecomment(sub_item.id)"></i>
+                                <fa icon="heart" @click="unlikecomment(sub_item.id, subindex, index)" v-if="sub_item.userliked"></fa>                        
+                                <fa :icon="['far', 'heart']" @click="likecomment(sub_item.id, subindex, index)" v-else></fa>
+                                <fa icon="edit" v-if="sub_item.owned" @click="editcomment(sub_item.id, index, subindex)" />
+                                <fa icon="trash-alt" v-if="sub_item.owned" @click="deletecomment(sub_item.id)" />
                             </div>
                         </div>
                         <!-- Sub 2 Comments -->
@@ -137,10 +137,10 @@
                                     </p>
                                 </div>
                                 <div class="actions">
-                                    <i class="fas fa-heart" @click="unlikecomment(sub2_item.id, sub2index, subindex, index)" v-if="sub2_item.userliked"></i>
-                                    <i class="far fa-heart" @click="likecomment(sub2_item.id, sub2index, subindex, index)" v-else></i>
-                                    <i class="fas fa-edit" v-if="sub2_item.owned" @click="editcomment(sub2_item.id, index, subindex, sub2index)" ></i>
-                                    <i class="fas fa-trash-alt" v-if="sub2_item.owned" @click="deletecomment(sub2_item.id)"></i>
+                                    <fa icon="heart" @click="unlikecomment(sub2_item.id, sub2index, subindex, index)" v-if="sub2_item.userliked"></fa>                        
+                                    <fa :icon="['far', 'heart']" @click="likecomment(sub2_item.id, sub2index, subindex, index)" v-else></fa>
+                                    <fa icon="edit" v-if="sub2_item.owned" @click="editcomment(sub2_item.id, index, subindex, sub2index)" />
+                                    <fa icon="trash-alt" v-if="sub2_item.owned" @click="deletecomment(sub2_item.id)" />
                                 </div>
                             </div>
                         </div>
