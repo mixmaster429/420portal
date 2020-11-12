@@ -27,7 +27,7 @@ class SitemapController extends Controller
         
         // $last_created_company = User::where('type', 'company')->orderBy('created_at', 'desc')->first();
         // $lastmod = $last_created_company ? $last_created_company->created_at->toAtomString() : $current_date;
-        array_push($routes, ['url' => '/medical-recreational-marijuana-dispensary-delivery', 'lastmod' => $last_created_company->created_at->toAtomString(), 'priority' => 0.9 ]);
+        array_push($routes, ['url' => '/medical-recreational-marijuana-dispensary-delivery', 'priority' => 0.9 ]);
         
         array_push($routes, ['url' => '/marijuana-strains', 'priority' => 0.9 ]);
         
