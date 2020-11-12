@@ -33,7 +33,8 @@ import TopNav from '~/components/TopNav'
 import BottomNav from '~/components/BottomNav'
 import Login from '~/components/Login'
 import LeftSidebar from '~/components/mobile/LeftSidebar'
-
+import { mapGetters } from "vuex";
+import firebase from '../Firebase';
 export default {
     components: {
         TopNav, BottomNav, Login, LeftSidebar
@@ -41,6 +42,25 @@ export default {
     data(){
         return {
             leftsidebarflag: false,
+        }
+    },
+    computed: mapGetters({
+        auth_user: 'auth/user',
+    }),
+    mounted() {
+        let _this = this;
+        if(this.auth_user) {
+            ////// Notification
+            this.$store.dispatch('auth/getUnreadNotification');
+            firebase.database().ref('notifications/' + this.auth_user.id).remove();
+            let notiCountRef = firebase.database().ref('notifications/' + this.auth_user.id).limitToLast(1);
+            notiCountRef.on('value', function(snapshot) {
+                console.log('snapshot: ', snapshot)
+                snapshot.forEach((doc) => {
+                    console.log('doc: ', doc)
+                    _this.$store.dispatch('auth/getUnreadNotification');
+                });
+            });   
         }
     },
     methods: {
@@ -51,7 +71,6 @@ export default {
                 this.leftsidebarflag = false;
             }
         },
-
     },
 }
 </script>

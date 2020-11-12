@@ -133,7 +133,7 @@ class CommentController extends Controller
                     'user_id' => $comment->target->user_id ?? '',
                     'notifiable_id' => $request->target_id,
                     'media_type' => $notification_type,
-                    'notifiable_type' => 'App\Media',
+                    'notifiable_type' => 'App\Models\Media',
                 ]);
                 if($notification->user && $notification->user->check_notification_filter('comment_reply')){
                     $toEmail = $notification->user->email;
@@ -180,7 +180,7 @@ class CommentController extends Controller
                     'user_id' => $comment->target->user_id ?? '',
                     'media_type' => $notification_type,
                     'notifiable_id' => $request->target_id,
-                    'notifiable_type' => 'App\Media',
+                    'notifiable_type' => 'App\Models\Media',
                 ]);
                 if($notification->user && $notification->user->check_notification_filter('comment_reply')){
                     $toEmail = $notification->user->email;

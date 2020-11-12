@@ -122,6 +122,11 @@ Route::middleware(['auth:api'])->group(function ($router){
     $router->post('/marijuana-strains/follow', 'StrainController@follow');
     $router->put('/marijuana-strains/modal/{id}', 'StrainController@updateModal');
 
+    $router->post('/notification/get_all', 'NotificationController@get_all');
+    $router->post('/email_notification_filter/save', 'NotificationFilterController@save');
+    $router->get('/email_notification_filter/get_value', 'NotificationFilterController@get_value');
+    $router->post('/notification/get_unreads', 'NotificationController@user_unreads');
+
     // Admin Panel
 
     $router->any('/admin/post/all', 'AdminBlogController@index');

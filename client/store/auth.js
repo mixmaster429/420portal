@@ -7,6 +7,8 @@ export const state = () => ({
   token: null,
   profile: null,
   map_location: null,
+  message_count: 0,
+  notification_count: 0,
 })
 
 // getters
@@ -16,6 +18,8 @@ export const getters = {
   check: state => state.user !== null,
   profile: state => state.profile,
   map_location: state => state.map_location,
+  message_count: state => state.message_count,
+  notification_count: state => state.notification_count,
 }
 
 // mutations
@@ -41,12 +45,16 @@ export const mutations = {
     state.user = user
   },
 
-  FETCH_PROFILE(state, data) {
+  FETCH_PROFILE (state, data) {
     state.profile = data
   },
 
-  FETCH_MAP_LOCATION(state, data) {
+  FETCH_MAP_LOCATION (state, data) {
     state.map_location = data
+  },
+
+  SET_NOTIFICATION_COUNT(state, data) {
+    state.notification_count = data
   }
 }
 
@@ -106,5 +114,14 @@ export const actions = {
     let params = {state: location.state, city: location.city};
     const {data} = await axios.post(url, params);
     commit('FETCH_MAP_LOCATION', data)
+  },
+
+  async getUnreadNotification({ commit, state }) {
+    if(state.user) {
+      let user_id = state.user.id;
+      let params = { id: user_id };
+      const { data } = await axios.post('/notification/get_unreads', params);
+      commit('SET_NOTIFICATION_COUNT', data);
+    }
   }
 }

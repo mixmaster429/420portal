@@ -45,7 +45,7 @@
                         <li>
                             <a href="javascript:;" @click="goNotification()">
                                 <img src="~assets/imgs/heart.png" alt="">
-                                <span v-if="user" class="badge badge-pill badge-success notification-unread" style="position:absolute;top: 5px;">0</span>
+                                <span v-if="user && notification_count" class="badge badge-pill badge-success notification-unread" style="position:absolute;top: 5px;">{{notification_count}}</span>
                                 <p>Notifications</p>
                             </a>
                         </li>
@@ -81,6 +81,7 @@ export default {
 
     computed: mapGetters({
         user: 'auth/user',
+        notification_count: 'auth/notification_count',
     }),
 
     methods: {

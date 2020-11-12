@@ -1,7 +1,7 @@
 <template>
     <div class="row">
         <div class="col-12">            
-            <div class="container">
+            <div class="container" v-if="selected">
                 <div class="row" id="dashboardpage">
                     <div class="col-md-12 text-center">
                         <div class="dashboard-header">

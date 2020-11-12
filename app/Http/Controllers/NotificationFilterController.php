@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\NotificationFilter;
+use App\Models\NotificationFilter;
 
 use Auth;
 

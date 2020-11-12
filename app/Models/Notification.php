@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-use App\Follow;
+use App\Models\Follow;
 
 class Notification extends Model
 {

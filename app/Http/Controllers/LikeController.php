@@ -38,7 +38,7 @@ class LikeController extends Controller
                     'user_id' => $like->target->user_id ?? '',
                     'media_type' => $notification_type,
                     'notifiable_id' => $request->target_id,
-                    'notifiable_type' => 'App\Media',
+                    'notifiable_type' => 'App\Models\Media',
                 ]);
                 if($notification->user && $notification->user->check_notification_filter('like')){
                     $toEmail = $notification->user->email;
@@ -94,7 +94,7 @@ class LikeController extends Controller
                     'user_id' => $like->target->user_id ?? '',
                     'media_type' => $notification_type,
                     'notifiable_id' => $like->target->target_id,
-                    'notifiable_type' => 'App\Media',
+                    'notifiable_type' => 'App\Models\Media',
                 ]);
                 if($notification->user && $notification->user->check_notification_filter('like')){
                     $toEmail = $notification->user->email;

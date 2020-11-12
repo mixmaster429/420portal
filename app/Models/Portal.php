@@ -13,7 +13,7 @@ class Portal extends Model
     protected $with = ['media'];
 
     public function media() {
-        return $this->belongsTo('App\Media', 'media_id', 'id');
+        return $this->belongsTo('App\Models\Media', 'media_id', 'id');
     }
 
     public function logo() {

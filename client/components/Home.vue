@@ -77,7 +77,7 @@
                     :distance="300" 
                     :identifier="infiniteId" 
                     spinner="spiral" 
-                    @infinite="getallposts"
+                    @infinite="getallposts"                    
                 ><div slot="no-more"></div></infinite-loading>
             </div>
         </div>

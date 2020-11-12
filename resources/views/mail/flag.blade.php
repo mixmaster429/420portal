@@ -36,7 +36,7 @@
                 <tr>
                     <td style="padding-left:20px;">
                         @switch($flag->flaggable_type)
-                            @case('App\Media')
+                            @case('App\Models\Media')
                                 <p style="margin:5px 0px 5px 0px;font-size:18px;color:#222;font-family: Montserrat;font-weight:500;">
                                     <a href="{{url($flag->user->name ?? '/')}}" style="color:#EFA720;text-decoration:none;font-size:23px;font-weight:bold;">{{$flag->user->name}}</a>
                                     Flagged the Media.
