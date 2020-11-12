@@ -22,7 +22,7 @@
                                     <span class="strain" v-if="item.strain"> | {{item.strain.name}}</span>
                                 </p>
                                 <h4 class="title">{{item.description}}</h4>
-                                <p class="sub-title my-0">by {{item.brand_name}}</p>
+                                <p class="sub-title my-0">by: {{item.brand_name}}</p>
                                 <div class="company-name">
                                     <img class="store-type-img" src="/imgs/dispensary.png" alt v-if="item.portal.store_type == 1 || item.portal.store_type == 3" />
                                     <img class="store-type-img" src="/imgs/delivery.png" alt v-if="item.portal.store_type == 2 || item.portal.store_type == 3" />
@@ -206,6 +206,7 @@
                 } 
                 .expire_date {
                     font-size: 15px;
+                    color: #FFF;
                 }                   
             }
             @media (max-width: 600px) {
