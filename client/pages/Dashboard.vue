@@ -6,7 +6,7 @@
                     <div class="col-md-12 text-center">
                         <div class="dashboard-header">
                             <img :src="selected.is_active ? '/imgs/active.png' : '/imgs/inactive.png'" alt=" " class="btn-power" @click="openActivePopup = true">
-                            <div class="logoimage" @click="goProfile(selected)">
+                            <div class="logoimage" @click="goProfile(selected)" style="cursor:pointer;">
                                 <img :src="serverUrl(selected.profile_pic ? selected.profile_pic.url : '/imgs/default.png')" alt />
                             </div>
                         </div>
@@ -116,6 +116,7 @@
                     });
             },
             goProfile() {
+            if(!this.selected.is_active) return false;
                 window.location.href = "/" + this.selected.username;
             },
             serverUrl(item) {

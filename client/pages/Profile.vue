@@ -40,11 +40,14 @@ export default {
         }),
     },
     created() {
-        
     },
     mounted() {
         if (!this.profile) {
             this.fetchProfile();
+        }
+        if (this.profile.is_active == 0) {
+            alert('Deactivated user or company');
+            window.location.href = "/";
         }
     },
     methods: {

@@ -1,5 +1,5 @@
 <template>
-    <div class="row postmedia mb-5" id="portalprofile" v-if="portal_detail">
+    <div class="row postmedia" :class="{'pb-5': $device.isMobile}" id="portalprofile" v-if="portal_detail">
         <div class="container-fluid m-0 p-0" v-if="portal_detail.type == 'company'">
             <client-only>
                 <div class="header_map">
@@ -248,7 +248,7 @@
                         force-use-infinite-wrapper="body"
                     ><div slot="no-more"></div></infinite-loading>
                 </div>
-                <div v-if="!$device.isMobile" class="col-md-4">
+                <div v-if="!$device.isMobile && selected" class="col-md-4">
                     <fixed-comment :media="selected" :allposts="posts" />
                 </div>
             </div>
@@ -499,8 +499,8 @@ export default {
         this.current_position.lng = Number(this.portal_detail.longitude);
         this.getfollow();
         this.getIsFollower();
-        this.checkVisited();
         if(this.auth_user) {
+            this.checkVisited();
             this.checkblockuser();
             this.logged_user_id = this.auth_user.id
         }
@@ -754,7 +754,7 @@ export default {
             }
         },
         openCouponModal() {
-            if(this.auth_user.id == this.portal_detail.id || this.auth_user.id == 1) {                
+            if((this.auth_user && (this.auth_user.id == this.portal_detail.id || this.auth_user.id == 1)) || this.portal_detail.coupon) {                
                 this.openCouponPopup = true;
             } else {
                 if(this.portal_detail.coupon) {

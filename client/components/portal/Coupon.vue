@@ -1,7 +1,7 @@
 <template>
     <div class="company-coupon">
         <client-only>
-            <div class="coupon-form" v-show="!coupon || is_edit">
+            <div class="coupon-form" v-if="auth_user" v-show="!coupon || is_edit">
                 <form action="" method="POST" class="mt-3" id="form_coupon" @submit.prevent="is_edit ? updateCoupon($event) : createCoupon($event)" enctype="multipart/form-data">
                     <div class="text-center" style="position:relative;">
                         <span class="btn-form-close" @click="closeForm()" v-if="is_edit"><i class="far fa-times-circle"></i></span>
@@ -99,7 +99,7 @@
                 <h5 class="expire_date mt-2">Expires: {{new Date().toLocaleDateString()}}</h5>
             </div>
         </div>
-        <div class="text-center" v-if="coupon && !is_edit && (portal.id == auth_user.id || auth_user.id == 1)">
+        <div class="text-center" v-if="auth_user && coupon && !is_edit && (portal.id == auth_user.id || auth_user.id == 1)">
             <button class="btn btn-primary mr-3" @click="edit()">Edit</button>
             <button class="btn btn-420" @click="deleteCoupon()">Delete</button>
         </div>

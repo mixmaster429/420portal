@@ -1,5 +1,5 @@
 <template>
-    <div class="row pt-3 pb-5" v-if="user" id="userprofile" style="max-height:100vh;overflow-y:auto">
+    <div class="row pt-3" v-if="user" :class="{'pb-5': $device.isMobile}" id="userprofile" style="max-height:100vh;overflow-y:auto">
         <div class="container">
             <div v-if="userdata" class="profile-data">
                 <div class="profile_header row">
@@ -108,9 +108,9 @@
                 </div>
             </div>
         </div>
-        <div class="container-fluid" v-if="!is_private">
+        <div class="container-fluid">
             <div class="row postmedia original" id="portaMedia" style="margin-right: 15px; margin: 0 auto;">
-                <div class="col-md-8 posts" style="min-height: calc(100vh - 395px);">
+                <div class="col-md-8 posts" style="min-height: calc(100vh - 395px);" v-if="!is_private">
                     <div class="row">
                         <div class="col-4 media_container" v-for="(item, index) of posts" :key="index">
                             <div v-if="$device.isMobile" class="media">
@@ -141,7 +141,7 @@
                     ><div slot="no-more"></div></infinite-loading>
                 </div>
                 <client-only>
-                    <div v-if="!$device.isMobile" class="col-md-4">
+                    <div v-if="!$device.isMobile && !is_private" class="col-md-4">
                         <fixed-comment v-if="selected" :media="selected" :allposts="posts"></fixed-comment>
                     </div>
                 </client-only>
@@ -205,14 +205,16 @@
             };
         },
         mounted() {
-            // this.scroll();
+            if(process.client) {
+                this.scroll();
+            }
             $('#user_follower_modal').modal('hide');
             this.getfollow();
             this.getIsFollower();
             if (this.auth_user) {
                 this.logged_user_id = this.auth_user.id
             }
-            // setTimeout(function(){document.documentElement.scrollTop = 0;}, 2000);
+            setTimeout(function(){document.documentElement.scrollTop = 0;}, 2000);
         },
         methods: {
             handleClick(newTab) {
@@ -443,8 +445,10 @@
             scroll() {
                 var header = document.getElementById("portaMedia");
                 var sticky = header.offsetTop;
-                var sticky = sticky + 160;
+                var sticky = sticky - 74;
                 window.onscroll = () => {
+                    console.log('sticky: ', sticky);
+                    console.log('offset: ', window.pageYOffset);
                     if (window.pageYOffset > sticky) {
                         header.classList.remove("original");
                     } else {
