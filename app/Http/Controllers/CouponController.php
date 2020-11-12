@@ -34,7 +34,7 @@ class CouponController extends Controller
         $userLatitude = $request->lat;
         $userLongitude = $request->lng;
         $inactive_portals = User::whereType('company')->where('is_active', 0)->pluck('id')->toArray();
-        $coupons = Coupon::with('portal')->whereNotIn('user_id', $inactive_portals)->get();
+        $coupons = Coupon::with('portal')->whereNotIn('portal_id', $inactive_portals)->get();
         foreach ($coupons as $key => $item) {
             $item->portal->profilePic;
             $item->portal->shop_status = $item->portal->get_shop_status();
