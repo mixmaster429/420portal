@@ -575,6 +575,7 @@
                 font-size: 16px;
                 padding: 5px !important;
                 resize: none;
+                border: none !important;
             }
         }
         .button-group {

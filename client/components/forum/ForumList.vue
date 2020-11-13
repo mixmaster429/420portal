@@ -64,13 +64,13 @@
                                                         </div>
                                                         <div v-show="showCategories">
                                                             <p class="forum_category"><fa :icon="['far', 'dot-circle']" class="main-color fs-10"></fa>&nbsp;&nbsp;Stoner's Lounge</p>
-                                                            <p class="forum_category"><fa :icon="['far', 'dot-circle']" class="main-color fs-10"></fa></i>&nbsp;&nbsp;Concentrates</p>
-                                                            <p class="forum_category"><fa :icon="['far', 'dot-circle']" class="main-color fs-10"></fa></i>&nbsp;&nbsp;Edibles</p>
-                                                            <p class="forum_category"><fa :icon="['far', 'dot-circle']" class="main-color fs-10"></fa></i>&nbsp;&nbsp;Indoor/Outdoor Grow</p>
-                                                            <p class="forum_category"><fa :icon="['far', 'dot-circle']" class="main-color fs-10"></fa></i>&nbsp;&nbsp;Paraphernalia</p>
-                                                            <p class="forum_category"><fa :icon="['far', 'dot-circle']" class="main-color fs-10"></fa></i>&nbsp;&nbsp;CBD/THC</p>
-                                                            <p class="forum_category"><fa :icon="['far', 'dot-circle']" class="main-color fs-10"></fa></i>&nbsp;&nbsp;Marijuana News</p>
-                                                            <p class="forum_category"><fa :icon="['far', 'dot-circle']" class="main-color fs-10"></fa></i>&nbsp;&nbsp;Advertise</p>
+                                                            <p class="forum_category"><fa :icon="['far', 'dot-circle']" class="main-color fs-10"></fa>&nbsp;&nbsp;Concentrates</p>
+                                                            <p class="forum_category"><fa :icon="['far', 'dot-circle']" class="main-color fs-10"></fa>&nbsp;&nbsp;Edibles</p>
+                                                            <p class="forum_category"><fa :icon="['far', 'dot-circle']" class="main-color fs-10"></fa>&nbsp;&nbsp;Indoor/Outdoor Grow</p>
+                                                            <p class="forum_category"><fa :icon="['far', 'dot-circle']" class="main-color fs-10"></fa>&nbsp;&nbsp;Paraphernalia</p>
+                                                            <p class="forum_category"><fa :icon="['far', 'dot-circle']" class="main-color fs-10"></fa>&nbsp;&nbsp;CBD/THC</p>
+                                                            <p class="forum_category"><fa :icon="['far', 'dot-circle']" class="main-color fs-10"></fa>&nbsp;&nbsp;Marijuana News</p>
+                                                            <p class="forum_category"><fa :icon="['far', 'dot-circle']" class="main-color fs-10"></fa>&nbsp;&nbsp;Advertise</p>
                                                         </div>
                                                         <div v-show="showTopics">
                                                             <p class="limittextlength" v-for="item in this.alltopic.usertopics" :key="item.id">
@@ -144,9 +144,9 @@
                                 <tbody>
                                     <tr v-for="item in displaytopic" :key="item.id">
                                         <td>                                        
-                                            <div class="mo-mr25 mo_hidden">
-                                                <a class="forum_title" :href="'/marijuana-forums/' +  item.slug + '/' + item.id">{{ item.title }}</a>
-                                                <p class="forum_category"><fa :icon="['far', 'dot-circle']" class="main-color fs-10"></fa></i>&nbsp;&nbsp;{{ item.category }}</p>
+                                            <div @click="goThread(item)" class="mo-mr25 w-100 mo_hidden" style="cursor:pointer;">
+                                                <p class="forum_title">{{ item.title }}</p>
+                                                <p class="forum_category"><fa :icon="['far', 'dot-circle']" class="main-color fs-10"></fa>&nbsp;&nbsp;{{ item.category }}</p>
                                             </div>
                                             <a :href="'/marijuana-forums/' + item.slug + '/' + item.id" class="w100 mo_show">
                                                 <ul class="mo_topic_item">
@@ -156,7 +156,7 @@
                                                     </li>
                                                     <li style="width: calc(100% - 105px);" class="mo_topicinfo">
                                                         <a class="forum_title">{{ item.title }}</a>
-                                                        <p class="forum_category"><fa :icon="['far', 'dot-circle']" class="main-color fs-10"></fa></i>&nbsp;&nbsp;{{ item.category }}</p>
+                                                        <p class="forum_category"><fa :icon="['far', 'dot-circle']" class="main-color fs-10"></fa>&nbsp;&nbsp;{{ item.category }}</p>
                                                     </li>
                                                     <li style="width:50px;margin-left:5px;" class="mo_topicactivity">
                                                         <p style="margin-bottom:0px;">
@@ -414,6 +414,9 @@
                     }
                 }
                 return returnval;
+            },
+            goThread(item) {
+                window.location.href = `/marijuana-forums/${item.slug}/${item.id}`;
             },
             getSearchResult() {
                 this.categoryKey = "";

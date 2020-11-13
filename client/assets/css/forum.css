@@ -126,6 +126,9 @@ a:hover {
     padding-top: 7px;
     width: 35px;
 }
+.forum_header .forum_button .select_input ul li svg {
+    cursor: pointer;
+}
 .selecteditem {
     border-top: 1px solid #535353;
     border-left: 1px solid #535353;
