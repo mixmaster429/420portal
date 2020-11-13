@@ -1,6 +1,6 @@
 <template id="forumdetail">
     <div v-show="loaded" class="forum_area">
-         <section class="loader" v-if="loader">
+        <section class="loader" v-show="loader">
             <img src="/imgs/loader2.gif" alt="" srcset="">      
         </section>
         <div>
@@ -46,18 +46,13 @@
                                                             <p class="limittextlength" v-for="item in curtopic.bookmarkedTopic" :key="item.id">
                                                                 <a v-if="item.title" :href="'/marijuana-forums/' + item.slug + '/' + item.id">
                                                                     <span><fa icon="bookmark" class="main-color fs-10" fixed-width></fa></span>
-                                                                    <span v-if="item.title" class="bookmarktitle">{{ item.title }}</span>
+                                                                    <span class="bookmarktitle">{{ item.title }}</span>
                                                                 </a>
                                                                 <a v-else :href="`/marijuana-forums/${item.origin.slug}/${item.origin.id}/${item.id}`">
                                                                     <span><fa icon="bookmark" class="main-color fs-10" fixed-width></fa></span>
                                                                     <span class="bookmarktitle">
                                                                         <span class="col-blue">Reply:</span>
-                                                                        <span v-if="item.user">
-                                                                            {{ item.user.name }}
-                                                                        </span>
-                                                                        <span v-else>
-                                                                            Removed User
-                                                                        </span>                                                                
+                                                                        <span>{{ item.user ? item.user.name : 'Removed User' }}</span>                                                              
                                                                     </span>
                                                                 </a>
                                                             </p>
@@ -76,7 +71,7 @@
                                                             <p class="limittextlength" v-for="item in curtopic.usertopics" :key="item.id">
                                                                 <a v-if="item.title" :href="'/marijuana-forums/' + item.slug + '/' + item.id">
                                                                     <span class="col-blue">Started:</span>
-                                                                    <span v-if="item.title" class="bookmarktitle">{{ item.title }}</span>
+                                                                    <span class="bookmarktitle">{{ item.title }}</span>
                                                                 </a>    
                                                                 <a v-else :href="'/marijuana-forums/' + item.get_m_parent.title + '/' + item.get_m_parent.id">
                                                                     <span class="col-blue">Reply:</span>
@@ -115,12 +110,12 @@
                                 <li class="breadcrumb-item active">{{ forum.title }}</li>
                             </ul>
                             <h3 class="title_fs">{{ forum.title }}</h3>
-                            <div class="cur_forum_detail">
+                            <div class="cur_forum_detail critical-error-div">
                                 <div class="topic-avatar">
                                     <a v-if="forum.user" class="trigger-user-card main-avatar" :href="'/'+forum.user.username" data-user-card="">
                                         <img alt="" width="45" height="45" :src="serverUrl(forum.user.profile_pic ? forum.user.profile_pic.url : '/imgs/default_sm.png')" class="avatar">
                                     </a>
-                                    <a v-else class="trigger-user-card main-avatar" href="javascript:void(0);" data-user-card="">
+                                    <a v-else class="trigger-user-card main-avatar" href="javascript:;" data-user-card="">
                                         <img alt="" width="45" height="45" src="/imgs/default_sm.png" class="avatar">
                                     </a>
                                 </div>
@@ -163,7 +158,7 @@
                                                             <fa v-else :icon="['far', 'bookmark']" fixed-width></fa>
                                                         </button>
                                                         &nbsp;
-                                                        <div v-if="(this.auth_user && this.auth_user.id == forum.user_id) || isAdmin" style="display:inline-block;" class="dropdown">
+                                                        <div v-if="auth_user && (auth_user.id == forum.user_id || isAdmin)" style="display:inline-block;" class="dropdown">
                                                             <button class="btn-transparent btn_edit dropdown-toggle" data-toggle="dropdown"  @click="editConfirmModal(forum.id,forum.mparent)"><fa icon="edit"></fa>
                                                             </button>
                                                             <ul class="dropdownEdit dropdown-menu">
@@ -171,17 +166,10 @@
                                                                     <button slot="button" class="btn_modal_edit mr-20" v-on:click="showEdit()">Edit</button>
                                                                 </li>
                                                                 <li>
-                                                                    <button slot="button" class="btn_modal_delete"  v-on:click="$refs.nestedChild.open()">Delete</button>
+                                                                    <button slot="button" class="btn_modal_delete"  @click="deleteTopic()">Delete</button>
                                                                 </li>
                                                             </ul>
-                                                        </div>   
-                                                        <sweet-modal ref="nestedChild">
-                                                            <p class="col-black">Are you sure?</p>
-                                                            <div>
-                                                                <button class="btn_modal_delete mr-20" @click="deleteTopic()">Yes</button>
-                                                                <button class="btn_modal_edit" @click="cancelModal()">No</button>
-                                                            </div>
-                                                        </sweet-modal>
+                                                        </div>
                                                     </li>
                                                     <li>
                                                         <button class="btn_topic_reply" data-topic-id="" @click="toggle(forum.user_id)" title="Reply to this topic">
@@ -194,6 +182,8 @@
                                     </div>
                                 </div>
                             </div>
+
+
                             <div style="clear:both"></div>
                             <div class="reply_list">
                                 <div class="reply_item" :id="'topic_id_'+item.id" :ref="'topic_id_'+item.id" v-for="item in curtopic.replies" :key="item.id">
@@ -296,7 +286,7 @@
                                                                 <fa v-else :icon="['far', 'bookmark']"></fa>
                                                             </button>
                                                             &nbsp;
-                                                            <div v-if="(auth_user && auth_user.id == item.user_id) || isAdmin" class="dropdown" style="display:inline-block;">
+                                                            <div v-if="auth_user && (auth_user.id == item.user_id || isAdmin)" class="dropdown" style="display:inline-block;">
                                                                 <button  class="btn-transparent dropdown-toggle" data-toggle="dropdown"  @click="editConfirmModal(item.id,item.mparent)">
                                                                     <fa icon="edit"></fa>
                                                                 </button>
@@ -305,7 +295,7 @@
                                                                         <button slot="button" class="btn_modal_edit mr-20" v-on:click="showEdit()">Edit</button>
                                                                     </li>
                                                                     <li>
-                                                                        <button slot="button" class="btn_modal_delete"  v-on:click="$refs.nestedChild.open()">Delete</button>
+                                                                        <button slot="button" class="btn_modal_delete"  @click="deleteTopic()">Delete</button>
                                                                     </li>
                                                                 </ul>
                                                             </div>                                                            
@@ -374,10 +364,8 @@
                             <client-only>
                                 <div class="slider_range" v-if="loaded">
                                     <div class="switch_moshow" v-show="!$device.isMobile">
-                                        <vue-slider @change="dragfunction()" v-model="slidervalue" width="4px" height="200px" :min="1" :max="maxvalue" direction="ttb" tooltip='always'>
-                                        </vue-slider>
-                                    </div>
-                                    
+                                        <vue-slider @change="dragfunction()" v-model="slidervalue" width="4px" height="200px" :min="1" :max="maxvalue" direction="ttb" tooltip='always'></vue-slider>
+                                    </div>                                    
                                     <div class="topic_count">
                                         <span class="total_number" @click="toggleSlider()">{{ curtopic.replies.length+1 }}</span>
                                     </div>
@@ -432,70 +420,67 @@
                 </div>
             </div>
         </div>
-        <client-only>
-            <div class="new_forum" id="new_forum" v-show="isOpenNewTopic">
-                <div class="grippie"></div>
-                <div class="body">
-                    <div class="contaier-fluid">
-                        <div class="row">
-                            <div class="editorsection">
-                                <div>
-                                    <span v-if="newcreatetopic.id" class="fs-20" style="color:#fefefe;">
-                                        <fa icon="edit"></fa>&nbsp;&nbsp;Edit Topic
-                                    </span>
-                                    <span v-else class="fs-20" style="color:#fefefe;">
-                                        <fa icon="arrow-right"></fa>&nbsp;&nbsp;Create a New Topic
-                                    </span>
+        <div class="new_forum" id="new_forum" v-show="isOpenNewTopic">
+            <div class="grippie"></div>
+            <div class="body">
+                <div class="contaier-fluid">
+                    <div class="row">
+                        <div class="editorsection">
+                            <div>
+                                <span v-if="newcreatetopic.id" class="fs-20" style="color:#fefefe;">
+                                    <fa icon="edit"></fa>&nbsp;&nbsp;Edit Topic
+                                </span>
+                                <span v-else class="fs-20" style="color:#fefefe;">
+                                    <fa icon="arrow-right"></fa>&nbsp;&nbsp;Create a New Topic
+                                </span>
+                            </div>
+                            <p v-if="errors.length">
+                                <ul>
+                                    <li style="display:inline-block;color:red;font-family:Arial;" v-for="error in errors" :key="error.id">{{ error }}</li>
+                                </ul>
+                            </p>
+                            <div class="mt-15">
+                                <input type="text" name="forumtitle" placeholder="Title" class="form-control " v-model="title">
+                            </div>
+                            <div class="mt-15">
+                                <select name="" id="" class="form-control" v-model="category">
+                                    <option value="">Select Category</option>
+                                    <option value="Stoner's Lounge">Stoner's Lounge</option>
+                                    <option value="Concentrates">Concentrates </option>
+                                    <option value="Edibles">Edibles</option>
+                                    <option value="Indoor/Outdoor Grow">Indoor/Outdoor Grow</option>
+                                    <option value="Paraphernalia">Paraphernalia</option>
+                                    <option value="CBD/THC">CBD/THC</option>
+                                    <option value="Marijuana News">Marijuana News</option>
+                                    <option value="Advertise">Advertise</option>
+                                </select>
+                            </div>                    
+                            <div class="mt-15">
+                                <div class="quill-editor" 
+                                    v-model="detail"
+                                    v-quill:forumQuillEditor="editorOption">
                                 </div>
-                                <p v-if="errors.length">
-                                    <ul>
-                                        <li style="display:inline-block;color:red;font-family:Arial;" v-for="error in errors" :key="error.id">{{ error }}</li>
-                                    </ul>
-                                </p>
-                                <div class="mt-15">
-                                    <input type="text" name="forumtitle" placeholder="Title" class="form-control " v-model="title">
-                                </div>
-                                <div class="mt-15">
-                                    <select name="" id="" class="form-control" v-model="category">
-                                        <option value="">Select Category</option>
-                                        <option value="Stoner's Lounge">Stoner's Lounge</option>
-                                        <option value="Concentrates">Concentrates </option>
-                                        <option value="Edibles">Edibles</option>
-                                        <option value="Indoor/Outdoor Grow">Indoor/Outdoor Grow</option>
-                                        <option value="Paraphernalia">Paraphernalia</option>
-                                        <option value="CBD/THC">CBD/THC</option>
-                                        <option value="Marijuana News">Marijuana News</option>
-                                        <option value="Advertise">Advertise</option>
-                                    </select>
-                                </div>                    
-                                <div class="mt-15">
-                                    <div class="quill-editor" 
-                                        v-model="detail"
-                                        v-quill:forumQuillEditor="editorOption">
-                                    </div>
-                                </div>
-                                
-                                <div class="mt-15 mb-3">
-                                    <button v-if="newcreatetopic.id" class="btn_forum_topic" @click="editMainTopic()">
-                                        <span ><fa icon="edit"></fa>Edit Topic</span>
-                                    </button>
-                                    <button v-else class="btn_forum_topic" @click="createTopic()">
-                                        <span><fa icon="plus" fixed-width></fa>Create Topic</span>
-                                    </button>
-                                    &nbsp;&nbsp;&nbsp;
-                                    <button class="btn_cancel" @click="alertconfirm()">Cancel</button>
-                                </div>
+                            </div>
+                            
+                            <div class="mt-15 mb-3">
+                                <button v-if="newcreatetopic.id" class="btn_forum_topic" @click="editMainTopic()">
+                                    <span ><fa icon="edit"></fa>Edit Topic</span>
+                                </button>
+                                <button v-else class="btn_forum_topic" @click="createTopic()">
+                                    <span><fa icon="plus" fixed-width></fa>Create Topic</span>
+                                </button>
+                                &nbsp;&nbsp;&nbsp;
+                                <button class="btn_cancel" @click="alertconfirm()">Cancel</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </client-only>
+        </div>
     </div>
 </template>
 
 <script>
-    import { SweetModal, SweetModalTab } from 'sweet-modal-vue';
     import firebase from '../../Firebase';
     import { mapGetters } from "vuex";
     
@@ -505,10 +490,7 @@
 
     export default {
         props: ['forum'],
-        components: {
-            SweetModal, 
-            SweetModalTab,
-        },
+        components: { },
         computed: mapGetters({
             auth_user: 'auth/user',
             curtopic: 'prefetch/topic',
@@ -682,17 +664,14 @@
                     });
                 }
             },
-            cancelModal() {
-                this.$refs.nestedChild.close();
-            },
             deleteTopic() {
                 let uri = '/topic/delete';
                 this.capsule_id.topicId = this.edit_id;
                 this.axios.post(uri,this.capsule_id).then(response => {
                     if(response.data == "0") {
-                        window.top.location.href = '/marijuana-forums';
+                        window.location.href = '/marijuana-forums';
                     } else {
-                        location.reload();
+                        window.location.reload();
                     }
                 });
             },
@@ -735,7 +714,7 @@
                         this.topic.id = '';     
                         this.showMobile = true;
                         let topic_user_id = this.forum.user_id;
-                        if(this.auth_user != topic_user_id) {                                
+                        if(this.auth_user.id != topic_user_id) {                                
                             let noti_fb = firebase.database().ref('notifications/' + topic_user_id).push();
                             noti_fb.set({
                                 notifier_id: this.auth_user.id,

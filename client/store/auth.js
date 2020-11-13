@@ -89,6 +89,8 @@ export const actions = {
     Cookies.remove('token')
 
     commit('LOGOUT')
+
+    window.location.reload();
   },
 
   async fetchOauthUrl (ctx, { provider }) {

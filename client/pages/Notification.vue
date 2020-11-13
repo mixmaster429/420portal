@@ -11,6 +11,7 @@
 <script>
     import Notification from "~/components/Notification";
     export default {
+        middleware: 'auth',
         components: {
             Notification,
         }
