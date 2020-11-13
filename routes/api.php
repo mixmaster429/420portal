@@ -104,7 +104,7 @@ Route::middleware(['auth:api'])->group(function ($router){
     $router->post('/bookmark/delete', 'SaveController@destroy');
 
     $router->post('/media/api_store', 'MediaController@api_store');
-    $router->post('/media', 'MediaController@api_store')->middleware('cors.api');
+    $router->post('/media', 'MediaController@store')->middleware('cors.api');
     $router->post('/media/update', 'MediaController@api_update');    
     $router->get('/media/{media}', 'MediaController@destroy');   
     $router->put('/media/{media}', 'MediaController@update'); 
@@ -123,7 +123,7 @@ Route::middleware(['auth:api'])->group(function ($router){
     $router->post('/coupon/store', 'CouponController@store');
     $router->post('/coupon/{id}', 'CouponController@update');
     $router->delete('/coupon/{id}', 'CouponController@destroy');
-
+    
     // **** Forum Desktop ***
     $router->any('/topic/create','ForumsController@create');
     $router->any('/topic/delete','ForumsController@delete');

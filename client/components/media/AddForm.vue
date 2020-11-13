@@ -1,6 +1,6 @@
 <template>
     <form @submit.prevent="type()" :id="'form_media_' + mode" class="form-media mt-3">
-        <!-- <div class="form-group text-center">
+        <div class="form-group text-center">
             <div class="logo" v-if="mediaType !== 'video' && mode === 'edit'">
                 <img v-if="mediaType === 'image'" class="signup_logo" :src="mediaData" />
             </div>
@@ -24,35 +24,7 @@
                 </label>
                 <input type="file" hidden required id="file" name="file" class="btn-file" @change="previewImage" accept="image/*|video/*" />
             </div>
-        </div> -->
-
-        <div class="form-group text-center">
-            <label :for="'postfile_'+mode" class="logo" v-if="mediaType != 'video'">
-                <img :src="mediaData" class="signup_logo" v-show="mediaData" alt="" />
-            </label>
-            <div v-if="mediaData">
-                <video v-if="mediaType === 'video'" width="320" height="240" controls disablepictureinpicture controlslist="nodownload">
-                    <source :src="mediaData" type="video/mp4" />
-                    <source :src="mediaData" type="video/webm" />
-                    <source :src="mediaData" type="video/ogg" />Your browser does not support the video tag.
-                </video>
-            </div>
-            <div class="progress" id="progress_logo" style="height: 10px; width: 150px; margin: 10px auto; display: none;" v-show="uploading">
-                <div class="progress-bar bg-warning progress-bar-striped progress-bar-animated" :style="{width: uploadProgress + '%'}"></div>
-            </div>
-            <file-upload
-                name="postfile"
-                :input-id="'postfile_'+mode"
-                class="text-420"
-                accept="image/*,video/*"
-                ref="upload"
-                v-model="files"
-                :post-action="upload_url"
-                @input-file="inputFile"
-                @input-filter="inputFilter"
-            >{{mediaData ? 'Change' : 'Add Media'}}</file-upload>
         </div>
-
 
         <div class="floating-label" @click="handleScroll" v-show="!$device.isMobile || ($device.isMobile && mediaData != '')">
             <textarea v-model="description" :id="'media_description_' + mode" class="form-control media-description floating-textarea" rows="2" placeholder=" "></textarea>
@@ -209,11 +181,6 @@ export default {
             strainMaxHeight: 600,
             isCompanySearchable: true,
             isStrainSearchable: true,
-
-            upload_url: process.env.serverUrl + '/api/media/upload',
-            files: [],
-            uploadProgress: 5,
-            uploading: false,
         };
     },
     computed: mapGetters({
@@ -312,26 +279,24 @@ export default {
             return;
         },
         update() {
-            // const url = `/media/${this.editData}`;
-            const url = `/media/update`;
+            const url = `/media/${this.editData}`;
             const usersList = [];
             this.taggedUsers.map(user => usersList.push(user.id));
 
             const params = {
-                id: this.editData,
                 description: this.description,
                 taggedCompanies: !_.isEmpty(this.taggedCompanies) ? this.taggedCompanies[0].id : "",
                 taggedUsers: JSON.stringify(usersList),
                 taggedStrains: !_.isEmpty(this.taggedStrains) ? this.taggedStrains[0].id : ""
             };
-            // const headers = {
-            //     headers: {
-            //         "Content-Type": "multipart/form-data"
-            //     }
-            // };
+            const headers = {
+                headers: {
+                    "Content-Type": "multipart/form-data"
+                }
+            };
             this.loading = true;
             this.axios
-                .post(url, params)
+                .put(url, params)
                 .then(res => {
                     this.loading = false;
                     // console.log('response data is', res.data);
@@ -357,7 +322,7 @@ export default {
             this.taggedUsers.map(user => usersList.push(user.id));
 
             const params = {
-                media_url: this.media,
+                file: this.media,
                 type: this.mediaType,
                 description: this.description,
                 model: this.model,
@@ -366,18 +331,17 @@ export default {
                 taggedUsers: JSON.stringify(usersList),
                 taggedStrains: this.taggedStrains.length >= 1 ? this.taggedStrains[0].id : "",
             };
-            // const headers = {
-            //     headers: {
-            //         "Content-Type": "multipart/form-data",
-            //     }
-            // };
-            // const formData = new FormData();
-            // for (let key in params) {
-            //     formData.append(key, params[key]);
-            // }
+            const headers = {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                }
+            };
+            const formData = new FormData();
+            for (let key in params) {
+                formData.append(key, params[key]);
+            }
             this.loading = true;
-            // this.axios.post(url, formData, headers)
-            this.axios.post(url, params)
+            this.axios.post(url, formData, headers)
                 .then(res => {
                     console.log('success');
                     this.loading = false;
@@ -660,41 +624,7 @@ export default {
             } catch (error) {
                 return process.env.serverUrl + 'imgs/default.png';
             }
-        },
-
-        inputFile(newFile, oldFile){
-            let _this = this;
-            this.$refs.upload.active = true;
-            if (newFile && oldFile) {
-                if (newFile.active !== oldFile.active) {
-                    this.uploading = true
-                }
-                if (newFile.progress !== oldFile.progress) {
-                    this.uploadProgress = newFile.progress
-                }
-                // Uploaded error
-                if (newFile.error !== oldFile.error) {
-                    alert('Sorry, upload is failed. Please try again');
-                }
-                // Uploaded successfully
-                if (newFile.success !== oldFile.success) {
-                    setTimeout(function(){
-                        _this.uploading = false;
-                        _this.media = newFile.response.fileurl;
-                        _this.mediaType = newFile.response.filetype;
-                        _this.mediaData = process.env.serverUrl + newFile.response.fileurl;
-                    }, 1000);
-                }
-            }
-        },
-        inputFilter: function (newFile, oldFile, prevent) {
-            if (newFile && !oldFile) {
-                // Filter non-image file
-                if (!/\.(jpeg|jpg|gif|png|webp|mp4|3gp|mpeg|avi)$/i.test(newFile.name)) {
-                    return prevent()
-                }
-            }
-        },
+        }
     }
 };
 </script>
@@ -714,8 +644,6 @@ export default {
         margin: auto;
         border-radius: 100%;
         cursor: pointer;
-        display: block;
-        margin: auto;
         img {
             width: 100%;
             height: 100%;
