@@ -4,6 +4,8 @@ export const state = () => ({
     news_data: '',
     news: '',
     media: null,
+    forum: null,
+    topic: null,
 })
 
 // getters
@@ -11,6 +13,8 @@ export const getters = {
     news_data: state => state.news_data,
     news: state => state.news,
     media: state => state.media,
+    forum: state => state.forum,
+    topic: state => state.topic,
 }
 
 // mutations
@@ -25,6 +29,14 @@ export const mutations = {
 
     FETCH_MEDIA(state, data) {
         state.media = data
+    },
+
+    FETCH_FORUM(state, data) {
+        state.forum = data
+    },
+
+    FETCH_TOPIC(state, data) {
+        state.topic = data
     }
 }
 
@@ -56,6 +68,26 @@ export const actions = {
             let uri = `/media/show/${id}`;
             const { data } = await axios.post(uri);
             commit ('FETCH_MEDIA', data);
+        } catch (e) {
+            console.log(e);
+        }
+    },
+
+    async fetchForum({commit}, id) {
+        try {
+            let uri = `/marijuana-forums/${id}`;
+            const { data } = await axios.get(uri);
+            commit ('FETCH_FORUM', data);
+        } catch (e) {
+            console.log(e);
+        }
+    },
+
+    async fetchTopic({commit}, id) {
+        try {
+            let uri = `/topic/detail/${id}`;
+            const { data } = await axios.get(uri);
+            commit ('FETCH_TOPIC', data);
         } catch (e) {
             console.log(e);
         }

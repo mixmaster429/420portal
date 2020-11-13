@@ -54,9 +54,11 @@ class ForumsController extends Controller
         return view('forum.index');
     }
 
-    public function detail($title, $id) {
-        $forum = ForumList::find($id);
-        return view('forum.detail', compact('forum'));
+    public function detail(Request $request, $id) {
+        $forum = ForumList::with(['user'])->find($id);
+        
+        $forum->description = strip_tags($forum->detail);
+        return response()->json($forum);
     }
 
     public function create(Request $request)
@@ -407,7 +409,7 @@ class ForumsController extends Controller
                     'notifier_id' => Auth::id(),
                     'user_id' => $parent->user_id ?? '',
                     'notifiable_id' => $parent->id ,
-                    'notifiable_type' => 'App\ForumList',
+                    'notifiable_type' => 'App\Models\ForumList',
                 ]);
                 if($notification->user && $notification->user->check_notification_filter('comment_reply')){                  
                     $toEmail = $notification->user->email;
@@ -510,7 +512,7 @@ class ForumsController extends Controller
         return response()->json("ok");
     }
 
-    public function getdetail(Request $request,$forumid)
+    public function getdetail(Request $request, $forumid)
     {
         $user_id = Auth::id();
         $detailpage = Array();
@@ -631,7 +633,7 @@ class ForumsController extends Controller
                     'notifier_id' => Auth::id(),
                     'user_id' => $like->topic->user_id ?? '',
                     'notifiable_id' => $like->topic_id ,
-                    'notifiable_type' => 'App\ForumList',
+                    'notifiable_type' => 'App\Models\ForumList',
                 ]);
                 if($notification->user && $notification->user->check_notification_filter('like')){                  
                     $toEmail = $notification->user->email;

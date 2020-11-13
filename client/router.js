@@ -19,6 +19,10 @@ const routes = [
   { path: '/marijuana-news', name: 'news', component: page('News.vue') },
   { path: '/marijuana-news/:slug', name: 'news_detail', component: page('NewsDetail.vue') },
 
+  { path: '/marijuana-forums', name: 'forum', component: page('forum/ForumList.vue') },
+  { path: '/marijuana-forums/:slug/:id', name: 'forum_detail', component: page('forum/ForumDetail.vue') },
+  { path: '/marijuana-forums/:slug/:origin_id/:id', name: 'forum_reply_detail', component: page('forum/ForumDetail.vue') },
+
   { path: '/notification', name: 'notification', component: page('Notification.vue') },
 
   { path: '/media/:id', name: 'media', component: page('Media.vue') },

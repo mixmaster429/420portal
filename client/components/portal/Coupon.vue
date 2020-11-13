@@ -5,7 +5,7 @@
                 <form action="" method="POST" class="mt-3" id="form_coupon" @submit.prevent="is_edit ? updateCoupon($event) : createCoupon($event)" enctype="multipart/form-data">
                     <div class="text-center" style="position:relative;">
                         <span class="btn-form-close" @click="closeForm()" v-if="is_edit"><i class="far fa-times-circle"></i></span>
-                        <label class="mt-2 upload__label" for="coupon_media_select">
+                        <label class="mt-2 upload__label" for="postfile">
                             <div class="logo" for="coupon_media_select">
                                 <img class="signup_logo" :src="coupon_media" v-show="coupon_media" />
                             </div>
@@ -26,7 +26,7 @@
                             :post-action="upload_url"
                             @input-file="inputFile"
                             @input-filter="inputFilter"
-                        >Add Media</file-upload>
+                        >{{files.length ? 'Change Media' : 'Add Media'}}</file-upload>
                     </div>
                     <div class="form-group floating-label">
                         <select name="category" class="form-control floating-select category" required @change="getStrain($event)" v-model="coupon_form.category_id">
@@ -41,11 +41,16 @@
                         <input type="text" name="brand_name" class="form-control floating-input brand_name" placeholder=" " v-model="coupon_form.brand_name" />
                         <label>Brand</label>
                     </div>
+                    <div class="form-group floating-label mt-4" v-show="selected_category">
+                        <textarea class="floating-textarea description" name="description" rows="2" id="coupon_description" maxlength="75" v-model="coupon_form.description"></textarea>
+                        <label :class="{focused : coupon_form.description}">Description</label>
+                    </div>
                     <div class="form-group floating-label mt-4" v-if="selected_category" v-show="selected_category.type == 'strain_selectable'">
                         <multiselect
                             ref="strain_multiselect"
                             v-model="selected_strain"
                             class="floating-label strain_add"
+                            open-direction="bottom"
                             id="strain_add"
                             :options="strains"
                             label="name"
@@ -58,12 +63,7 @@
                             <span slot="noResult" @click="setNewStrain()">Not Listed in our database. Click <span class="text-420">here</span>.</span>
                         </multiselect>
                         <label for="strain_add" :class="{focused : selected_strain}">Tag Marijuana Strain</label>
-                    </div>
-                    
-                    <div class="form-group floating-label mt-4" v-show="selected_category">
-                        <textarea class="form-control floating-textarea description" name="description" rows="2" id="coupon_description" v-model="coupon_form.description"></textarea>
-                        <label :class="{focused : coupon_form.description}">Description</label>
-                    </div>
+                    </div>                    
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary" style="width: 120px;font-size:18px">Post</button>
                     </div>
@@ -84,7 +84,7 @@
                     <span class="strain" v-if="coupon.strain"> | {{coupon.strain.name}}</span>
                 </p>
                 <h4 class="title">{{coupon.description}}</h4>
-                <p class="sub-title my-0">by {{coupon.brand_name}}</p>
+                <p class="sub-title my-0">by: {{coupon.brand_name}}</p>
                 <div class="company-name">
                     <img class="store-type-img" src="/imgs/dispensary.png" alt v-if="portal.store_type == 1 || portal.store_type == 3" />
                     <img class="store-type-img" src="/imgs/delivery.png" alt v-if="portal.store_type == 2 || portal.store_type == 3" />
@@ -156,58 +156,6 @@
         mounted: function() {
             this.loadCategories();
             var _this = this;
-            $(document).ready(function(){
-                $("#coupon_description").emojioneArea({
-                    pickerPosition: "top",
-                    search: false,
-                    autocomplete: false,
-                    placeholder: " ",
-                    events: {
-                        blur: function (editor, event) {
-                            let description = $("#coupon_description").data('emojioneArea').getText();
-                            _this.coupon_form.description = description;
-                            if(description == '') {
-                                $("#coupon_description").siblings('label').removeClass('focused');
-                            }
-                        },
-                        focus: function (editor, event) {
-                            $("#coupon_description").siblings('label').addClass('focused');
-                        },
-                        keypress: function(editor, event) {
-                            let text_content = event.target.textContent;
-                            if(text_content.length >= 50) {
-                                event.preventDefault();
-                            }
-                        }
-                    }
-                });
-                if(this.coupon) {
-                    $("#coupon_description").data('emojioneArea').setText(this.coupon.description);
-                }
-
-                // $('#coupon_media_select').fileupload({
-                //     dataType: 'json',
-                //     type: 'POST',
-                //     maxFileSize: 10000,
-                //     formData: {media_type: 'user', username: _this.portal.username},
-                //     progressall: function (e, data) {
-                //         var progress = parseInt(data.loaded / data.total * 100, 10);
-                //         _this.media_progress = progress;
-                //     },
-                //     done: function (e, data) {
-                //         _this.media_progress = 0;
-                //         _this.coupon_form.media_url = data.result.fileurl;
-                //         _this.coupon_media = data.result.fileurl;
-                //     },
-                //     fail: function (e, data) {
-                //         console.log('fail', e, data)
-                //     },
-                //     url: '/media/upload'
-                // });
-
-
-
-            });
         },
         methods: {
             loadCategories() {
@@ -229,7 +177,6 @@
                     description: this.coupon.description,
                     expire_date: new Date().toLocaleDateString(),
                 };
-                $("#coupon_description").data('emojioneArea').setText(this.coupon.description);
                 this.selected_category = this.categories.find(cat => cat.id == this.coupon.category_id);
                 let url = '/category/strains';
                 let data = {id : this.selected_category.id};
@@ -239,7 +186,7 @@
                         this.selected_strain = this.strains.find(st => st.id == this.coupon.strain_id);
                     });
                 if(this.portal.coupon.media) {
-                    this.coupon_media = this.portal.coupon.media.url;
+                    this.coupon_media = this.serverUrl(this.portal.coupon.media.url);
                 }
             },
             initForm() {
@@ -269,17 +216,19 @@
                 const uri = '/coupon/store';
                 this.axios.post(uri, this.coupon_form)
                     .then(response => {
-                        this.coupon = response.data;
+                        window.location.reload();
+                        // this.coupon = response.data;
                         // this.$root.$refs.portaldashboard.openCouponPopup = false;
-                        this.initForm();
+                        // this.initForm();
                     });
             },
             updateCoupon() {
                 const uri = `/coupon/${this.coupon.id}`;
                 this.axios.post(uri, this.coupon_form)
                     .then(response => {
-                        this.is_edit = false;
-                        this.coupon = response.data;
+                        window.location.reload();
+                        // this.is_edit = false;
+                        // this.coupon = response.data;
                         // this.portals[this.selectedIndex].coupon = response.data;
                         // this.$root.$refs.portaldashboard.openCouponPopup = false;
                     });
@@ -291,6 +240,7 @@
                 const uri = `/coupon/${this.coupon.id}`;
                 this.axios.delete(uri)
                     .then(response => {
+                        window.location.reload();
                         // this.$root.$refs.portaldashboard.selected.coupon = null;
                         // this.$root.$refs.portaldashboard.openCouponPopup = false;
                     });
@@ -346,6 +296,8 @@
                 } catch (error) {
                     return process.env.serverUrl + 'imgs/default.png';
                 }
+
+                $("img[title='India']").parents('li.project').hide();
             }
         }
     }
@@ -396,6 +348,7 @@
                     font-size: 18px;
                     display: flex;
                     align-items: center;
+                    margin-top: 3px;
                     .store-type-img {
                         width: 22px;
                     }

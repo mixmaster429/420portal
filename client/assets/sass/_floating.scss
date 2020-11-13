@@ -1,36 +1,38 @@
 .floating-label {
-    position: relative;
-    margin-bottom: 22px;
+  position: relative;
+  margin-bottom: 22px;
 }
 .floating-input,
+.floating-textarea,
 .floating-select {
-    font-size: 16px;
-    padding: 4px 2px;
-    display: block;
-    width: 100%;
-    background-color: transparent;
-    border: none;
-    box-shadow: unset;
+  font-size: 16px;
+  padding: 4px 2px;
+  display: block;
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  box-shadow: unset;
+  resize: none;
 }
 
 .multi-select__label {
-    position: absolute;
-    z-index: 1;
-    top: 10px;
+  position: absolute;
+  z-index: 1;
+  top: 10px;
 }
 .multi-select__label.float-label {
-    top: -13px;
-    color: gray;
+  top: -13px;
+  color: gray;
 }
 
 .floating-label label {
-    font-size: 16px;
-    position: absolute !important;
-    pointer-events: none;
-    top: 10px;
-    transition: 0.2s ease all;
-    -moz-transition: 0.2s ease all;
-    -webkit-transition: 0.2s ease all;
+  font-size: 16px;
+  position: absolute !important;
+  pointer-events: none;
+  top: 10px;
+  transition: 0.2s ease all;
+  -moz-transition: 0.2s ease all;
+  -webkit-transition: 0.2s ease all;
 }
 
 label.focused,
@@ -41,9 +43,9 @@ label.focused,
 .multiselect--active ~ label,
 .floating-textarea ~ label.focused,
 .floating-select ~ label.focused {
-    top: -15px;
-    color: gray;
-    font-size: 14px;
+  top: -15px;
+  color: gray;
+  font-size: 14px;
 }
 
 /* active state */
@@ -51,12 +53,12 @@ label.focused,
 .floating-input:focus ~ .bar:after,
 .floating-select:focus ~ .bar:before,
 .floating-select:focus ~ .bar:after {
-    width: 50%;
+  width: 50%;
 }
 
 .floating-textarea {
-    min-height: 40px;
-    max-height: 260px;
-    overflow-x: hidden;
-    overflow-y: auto;
+  min-height: 40px;
+  max-height: 260px;
+  overflow-x: hidden;
+  overflow-y: auto;
 }

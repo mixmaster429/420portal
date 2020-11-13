@@ -55,9 +55,7 @@ export default {
             firebase.database().ref('notifications/' + this.auth_user.id).remove();
             let notiCountRef = firebase.database().ref('notifications/' + this.auth_user.id).limitToLast(1);
             notiCountRef.on('value', function(snapshot) {
-                console.log('snapshot: ', snapshot)
                 snapshot.forEach((doc) => {
-                    console.log('doc: ', doc)
                     _this.$store.dispatch('auth/getUnreadNotification');
                 });
             });   

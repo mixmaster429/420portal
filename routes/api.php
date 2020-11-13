@@ -70,6 +70,16 @@ Route::get('/sitemap/states', 'SitemapController@states');
 Route::get('/sitemap/forums', 'SitemapController@forums');
 Route::get('/sitemap/news', 'SitemapController@news');
 
+// Forum
+
+Route::any('/topic/all','ForumsController@all');
+Route::any('/topic/detail/{forumid}','ForumsController@getdetail');
+Route::any('/topic/setkeyword','ForumsController@setkeyword');
+Route::any('/gettopicuser/{user_id}','ForumsController@gettopicuser');
+Route::any('/topic/getedittopic','ForumsController@getedittopic');
+Route::get('/marijuana-forums/{id}','ForumsController@detail');
+
+
 Route::middleware(['auth:api'])->group(function ($router){
     $router->post('/profile/like', 'LikeController@likeProfile');
     $router->post('/profile/unlike', 'LikeController@unlikeProfile');
@@ -113,7 +123,17 @@ Route::middleware(['auth:api'])->group(function ($router){
     $router->post('/coupon/store', 'CouponController@store');
     $router->post('/coupon/{id}', 'CouponController@update');
     $router->delete('/coupon/{id}', 'CouponController@destroy');
-    // **** Forum ****
+    
+    // **** Forum Desktop ***
+    $router->any('/topic/create','ForumsController@create');
+    $router->any('/topic/delete','ForumsController@delete');
+    $router->any('/topic/edit','ForumsController@edit');
+    $router->any('/topicreply/create','ForumsController@replycreate');
+    $router->any('/topic/like','ForumsController@like');
+    $router->any('/topic/bookmark','ForumsController@bookmark');
+
+    // **** Forum Mobile ****
+    
     $router->post('/forum/index', 'Api\ForumController@index');
     $router->post('/forum/get_user_topics', 'Api\ForumController@getUserTopics');
     $router->post('/forum/detail', 'Api\ForumController@getDetail');

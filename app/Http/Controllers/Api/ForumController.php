@@ -129,7 +129,7 @@ class ForumController extends Controller
                     'notifier_id' => auth()->id(),
                     'user_id' => $like->topic->user_id ?? '',
                     'notifiable_id' => $like->topic_id,
-                    'notifiable_type' => 'App\ForumList',
+                    'notifiable_type' => 'App\Models\ForumList',
                 ]);
                 if($notification->user && $notification->user->check_notification_filter('like')){                  
                     $toEmail = $notification->user->email;

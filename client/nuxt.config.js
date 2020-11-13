@@ -57,6 +57,7 @@ module.exports = {
     '~plugins/fontawesome',
     // '~plugins/nuxt-client-init', // Comment this for SSR
     '~plugins/vuesax',
+    '~plugins/moment',
     { src: '~plugins/client', mode: 'client' },
     { src: '~plugins/bootstrap', mode: 'client' },
     { src: '~plugins/infinite-loading', mode: 'client' },

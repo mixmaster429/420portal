@@ -35,7 +35,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#">
+                            <a href="/marijuana-forums">
                                 <img src="~assets/imgs/h_icon4.png" alt="">
                                 <p>Forums</p>
                             </a>
@@ -105,7 +105,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#">
+                            <a href="/marijuana-forums">
                                 <img src="~assets/imgs/h_icon4.png" alt="">
                                 <p>Forums</p>
                             </a>

@@ -1,28 +1,28 @@
-@import 'variables';
-@import '~bootstrap/scss/bootstrap';
-@import '~sweetalert2/src/sweetalert2';
-@import '@fortawesome/fontawesome-svg-core/styles.css';
-
+@import "variables";
+@import "~bootstrap/scss/bootstrap";
+@import "~sweetalert2/src/sweetalert2";
+@import "@fortawesome/fontawesome-svg-core/styles.css";
 
 // <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 
-@import 'elements/card';
-@import 'elements/navbar';
-@import 'elements/buttons';
-@import 'elements/transitions';
+@import "elements/card";
+@import "elements/navbar";
+@import "elements/buttons";
+@import "elements/transitions";
 
-@import 'global';
-@import 'navbar';
-@import 'floating';
-@import 'strain';
-@import 'vs-popup';
-@import '420';
-@import 'vue-tabs';
-@import 'mobile';
-@import 'userprofile';
-@import 'portalprofile';
-@import 'coupon';
-@import 'news';
-@import 'addmedia';
+@import "global";
+@import "navbar";
+@import "floating";
+@import "strain";
+@import "vs-popup";
+@import "420";
+@import "vue-tabs";
+@import "mobile";
+@import "userprofile";
+@import "portalprofile";
+@import "coupon";
+@import "news";
+@import "addmedia";
+@import "_forumlist";
+@import "_forumdetail";
 @import "vue-multiselect/dist/vue-multiselect.min.css";
-
