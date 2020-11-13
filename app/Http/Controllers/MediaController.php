@@ -505,7 +505,7 @@ class MediaController extends Controller
 
         if($media->type == 'video') {
             // try {
-                $media->createThumbnail();
+                // $media->createThumbnail();
             // } catch (\Throwable $th) {
             //     //throw $th;
             // }            
@@ -521,10 +521,10 @@ class MediaController extends Controller
         $media->description = $request->get('description');
         $media->tagged_strain = $request->get('taggedStrains');
         $media->tagged_portal = $request->get('taggedCompanies');
-        if($media->url != $request->get('media_url') || $media->type != $request->get('type')) {            
-            $media->url = $request->get('media_url');
-            $media->type = $request->get('type');
-        }
+        // if($media->url != $request->get('media_url') || $media->type != $request->get('type')) {            
+        //     $media->url = $request->get('media_url');
+        //     $media->type = $request->get('type');
+        // }
 
         $media->save();
         $media->taggedUsers()->sync(json_decode($request->get('taggedUsers'), true));

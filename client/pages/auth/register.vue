@@ -8,7 +8,7 @@
                         <div class="profile_picture">
                             <h5 style="font-size: 22px;color:white;">Profile Photo</h5>
                             <label for="postfile" class="logo">
-                                <div @click="openFileDialog()">
+                                <div>
                                     <img :src="profile_pic" class="signup_logo" alt="" v-show="profile_pic">
                                 </div>
                             </label>
@@ -180,9 +180,6 @@ export default {
                 }
             }
         },
-        openFileDialog() {
-            // this.$refs.upload.open();
-        }
     }
 }
 </script>
