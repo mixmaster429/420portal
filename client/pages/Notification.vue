@@ -1,7 +1,7 @@
 <template>
     <div class="row">
         <div class="col-12 px-0">
-            <div class="container px-0">
+            <div class="container">
                 <notification></notification>
             </div>
         </div>

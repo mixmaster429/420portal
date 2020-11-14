@@ -10,7 +10,7 @@
                         <div class="col-md-12">
                             <div class="forum_header">
                                 <img src="/imgs/h_icon4.png" width="35" style="margin-top: -8px;margin-right:3px;" alt="" />
-                                <h1>Marijuana Forums</h1>
+                                <h1 @click="goForumHome()">Marijuana Forums</h1>
                                 <div class="forum_button">
                                     <div class="forum_button_area">
                                         <ul>
@@ -20,7 +20,7 @@
                                                 </button>
                                                     <div class="search_input dropdown-menu" >
                                                     <button type="button" class="btn_times" @click="searchTimes()"><fa icon="times" fixed-width></fa></button>
-                                                    <input type="text" name="" class="forum_search" v-model="searchValue" placeholder="Search Topics, Posts & Users ..." @keyup.enter="getSearchResult()">
+                                                    <input type="text" name="" class="forum_search" v-model="searchValue" placeholder="Search Topics & Users" @keyup.enter="getSearchResult()">
                                                     <button class="btn_find" @click="getSearchResult()">Search</button>
                                                 </div>
                                             </li>
@@ -400,6 +400,8 @@
                             <div class="mt-15">
                                 <div class="quill-editor" 
                                     ref="myReplyQuillEditor"
+                                    @focus="hideFooter()"
+                                    @blur="showFooter()"
                                     v-model="replydetail"
                                     v-quill:myReplyQuillEditor="editorOption">
                                 </div>
@@ -454,7 +456,9 @@
                                 </select>
                             </div>                    
                             <div class="mt-15">
-                                <div class="quill-editor" 
+                                <div class="quill-editor"
+                                    @focus="hideFooter()"
+                                    @blur="showFooter()"
                                     v-model="detail"
                                     v-quill:forumQuillEditor="editorOption">
                                 </div>
@@ -663,15 +667,17 @@
                 }
             },
             deleteTopic() {
-                let uri = '/topic/delete';
-                this.capsule_id.topicId = this.edit_id;
-                this.axios.post(uri,this.capsule_id).then(response => {
-                    if(response.data == "0") {
-                        window.location.href = '/marijuana-forums';
-                    } else {
-                        window.location.reload();
-                    }
-                });
+                if(window.confirm('Are you sure?')) {
+                    let uri = '/topic/delete';
+                    this.capsule_id.topicId = this.edit_id;
+                    this.axios.post(uri,this.capsule_id).then(response => {
+                        if(response.data == "0") {
+                            window.location.href = '/marijuana-forums';
+                        } else {
+                            window.location.reload();
+                        }
+                    });  
+                }
             },
             editConfirmModal(id,mparent) {
                 this.edit_id = id;
@@ -968,6 +974,16 @@
             viewCategoryForums(item) {
                 localStorage.setItem('forum_category', item);
                 window.location.href = '/marijuana-forums';
+            },
+            hideFooter() {
+                if(this.$device.isMobile) $("#app").addClass('focus_comment');
+                
+            },
+            showFooter() {
+                if(this.$device.isMobile) $("#app").removeClass('focus_comment');
+            },
+            goForumHome() {
+                window.location.href = "/marijuana-forums";
             },
             serverUrl(item) {
                 if(item.charAt(0) != '/'){item = '/' + item;}

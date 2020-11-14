@@ -11,19 +11,44 @@
                 <div class="col-xl-5 col-md-7 col-sm-9">
                     <div class="notification-board pb-2 px-2 px-md-4" id="notification_wrapper">
                         <div class="notification" v-for="(item, index) of notifications" :key="index" v-if="item.notifier">
-                            <a :href="item.notifier.username" class="username"><img :src="serverUrl(item.notifier.profile_pic ? item.notifier.profile_pic.url : '/imgs/default_sm.png')" width="30" height="30"> {{item.notifier.name}}</a>
-                            <span class="text notification-comment" v-if="item.type == 'comment'">Commented on your <a class="notifiable" @click.prevent="goMedia(item)">Media</a>.</span>
-                            <span class="text notification-reply" v-else-if="item.type == 'reply'">Replied to your <a class="notifiable" @click.prevent="goMedia(item)">Comment</a>.</span>
-                            <span class="text notification-reply" v-else-if="item.type == 'reply_topic'">Replied to your <a class="notifiable" @click.prevent="goTopic(item)">Post</a>.</span>
-                            <span class="text notification-like" v-else-if="item.type == 'like'">Likes your <a class="notifiable" @click.prevent="goMedia(item)">Media</a>.</span>
-                            <span class="text notification-like" v-else-if="item.type == 'like_comment'">Likes your <a class="notifiable" @click.prevent="goMedia(item)">Comment</a>.</span>
-                            <span class="text notification-like" v-else-if="item.type == 'like_topic'">Likes your <a class="notifiable" @click.prevent="goTopic(item)">Post</a>.</span>
-                            <span class="text notification-follow" v-else-if="auth_user.type == 'user' && item.type == 'follow'">Started following you. 
-                                <a class="notifiable" style="color:#efa720" @click.prevent="follow(item.notifier_id, index)" v-show="!item.is_follower">Follow</a>
-                            </span>
-                            <span class="text notification-follow" v-else-if="item.type == 'follow_request'">Requested following you. 
-                                <a class="notifiable" style="color:#efa720" @click.prevent="acceptFollowRequest(item, index)">Accept</a>
-                            </span>
+                            <a :href="item.notifier.username" class="userlogo">
+                                <img :src="serverUrl(item.notifier.profile_pic ? item.notifier.profile_pic.url : '/imgs/default_sm.png')" />
+                            </a>                                
+                            <div class="text notification-comment" v-if="item.type == 'comment'">
+                                <a :href="item.notifier.username" class="username">{{item.notifier.name}}</a>
+                                <p>Commented on your <a class="notifiable" @click.prevent="goMedia(item)">Media</a>.</p>
+                            </div>
+                            <div class="text notification-reply" v-else-if="item.type == 'reply'">
+                                <a :href="item.notifier.username" class="username">{{item.notifier.name}}</a>
+                                <p>Replied to your <a class="notifiable" @click.prevent="goMedia(item)">Comment</a>.</p>
+                            </div>
+                            <div class="text notification-reply" v-else-if="item.type == 'reply_topic'">
+                                <a :href="item.notifier.username" class="username">{{item.notifier.name}}</a>
+                                <p>Replied to your <a class="notifiable" @click.prevent="goTopic(item)">Post</a>.</p>
+                            </div>
+                            <div class="text notification-like" v-else-if="item.type == 'like'">
+                                <a :href="item.notifier.username" class="username">{{item.notifier.name}}</a>
+                                <p>Likes your <a class="notifiable" @click.prevent="goMedia(item)">Media</a>.</p>
+                            </div>
+                            <div class="text notification-like" v-else-if="item.type == 'like_comment'">
+                                <a :href="item.notifier.username" class="username">{{item.notifier.name}}</a>
+                                <p>Likes your <a class="notifiable" @click.prevent="goMedia(item)">Comment</a>.</p>
+                            </div>
+                            <div class="text notification-like" v-else-if="item.type == 'like_topic'">
+                                <a :href="item.notifier.username" class="username">{{item.notifier.name}}</a>
+                                <p>Likes your <a class="notifiable" @click.prevent="goTopic(item)">Post</a>.</p>
+                            </div>
+                            <div class="text notification-follow" v-else-if="auth_user.type == 'user' && item.type == 'follow'">
+                                <a :href="item.notifier.username" class="username">{{item.notifier.name}}</a>
+                                <p>Started following you. </p>
+                            </div>
+                            <div class="text notification-follow" v-else-if="item.type == 'follow_request'">
+                                <a :href="item.notifier.username" class="username">{{item.notifier.name}}</a>
+                                <p>Requested following you. </p>
+                            </div>
+                            
+                            <a class="notifiable" style="color:#efa720" @click.prevent="follow(item.notifier_id, index)" v-show="!item.is_follower" v-if="auth_user.type == 'user' && item.type == 'follow'">Follow</a>
+                            <a class="notifiable" style="color:#efa720" @click.prevent="acceptFollowRequest(item, index)" v-if="item.type == 'follow_request'">Accept</a>
                         </div>
                         <infinite-loading ref="infinite_loading" 
                             :distance="400" 
@@ -234,17 +259,29 @@
                 font-size: 20px;
                 padding-top: 5px;
                 padding-bottom: 5px;
+                display: flex;
+                align-items: center;
+                border-bottom: solid 1px gray;
                 .text {
                     color: white;
+                    padding-left: 5px;
+                    flex-grow: 1;
+                    p {
+                        margin: 0;
+                    }
+                }
+                .userlogo {
+                    img {
+                        width: 35px;
+                        height: 35px;
+                        border-radius: 100px;
+                        object-fit: cover;
+                    }
                 }
                 .username {
                     color: #EFA720;
                     cursor: pointer;
                     text-decoration: none;
-                    img {
-                        border-radius: 100px;
-                        object-fit: cover;
-                    }
                 }
                 .notifiable {
                     color: blue;

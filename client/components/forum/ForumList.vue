@@ -20,7 +20,7 @@
                                                 </button>
                                                 <div class="search_input dropdown-menu">
                                                     <button class="btn_times" @click="searchTimes()"><fa icon="times" fixed-width></fa></button>
-                                                    <input type="text" name="" class="forum_search" v-model="searchValue" placeholder="Search Topics, Posts & Users ..." @keyup.enter="getSearchResult()">
+                                                    <input type="text" name="" class="forum_search" v-model="searchValue" placeholder="Search Topics & Users" @keyup.enter="getSearchResult()">
                                                     <button class="btn_find" @click="getSearchResult()">Search</button>
                                                 </div>
                                             </li>
@@ -239,6 +239,8 @@
                                 <div class="mt-15">
                                     <div class="quill-editor" 
                                         v-model="topic.detail"
+                                        @focus="hideFooter()"
+                                        @blur="showFooter()"
                                         v-quill:forumQuillEditor="editorOption">
                                     </div>
                                 </div>                            
@@ -524,6 +526,12 @@
                 this.showTopics = false;
                 this.showCategories = false;
                 this.showBookmarks = true;
+            },
+            hideFooter() {
+                if(this.$device.isMobile) $("#app").addClass('focus_comment')
+            },
+            showFooter() {
+                if(this.$device.isMobile) $("#app").removeClass('focus_comment')
             },
             serverUrl(item) {
                 if(item.charAt(0) != '/'){item = '/' + item;}
