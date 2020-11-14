@@ -8,7 +8,7 @@
         </div>
         <div class="noti-body">
             <div class="row justify-content-center">
-                <div class="col-xl-5 col-md-7 col-sm-9">
+                <div class="col-xl-6 col-md-8 col-sm-9">
                     <div class="notification-board pb-2 px-2 px-md-4" id="notification_wrapper">
                         <div class="notification" v-for="(item, index) of notifications" :key="index" v-if="item.notifier">
                             <a :href="item.notifier.username" class="userlogo">
@@ -16,7 +16,7 @@
                             </a>                                
                             <div class="text notification-comment" v-if="item.type == 'comment'">
                                 <a :href="item.notifier.username" class="username">{{item.notifier.name}}</a>
-                                <p>Commented on your <a class="notifiable" @click.prevent="goMedia(item)">Media</a>.</p>
+                                <p>Commented on your Media.</p>
                             </div>
                             <div class="text notification-reply" v-else-if="item.type == 'reply'">
                                 <a :href="item.notifier.username" class="username">{{item.notifier.name}}</a>
@@ -28,7 +28,7 @@
                             </div>
                             <div class="text notification-like" v-else-if="item.type == 'like'">
                                 <a :href="item.notifier.username" class="username">{{item.notifier.name}}</a>
-                                <p>Likes your <a class="notifiable" @click.prevent="goMedia(item)">Media</a>.</p>
+                                <p>Likes your Media.</p>
                             </div>
                             <div class="text notification-like" v-else-if="item.type == 'like_comment'">
                                 <a :href="item.notifier.username" class="username">{{item.notifier.name}}</a>
@@ -47,14 +47,18 @@
                                 <p>Requested following you. </p>
                             </div>
                             
-                            <a class="notifiable" style="color:#efa720" @click.prevent="follow(item.notifier_id, index)" v-show="!item.is_follower" v-if="auth_user.type == 'user' && item.type == 'follow'">Follow</a>
+                            <a class="notifiable" style="color:#efa720" @click.prevent="follow(item.notifier_id, index)" v-show="!item.is_follower" v-if="auth_user.type == 'user' && item.type == 'follow'"><img src="/imgs/follow.png" class="btn-follow" /></a>
                             <a class="notifiable" style="color:#efa720" @click.prevent="acceptFollowRequest(item, index)" v-if="item.type == 'follow_request'">Accept</a>
+                            <span class="notifiable" style="color:#efa720" v-if="item.type == 'like' || item.type == 'comment'">
+                                <img :src="serverUrl(item.notifiable.url)" v-if="item.notifiable && item.notifiable.type == 'image'" class="img-media" />
+                                <img :src="getPosterUrl(item.notifiable.url)" v-if="item.notifiable && item.notifiable.type == 'video'" class="img-media" />
+                            </span>
                         </div>
                         <infinite-loading ref="infinite_loading" 
                             :distance="400" 
                             spinner="spiral" 
                             @infinite="getallnotifications"
-                            force-use-infinite-wrapper="#notification_wrapper"                            
+                            force-use-infinite-wrapper="#notification_wrapper"
                         >                        
                             <div slot="no-more"></div>
                             <div slot="no-results"></div>
@@ -228,6 +232,12 @@
                 } catch (error) {
                     return process.env.serverUrl + 'imgs/default.png';
                 }
+            },
+            getPosterUrl(url) {
+                var newUrl = url.replace("/video/", "/image/");
+                var pointPos = newUrl.lastIndexOf(".");
+                newUrl = newUrl.substring(0, pointPos) + ".jpg";
+                return process.env.serverUrl + newUrl;
             }
 
         },
@@ -256,9 +266,8 @@
             max-height: 450px;
             overflow-y: auto;
             .notification {
-                font-size: 20px;
-                padding-top: 5px;
-                padding-bottom: 5px;
+                font-size: 16px;
+                padding: 0;
                 display: flex;
                 align-items: center;
                 border-bottom: solid 1px gray;
@@ -272,8 +281,8 @@
                 }
                 .userlogo {
                     img {
-                        width: 35px;
-                        height: 35px;
+                        width: 40px;
+                        height: 40px;
                         border-radius: 100px;
                         object-fit: cover;
                     }
@@ -282,10 +291,23 @@
                     color: #EFA720;
                     cursor: pointer;
                     text-decoration: none;
+                    display: block;
+                    max-width: 250px;
+                    overflow: auto;
+                    white-space: pre;
+                    text-overflow: ellipsis;
                 }
                 .notifiable {
                     color: blue;
                     cursor: pointer;
+                    .btn-follow {
+                        height: 25px;
+                    }
+                    .img-media {
+                        height: 40px;
+                        width: 40px;
+                        object-fit: cover;
+                    }
                 }
             }
         }  
