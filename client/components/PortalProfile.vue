@@ -383,7 +383,7 @@
         </client-only> -->
 
         <vs-popup class="edit_portal edit-brand" type="border" title :active.sync="openEditPopup" v-if="!$device.isMobile && editable_portal">
-            <!-- <edit-portal :from="editable_portal" v-if="editable_portal.type == 'company'"></edit-portal> -->
+            <edit-portal :from="editable_portal" v-if="editable_portal.type == 'company'"></edit-portal>
             <!-- <div class="portal_addpage" v-else>
                 <brand-form :from="editable_portal" :is_edit="true"></brand-form>
             </div> -->
@@ -408,7 +408,7 @@ import PageComment from "./PageComment";
 import PageFooter from "./PageFooter";
 // import ProfileComment from "./ProfileComment";
 import PortalMenu from './portal/Menu';
-// import EditPortal from './portal/EditPortal';
+import EditPortal from './portal/EditPortal';
 import PortalCoupon from './portal/Coupon';
 import BrandMenu from './brand/Menu';
 import Tabs from 'vue-tabs-with-active-line';
@@ -425,7 +425,7 @@ export default {
         PortalMenu,
         BrandMenu,
         PortalCoupon,
-        // EditPortal,
+        EditPortal,
         Tabs,
     },
     watch: {

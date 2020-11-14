@@ -1,0 +1,347 @@
+/* Portal add page */
+
+h5 {
+    color: white;
+}
+
+.portal_addpage {
+    .pa_title {
+        color: #EFA720;
+        text-align: center;
+        margin-top: 1.7rem
+    }
+    input::placeholder {
+        color: transparent;
+    }
+    .parsely-single-error .filled~.filled {
+        display: none;
+    }
+    .parsley-required {
+        font-size: 13px;
+    }
+    .pa_content {
+        p {
+            margin: 0;
+            color: white;
+            font-size: 16px;
+            line-height: 20px;
+            text-align: center;
+            @media only screen and (max-width: 800px) {
+                font-size: 13px;
+            }
+        }
+    }
+    .pa_addform {
+        border: 1px solid white;
+        button {
+            font-size: 20px;
+        }
+        textarea {
+            background: #000;
+            width: 100%;
+            padding: .3rem 0;
+            border: none;
+            border-bottom: 1px solid white;
+            &::placeholder {
+                color: white;
+                opacity: 1;
+            }
+        }
+        .ap_delivery {
+            p {
+                color: white;
+            }
+            #ap_map {
+                height: 200px;
+            }
+        }
+        .pa_form_body {
+            display: none;
+        }
+        .form-group {
+            margin: 0;
+            .pa_type {
+                font-size: 15px;
+                margin: 0;
+                color: white;
+            }
+        }
+        .form-check {
+            .form-check-label {
+                color: white;
+                cursor: pointer;
+            }
+        }
+        .pa-logo {
+            margin-top: 10px;
+            text-align: center;
+            position: relative;
+            h4 {
+                color: white;
+            }
+            .pa_progress {
+                display: none;
+            }
+            .logo_preview {
+                width: 180px;
+                height: 180px;
+                margin: auto;
+                background-image: url("/imgs/profile-bg.png");
+                background-size: cover;
+                background-position: center;
+                position: relative;
+                img {
+                    width: 100%;
+                    height: 100%;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    padding: 10px;
+                    border-radius: 100%;
+                    object-fit: cover;
+                }
+            }
+            .btn-logout {
+                position: absolute;
+                top: 107px;
+                right: 50px;
+                cursor: pointer;
+                img {width: 30px;}
+            }
+            .btn-power {
+                position: absolute;
+                top: 103px;
+                left: 50px;
+                width: 30px;
+                cursor: pointer;
+            }
+        }
+        .pa-time {
+            margin-top: 10px;
+            h4 {
+                color: white;
+                text-align: center;
+            }
+        }
+        .time-frame {
+            margin-bottom: 2.3rem;
+            // margin-bottom: 1rem;
+            .openclose {
+                display: flex;
+                color: white;
+                text-align: center;
+                align-items: center;
+                justify-content: center;
+                span.label {
+                    width: 50px;
+                    text-align: right;
+                }
+                input {
+                    border: none !important;
+                    margin-left: 5px;
+                    font-size: 15px;
+                }
+                i {
+                    color: #EFA720;
+                    font-size: 20px;
+                    top: 2px;
+                }
+            }
+        }
+    }
+    .pa_mobile {
+        border: none;
+    }
+    .emojionearea,
+    .emojionearea.form-control {
+        border: none;
+        border-bottom: 1px solid white;
+        box-shadow: none;
+        padding-right: 30px !important;
+        .emojionearea-editor {
+            // padding: 10px 30px 6px 2px;
+            padding-left: 0;
+            padding-right: 0;
+            width: 100% !important;
+        }
+    }
+    .form-control:focus,
+    .emojionarea.focusd {
+        box-shadow: none;
+        border: none;
+        border-color: none;
+        border-bottom: 1px solid white;
+    }
+    // Custom checkbox
+    .custom-check,
+    label {
+        cursor: pointer;
+    }
+    .round {
+        position: relative;
+    }
+    .round label {
+        background-color: #fff;
+        border: 1px solid #ccc;
+        cursor: pointer;
+        border-radius: 50%;
+        height: 20px;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 20px;
+        transition: all .1s linear;
+    }
+    .round label:after {
+        border: 2px solid #fff;
+        border-top: none;
+        border-right: none;
+        content: "";
+        height: 6px;
+        left: 3px;
+        opacity: 0;
+        position: absolute;
+        top: 5px;
+        transform: rotate(-45deg);
+        width: 12px;
+    }
+    .round input[type="checkbox"] {
+        visibility: hidden;
+    }
+    .round input[type="checkbox"]:checked+label {
+        background-color: #efa720;
+        border-color: #efa720;
+    }
+    .round input[type="checkbox"]:checked+label:after {
+        opacity: 1;
+    }
+    .companyLabel.floating {
+        top: -30px !important;
+        color: gray;
+    }
+    // Floating
+    .floating-label {
+        position: relative;
+        margin-bottom: 22px;
+    }
+    .floating-input,
+    .floating-select {
+        font-size: 16px;
+        padding: 4px 2px;
+        display: block;
+        width: 100%;
+        // height: 30px;
+        background-color: transparent;
+        border: none;
+        // border-bottom: 1px solid #757575;
+    }
+    .floating-select {
+        padding: 10px 2px;
+    }
+    .floating-select.float~label {
+        top: -15px !important;
+    }
+    // .floating-input:focus,
+    // .floating-select:focus {
+    //   outline: none;
+    //   border-bottom: 2px solid #5264ae;
+    // }
+    .multi-select__label {
+        position: absolute;
+        z-index: 1;
+        top: 10px;
+    }
+    .multi-select__label.float-label {
+        top: -13px;
+    }
+    .floating-label label {
+        color: #fff;
+        font-size: 16px;
+        // font-weight: normal;
+        position: absolute !important;
+        pointer-events: none;
+        // left: 5px;
+        top: 30%;
+        transition: 0.2s ease all;
+        -moz-transition: 0.2s ease all;
+        -webkit-transition: 0.2s ease all;
+    }
+    .multiselect {
+        .multiselect__content-wrapper {
+            display: none !important;
+            visibility: hidden !important;
+            color: transparent !important;
+            background: black;
+            border: none !important;
+            z-index: -1 !important;
+            height: 0 !important;
+            max-height: 0 !important;
+            overflow: hidden;
+        }
+        .multiselect__option {
+            display: none !important;
+            padding: 0 !important;
+        }
+    }
+    .floating-input:focus~label,
+    .floating-input:not(:placeholder-shown)~label {
+        top: -15px;
+        color: gray;
+    }
+    .floating-select:focus~label,
+    .floating-select:not([value=""]):checked~label,
+    .floating-select:not([value=""]):valid~label {
+        top: -15px;
+        color: gray;
+    }
+    /* active state */
+    .floating-input:focus~.bar:before,
+    .floating-input:focus~.bar:after,
+    .floating-select:focus~.bar:before,
+    .floating-select:focus~.bar:after {
+        width: 50%;
+    }
+    .floating-textarea {
+        min-height: 30px;
+        max-height: 260px;
+        // overflow: hidden;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+}
+
+.gj-modal {
+    .gj-picker {
+        border: 1px solid white !important;
+        background-color: black !important;
+        [role=header] {
+            background-color: black !important;
+        }
+        [role=arrow] {
+            background-color: #EFA720 !important;
+        }
+        .arrow-begin {
+            background-color: #EFA720 !important;
+        }
+        .arrow-end {
+            border-color: #EFA720 !important;
+        }
+        .gj-button-md {
+            color: #EFA720 !important;
+        }
+        .gj-button-md {
+            color: #EFA720 !important;
+            font-size: 16px !important;
+        }
+    }
+    // @media only screen and (max-width: 800px) {
+    //     .pa_content{
+    //         p{
+    //             font-size: 13px;
+    //         }
+    //     }
+    // }
+}
+
+
+/* End Portal add page */

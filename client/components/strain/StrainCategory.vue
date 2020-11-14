@@ -1,9 +1,9 @@
 <template>
     <div class="col-12" id="media_scroll_wrapper" style="overflow-y: auto;height:100vh">
         <div class="container">
-            <h1 class="text-center my-4 category__header">{{ category.name }}</h1>
+            <h1 class="text-center my-4 category__header">{{ category.name }} Marijuana Strains</h1>
             <edit-description class="category__content" type="category" :strain="category" :auth="user"></edit-description>
-            <h2 class="text-center my-4 category__header">{{ category.name }} Marijuana Strains</h2>
+            <h2 class="text-center my-4 category__header">List of {{ category.name }} Marijuana Strains</h2>
         </div>
         <!-- Category Strains -->
         <div class="container" style="padding-bottom: 80px;">

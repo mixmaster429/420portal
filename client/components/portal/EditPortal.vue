@@ -1,24 +1,24 @@
 <template>
     <div class="portal_addpage">
-        <div class="sticky-top strains__sticky" style="margin-right: -12px; margin-left: -12px; background: #fff;top:0;border-radius:5px 5px 0 0;" v-if="is_mobile">
+        <div class="sticky-top strains__sticky" style="margin-right: -12px; margin-left: -12px; background: #fff;top:0;border-radius:5px 5px 0 0;" v-if="$device.isMobile">
             <ul class="nav strains__nav">
                 <p style="margin: auto 5px; padding: 8px; font-size: 20px;color:black;">
-                    <i @click="closePopUp()" class="fas fa-times mr-2"></i> Edit Profile
+                    <fa @click="closePopUp()" icon="times" class="mr-2" fixed-width></fa> Edit Profile
                 </p>
                 <div class="ml-auto" style="padding: 8px; font-size: 20px;">
-                    <i @click="savePortal()" class="fas fa-check mr-3" style="color: #efa720;"></i>
+                    <fa @click="savePortal()" icon="check" class="mr-3" style="color: #efa720;"></fa>
                 </div>
             </ul>
         </div>
 
         <div class="mt-2">
-            <div class="pa_addform border-0" :class="{pa_mobile : is_mobile}">
+            <div class="pa_addform border-0" :class="{pa_mobile : $device.isMobile}">
                 <div class="pa-logo">
                     <h4 class="pa-logotitle" style="cursor: pointer;">Company Logo*</h4>
                     <input type="file" hidden id="pa_imageselect" name="postfile" accept="image/*">
                     <label for="pa_imageselect">
                         <div class="logo_preview" style="cursor: pointer;">
-                            <img :src="pa_logourl ? pa_logourl : '/imgs/default.png'" alt="" id="pa_logo_image" name="pa_logo_image">
+                            <img :src="pa_logourl" alt="" id="pa_logo_image" name="pa_logo_image" v-show="pa_logourl">
                         </div>
                     </label>
                     <div>
@@ -141,15 +141,11 @@
                     <input type="hidden" name="latitude" id="pa_latitude" v-model="portal.latitude">
                     <input type="hidden" name="longitude" id="pa_longitude" v-model="portal.longitude">
 
-                    <div class="form-label-group portal_description floating-portal mt-4" style="height: 100px;margin-bottom:12px;">
+                    <div class="form-label-group portal_description floating-portal floating-label" style="margin-bottom:12px;margin-top:35px;">
                         <textarea class="form-control comment_text" name="description" id="ap-description" placeholder=" " v-model="portal.description"></textarea>
                         <label class="companyLabel" :class="{floating : portal.description}">Company Bio</label>
                     </div>
 
-                    <!-- <div class="form-group floating-label coupon_description mt-4 mb-4 ">
-                        <textarea class="form-control floating-input floating-textarea rounded-0"  rows="2" maxlength="43" placeholder=" " name="coupon" id="ap-coupon" :value="portal.coupon ? portal.coupon.description : ''"></textarea>
-                        <label for="ap-coupon">Company Coupon</label>
-                    </div> -->
                     <div class="pa-time mt-4 mb-3">
                         <h4>Social Media</h4>
                     </div>
@@ -456,8 +452,11 @@
 <script>
 import { mapGetters } from "vuex";
 import _ from 'lodash';
-require('gijgo');
-require('blueimp-file-upload');
+require("tz-lookup");
+if(process.client) {
+    require('gijgo');
+}
+import "../../assets/sass/_addportal.scss";
 export default {
     name : "EditPortal",
     // components: { VueGoogleAutocomplete },
@@ -466,7 +465,6 @@ export default {
         return {
             portal : this.from,
             pa_logourl : this.from.profile_pic ? this.from.profile_pic.url : '',
-            is_mobile : window.is_mobile,
             loading : false,
             markerOptions: [
                 {
@@ -493,7 +491,7 @@ export default {
     watch : {
         from : function(newPortal, oldPortal){
             this.portal = newPortal;
-            this.pa_logourl = newPortal.profile_pic ? newPortal.profile_pic.url : '';
+            this.pa_logourl = newPortal.profile_pic ? this.serverUrl(newPortal.profile_pic.url) : '';
             this.map_center = {lat: Number(newPortal.latitude), lng: Number(newPortal.longitude)};
             if($("#ap-description")){
                 $("#ap-description").data('emojioneArea').setText(newPortal.description);
@@ -539,24 +537,24 @@ export default {
                 }
             });
 
-            $('#pa_imageselect').fileupload({
-                dataType: 'json',
-                type: 'POST',
-                maxFileSize: 10000,
-                formData: {media_type: 'user', username : self.portal.username},
-                progressall: function (e, data) {
-                    var progress = parseInt(data.loaded / data.total * 100, 10);
-                    self.media_progress = progress;
-                },
-                done: function (e, data) {
-                    self.media_progress = 0;
-                    self.pa_logourl = data.result.fileurl;
-                },
-                fail: function (e, data) {
-                    console.log('fail', e, data)
-                },
-                url: '/media/upload'
-            });
+            // $('#pa_imageselect').fileupload({
+            //     dataType: 'json',
+            //     type: 'POST',
+            //     maxFileSize: 10000,
+            //     formData: {media_type: 'user', username : self.portal.username},
+            //     progressall: function (e, data) {
+            //         var progress = parseInt(data.loaded / data.total * 100, 10);
+            //         self.media_progress = progress;
+            //     },
+            //     done: function (e, data) {
+            //         self.media_progress = 0;
+            //         self.pa_logourl = data.result.fileurl;
+            //     },
+            //     fail: function (e, data) {
+            //         console.log('fail', e, data)
+            //     },
+            //     url: '/media/upload'
+            // });
         });
     },
     methods: {
@@ -657,7 +655,7 @@ export default {
             let url = `/portals/update`;
             const form_data = new FormData($("#pa_addform")[0]);
             this.loading = true;
-            axios.post(url, form_data).then(response => {
+            this.axios.post(url, form_data).then(response => {
                 if(response.data.status == 200) {
                     this.loading = false;
                     // this.$parent.$parent.openEditPortal = false;
@@ -732,7 +730,7 @@ export default {
                         'Access-Control-Allow-Origin': '*',
                     }
                 }
-            axios.get(url, config).then(response => {
+            this.axios.get(url, config).then(response => {
                 let add_components = response.data.results;
                 add_components.forEach(element => {
                     for (var i = 0; i < element.address_components.length; i++) {
@@ -764,7 +762,7 @@ export default {
                     state_license: this.portal.state_license,
                 };
             let uri = `/user/activate`;
-            axios.post(uri, params)
+            this.axios.post(uri, params)
                 .then(response => {
                     this.openActivatePopup = false;
                     this.portal.is_active = response.data;
@@ -777,7 +775,7 @@ export default {
             }
             let params = { id: this.portal.id };
             let uri = `/portals/${this.portal.id}`;
-            axios.delete(uri, params)
+            this.axios.delete(uri, params)
                 .then(response => {
                     this.openActivatePopup = false;
                     window.location.href = '/';
@@ -786,8 +784,16 @@ export default {
         logout(event) {
             event.preventDefault();
             if(window.confirm('Are you sure?')) {
-                document.getElementById('logout-form').submit();
+                // document.getElementById('logout-form').submit();
             }                
+        },
+        serverUrl(item) {
+            if(item.charAt(0) != '/'){item = '/' + item;}
+            try {
+                return process.env.serverUrl + item;
+            } catch (error) {
+                return process.env.serverUrl + 'imgs/default.png';
+            }
         }
     },
     directives: {
@@ -891,5 +897,13 @@ export default {
     }
     .pac-container {
         z-index: 20000;
+    }
+    .portal_addpage {
+        .emojionearea-button {
+            top: 7px;
+            div {
+                background-image: url(https://i.imgur.com/xljqgrH.png) !important;
+            }
+        } 
     }
 </style>

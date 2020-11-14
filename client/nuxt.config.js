@@ -81,7 +81,7 @@ module.exports = {
     plugins: [
       new webpack.ProvidePlugin({
         $: "jquery",
-        jquery: "jquery",
+        jQuery: "jquery",
       })
     ],
     transpile: [/^vue2-google-maps($|\/)/],

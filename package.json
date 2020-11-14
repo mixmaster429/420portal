@@ -37,6 +37,7 @@
     "sweet-modal-vue": "^2.0.0",
     "sweetalert2": "^8.19.0",
     "tls": "0.0.1",
+    "tz-lookup": "^6.1.25",
     "vform": "^1.0.1",
     "vue-autosuggest": "^2.2.0",
     "vue-axios": "^3.1.3",
