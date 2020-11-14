@@ -1,7 +1,7 @@
 <template>
     <div id="menuForm">
         <div v-if="$device.isMobile" class="btn-close-popup">
-            <i @click="closeMenu()" class="fas fa-times mr-2"></i> 
+            <fa @click="closeMenu()" icon="times" class="mr-2"></fa> 
             <h5 class="page-title">
                 Menu
                 <img src="/imgs/search_option.png" width="25" @click="show_filter = !show_filter">
@@ -15,7 +15,7 @@
                 <input type="hidden" name="portal_id" :value="portal.id" />
                 <input type="hidden" name="menu_id" :value="menu_id" />
                 <div class="text-center" style="position:relative;">
-                    <span class="btn-form-close" @click="closeForm"><i class="far fa-times-circle"></i></span>
+                    <span class="btn-form-close" @click="closeForm"><fa icon="times"></fa></span>
                     <label class="mt-2 upload__label" for="menu_media">
                         <video id="menu_media_video" v-if="mediaType === 'video'" :src="mediaData" width="320" height="240" controls disablepictureinpicture controlslist="nodownload">
                             <source v-bind:src="mediaData" type="video/mp4" />
@@ -23,11 +23,11 @@
                             <source v-bind:src="mediaData" type="video/ogg" />Your browser does not support the video tag.
                         </video>
                         <div class="logo" for="menu_media" v-else>
-                            <img class="signup_logo" :src="mediaData" alt="" />
+                            <img class="signup_logo" :src="mediaData" alt="" v-show="mediaData" />
                         </div>
                         <p style="color: #EFA720;font-size: 15px;">Add Media</p>
                     </label>
-                    <span class="btn-remove-media" @click="removeMedia" v-if="is_editting && this.mediaData"><i class="far fa-times-circle"></i></span>
+                    <span class="btn-remove-media" @click="removeMedia" v-if="is_editting && this.mediaData"><fa icon="times-circle"></fa></span>
                     <input type="hidden" name="remove_media" :value="remove_media" />
                     <input type="file" hidden id="menu_media" name="file"  class="btn-file" @change="previewImage" accept="image/*|video/*" />
                 </div>
@@ -213,11 +213,11 @@
                                     <img src="/imgs/default.png" width="125" height="125" alt="">
                                 </div>
                                 <p class="btn-group mb-0" v-if="portal.id === auth_user_id || auth_user_id == 1">
-                                    <a href="javascript:;" @click="editMenu(menu)" class="btn-action" data-toggle="tooltip" title="Edit"><i class="fas fa-edit"></i></a>
-                                    <a href="javascript:;" @click="deleteMenu(menu.id)" class="btn-action" data-toggle="tooltip" title="Delete"><i class="fas fa-trash-alt"></i></a>
+                                    <a href="javascript:;" @click="editMenu(menu)" class="btn-action" data-toggle="tooltip" title="Edit"><fa icon="edit" fixed-width></fa></a>
+                                    <a href="javascript:;" @click="deleteMenu(menu.id)" class="btn-action" data-toggle="tooltip" title="Delete"><fa icon="trash-alt" fixed-width></fa></a>
                                     <a href="javascript:;" @click="deactiveMenu(menu.id, menu.is_active)" class="btn-action" data-toggle="tooltip" :title="menu.is_active ? 'Deactivate' : 'Activate'">
-                                        <i class="fas fa-ban" v-if="menu.is_active == 1"></i>
-                                        <i class="fas fa-check-circle" v-else></i>
+                                        <fa class="ban" fixed-width v-if="menu.is_active == 1"></fa>
+                                        <fa class="check-circle" fixed-width v-else></fa>
                                     </a>
                                 </p>
                                 <div class="menu-description" v-if="menu.description && menu.show_description" @mouseover="menu.show_description = true" @mouseleave="menu.show_description = false">{{menu.description}}</div>
@@ -423,8 +423,8 @@ export default {
                     });
         },
         init() {
-            this.auth_user_id = window.user;
-            axios.post('/api/categories')
+            this.auth_user_id = this.auth_user ? this.auth_user.id : '';
+            this.axios.post('/categories')
                 .then(response => {
                     this.category = response.data;
                 });
@@ -435,7 +435,7 @@ export default {
             let params = {
                 id: this.portal.id,
             };
-            axios.post('/portal/get_all_menus', params)
+            this.axios.post('/portal/get_all_menus', params)
                 .then(response => {
                     this.portal_categories = response.data.data.portal_categories;
                     this.portal_menus = response.data.data.menus;
@@ -475,9 +475,9 @@ export default {
             let id = event.target.value;
             this.selected_category = this.category.filter(cat => cat.id == id)[0];
 
-            let url = '/api/category/strains';
+            let url = '/category/strains';
             let data = {id : id};
-            axios.post(url, data)
+            this.axios.post(url, data)
                 .then(response => {
                     this.strains = response.data;
                     this.taggedStrains = this.strains;
@@ -527,7 +527,7 @@ export default {
                         "Content-Type": "multipart/form-data"
                     }
                 };
-            axios.post(url, form_data, headers)
+            this.axios.post(url, form_data, headers)
                 .then(response => {
                     if(response.data.status == 200){
                         this.init();
@@ -544,7 +544,7 @@ export default {
             if(!window.confirm('Are you sure?')) {
                 return false;
             } else {
-                axios.get('/menu/' + id + '/delete')
+                this.axios.get('/menu/' + id + '/delete')
                     .then(response => {
                         if(response.data.status == 200){
                             this.init();
@@ -559,7 +559,7 @@ export default {
             if(!window.confirm(question)) {
                 return false;
             } else {
-                axios.get('/menu/' + id + '/deactive')
+                this.axios.get('/menu/' + id + '/deactive')
                     .then(response => {
                         if(response.data.status == 200){
                             this.init();
@@ -590,7 +590,7 @@ export default {
                 $("#form_menu div.emojionearea").addClass('focused');
             }
             this.loading = true;
-            axios.post('/api/category/strains', {id : this.category_id})
+            this.axios.post('/category/strains', {id : this.category_id})
                 .then(response => {
                     this.strains = response.data;
                 })
@@ -617,7 +617,7 @@ export default {
                         "Content-Type": "multipart/form-data"
                     }
                 };
-            axios.post(url, form_data, headers)
+            this.axios.post(url, form_data, headers)
                 .then(response => {
                     if(response.data.status == 200){
                         this.init();
@@ -1009,6 +1009,15 @@ export default {
     #form_menu .emojionearea-editor {
         font-size: 16px;
         white-space: normal !important;
+    }
+
+    #form_menu {   
+        .emojionearea-button {
+            top: 7px;
+            div {
+                background-image: url(https://i.imgur.com/xljqgrH.png) !important;
+            }
+        } 
     }
     .emojionearea.focused {
         box-shadow: unset !important;

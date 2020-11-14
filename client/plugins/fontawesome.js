@@ -10,7 +10,8 @@ import {
   faHeart as farHeart,
   faBookmark as farBookmark,
   faComment as farComment,
-  faDotCircle as farDotCircle
+  faDotCircle as farDotCircle,
+  faTimesCircle as farTimesCircle,
 } from '@fortawesome/free-regular-svg-icons'
 
 import {
@@ -21,7 +22,7 @@ config.autoAddCss = false
 
 library.add(
   faUser, faLock, faSignOutAlt, faSignInAlt, faCog, faUserPlus, faBookmark, faHeart, faComment, faTimes, faEdit, faTrashAlt, faEllipsisH, faArrowLeft, faArrowRight, faArrowDown, faArrowUp, faAngleDown, faPhoneAlt, faEnvelope, faGlobeAmericas, faPaperclip, faTimesCircle, faBars, faCheck, faSearch, faDotCircle, faPlus, faReply, faChevronUp, faChevronDown,
-  farBookmark, farHeart, farComment, farDotCircle,
+  farBookmark, farHeart, farComment, farDotCircle, farTimesCircle,
   faInstagram, faFacebookSquare, faTwitterSquare, faYoutubeSquare, faTelegramPlane
 );
 

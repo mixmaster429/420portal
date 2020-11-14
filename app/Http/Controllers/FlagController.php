@@ -17,7 +17,11 @@ class FlagController extends Controller
             'flaggable_id' => $request->get('flaggable_id'),
             'flaggable_type' => $request->get('flaggable_type'),
         ]);
-        // Mail::to('420portal@gmail.com')->send(new FlagMail($flag));
+        try {
+            Mail::to('420portal@gmail.com')->send(new FlagMail($flag));
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
         return response()->json(['status' => 'success']);
     }
 }

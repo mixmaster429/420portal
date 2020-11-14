@@ -413,7 +413,11 @@ class ForumsController extends Controller
                 ]);
                 if($notification->user && $notification->user->check_notification_filter('comment_reply')){                  
                     $toEmail = $notification->user->email;
-                    // Mail::to($toEmail)->send(new NotificationMail($notification));  
+                    try {
+                        Mail::to($toEmail)->send(new NotificationMail($notification));  
+                    } catch (\Throwable $th) {
+                        //throw $th;
+                    }
                 }
             }
         }
@@ -637,7 +641,11 @@ class ForumsController extends Controller
                 ]);
                 if($notification->user && $notification->user->check_notification_filter('like')){                  
                     $toEmail = $notification->user->email;
-                    // Mail::to($toEmail)->send(new NotificationMail($notification));  
+                    try {
+                        Mail::to($toEmail)->send(new NotificationMail($notification)); 
+                    } catch (\Throwable $th) {
+                        //throw $th;
+                    }
                 }
             }
 

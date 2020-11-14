@@ -93,8 +93,12 @@ class PortalController extends Controller
 
         $portal = User::create($data);
         $portal_id = $portal->id;
-
-        // Mail::to($portal->email)->send(new PortalRegisterMail($portal));
+        try {
+            Mail::to($portal->email)->send(new PortalRegisterMail($portal));
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+        
 
         $media->model = 'logo';
         $media->description = $data['description'];

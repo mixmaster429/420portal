@@ -90,8 +90,11 @@ class RegisterController extends Controller
         $mdata = array();
         $mdata['user_name'] = $data['name'];
         $toEmail = $data['email'];
-        // Mail::to($toEmail)->send(new SendEmail($mdata, $user));
-
+        try {
+            Mail::to($toEmail)->send(new SendEmail($mdata, $user));
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
         return $user;
     }
 }

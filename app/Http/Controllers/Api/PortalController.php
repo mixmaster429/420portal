@@ -150,8 +150,12 @@ class PortalController extends Controller
             $portal->save();
         }
 
-        if($portal->email) {
-            // Mail::to($portal->email)->send(new PortalRegisterMail($portal));
+        if($portal->email) {            
+            try {
+                Mail::to($portal->email)->send(new PortalRegisterMail($portal));
+            } catch (\Throwable $th) {
+                //throw $th;
+            }
         }
         return response()->json(['status' => 200, 'portal' => $portal]);
     }

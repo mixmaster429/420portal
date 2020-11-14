@@ -349,7 +349,7 @@
                         <h5 class="modal-title" id="couponModalLabel">Reviews - Comments</h5>
                     </div>
                     <div class="modal-body" style="padding: 0;">
-                        <!-- <profile-comment :user="portal_detail"></profile-comment> -->
+                        <page-comment :page="portal_detail" model="portal"></page-comment>
                     </div>
                 </div>
             </div>
@@ -362,7 +362,7 @@
             <brand-menu :brand="portal_detail" v-else></brand-menu>
         </vs-popup>
 
-        <vs-popup v-if="portal_detail && $device.isMobile" class="strains__popup portal_menu" type="border" title :active.sync="openPortalMenu">
+        <vs-popup v-if="portal_detail && $device.isDesktop" class="strains__popup portal_menu" type="border" title :active.sync="openPortalMenu">
             <portal-menu :portal="portal_detail" v-if="portal_detail.type == 'company'"></portal-menu>
             <brand-menu :brand="portal_detail" v-else></brand-menu>
         </vs-popup>
@@ -383,10 +383,10 @@
         </client-only> -->
 
         <vs-popup class="edit_portal edit-brand" type="border" title :active.sync="openEditPopup" v-if="!$device.isMobile && editable_portal">
-            <edit-portal :from="editable_portal" v-if="editable_portal.type == 'company'"></edit-portal>
-            <div class="portal_addpage" v-else>
+            <!-- <edit-portal :from="editable_portal" v-if="editable_portal.type == 'company'"></edit-portal> -->
+            <!-- <div class="portal_addpage" v-else>
                 <brand-form :from="editable_portal" :is_edit="true"></brand-form>
-            </div>
+            </div> -->
         </vs-popup>
 
         <!-- First Sign Up -->
@@ -404,6 +404,7 @@
 
 <script>
 import FixedComment from "./FixedComment";
+import PageComment from "./PageComment";
 import PageFooter from "./PageFooter";
 // import ProfileComment from "./ProfileComment";
 import PortalMenu from './portal/Menu';
@@ -419,6 +420,7 @@ export default {
     name: "PortalProfile",
     components: {
         FixedComment,
+        PageComment,
         PageFooter,
         PortalMenu,
         BrandMenu,

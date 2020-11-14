@@ -79,6 +79,8 @@ Route::any('/gettopicuser/{user_id}','ForumsController@gettopicuser');
 Route::any('/topic/getedittopic','ForumsController@getedittopic');
 Route::get('/marijuana-forums/{id}','ForumsController@detail');
 
+Route::post('/portal/get_all_menus', 'PortalController@get_all_menus');
+
 
 Route::middleware(['auth:api'])->group(function ($router){
     $router->post('/profile/like', 'LikeController@likeProfile');
@@ -146,6 +148,13 @@ Route::middleware(['auth:api'])->group(function ($router){
     $router->post('/email_notification_filter/save', 'NotificationFilterController@save');
     $router->get('/email_notification_filter/get_value', 'NotificationFilterController@get_value');
     $router->post('/notification/get_unreads', 'NotificationController@user_unreads');
+
+    // Menu
+    
+    $router->post('/menu/create', 'PortalController@create_menu')->name('menu.create');
+    $router->post('/menu/update', 'PortalController@update_menu')->name('menu.update');
+    $router->get('/menu/{id}/delete', 'PortalController@delete_menu')->name('menu.delete');
+    $router->get('/menu/{id}/deactive', 'PortalController@deactive_menu')->name('menu.deactive');
 
     // Admin Panel
 

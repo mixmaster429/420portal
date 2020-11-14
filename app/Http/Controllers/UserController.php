@@ -471,7 +471,11 @@ class UserController extends Controller
                 ]);
                 if($notification->user && $notification->user->check_notification_filter('follow')){
                     $toEmail = $notification->user->email;
-                    // Mail::to($toEmail)->send(new NotificationMail($notification));
+                    try {
+                        Mail::to($toEmail)->send(new NotificationMail($notification));
+                    } catch (\Throwable $th) {
+                        //throw $th;
+                    }
                 }  
             }
         }
@@ -500,7 +504,11 @@ class UserController extends Controller
             ]);
             if($notification->user && $notification->user->check_notification_filter('follow')){
                 $toEmail = $notification->user->email;
-                // Mail::to($toEmail)->send(new NotificationMail($notification));
+                try {
+                   Mail::to($toEmail)->send(new NotificationMail($notification));
+                } catch (\Throwable $th) {
+                    //throw $th;
+                }
             }
             return response()->json(['status' => 2]);
         }

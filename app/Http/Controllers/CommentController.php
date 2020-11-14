@@ -141,7 +141,12 @@ class CommentController extends Controller
                         $toEmail = $comment->target->portal->email ?? '';                        
                     }
                     if(filter_var($toEmail, FILTER_VALIDATE_EMAIL)) {
-                        // Mail::to($toEmail)->send(new NotificationMail($notification)); 
+                        try {
+                            Mail::to($toEmail)->send(new NotificationMail($notification)); 
+                        } catch (\Throwable $th) {
+                            //throw $th;
+                        }
+                        
                     }                     
                 }
             }
@@ -188,7 +193,11 @@ class CommentController extends Controller
                         $toEmail = $comment->target->portal->email ?? '';                        
                     }
                     if(filter_var($toEmail, FILTER_VALIDATE_EMAIL)) {
-                        // Mail::to($toEmail)->send(new NotificationMail($notification)); 
+                        try {
+                            Mail::to($toEmail)->send(new NotificationMail($notification)); 
+                        } catch (\Throwable $th) {
+                            //throw $th;
+                        }
                     }
                 }
             }
@@ -203,7 +212,11 @@ class CommentController extends Controller
                 if($notification->user->check_notification_filter('comment_reply')){
                     $toEmail = $notification->user->email;
                     if(filter_var($toEmail, FILTER_VALIDATE_EMAIL)) {
-                        // Mail::to($toEmail)->send(new NotificationMail($notification)); 
+                        try {
+                            Mail::to($toEmail)->send(new NotificationMail($notification)); 
+                        } catch (\Throwable $th) {
+                            //throw $th;
+                        }
                     }
                 }
             }

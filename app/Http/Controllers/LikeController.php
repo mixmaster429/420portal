@@ -46,7 +46,11 @@ class LikeController extends Controller
                         $toEmail = $like->target->portal->email ?? '';                        
                     }
                     if(filter_var($toEmail, FILTER_VALIDATE_EMAIL)) {
-                        // Mail::to($toEmail)->send(new NotificationMail($notification)); 
+                        try {
+                            Mail::to($toEmail)->send(new NotificationMail($notification)); 
+                        } catch (\Throwable $th) {
+                            //throw $th;
+                        }
                     }
                 }
             }
@@ -101,7 +105,11 @@ class LikeController extends Controller
                     if($notification_type == 'portal') {
                         $toEmail = $like->target->portal->email ?? '';
                     }
-                    // Mail::to($toEmail)->send(new NotificationMail($notification));
+                    try {
+                        Mail::to($toEmail)->send(new NotificationMail($notification));
+                    } catch (\Throwable $th) {
+                        //throw $th;
+                    }
                 }
             }
 
@@ -116,7 +124,11 @@ class LikeController extends Controller
                 ]);
                 if($notification->user && $notification->user->check_notification_filter('like')){
                     $toEmail = $notification->user->email;
-                    // Mail::to($toEmail)->send(new NotificationMail($notification));
+                    try {
+                        Mail::to($toEmail)->send(new NotificationMail($notification));
+                    } catch (\Throwable $th) {
+                        //throw $th;
+                    }
                 }
             }
 
