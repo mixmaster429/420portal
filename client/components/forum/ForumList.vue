@@ -9,10 +9,8 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="forum_header">
-                                <h1 @click="showmainalert()" style="cursor:pointer;padding-top:13px;" class="text-center title_position title_fs main-color">
-                                    <img src="/imgs/h_icon4.png" width="35" style="margin-top: -8px;" alt="" />
-                                    Marijuana Forums
-                                </h1>
+                                <img src="/imgs/h_icon4.png" width="35" style="margin-top: -8px; margin-right:3px;" alt="" />
+                                <h1 @click="showmainalert()">Marijuana Forums</h1>
                                 <div class="forum_button">
                                     <div class="forum_button_area">
                                         <ul>
@@ -48,7 +46,7 @@
                                                                     <span><fa icon="bookmark" class="main-color fs-10"></fa></span>
                                                                     <span v-if="item.title" class="bookmarktitle">{{ item.title }}</span>
                                                                 </a>
-                                                                <a v-if="item.origin" :href="'/marijuana-forums/' + item.origin.slug+ '/' +item.origin.id + '/' + item.id">
+                                                                <a v-if="item.origin" :href="'/marijuana-forums/' + item.origin.slug+ '/' + item.origin.id">
                                                                     <span><fa icon="bookmark" class="main-color fs-10"></fa></span>
                                                                     <span class="bookmarktitle">
                                                                         <span class="col-blue">Reply:</span>
@@ -101,7 +99,7 @@
                     <div class="col-md-12">
                         <div class="btn_area">
                             <div class="forum_category">
-                                <select name="" id="" @change="onChange()" v-model="categoryKey">
+                                <select name="" id="" @change="onChange()" v-model="catId">
                                     <option value="">All Categories</option>
                                     <option value="Stoner's Lounge">Stoner's Lounge</option>
                                     <option value="Concentrates">Concentrates </option>
@@ -307,7 +305,6 @@
                 catId: "",
                 selectedCategory: "",
                 searchValue: "",
-                categoryKey: "",
                 loader: false,
                 errors: {},
                 page: 1,
@@ -356,6 +353,17 @@
 
         },
         mounted() {
+            if(process.client) {
+                let category = localStorage.getItem('forum_category');
+                if(category) {
+                    this.catId = category;
+                }
+                let keyword = localStorage.getItem('forum_keyword');
+                if(keyword) {
+                    this.searchValue = keyword;
+                }
+                localStorage.clear();
+            }
             this.getalltopics();
             this.scroll();
         },
@@ -419,7 +427,6 @@
                 window.location.href = `/marijuana-forums/${item.slug}/${item.id}`;
             },
             getSearchResult() {
-                this.categoryKey = "";
                 this.catId = "";
                 this.keyWord = this.searchValue;
                 this.displaytopic = "";

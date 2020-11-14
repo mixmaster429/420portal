@@ -16,7 +16,7 @@
         },
         head () {
             return { 
-                title: 'Marijuana Forums',
+                title: this.forum.title,
                 meta: [
                     { hid: 'title', name: 'title', content: this.forum.title },
                     { hid: 'keywords', name: 'keywords', content: 'forums' },

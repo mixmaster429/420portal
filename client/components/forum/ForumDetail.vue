@@ -9,10 +9,8 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="forum_header">
-                                <h1 class="text-center main-color"><a href="/marijuana-forums" class="main-color title_fs">
-                                    <img src="/imgs/h_icon4.png" width="35" style="margin-top: -8px;" alt="" />
-                                    Marijuana Forums
-                                </a></h1>
+                                <img src="/imgs/h_icon4.png" width="35" style="margin-top: -8px;margin-right:3px;" alt="" />
+                                <h1>Marijuana Forums</h1>
                                 <div class="forum_button">
                                     <div class="forum_button_area">
                                         <ul>
@@ -48,7 +46,7 @@
                                                                     <span><fa icon="bookmark" class="main-color fs-10" fixed-width></fa></span>
                                                                     <span class="bookmarktitle">{{ item.title }}</span>
                                                                 </a>
-                                                                <a v-else :href="`/marijuana-forums/${item.origin.slug}/${item.origin.id}/${item.id}`">
+                                                                <a v-else :href="`/marijuana-forums/${item.origin.slug}/${item.origin.id}`">
                                                                     <span><fa icon="bookmark" class="main-color fs-10" fixed-width></fa></span>
                                                                     <span class="bookmarktitle">
                                                                         <span class="col-blue">Reply:</span>
@@ -106,7 +104,7 @@
                         <div class="cur_forum" v-show="loaded">
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="/marijuana-forums">Forums</a></li>
-                                <li class="breadcrumb-item"><a href="javascript:;">{{ forum.category }}</a></li>
+                                <li class="breadcrumb-item"><a href="javascript:;" @click="viewCategoryForums(forum.category)">{{ forum.category }}</a></li>
                                 <li class="breadcrumb-item active">{{ forum.title }}</li>
                             </ul>
                             <h3 class="title_fs">{{ forum.title }}</h3>
@@ -635,10 +633,10 @@
                     $('html').animate({scrollTop: scrollTop-220}, 'fast');
                 } else  {
                     position = position - 1;
-                    // if($(".reply_item:eq("+position+")").offset()){
-                    //     var scrollTop = $(".reply_item:eq("+position+")").offset().top;
-                    //     $('html').animate({scrollTop: scrollTop-147},'fast');
-                    // }                    
+                    if($(".reply_item:eq("+position+")").offset()){
+                        var scrollTop = $(".reply_item:eq("+position+")").offset().top;
+                        $('html').animate({scrollTop: scrollTop-147},'fast');
+                    }                    
                 }
 
             },
@@ -770,8 +768,7 @@
             },
             createTopic() {
                 this.errors = [];            
-                if(this.title && this.category && this.detail)
-                {
+                if(this.title && this.category && this.detail) {
                     this.loader = true;
                     this.newcreatetopic.title = this.title;
                     this.newcreatetopic.category = this.category;
@@ -780,9 +777,7 @@
                     this.axios.post(uri, this.newcreatetopic).then((response) => {
                         window.top.location.href = '/marijuana-forums';
                     });
-                }
-                else
-                {
+                } else {
                     this.errors = [];
                     if(!this.title)
                     {
@@ -799,8 +794,7 @@
                     return false;
                 }
             },
-            showEmbeded(id)
-            {
+            showEmbeded(id) {
                 var topic_id = event.target.parentElement.dataset.topicId;
                 if(this.hidden_id == id) {
                     this.hidden_id = '';
@@ -809,8 +803,7 @@
                 }
 
             },
-            showSEmbeded(id)
-            {
+            showSEmbeded(id) {
                 var topic_id = event.target.parentElement.dataset.topicId;
                 if(this.Shidden_id == id) {
                     this.Shidden_id = '';
@@ -819,8 +812,7 @@
                 }
 
             },
-            showChildEmbeded(id)
-            {
+            showChildEmbeded(id) {
                 var topic_id = event.target.parentElement.dataset.topicId;
                 if(this.hidden_id == id) {
                     this.hidden_id = '';
@@ -829,8 +821,7 @@
                 }
 
             },
-            showselectedTopic(id)
-            {
+            showselectedTopic(id) {
                 var ref = "topic_id_"+id;
                 var scrollTop = $("#topic_id_"+id).offset().top;
                 $('html').animate({scrollTop: scrollTop-147},'slow');
@@ -841,18 +832,9 @@
             Scollapse() {
                 this.Shidden_id = '';
             },
-            getSearchResult() {
-                this.loader = true;
-                this.topic.searchValue = this.searchValue;
-                this.topic.mparent = this.forumid;
-                // let uri = '/topic/detail/'+this.forumid;
-                if(this.searchValue)
-                {
-                    let uri = '/topic/setkeyword'
-                    this.axios.post(uri,this.topic).then(response => {
-                        window.top.location.href = '/marijuana-forums';
-                    });
-                }            
+            getSearchResult() {    
+                localStorage.setItem('forum_keyword', this.searchValue);
+                window.location.href = '/marijuana-forums';
             },
             searchTimes()
             {
@@ -982,6 +964,10 @@
                 } else {
                     // this.isMobile = !this.isMobile;
                 }
+            },
+            viewCategoryForums(item) {
+                localStorage.setItem('forum_category', item);
+                window.location.href = '/marijuana-forums';
             },
             serverUrl(item) {
                 if(item.charAt(0) != '/'){item = '/' + item;}

@@ -311,6 +311,10 @@
         box-sizing: border-box;
         min-height: 30px;
         font-family: Arial, Helvetica, sans-serif !important;
+        cursor: pointer;
+        option {
+          cursor: pointer;
+        }
       }
 
       .forumdetail {

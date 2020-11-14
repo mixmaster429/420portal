@@ -341,11 +341,9 @@ class ForumsController extends Controller
         
         if(!empty($searchValue))
         {
-            $user_id = User::where('name','like','%'.$searchValue.'%')->pluck('id')->unique()->toArray();
-            $mod = $mod->where('mparent','0')->where(function ($q) use ($searchValue,$user_id) {
-                $q->where('title','like','%'.$searchValue.'%')->orWhere(function ($q) use ($searchValue,$user_id){
-                    $q->whereIn('user_id',$user_id);
-                });
+            $user_array = User::where('name', 'like', "%$searchValue%")->pluck('id')->unique()->toArray();
+            $mod = $mod->where('mparent','0')->where(function ($q) use ($searchValue, $user_array) {
+                $q->where('title', 'like', "%$searchValue%")->orWhereIn('user_id', $user_array);
             });            
         }  
         
@@ -480,12 +478,9 @@ class ForumsController extends Controller
             if(Auth::check())
             {
                 $bookmark = ForumBookmark::where('topic_id',$item->id)->where('user_id',Auth::id())->first();
-                if(!empty($bookmark))
-                {
+                if(!empty($bookmark)) {
                     $item['bookmarked'] = 1;
-                }
-                else
-                {
+                } else {
                     $item['bookmarked'] = 0;
                 }
             }
@@ -516,8 +511,7 @@ class ForumsController extends Controller
         return response()->json("ok");
     }
 
-    public function getdetail(Request $request, $forumid)
-    {
+    public function getdetail(Request $request, $forumid) {
         $user_id = Auth::id();
         $detailpage = Array();
         $id = $forumid;
