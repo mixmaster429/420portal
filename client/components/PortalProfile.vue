@@ -634,7 +634,7 @@ export default {
                     type: this.portal_detail.type,
                     store_type: this.portal_detail.store_type,
                 };
-                this.$parent.pushchatuserlist(user);
+                // this.$parent.pushchatuserlist(user);
             }else{
                 $("#loginmodal").modal("show");
             }

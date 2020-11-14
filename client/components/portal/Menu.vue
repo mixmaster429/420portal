@@ -25,7 +25,7 @@
                         <div class="logo" for="menu_media" v-else>
                             <img class="signup_logo" :src="mediaData" alt="" v-show="mediaData" />
                         </div>
-                        <p style="color: #EFA720;font-size: 15px;">Add Media</p>
+                        <p style="color: #EFA720;font-size: 15px;">{{mediaData ? 'Change Media' : 'Add Media'}}</p>
                     </label>
                     <span class="btn-remove-media" @click="removeMedia" v-if="is_editting && this.mediaData"><fa icon="times-circle"></fa></span>
                     <input type="hidden" name="remove_media" :value="remove_media" />
@@ -201,11 +201,11 @@
                         <div class="menu-container" v-for="menu of categoryMenu(category.id)">
                             <div class="menu-media">
                                 <div class="media" v-if="menu.media" @mouseover="menu.show_description = true" @mouseleave="menu.show_description = false">
-                                    <img v-if="menu.media.type == 'image'" :src="menu.media.url" width="125" height="125" alt="" />
-                                    <video v-if="menu.media.type == 'video'" :src="menu.media.url" width="125" height="125" disablepictureinpicture controlslist="nodownload">
-                                        <source v-bind:src="menu.media.url" type="video/mp4" />
-                                        <source v-bind:src="menu.media.url" type="video/webm" />
-                                        <source v-bind:src="menu.media.url" type="video/ogg" />Your browser does not support the video tag.
+                                    <img v-if="menu.media.type == 'image'" :src="serverUrl(menu.media.url)" width="125" height="125" alt="" />
+                                    <video v-if="menu.media.type == 'video'" :src="serverUrl(menu.media.url)" width="125" height="125" disablepictureinpicture controlslist="nodownload">
+                                        <source v-bind:src="serverUrl(menu.media.url)" type="video/mp4" />
+                                        <source v-bind:src="serverUrl(menu.media.url)" type="video/webm" />
+                                        <source v-bind:src="serverUrl(menu.media.url)" type="video/ogg" />Your browser does not support the video tag.
                                     </video>
                                     <img class="video__tag__mobile" v-if="menu.media.type==='video'" src="https://i.imgur.com/88aBgwi.png" alt="">
                                 </div>
@@ -216,8 +216,8 @@
                                     <a href="javascript:;" @click="editMenu(menu)" class="btn-action" data-toggle="tooltip" title="Edit"><fa icon="edit" fixed-width></fa></a>
                                     <a href="javascript:;" @click="deleteMenu(menu.id)" class="btn-action" data-toggle="tooltip" title="Delete"><fa icon="trash-alt" fixed-width></fa></a>
                                     <a href="javascript:;" @click="deactiveMenu(menu.id, menu.is_active)" class="btn-action" data-toggle="tooltip" :title="menu.is_active ? 'Deactivate' : 'Activate'">
-                                        <fa class="ban" fixed-width v-if="menu.is_active == 1"></fa>
-                                        <fa class="check-circle" fixed-width v-else></fa>
+                                        <fa icon="ban" fixed-width v-if="menu.is_active == 1"></fa>
+                                        <fa icon="check-circle" fixed-width v-else></fa>
                                     </a>
                                 </p>
                                 <div class="menu-description" v-if="menu.description && menu.show_description" @mouseover="menu.show_description = true" @mouseleave="menu.show_description = false">{{menu.description}}</div>
@@ -583,7 +583,8 @@ export default {
             this.price_half_oz = menu.price_half_oz;
             this.price_oz = menu.price_oz;
             this.price_each = menu.price_each;
-            this.mediaData = menu.media ? menu.media.url : null;
+            this.mediaData = menu.media ? this.serverUrl(menu.media.url) : null;
+            this.mediaType = menu.media ? menu.media.type : 'image';
             this.remove_media = null;
             $("#form_menu .emojionearea-editor").text(this.description);
             if(this.description) {
@@ -658,7 +659,6 @@ export default {
             return this.portal_menus.filter(m => m.category_id == item.id).length;
         },
         searchMenus() {
-            console.log('123');
             this.menus = this.portal_menus;
             if(this.menu_filter.category_id) {
                 this.menus = this.menus.filter(item => item.category_id == this.menu_filter.category_id);
@@ -669,6 +669,14 @@ export default {
                 if(this.menu_filter.price_max) {                    
                     this.menus = this.menus.filter(item => item[filter_price_type] <= this.menu_filter.price_max);
                 }
+            }
+        },
+        serverUrl(item) {
+            if(item.charAt(0) != '/'){item = '/' + item;}
+            try {
+                return process.env.serverUrl + item;
+            } catch (error) {
+                return process.env.serverUrl + 'imgs/default.png';
             }
         }
     },
@@ -1011,7 +1019,17 @@ export default {
         white-space: normal !important;
     }
 
-    #form_menu {   
+    #form_menu {
+        .emojionearea {
+            &.floating-textarea {
+                border: none;
+                border-bottom: solid 1px white;
+                border-radius: 0;
+                padding-right: 30px !important;
+                overflow-x: unset;
+                overflow-y: unset;
+            } 
+        }
         .emojionearea-button {
             top: 7px;
             div {
@@ -1075,6 +1093,8 @@ export default {
     .portal_menu.strains__popup {
         .vs-popup {
             width: 750px !important;
+            max-width: calc(100% - 30px);
+            max-height: calc(100% - 30px);
         }
     }
     

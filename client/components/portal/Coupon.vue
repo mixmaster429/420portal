@@ -26,7 +26,7 @@
                             :post-action="upload_url"
                             @input-file="inputFile"
                             @input-filter="inputFilter"
-                        >{{files.length ? 'Change Media' : 'Add Media'}}</file-upload>
+                        >{{coupon_media ? 'Change Media' : 'Add Media'}}</file-upload>
                     </div>
                     <div class="form-group floating-label">
                         <select name="category" class="form-control floating-select category" required @change="getStrain($event)" v-model="coupon_form.category_id">
@@ -348,7 +348,7 @@
                     font-size: 18px;
                     display: flex;
                     align-items: center;
-                    margin-top: 3px;
+                    margin-top: 8px;
                     .store-type-img {
                         width: 22px;
                     }

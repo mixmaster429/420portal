@@ -10,7 +10,7 @@
                         <div class="col-md-12">
                             <div class="forum_header">
                                 <img src="/imgs/h_icon4.png" width="35" style="margin-top: -8px;margin-right:3px;" alt="" />
-                                <h1 @click="goForumHome()">Marijuana Forums</h1>
+                                <h2 @click="goForumHome()">Marijuana Forums</h2>
                                 <div class="forum_button">
                                     <div class="forum_button_area">
                                         <ul>
@@ -107,7 +107,7 @@
                                 <li class="breadcrumb-item"><a href="javascript:;" @click="viewCategoryForums(forum.category)">{{ forum.category }}</a></li>
                                 <li class="breadcrumb-item active">{{ forum.title }}</li>
                             </ul>
-                            <h3 class="title_fs">{{ forum.title }}</h3>
+                            <h1>{{ forum.title }}</h1>
                             <div class="cur_forum_detail critical-error-div">
                                 <div class="topic-avatar">
                                     <a v-if="forum.user" class="trigger-user-card main-avatar" :href="'/'+forum.user.username" data-user-card="">
@@ -996,6 +996,22 @@
         }
     }
 </script>
+<style lang="scss" scoped>
+    .forum_header h2 {
+        color: #EFA720;
+        font-size: 2.5rem;
+        cursor: pointer;
+        @media (max-width: 600px) {
+            font-size: 20px;
+            margin-right: 40px;
+        }
+    }
+    .cur_forum {
+        h1 {
+            font-size: 1.75rem;
+        }
+    }
+</style>
 <style lang="scss">
     #emoji-palette {
         top: 0 !important;
