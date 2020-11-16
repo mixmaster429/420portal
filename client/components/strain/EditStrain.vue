@@ -23,7 +23,7 @@
                 </client-only>
             </div> -->
             <div class="text-center">
-                <button v-on:click.prevent="save" class="btn btn-primary mx-auto">Save
+                <button v-on:click.prevent="save" class="btn btn-primary mr-2">Save
                     <span v-if="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                 </button>
             </div>
@@ -64,7 +64,7 @@
             },
             changeCategory(e) {
                 this.category_id = e.target.value;
-            }
+            },
         }
     }
 </script>

@@ -44,14 +44,13 @@ class PortalController extends Controller
     }
 
     public function store(Request $request) {
+        // return response()->json($request->all());
         $this->validate($request, [
             'name' => ['required', 'string', 'max:255', 'unique:users'],
             'username' => ['required', 'string', 'max:25', 'unique:users'],
             'password' => ['required', 'string'],
             'phone_number' => ['required', 'string'],
             'email' => ['required', 'email'],
-            'address' => ['required', 'string'],
-            'state_license' => ['required', 'string'],
         ]);
 
         $data = $request->all();
@@ -84,9 +83,9 @@ class PortalController extends Controller
 
         $media = new Media();
         $media->url = $data['pa_logourl'];
-        $media->type = $data['pa_mediatype'];
+        $media->type = 'image';
 
-        unset($data['pa_logourl'], $data['pa_mediatype'], $data['old_condition'], $data['terms_condition']);
+        unset($data['pa_logourl'], $data['old_condition'], $data['terms_condition']);
 
         $data['is_active'] = 1;
         $data['type'] = 'company';
@@ -109,9 +108,7 @@ class PortalController extends Controller
         $portal->media_id = $media->id;
         $portal->save();
         Auth::login($portal);
-        $request->session()->flash('Portal-create', 'Portal-create');
-
-        return redirect(route('profile', $portal->username));
+        return response()->json(['status' => 200, 'portal' => $portal]);
     }
 
     public function searchPortals(Request $request) {
@@ -224,7 +221,7 @@ class PortalController extends Controller
         $portal = User::find($request->get('id'));
         $data = $request->all();
 
-        $oldMedia = $portal->media->url ?? null;
+        $oldMedia = $portal->profilePic->url ?? null;
         $currentMedia = $request->pa_logourl;
 
         // dd($oldMedia, $currentMedia);
@@ -329,7 +326,6 @@ class PortalController extends Controller
         $portal->sun_closed = $data['sun_closed'] ?? null;
 
         $portal->save();
-        $request->session()->flash('Portal-update', 'Portal-update');
         
         return response()->json(['status' => 200, 'result' => $portal]);        
     }

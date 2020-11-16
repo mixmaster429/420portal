@@ -1,7 +1,7 @@
 <template>
     <div id="menuForm">
-        <div v-if="is_mobile" class="btn-close-popup">            
-            <i @click="closeMenu()" class="fas fa-times mr-2"></i>
+        <div v-if="$device.isMobile" class="btn-close-popup">            
+            <fa @click="closeMenu()" icon="times" class="mr-2" fixed-width></fa>
             <h5 class="page-title">
                 Menu
                 <img src="/imgs/search_option.png" width="25" @click="show_filter = !show_filter">
@@ -15,7 +15,7 @@
                 <input type="hidden" name="portal_id" :value="brand.id" />
                 <input type="hidden" name="menu_id" :value="menu_id" />
                 <div class="text-center" style="position:relative;">
-                    <span class="btn-form-close" @click="closeForm"><i class="far fa-times-circle"></i></span>
+                    <span class="btn-form-close" @click="closeForm"><fa :icon="['far', 'times-circle']"></fa></span>
                     <label class="mt-2 upload__label" for="menu_media">
                         <video id="menu_media_video" v-if="mediaType === 'video'" :src="mediaData" width="320" height="240" controls disablepictureinpicture controlslist="nodownload">
                             <source v-bind:src="mediaData" type="video/mp4" />
@@ -23,11 +23,11 @@
                             <source v-bind:src="mediaData" type="video/ogg" />Your browser does not support the video tag.
                         </video>
                         <div class="logo" for="menu_media" v-else>
-                            <img class="signup_logo" :src="mediaData" alt="" />
+                            <img class="signup_logo" :src="mediaData" alt="" v-show="mediaData" />
                         </div>
                         <p style="color: #EFA720;font-size: 15px;">Add Media</p>
                     </label>
-                    <span class="btn-remove-media" @click="removeMedia" v-if="is_editting && this.mediaData"><i class="far fa-times-circle"></i></span>
+                    <span class="btn-remove-media" @click="removeMedia" v-if="is_editting && this.mediaData"><fa :icon="['far', 'times-circle']" fixed-width></fa></span>
                     <input type="hidden" name="remove_media" :value="remove_media" />
                     <input type="file" hidden id="menu_media" name="file"  class="btn-file" @change="previewImage" accept="image/*|video/*" />
                 </div>
@@ -69,7 +69,7 @@
                     <button type="submit" class="btn btn-primary" style="width: 120px;font-size:18px">Post</button>
                 </div>
             </form>
-            <div class="section-search" v-if="is_mobile">
+            <div class="section-search" v-if="$device.isMobile">
                 <div class="search-container" v-show="show_filter">
                     <div class="container-fluid search-body">
                         <div class="row">
@@ -97,8 +97,8 @@
                     </div>
                 </div>
             </div>
-            <div class="menu-panel mt-3" v-show="!is_mobile || (is_mobile && !show_filter)">
-                <div class="desktop-search" v-if="!is_mobile">
+            <div class="menu-panel mt-3" v-show="!$device.isMobile || ($device.isMobile && !show_filter)">
+                <div class="desktop-search" v-if="!$device.isMobile">
                     <h5 class="search-type">Filters</h5>
                     <div class="custom-control custom-radio filter-input" style="padding-top: 3px;" v-for="(item, c_index) in category" :key="c_index" v-show="getCategoryResults(item)">
                         <input type="radio" class="custom-control-input" name="category" :id="'menu_category_' + item.slug" :value="item.id" v-model="menu_filter.category_id" @change="menu_filter.selected_category = item" />
@@ -136,11 +136,11 @@
                         <div class="menu-container" v-for="menu of categoryMenu(category.id)">
                             <div class="menu-media">
                                 <div class="media" v-if="menu.media" @mouseover="menu.show_description = true" @mouseleave="menu.show_description = false">
-                                    <img v-if="menu.media.type == 'image'" :src="menu.media.url" width="125" height="125" alt="" />
-                                    <video v-if="menu.media.type == 'video'" :src="menu.media.url" width="125" height="125" disablepictureinpicture controlslist="nodownload">
-                                        <source v-bind:src="menu.media.url" type="video/mp4" />
-                                        <source v-bind:src="menu.media.url" type="video/webm" />
-                                        <source v-bind:src="menu.media.url" type="video/ogg" />Your browser does not support the video tag.
+                                    <img v-if="menu.media.type == 'image'" :src="serverUrl(menu.media.url)" width="125" height="125" alt="" />
+                                    <video v-if="menu.media.type == 'video'" :src="serverUrl(menu.media.url)" width="125" height="125" disablepictureinpicture controlslist="nodownload">
+                                        <source v-bind:src="serverUrl(menu.media.url)" type="video/mp4" />
+                                        <source v-bind:src="serverUrl(menu.media.url)" type="video/webm" />
+                                        <source v-bind:src="serverUrl(menu.media.url)" type="video/ogg" />Your browser does not support the video tag.
                                     </video>                            
                                     <img class="video__tag__mobile" v-if="menu.media.type==='video'" src="https://i.imgur.com/88aBgwi.png" alt="">
                                 </div>
@@ -148,11 +148,11 @@
                                     <img src="/imgs/default.png" width="125" height="125" alt="">
                                 </div>
                                 <p class="btn-group mb-0" v-if="brand.id === auth_user.id || auth_user.id == 1">
-                                    <a href="javascript:;" @click="editMenu(menu)" class="btn-action" data-toggle="tooltip" title="Edit"><i class="fas fa-edit"></i></a>
-                                    <a href="javascript:;" @click="deleteMenu(menu.id)" class="btn-action" data-toggle="tooltip" title="Delete"><i class="fas fa-trash-alt"></i></a>
+                                    <a href="javascript:;" @click="editMenu(menu)" class="btn-action" data-toggle="tooltip" title="Edit"><fa icon="edit" fixed-width></fa></a>
+                                    <a href="javascript:;" @click="deleteMenu(menu.id)" class="btn-action" data-toggle="tooltip" title="Delete"><fa icon="trash-alt" fixed-width></fa></a>
                                     <a href="javascript:;" @click="deactiveMenu(menu.id, menu.is_active)" class="btn-action" data-toggle="tooltip" :title="menu.is_active ? 'Deactivate' : 'Activate'">
-                                        <i class="fas fa-ban" v-if="menu.is_active == 1"></i>
-                                        <i class="fas fa-check-circle" v-else></i>
+                                        <fa icon="ban" fixed-width v-if="menu.is_active == 1"></fa>
+                                        <fa icon="fcheck-circle" fixed-width v-else></fa>
                                     </a>
                                 </p>
                                 <div class="menu-description" v-if="menu.description.length && menu.show_description" @mouseover="menu.show_description = true" @mouseleave="menu.show_description = false">{{menu.description}}</div>
@@ -340,8 +340,7 @@ export default {
             });
         },
         init() {
-            this.auth_user.id = window.user;
-            this.axios.post('/api/categories')
+            this.axios.post('/categories')
                 .then(response => {
                     this.category = response.data;
                 });
@@ -384,7 +383,7 @@ export default {
             let id = event.target.value;
             this.selected_category = this.category.filter(cat => cat.id == id)[0];
 
-            let url = '/api/category/strains';
+            let url = '/category/strains';
             let data = {id : id};
             this.axios.post(url, data)
                 .then(response => {
@@ -438,7 +437,7 @@ export default {
                     "Content-Type": "multipart/form-data"
                 }
             };
-            this.post(url, form_data, headers)
+            this.axios.post(url, form_data, headers)
                 .then(response => {
                     if(response.data.status == 200){
                         this.init();
@@ -487,14 +486,14 @@ export default {
             this.item_name = menu.item_name;
             this.brand_id = menu.brand_id;
             this.description = menu.description;
-            this.mediaData = menu.media ? menu.media.url : null;
+            this.mediaData = menu.media ? this.serverUrl(menu.media.url) : null;
             this.remove_media = null;
             $("#form_menu .emojionearea-editor").text(this.description);
             if(this.description) {
                 $("#form_menu div.emojionearea").addClass('focused');
             }
             this.loading = true;
-            axios.post('/api/category/strains', {id : this.category_id})
+            this.axios.post('/category/strains', {id : this.category_id})
                 .then(response => {
                     this.strains = response.data;
                     const not_listed_below = { id : 0, name : 'Not Listed Below'};
@@ -523,7 +522,7 @@ export default {
                         "Content-Type": "multipart/form-data"
                     }
                 };
-            axios.post(url, form_data, headers)
+            this.axios.post(url, form_data, headers)
                 .then(response => {
                     if(response.data.status == 200){
                         this.init();
@@ -583,6 +582,14 @@ export default {
                 if(this.menu_filter.price_max) {                    
                     this.menus = this.menus.filter(item => item[filter_price_type] <= this.menu_filter.price_max);
                 }
+            }
+        },
+        serverUrl(item) {
+            if(item.charAt(0) != '/'){item = '/' + item;}
+            try {
+                return process.env.serverUrl + item;
+            } catch (error) {
+                return process.env.serverUrl + '/imgs/default.png';
             }
         }
     },

@@ -676,7 +676,7 @@ export default {
             try {
                 return process.env.serverUrl + item;
             } catch (error) {
-                return process.env.serverUrl + 'imgs/default.png';
+                return process.env.serverUrl + '/imgs/default.png';
             }
         }
     },

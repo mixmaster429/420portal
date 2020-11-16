@@ -373,20 +373,17 @@
         </vs-popup>
 
         <!-- Edit -->
-        <!-- <client-only>
-            <vs-popup class="edit_portal edit-brand" type="border" title :active.sync="openEditPopup" fullscreen v-if="$device.isMobile && editable_portal">
-                <edit-portal :from="editable_portal" v-if="editable_portal.type == 'company'"></edit-portal>
-                <div class="portal_addpage" v-else>
-                    <brand-form :from="editable_portal" :is_edit="true"></brand-form>
-                </div>
-            </vs-popup>
-        </client-only> -->
-
+        <vs-popup class="edit_portal edit-brand" type="border" title :active.sync="openEditPopup" fullscreen v-if="$device.isMobile && editable_portal">
+            <edit-portal :from="editable_portal" v-if="editable_portal.type == 'company'"></edit-portal>
+            <div class="portal_addpage" v-else>
+                <brand-form :from="editable_portal" :is_edit="true"></brand-form>
+            </div>
+        </vs-popup>
         <vs-popup class="edit_portal edit-brand" type="border" title :active.sync="openEditPopup" v-if="!$device.isMobile && editable_portal">
             <edit-portal :from="editable_portal" v-if="editable_portal.type == 'company'"></edit-portal>
-            <!-- <div class="portal_addpage" v-else>
+            <div class="portal_addpage" v-else>
                 <brand-form :from="editable_portal" :is_edit="true"></brand-form>
-            </div> -->
+            </div>
         </vs-popup>
 
         <!-- First Sign Up -->
@@ -406,11 +403,11 @@
 import FixedComment from "./FixedComment";
 import PageComment from "./PageComment";
 import PageFooter from "./PageFooter";
-// import ProfileComment from "./ProfileComment";
 import PortalMenu from './portal/Menu';
 import EditPortal from './portal/EditPortal';
 import PortalCoupon from './portal/Coupon';
 import BrandMenu from './brand/Menu';
+import BrandForm from './brand/BrandForm';
 import Tabs from 'vue-tabs-with-active-line';
 import firebase from "../Firebase";
 import { mapGetters } from "vuex";
@@ -424,6 +421,7 @@ export default {
         PageFooter,
         PortalMenu,
         BrandMenu,
+        BrandForm,
         PortalCoupon,
         EditPortal,
         Tabs,
@@ -511,11 +509,12 @@ export default {
         setTimeout(function(){document.documentElement.scrollTop = 0;}, 2000);
         var _this = this;
         // $(document).ready(function () {
-            _this.editable_portal = _this.portal_detail;
+            // _this.editable_portal = _this.portal_detail;
         // })
+        this.getEditablePortal();
     },
     created() {
-        if(process.client) {           
+        if(process.client) {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(this.getDistance);
             } else {
@@ -526,6 +525,13 @@ export default {
         }
     },
     methods: {
+        async getEditablePortal() {
+            let url = `/get_profile/${this.profile.username}`;
+            const { data } = await this.axios.get(url)
+            if(data.status == 200) {
+                this.editable_portal = data.profile;
+            } 
+        },
         getDistance(position) {
             let latitude = position.coords.latitude;
             let longitude = position.coords.longitude;
@@ -539,7 +545,7 @@ export default {
                 if(response.data.status == 200) {
                     this.distance = response.data.distance;
                     this.profile.distance = response.data.distance;
-                    this.portal_detail.distance = response.data.distance;
+                    this.editable_portal.distance = response.data.distance;
                 }
             });
         },
@@ -550,7 +556,7 @@ export default {
             if(!this.portal_detail.is_visited && this.auth_user.id == this.portal_detail.id) {
                 this.openGreetingPopup = true;
                 this.axios.get(`/user/visited/${this.portal_detail.id}`).then(response => {
-                    this.portal_detail.is_visited = 1;
+                    this.$store.dispatch('auth/fetchProfile', this.portal_detail.username);
                 })
             }
         },
@@ -634,7 +640,6 @@ export default {
                     type: this.portal_detail.type,
                     store_type: this.portal_detail.store_type,
                 };
-                // this.$parent.pushchatuserlist(user);
             }else{
                 $("#loginmodal").modal("show");
             }

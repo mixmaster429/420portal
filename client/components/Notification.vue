@@ -49,10 +49,10 @@
                             
                             <a class="notifiable" style="color:#efa720" @click.prevent="follow(item.notifier_id, index)" v-show="!item.is_follower" v-if="auth_user.type == 'user' && item.type == 'follow'"><img src="/imgs/follow.png" class="btn-follow" /></a>
                             <a class="notifiable" style="color:#efa720" @click.prevent="acceptFollowRequest(item, index)" v-if="item.type == 'follow_request'">Accept</a>
-                            <span class="notifiable" style="color:#efa720" v-if="item.type == 'like' || item.type == 'comment'">
+                            <a class="notifiable" style="color:#efa720" @click.prevent="goMedia(item)" v-if="item.type == 'like' || item.type == 'comment'">
                                 <img :src="serverUrl(item.notifiable.url)" v-if="item.notifiable && item.notifiable.type == 'image'" class="img-media" />
                                 <img :src="getPosterUrl(item.notifiable.url)" v-if="item.notifiable && item.notifiable.type == 'video'" class="img-media" />
-                            </span>
+                            </a>
                         </div>
                         <infinite-loading ref="infinite_loading" 
                             :distance="400" 
@@ -158,8 +158,6 @@
             },
 
             goMedia(item){
-                // localStorage.setItem("selected_media_id", item.notifiable.id);
-                // localStorage.setItem("selected_media_referece_type", item.type);
                 window.location.href = '/media/' + item.notifiable_id;
             },
             follow(id, index) {

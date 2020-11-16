@@ -1,31 +1,37 @@
 <template>
     <div :class="{'mt-2': !is_edit}">
-        <div class="pa_addform border-0" :class="{pa_mobile : is_mobile}">
-            <div class="sticky-top strains__sticky" style="margin-right: -12px; margin-left: -12px; background: #fff;top:0;border-radius:5px 5px 0 0;" v-if="is_mobile && is_edit">
+        <div class="pa_addform border-0" :class="{pa_mobile : $device.isMobile}">
+            <div class="sticky-top strains__sticky" style="margin-right: -12px; margin-left: -12px; background: #fff;top:0;border-radius:5px 5px 0 0;" v-if="$device.isMobile && is_edit">
                 <ul class="nav strains__nav">
                     <p style="margin: auto 5px; padding: 8px; font-size: 20px;color:black;">
-                        <i @click="closePopUp()" class="fas fa-times mr-2"></i> Edit Profile
+                        <fa @click="closePopUp()" icon="times" class="mr-2"></fa> Edit Profile
                     </p>
-                    <!-- <div class="ml-auto" style="padding: 8px; font-size: 20px;">
-                        <i @click="update()" class="fas fa-check mr-3" style="color: #efa720;"></i>
-                    </div> -->
                 </ul>
             </div>
             <div class="pa-logo">
                 <h4 class="pa-logotitle" style="cursor: pointer;">Brand Logo*</h4>
-                <input type="file" hidden id="pa_imageselect" name="postfile" accept="image/*">
-                <label for="pa_imageselect">
+                <label for="pa_imageselect" class="d-block">
                     <div class="logo_preview" style="cursor: pointer;">
-                        <img :src="brand_form.image_url ? brand_form.image_url : ''" alt=" " id="pa_logo_image" name="pa_logo_image" v-show="brand_form.image_url">
+                        <img :src="profileMedia" alt=" " id="pa_logo_image" name="pa_logo_image" v-show="profileMedia">
                     </div>
                 </label>
-                <div>
-                    <div class="pa_progress progress d-block" v-if="media_progress">
-                        <div class="progress-bar progress-bar-striped progress-bar-animated" :style="{width: media_progress + '%'}"></div>
-                    </div>
+                <div class="progress" id="progress_logo" style="height: 10px; width: 150px; margin: 10px auto; display: none;" v-show="uploading">
+                    <div class="progress-bar bg-warning progress-bar-striped progress-bar-animated" :style="{width: uploadProgress + '%'}"></div>
                 </div>
-                <label class="btn btn-sm btn-primary mt-2" for="pa_imageselect">Select</label>
-                <a @click="logout($event)" href="javascript:;" class="btn-logout" v-if="is_edit">
+                <file-upload
+                    name="postfile"
+                    input-id="pa_imageselect"
+                    class="text-420"
+                    extensions="gif,jpg,jpeg,png,webp"
+                    accept="image/*"
+                    ref="upload"
+                    v-model="files"
+                    :data="{media_type: 'user', username : brand_form.username}"
+                    :post-action="upload_url"
+                    @input-file="inputFile"
+                    @input-filter="inputFilter"
+                >Select</file-upload>
+                <a @click.prevent="logout()" href="javascript:;" class="btn-logout" v-if="is_edit">
                     <img src="/imgs/logout.png" alt />
                 </a>                
                 <img :src="brand_form.is_active ? '/imgs/active.png' : '/imgs/inactive.png'" alt=" " class="btn-power" v-if="is_edit && brand_form" @click="openActivatePopup = true">
@@ -48,7 +54,7 @@
                     <input type="text" class="floating-input" name="website_url" id="website" data-value="http://" v-model="brand_form.website_url" placeholder=" ">
                     <label for="website">Brand Website</label>
                 </div>
-                <div class="form-label-group portal_description floating-portal mt-4" style="height: 100px;margin-bottom:12px;">
+                <div class="form-label-group portal_description floating-portal floating-label mt-4" style="height: 100px;margin-bottom:12px;">
                     <textarea class="form-control comment_text" name="description" id="brand-description" placeholder=" " v-model="brand_form.description"></textarea>
                     <label class="pt-0" :class="{floating : brand_form.description}">Brand Bio</label>
                 </div>
@@ -88,6 +94,7 @@
         props: ['is_edit', 'from'],
         data : function(){
             return {
+                profileMedia: null,
                 brand_form : {
                     id: null,
                     image_url: '',
@@ -99,17 +106,21 @@
                     is_active: null,
                     description: '',
                 },
-                is_mobile : window.is_mobile,
                 loading : false,
-                media_progress : 0,
                 openActivatePopup: false,
+                
+                upload_url: process.env.serverUrl + '/api/media/upload',
+                files: [],
+                uploadProgress: 5,
+                uploading : false,
             }
         },
         watch : {
             from : function(new_brand, old_brand) {
                 if(this.is_edit) {
                     this.brand_form = new_brand;
-                    this.brand_form.image_url = new_brand.media ? new_brand.media.url : '';
+                    this.brand_form.image_url = new_brand.profile_pic ? new_brand.profile_pic.url : '';
+                    this.profileMedia = new_brand.profile_pic ? this.serverUrl(new_brand.profile_pic.url) : '';
                     if($("#brand-description")){
                         $("#brand-description").data('emojioneArea').setText(new_brand.description);
                     }   
@@ -117,52 +128,35 @@
             },
         },
         mounted() {
-            this.init();
+            if(process.client) {
+                this.init();
+            }
             var self = this;
-            $(document).ready(function(){
-                $("#brand-description").emojioneArea({
-                    pickerPosition: "top",
-                    search: false,
-                    autocomplete: false,
-                    placeholder: " ",
-                    events: {
-                        blur: function (editor, event) {
-                            const description = $("#brand-description").data('emojioneArea').getText();
-                            self.brand_form.description = description;
-                            if(description == '') {
-                                $("#brand-description").siblings('label').removeClass('floating');
-                            }
-                        },
-                        focus: function (editor, event) {
-                            $("#brand-description").siblings('label').addClass('floating');
+            $("#brand-description").emojioneArea({
+                pickerPosition: "top",
+                search: false,
+                autocomplete: false,
+                placeholder: " ",
+                events: {
+                    blur: function (editor, event) {
+                        const description = $("#brand-description").data('emojioneArea').getText();
+                        self.brand_form.description = description;
+                        if(description == '') {
+                            $("#brand-description").siblings('label').removeClass('floating');
                         }
+                    },
+                    focus: function (editor, event) {
+                        $("#brand-description").siblings('label').addClass('floating');
                     }
-                });
-                $('#pa_imageselect').fileupload({
-                    dataType: 'json',
-                    type: 'POST',
-                    maxFileSize: 10000,
-                    formData: {media_type: 'user', username : self.brand_form.name},
-                    progressall: function (e, data) {
-                        var progress = parseInt(data.loaded / data.total * 100, 10);
-                        self.media_progress = progress;
-                    },
-                    done: function (e, data) {
-                        self.media_progress = 0;
-                        self.brand_form.image_url = data.result.fileurl;
-                    },
-                    fail: function (e, data) {
-                        console.log('fail', e, data)
-                    },
-                    url: '/media/upload'
-                });
-                if(self.is_edit) {
-                    self.loadBrand();
                 }
             });
+            if(self.is_edit) {
+                self.loadBrand();
+            }
         },
         methods: {
             init() {
+                console.log(document.getElementById('website'));
                 this.makeInitialTextReadOnly(document.getElementById('website'));
             },
             makeInitialTextReadOnly(input) {
@@ -209,7 +203,7 @@
             loadBrand() {
                 this.brand_form = {
                     id: this.from.id,
-                    image_url: this.from.media ? this.from.media.url : '',
+                    image_url: this.from.profile_pic ? this.from.profile_pic.url : '',
                     media_id: this.from.media_id,
                     name: this.from.name,
                     username: this.from.username,
@@ -218,45 +212,50 @@
                     description: this.from.description,
                 };
                 $("#brand-description").data('emojioneArea').setText(this.from.description);
+                this.profileMedia = this.from.profile_pic ? this.serverUrl(this.from.profile_pic.url) : '';
             },
-            save(event) {
+            async save(event) {
                 event.preventDefault();
+                this.brand_form.description = $("#brand-description").data('emojioneArea').getText();
                 if(this.brand_form.image_url == '') {
                     return false;
                 }
                 let url = `/brand/save`;
                 this.loading = true;
-                axios.post(url, this.brand_form).then(response => {
-                    this.loading = false;
-                    if(response.data.status == 200) {
-                        window.location.href = response.data.brand.username;
-                    }
-                });
+                const {data} = await this.axios.post(url, this.brand_form);
+                this.loading = false;
+                if(data.status == 200) {
+                    // Log in the user.
+                    const { data: { token } } = await this.axios.post('/login', {username: this.brand_form.username, password: this.brand_form.password})
+                    // Save the token.
+                    this.$store.dispatch('auth/saveToken', { token })
+                    // Update the user.
+                    await this.$store.dispatch('auth/updateUser', { user: data })
+                    // Redirect home.
+                    window.location.href = "/" + this.brand_form.username;
+                }
             },
             update(event) {
                 event.preventDefault();
                 this.brand_form.description = $("#brand-description").data('emojioneArea').getText();
                 let url = `/brand/update`;
                 this.loading = true;
-                axios.post(url, this.brand_form).then(response => {
+                this.axios.post(url, this.brand_form).then(response => {
                     this.loading = false;
                     if(response.data.status == 200) {
-                        // this.$parent.$parent.openEditPortal = false;
-                        // this.$parent.$parent.selected = response.data.brand;
                         window.location.reload();
                     }
                 });
             },
             closePopUp() {
                 this.$parent.$parent.openEditPortal = false;
-            },
-            
+            },            
             activeBrand(){
                 let params = {
                     id: this.brand_form.id,
                 };
                 let uri = `/user/activate`;
-                axios.post(uri, params)
+                this.axios.post(uri, params)
                     .then(response => {
                         this.openActivatePopup = false;
                         this.brand_form.is_active = response.data;
@@ -268,18 +267,56 @@
                 }
                 let params = { id: this.brand_form.id };
                 let uri = `/portals/${this.brand_form.id}`;
-                axios.delete(uri, params)
+                this.axios.delete(uri, params)
                     .then(response => {
                         // this.openActivatePopup = false;
                         window.location.href = '/';
                     });
             },
-            logout(event) {
-                event.preventDefault();
-                if(window.confirm('Are you sure?')) {
-                    document.getElementById('logout-form').submit();
-                }                
-            }
+            async logout () {
+                await this.$store.dispatch('auth/logout')
+            },
+            serverUrl(item) {
+                if(item.charAt(0) != '/'){item = '/' + item;}
+                try {
+                    return process.env.serverUrl + item;
+                } catch (error) {
+                    return process.env.serverUrl + '/imgs/default.png';
+                }
+            },
+            
+            inputFile(newFile, oldFile){
+                let _this = this;
+                this.$refs.upload.active = true;
+                if (newFile && oldFile) {
+                    if (newFile.active !== oldFile.active) {
+                        this.uploading = true
+                    }
+                    if (newFile.progress !== oldFile.progress) {
+                        this.uploadProgress = newFile.progress
+                    }
+                    // Uploaded error
+                    if (newFile.error !== oldFile.error) {
+                        alert('Sorry, upload is failed. Please try again');
+                    }
+                    // Uploaded successfully
+                    if (newFile.success !== oldFile.success) {
+                        setTimeout(function(){
+                            _this.uploading = false;
+                            _this.brand_form.image_url = newFile.response.fileurl;
+                            _this.profileMedia = process.env.serverUrl + newFile.response.fileurl;
+                        }, 1000);
+                    }
+                }
+            },
+            inputFilter: function (newFile, oldFile, prevent) {
+                if (newFile && !oldFile) {
+                    // Filter non-image file
+                    if (!/\.(jpeg|jpg|gif|png|webp)$/i.test(newFile.name)) {
+                        return prevent()
+                    }
+                }
+            },
         }
     }
 </script>
@@ -297,5 +334,51 @@
 <style lang="scss">
     .active_popup .vs-popup {
         width: 420px;
+    }
+    .floating-label div.emojionearea {
+        background-color: transparent !important;
+        border: none !important;
+        border-bottom: 1px solid #fff !important;
+        border-radius: 0 !important;
+        height: 60px !important;
+    }
+    #pa_addform .emojionearea-editor {
+        white-space: normal !important;
+    }
+    .emojionearea.focused {
+        box-shadow: unset !important;
+    }
+    .gj-modal {
+        z-index: 20000 !important;
+    }
+    .edit_portal .vs-popup {
+        width: 450px !important;
+    }
+    .edit_portal .vs-popup .vs-popup--content {
+        max-height: calc(100vh - 170px);
+        margin: 0 !important;
+        width: 100%;
+        padding-top: 0;
+    }
+    @media screen and (max-width: 600px) {
+        .edit_portal .vs-popup .vs-popup--content {
+            max-height: calc(100vh - 30px);
+        }
+        .edit_portal.con-vs-popup .vs-popup {
+            max-width: unset;
+            max-height: unset;
+            margin: 0;
+        }
+    }
+    .pac-container {
+        z-index: 20000;
+    }
+    .portal_addpage {
+        .emojionearea-button {
+            top: 7px;
+            div {
+                background-image: url(https://i.imgur.com/xljqgrH.png) !important;
+            }
+        } 
     }
 </style>

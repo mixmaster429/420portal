@@ -55,7 +55,7 @@ class SitemapController extends Controller
         $routes = [];
 
         foreach ($strains as $item) {
-            array_push($routes, ['url' => '/marijuana-strains/'.$item->slug, 'lastmod' => $item->updated_at->toAtomString(), 'priority' => 0.9 ]);
+            array_push($routes, ['url' => '/marijuana-strains/'.$item->slug, 'priority' => 0.9 ]);
         }
 
         return response()->json($routes);
@@ -66,7 +66,7 @@ class SitemapController extends Controller
         $routes = [];
 
         foreach ($users as $item) {
-            array_push($routes, ['url' => '/'.$item->name, 'lastmod' => $item->updated_at->toAtomString(), 'priority' => 0.9 ]);
+            array_push($routes, ['url' => '/'.$item->name, 'priority' => 0.9 ]);
         }
 
         return response()->json($routes);
@@ -78,7 +78,7 @@ class SitemapController extends Controller
         $routes = [];
 
         foreach ($companies as $item) {
-            array_push($routes, ['url' => '/'.$item->username, 'lastmod' => $item->updated_at->toAtomString(), 'priority' => 0.9 ]);
+            array_push($routes, ['url' => '/'.$item->username, 'priority' => 0.9 ]);
         }
 
         return response()->json($routes);
@@ -103,7 +103,7 @@ class SitemapController extends Controller
 
         array_push($routes, ['url' => '/marijuana-forums', 'priority' => 0.9 ]);
         foreach ($forums as $item) {
-            array_push($routes, ['url' => '/marijuana-forums/'.convertNameToSlug($item->title).'/'.$item->id, 'lastmod' => $item->updated_at->toAtomString(), 'priority' => 0.9 ]);
+            array_push($routes, ['url' => '/marijuana-forums/'.convertNameToSlug($item->title).'/'.$item->id, 'priority' => 0.9 ]);
         }
 
         return response()->json($routes);
@@ -115,7 +115,7 @@ class SitemapController extends Controller
         // $lastmod = $last_updated_news ? $last_updated_news->created_at->toAtomString() : Carbon::now()->toAtomString();
         array_push($routes, ['url' => '/marijuana-news', 'priority' => 0.9 ]);
         foreach ($posts as $item) {
-            array_push($routes, ['url' => '/marijuana-news/'.$item->slug, 'lastmod' => $item->updated_at->toAtomString(), 'priority' => 0.9 ]);
+            array_push($routes, ['url' => '/marijuana-news/'.$item->slug, 'priority' => 0.9 ]);
         }
 
         return response()->json($routes);

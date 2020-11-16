@@ -15,24 +15,34 @@
             <div class="pa_addform border-0" :class="{pa_mobile : $device.isMobile}">
                 <div class="pa-logo">
                     <h4 class="pa-logotitle" style="cursor: pointer;">Company Logo*</h4>
-                    <input type="file" hidden id="pa_imageselect" name="postfile" accept="image/*">
-                    <label for="pa_imageselect">
+                    <label for="pa_imageselect" class="d-block">
                         <div class="logo_preview" style="cursor: pointer;">
-                            <img :src="pa_logourl" alt="" id="pa_logo_image" name="pa_logo_image" v-show="pa_logourl">
+                            <img :src="profileMedia" alt="" id="pa_logo_image" name="pa_logo_image" v-show="profileMedia">
                         </div>
                     </label>
-                    <div>
-                        <div class="pa_progress progress d-block" v-if="media_progress">
-                            <div class="progress-bar progress-bar-striped progress-bar-animated" :style="{width: media_progress + '%'}"></div>
-                        </div>
+                    <div class="progress" id="progress_logo" style="height: 10px; width: 150px; margin: 10px auto; display: none;" v-show="uploading">
+                        <div class="progress-bar bg-warning progress-bar-striped progress-bar-animated" :style="{width: uploadProgress + '%'}"></div>
                     </div>
-                    <label class="btn btn-sm btn-primary mt-2" for="pa_imageselect">Select</label>
-                    <a @click="logout($event)" href="/logout" class="btn-logout">
+                    <file-upload
+                        name="postfile"
+                        input-id="pa_imageselect"
+                        class="text-420"
+                        extensions="gif,jpg,jpeg,png,webp"
+                        accept="image/png,image/gif,image/jpeg,image/webp"
+                        ref="upload"
+                        v-model="files"
+                        :data="{media_type: 'user', username : portal.username}"
+                        :post-action="upload_url"
+                        @input-file="inputFile"
+                        @input-filter="inputFilter"
+                    >Select</file-upload>
+
+                    <a href="javascript:;" @click.prevent="logout()" class="btn-logout">
                         <img src="/imgs/logout.png" alt />
-                    </a>                
+                    </a>
                     <img :src="portal.is_active ? '/imgs/active.png' : '/imgs/inactive.png'" alt=" " class="btn-power" @click="openActivatePopup = true">
                 </div>
-                <form action="" class="pt-3" id="pa_addform" method="post" ref="pa_addform" @submit="savePortal()">
+                <form action="" class="pt-3" id="pa_addform" method="post" ref="pa_addform" @submit.prevent="savePortal()">
                     <input type="hidden" name="id" :value="portal.id" />
                     <div class="pa-logo">
                         <input type="hidden" name="pa_logourl" id="pa_logourl" :value="pa_logourl">
@@ -184,7 +194,7 @@
                     <div class="custom-check d-flex">
                         <div class="round mr-1">
                             <input type="checkbox" value="1" name="atm" id="atm" v-model="portal.atm" />
-                            <label for="medical"></label>
+                            <label for="atm"></label>
                         </div>
                         <label class="ml-2 text-white" for="atm">ATM</label>
                     </div>                    
@@ -452,20 +462,21 @@
 <script>
 import { mapGetters } from "vuex";
 import _ from 'lodash';
-require("tz-lookup");
+var tzlookup = require("tz-lookup");
 if(process.client) {
     require('gijgo');
+    require('gijgo/css/gijgo.min.css');
 }
 import "../../assets/sass/_addportal.scss";
 export default {
     name : "EditPortal",
-    // components: { VueGoogleAutocomplete },
     props : ['from'],
     data : function(){
         return {
-            portal : this.from,
+            portal: this.from,
             pa_logourl : this.from.profile_pic ? this.from.profile_pic.url : '',
-            loading : false,
+            profileMedia:  this.from.profile_pic ? this.serverUrl(this.from.profile_pic.url) : '',
+            loading: false,
             markerOptions: [
                 {
                     url: "/imgs/dispensary.png",
@@ -484,8 +495,11 @@ export default {
                 }
             ],
             map_center : {lat: Number(this.from.latitude), lng: Number(this.from.longitude)},
-            media_progress : 0,
             openActivatePopup: false,
+            upload_url: process.env.serverUrl + '/api/media/upload',
+            files: [],
+            uploadProgress: 5,
+            uploading: false,
         }
     },
     watch : {
@@ -658,8 +672,6 @@ export default {
             this.axios.post(url, form_data).then(response => {
                 if(response.data.status == 200) {
                     this.loading = false;
-                    // this.$parent.$parent.openEditPortal = false;
-                    // this.$parent.$parent.selected = response.data.result;
                     window.location.reload();
                 }
             });
@@ -781,11 +793,8 @@ export default {
                     window.location.href = '/';
                 });
         },
-        logout(event) {
-            event.preventDefault();
-            if(window.confirm('Are you sure?')) {
-                // document.getElementById('logout-form').submit();
-            }                
+        async logout () {
+            await this.$store.dispatch('auth/logout')
         },
         serverUrl(item) {
             if(item.charAt(0) != '/'){item = '/' + item;}
@@ -794,27 +803,43 @@ export default {
             } catch (error) {
                 return process.env.serverUrl + 'imgs/default.png';
             }
-        }
-    },
-    directives: {
-        datepicker: {
-            bind: function (el, binding, vnode) {
-                let datepickerconf = { dateFormat: 'mm/dd/yy' };
-                $(el).datepicker(
-                    $.extend(datepickerconf, {
-                        onClose: function (date) {
-                            vnode.context.portal.expire_date = date;
-                        },
-                        onSelect: function (date) {
-                            return false;
-                        },
-                        beforeShowDay: function (date) {
-                            return [true, "datepicker_expire_date", ''];
-                        }
-                    })
-                );
+        },
+        
+        inputFile(newFile, oldFile){
+            let _this = this;
+            this.$refs.upload.active = true;
+            if (newFile && oldFile) {
+                if (newFile.active !== oldFile.active) {
+                    this.uploading = true
+                }
+                if (newFile.progress !== oldFile.progress) {
+                    this.uploadProgress = newFile.progress
+                }
+                // Uploaded error
+                if (newFile.error !== oldFile.error) {
+                    alert('Sorry, upload is failed. Please try again');
+                }
+                // Uploaded successfully
+                if (newFile.success !== oldFile.success) {
+                    setTimeout(function(){
+                        _this.uploading = false;
+                        _this.pa_logourl = newFile.response.fileurl;
+                        _this.profileMedia = process.env.serverUrl + newFile.response.fileurl;
+                    }, 1000);
+                }
             }
         },
+
+        inputFilter: function (newFile, oldFile, prevent) {
+            if (newFile && !oldFile) {
+                // Filter non-image file
+                if (!/\.(jpeg|jpg|gif|png|webp)$/i.test(newFile.name)) {
+                    return prevent()
+                }
+            }
+        },
+    },
+    directives: {
         timepicker: {
             inserted: function (el, binding, vnode) {
                 let timepickerconf = { value: el.value, modal: true, header: true, footer: true, mode: 'ampm', format: 'hh:MM TT' };
@@ -874,7 +899,7 @@ export default {
         box-shadow: unset !important;
     }
     .gj-modal {
-        z-index: 20000;
+        z-index: 20000 !important;
     }
     .edit_portal .vs-popup {
         width: 450px !important;

@@ -70,32 +70,56 @@ class CouponController extends Controller
     }
 
     public function update(Request $request, $id) {
-        $coupon = Coupon::find($id);
-        $coupon->update([
+        $this->destroy($id);
+        $coupon = Coupon::create([
+            'portal_id' => $request->get('portal_id'),
             'category_id' => $request->get('category_id'),
             'strain_id' => $request->get('strain_id'),
             'brand_name' => $request->get('brand_name'),
             'description' => $request->get('description'),
         ]);
-        $portal = $coupon->portal;
-        $media = $coupon->media;
+        $portal = User::find($coupon->portal_id);
         if($request->get('media_url') != '') {
-            if(!$media || $media->url != $request->get('media_url')) {
-                if($media && $media->url != $request->get('media_url')) {
-                    $media->delete();
-                }
-                $coupon_media = Media::create([
-                    'user_id' => $portal->id,
-                    'type' => 'image',
-                    'model' => 'coupon',
-                    'url' => $request->get('media_url'),
-                    'tagged_strain' => $request->get('strain_id'),
-                    'description' => $request->get('description'),
-                ]);
-                $coupon->media_id = $coupon_media->id;
-                $coupon->save();
-            }
+            $media = Media::create([
+                'user_id' => $portal->id,
+                'type' => 'image',
+                'model' => 'coupon',
+                'tagged_strain' => $request->get('strain_id'),
+                'url' => $request->get('media_url'),
+                'description' => $request->get('description'),
+            ]);
+            $coupon->media_id = $media->id;
+            $coupon->save();
         }
+        // $coupon->update([
+        //     'category_id' => $request->get('category_id'),
+        //     'strain_id' => $request->get('strain_id'),
+        //     'brand_name' => $request->get('brand_name'),
+        //     'description' => $request->get('description'),
+        // ]);
+        // $portal = $coupon->portal;
+        // $media = $coupon->media;
+        // if($request->get('media_url') != '') {
+        //     if(!$media || $media->url != $request->get('media_url')) {
+        //         if($media && $media->url != $request->get('media_url')) {
+        //             $media->delete();
+        //         }
+        //         $coupon_media = Media::create([
+        //             'user_id' => $portal->id,
+        //             'type' => 'image',
+        //             'model' => 'coupon',
+        //             'url' => $request->get('media_url'),
+        //             'tagged_strain' => $request->get('strain_id'),
+        //             'description' => $request->get('description'),
+        //         ]);
+        //         $coupon->media_id = $coupon_media->id;
+        //         $coupon->save();
+        //     } else {
+        //         $coupon->media->update([
+        //             'updated_at' => date('Y-m-d H:i:s'),
+        //         ]);
+        //     }
+        // }
         return response()->json($coupon->load('category', 'strain', 'media'));
     }
 

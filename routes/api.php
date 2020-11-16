@@ -30,6 +30,7 @@ Route::post('/user/allfollows', 'UserController@allfollows');
 Route::any('/profile/getallposts', 'UserController@getallpost');
 Route::post('/user/isblockuser', 'UserController@isblockuser');
 Route::post('/portal/get_distance', 'PortalController@getDistance');
+Route::get('/user/visited/{id}', 'UserController@visited');
 
 Route::post('/categories', 'CategoryController@get_all_categories');
 Route::post('/category/strains', 'CategoryController@get_strains');
@@ -51,6 +52,7 @@ Route::get('/brand/get_all', 'BrandController@getBrands');
 Route::post('/get/brand', 'BrandController@appGetBrand');
 Route::post('/brand/get_all_menus', 'BrandController@get_all_menus');
 Route::post('/brand/get_category_media', 'BrandController@getCategoryMedia');
+Route::post('/brand/save', 'BrandController@save');
 
 Route::post('/marijuana-news', 'BlogController@index');
 Route::get('/marijuana-news/{slug}', 'BlogController@show');
@@ -80,6 +82,7 @@ Route::any('/topic/getedittopic','ForumsController@getedittopic');
 Route::get('/marijuana-forums/{id}','ForumsController@detail');
 
 Route::post('/portal/get_all_menus', 'PortalController@get_all_menus');
+
 
 
 Route::middleware(['auth:api'])->group(function ($router){
@@ -119,7 +122,10 @@ Route::middleware(['auth:api'])->group(function ($router){
 
     $router->post('/get/portal', 'Api\PortalController@getPortal');    
     
-    $router->post('/portal/get_all_menus', 'Api\PortalController@get_all_menus');
+    $router->post('/portals/update', 'PortalController@update');
+    
+    $router->post('/brand/update', 'BrandController@update');
+    $router->get('/brand/delete/{id}', 'BrandController@delete');
 
 
     $router->post('/coupon/store', 'CouponController@store');
@@ -187,6 +193,9 @@ Route::group(['middleware' => 'auth:api'], function () {
 Route::group(['middleware' => 'guest:api'], function () {
     Route::post('login', 'Auth\LoginController@login');
     Route::post('register', 'Auth\RegisterController@register');
+
+    
+    Route::post('/portals/store', 'PortalController@store');
 
     Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
     Route::post('password/reset', 'Auth\ResetPasswordController@reset');

@@ -32,6 +32,9 @@ const routes = [
   { path: '/mobile/media/add', name: 'add_media', component: page('mobile/AddMedia.vue') },
   { path: '/mobile/media/edit', name: 'edit_media', props: true, component: page('mobile/EditMedia.vue') },
 
+  { path: '/portals/add', name: 'add_portal', component: page('AddPortal.vue') },
+  { path: '/brand/add', name: 'add_brand', component: page('AddBrand.vue') },
+
   { path: '/login', name: 'login', component: page('auth/login.vue') },
   { path: '/register', name: 'register', component: page('auth/register.vue') },
   { path: '/password/reset', name: 'password.request', component: page('auth/password/email.vue') },

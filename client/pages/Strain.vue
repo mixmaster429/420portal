@@ -23,10 +23,11 @@
                         </a>
                     </div>
                 </div>
-
-                <div class="row justify-content-center mt-4" v-if="user && user.name == '420portal'">
-                    <!-- <add-strain></add-strain> -->
-                </div>
+                <client-only>
+                    <div class="row justify-content-center mt-4" v-if="user && user.name == '420portal'">
+                        <add-strain></add-strain>
+                    </div>
+                </client-only>
             </div>
             <!-- Modal -->
             <div class="modal fade" id="headingModal" tabindex="-1" role="dialog" aria-labelledby="headingModalLabel" aria-hidden="true">
@@ -53,10 +54,12 @@
 import { mapGetters } from 'vuex'
 import EditDescription from '~/components/strain/EditDescription'
 import StrainNav from '~/components/strain/StrainNav'
+import AddStrain from '~/components/strain/AddStrain'
 import PageFooter from '~/components/PageFooter'
 
 export default {
     components: {
+        AddStrain,
         StrainNav,
         EditDescription,
         PageFooter

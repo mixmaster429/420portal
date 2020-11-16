@@ -217,9 +217,6 @@
                 this.axios.post(uri, this.coupon_form)
                     .then(response => {
                         window.location.reload();
-                        // this.coupon = response.data;
-                        // this.$root.$refs.portaldashboard.openCouponPopup = false;
-                        // this.initForm();
                     });
             },
             updateCoupon() {
@@ -227,10 +224,6 @@
                 this.axios.post(uri, this.coupon_form)
                     .then(response => {
                         window.location.reload();
-                        // this.is_edit = false;
-                        // this.coupon = response.data;
-                        // this.portals[this.selectedIndex].coupon = response.data;
-                        // this.$root.$refs.portaldashboard.openCouponPopup = false;
                     });
             },
             deleteCoupon() {
@@ -241,8 +234,6 @@
                 this.axios.delete(uri)
                     .then(response => {
                         window.location.reload();
-                        // this.$root.$refs.portaldashboard.selected.coupon = null;
-                        // this.$root.$refs.portaldashboard.openCouponPopup = false;
                     });
             },
             closeForm() {
