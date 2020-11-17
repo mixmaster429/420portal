@@ -10,8 +10,8 @@
                     <input type="text" v-model="name" class="form-control" name="strain-name" id="strain-name" required>
                 </div>
                 <div class="form-group">
-                    <label for="strain__type">Strain Type</label>
-                    <select class="form-control" v-model.number="strainType" id="strain__type">
+                    <label for="strain__type">Category</label>
+                    <select class="form-control" v-model.number="category_id" id="strain__type">
                         <option value="1">Indica</option>
                         <option value="2">Sativa</option>
                         <option value="3">Hybrid</option>
@@ -39,7 +39,7 @@
                 popupActivo: false,
                 name: '',
                 description: '',
-                strainType: '',
+                category_id: '',
                 success: null,
                 loading: false,
             }
@@ -50,7 +50,7 @@
                     name: this.name,
                     slug: this.name.trim().toLowerCase().replace(/ /g, '-').replace(/#/g, '').replace(/---/g, '-'),
                     description: this.description,
-                    category_id: this.strainType,
+                    category_id: this.category_id,
                 }
 
                 this.loading = true;
@@ -62,7 +62,7 @@
                         this.loading = false;
                         this.name = '';
                         this.description = '';
-                        this.strainType = '';
+                        this.category_id = '';
                     })
                     .catch((e) => {
                         console.log(e.response)

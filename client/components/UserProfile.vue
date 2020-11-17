@@ -86,7 +86,7 @@
                 <div class="profile__information mt-3 mb-5 d-flex flex-column">
                     <div class="profile__title d-flex align-items-center">
                         <h1 class="pf_username mr-2 mb-0 text-white">{{userdata.username}}</h1>
-                        <div class="pf-dashboard" v-if="auth_user.id && (userdata.id == auth_user.id || auth_user.id == 1)">
+                        <div class="pf-dashboard" v-if="auth_user && (userdata.id == auth_user.id || auth_user.id == 1)">
                             <router-link v-if="$device.isMobile" :to="{ name: 'edit_profile', params: {editData: userdata.id, mainData: userdata}}">
                                 <img src="~assets/imgs/edit.png" width="28px" alt />
                             </router-link>
