@@ -156,7 +156,6 @@
         },
         methods: {
             init() {
-                console.log(document.getElementById('website'));
                 this.makeInitialTextReadOnly(document.getElementById('website'));
             },
             makeInitialTextReadOnly(input) {

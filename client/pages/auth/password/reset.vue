@@ -1,82 +1,93 @@
 <template>
-  <div class="row">
-    <div class="col-lg-8 m-auto">
-      <card title="Reset Password">
-        <form @submit.prevent="reset" @keydown="form.onKeydown($event)">
-          <alert-success :form="form" :message="status" />
+    <div class="row justify-content-center" id="signup_page">
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
+            <div class="card mt-4 register_card">
+                <div class="card-body">
+                    <div class="text-center mt-5">
+                        <img src="~/assets/imgs/logo.png" width="80%" alt="">
+                    </div>
+                    <form @submit.prevent="reset" @keydown="form.onKeydown($event)">
+                        <!-- Email -->
+                        <div class="form-group floating-label mt-5">
+                            <input v-model="form.email" :class="{ 'is-invalid': form.errors.has('email') }" type="email" name="email" class="floating-input" placeholder=" " />
+                            <label class="">Email</label>
+                            <has-error :form="form" field="email" />
+                        </div>
 
-          <!-- Email -->
-          <div class="form-group row">
-            <label class="col-md-3 col-form-label text-md-right">Email</label>
-            <div class="col-md-7">
-              <input v-model="form.email" :class="{ 'is-invalid': form.errors.has('email') }" type="email" name="email" class="form-control" readonly>
-              <has-error :form="form" field="email" />
-            </div>
-          </div>
+                        <!-- Password -->
+                        <div class="form-group floating-label mt-4">
+                            <input v-model="form.password" :class="{ 'is-invalid': form.errors.has('password') }" type="password" name="password" class="floating-input" placeholder=" " />
+                            <label class="">New Password</label>
+                            <has-error :form="form" field="password" />
+                        </div>
 
-          <!-- Password -->
-          <div class="form-group row">
-            <label class="col-md-3 col-form-label text-md-right">Password</label>
-            <div class="col-md-7">
-              <input v-model="form.password" :class="{ 'is-invalid': form.errors.has('password') }" type="password" name="password" class="form-control">
-              <has-error :form="form" field="password" />
+                        <div class="form-group row mt-4">
+                            <div class="col-md-12">
+                                <v-button :loading="form.busy" :block="true">Reset Password</v-button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
-          </div>
-
-          <!-- Password Confirmation -->
-          <div class="form-group row">
-            <label class="col-md-3 col-form-label text-md-right">Confirm Password</label>
-            <div class="col-md-7">
-              <input v-model="form.password_confirmation" :class="{ 'is-invalid': form.errors.has('password_confirmation') }" type="password" name="password_confirmation" class="form-control">
-              <has-error :form="form" field="password_confirmation" />
-            </div>
-          </div>
-
-          <!-- Submit Button -->
-          <div class="form-group row">
-            <div class="col-md-9 ml-md-auto">
-              <v-button :loading="form.busy">
-                Reset Password
-              </v-button>
-            </div>
-          </div>
-        </form>
-      </card>
+        </div>
+        <page-footer></page-footer>
     </div>
-  </div>
 </template>
 
 <script>
 import Form from 'vform'
+import PageFooter from "~/components/PageFooter";
 
 export default {
-  head () {
-    return { title: 'Reset Password' }
-  },
+    components: {
+        PageFooter,
+    },
+    head () {
+        return { title: '420Portal - Reset Password' }
+    },
+    data: () => ({
+        status: '',
+        form: new Form({
+            token: '',
+            email: '',
+            password: '',
+        }),
+    }),
+    created () {
+        this.form.email = this.$route.query.email
+        this.form.token = this.$route.params.token
+    },
+    methods: {
+        async reset () {
+            const { data } = await this.form.post('/password/reset')
+            if(data.status == 'success') {
+                const { data: { token } } = await this.axios.post('/login', {username: data.user.username, password: this.form.password})
+                // Save the token.
+                this.$store.dispatch('auth/saveToken', { token })
+                // Update the user.
+                await this.$store.dispatch('auth/updateUser', { user: data })
+                this.form.reset()
+                // Redirect home.
+                window.location.href = "/";
+            }
+        },
+        async register () {
+            // Register the user
+            const { data } = await this.form.post('/register')
+            if (data) {
+                // Log in the user.
+                const { data: { token } } = await this.form.post('/login')
 
-  data: () => ({
-    status: '',
-    form: new Form({
-      token: '',
-      email: '',
-      password: '',
-      password_confirmation: ''
-    })
-  }),
+                // Save the token.
+                this.$store.dispatch('auth/saveToken', { token })
 
-  created () {
-    this.form.email = this.$route.query.email
-    this.form.token = this.$route.params.token
-  },
+                // Update the user.
+                await this.$store.dispatch('auth/updateUser', { user: data })
 
-  methods: {
-    async reset () {
-      const { data } = await this.form.post('/password/reset')
-
-      this.status = data.status
-
-      this.form.reset()
+                // Redirect home.
+                window.location.href = "/";
+            }
+        },
     }
-  }
 }
 </script>

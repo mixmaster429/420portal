@@ -177,7 +177,8 @@ class MediaController extends Controller
                 $item['loged_user'] = 0;
             }
             // $item->user->media;
-            $item->user->profilePic;
+            
+            $item->user->profilePic ?? '';
 
             $item['tagged_usersData'] = $item->taggedUsers;
             $item->taggedStrain;

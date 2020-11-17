@@ -29,7 +29,7 @@ class ResetPasswordController extends Controller
      */
     protected function sendResetResponse(Request $request, $response)
     {
-        return ['status' => trans($response)];
+        return ['status' => $response];
     }
 
     /**
@@ -41,6 +41,6 @@ class ResetPasswordController extends Controller
      */
     protected function sendResetFailedResponse(Request $request, $response)
     {
-        return response()->json(['email' => trans($response)], 400);
+        return response()->json(['email' => $response], 400);
     }
 }

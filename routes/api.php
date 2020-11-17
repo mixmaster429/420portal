@@ -87,7 +87,8 @@ Route::post('/portal/get_all_menus', 'PortalController@get_all_menus');
 
 Route::middleware(['auth:api'])->group(function ($router){
     $router->post('/profile/like', 'LikeController@likeProfile');
-    $router->post('/profile/unlike', 'LikeController@unlikeProfile');
+    $router->post('/profile/unlike', 'LikeController@unlikeProfile');    
+    $router->post('/profile/update', 'UserController@update');
     $router->post('/profile/getisfollower', 'UserController@getisfollower');
     $router->post('/user/follow', 'UserController@follow');
     $router->post('/user/unfollow', 'UserController@unfollow');
@@ -197,8 +198,12 @@ Route::group(['middleware' => 'guest:api'], function () {
     
     Route::post('/portals/store', 'PortalController@store');
 
-    Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
-    Route::post('password/reset', 'Auth\ResetPasswordController@reset');
+    
+    Route::post('/password/email', 'Auth\PasswordController@validatePasswordRequest');
+    Route::post('/password/reset', 'Auth\PasswordController@resetPassword');
+
+    // Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
+    // Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
     Route::post('email/verify/{user}', 'Auth\VerificationController@verify')->name('verification.verify');
     Route::post('email/resend', 'Auth\VerificationController@resend');

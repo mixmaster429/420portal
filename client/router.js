@@ -31,6 +31,7 @@ const routes = [
   { path: '/mobile/comment', name: 'comment', component: page('mobile/Comment.vue') },
   { path: '/mobile/media/add', name: 'add_media', component: page('mobile/AddMedia.vue') },
   { path: '/mobile/media/edit', name: 'edit_media', props: true, component: page('mobile/EditMedia.vue') },
+  { path: '/mobile/profile/edit', name: 'edit_profile', props: true, component: page('mobile/EditProfile.vue') },
 
   { path: '/portals/add', name: 'add_portal', component: page('AddPortal.vue') },
   { path: '/brand/add', name: 'add_brand', component: page('AddBrand.vue') },

@@ -5,7 +5,7 @@
         </div>
         <form v-on:submit.prevent="save" v-if="strain">
             <div class="form-group floating-label mt-4">
-                <input type="text" :value="name" class="floating-input" name="name" placeholder=" " required>
+                <input type="text" :value="name" class="floating-input" name="name" placeholder=" " @change="changeName($event)" required>
                 <label for="strain-name" class="col-form-label">Strain Name</label>
             </div>
             <div class="form-group floating-label mt-5">
@@ -56,7 +56,7 @@
                 this.axios.put(`/marijuana-strains/${this.strain.id}`, params)
                     .then((res) => {
                         this.loading = false;
-                        window.location.reload();
+                        // window.location.reload();
                     });
             },
             changeName(e) {

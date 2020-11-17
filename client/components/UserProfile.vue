@@ -1,5 +1,5 @@
 <template>
-    <div class="row pt-3" v-if="user" :class="{'pb-5': $device.isMobile}" id="userprofile" style="max-height:100vh;overflow-y:auto">
+    <div class="row pt-3" v-if="user" :class="{'pb-5': $device.isMobile}" id="userprofile">
         <div class="container">
             <div v-if="userdata" class="profile-data">
                 <div class="profile_header row">
@@ -27,8 +27,8 @@
                                         <img src="~assets/imgs/messenger-mobile.png" />
                                         <p class="my-0">Message</p> 
                                     </div>
-                                    <router-link :to="{ name: 'mobilechatbox', params: {userdetail: userdata}}">
-                                        <div class="message btn-message" v-if="userdata.messenger && logged_user_id != userdata.id && $device.isMobile && !isblockuser && !is_private">
+                                    <router-link :to="{ name: 'mobilechatbox', params: {userdetail: userdata}}" v-if="$device.isMobile">
+                                        <div class="message btn-message" v-if="userdata.messenger && logged_user_id != userdata.id && !isblockuser && !is_private">
                                             <img src="~assets/imgs/messenger-mobile.png" />
                                             <p class="my-0">Message</p>
                                         </div>
@@ -86,8 +86,8 @@
                 <div class="profile__information mt-3 mb-5 d-flex flex-column">
                     <div class="profile__title d-flex align-items-center">
                         <h1 class="pf_username mr-2 mb-0 text-white">{{userdata.username}}</h1>
-                        <div class="pf-dashboard" v-if="userdata.id == logged_user_id || logged_user_id == 1">
-                            <router-link v-if="$device.isMobile" :to="{ name: 'EditProfile', params: {editData: userdata.id, mainData: userdata}}">
+                        <div class="pf-dashboard" v-if="auth_user.id && (userdata.id == auth_user.id || auth_user.id == 1)">
+                            <router-link v-if="$device.isMobile" :to="{ name: 'edit_profile', params: {editData: userdata.id, mainData: userdata}}">
                                 <img src="~assets/imgs/edit.png" width="28px" alt />
                             </router-link>
                             <a v-else @click.prevent="openEditPopup = true" href="#" class="editprofilee">
@@ -137,7 +137,7 @@
                         :distance="300" 
                         spinner="spiral" 
                         @infinite="getallposts"
-                        force-use-infinite-wrapper="#userprofile"
+                        force-use-infinite-wrapper="body"
                     ><div slot="no-more"></div></infinite-loading>
                 </div>
                 <client-only>
@@ -148,7 +148,7 @@
             </div>
         </div>
         <vs-popup v-if="user.id == logged_user_id || logged_user_id == 1" class="strains__popup media__add" type="border" title="Edit User" :active.sync="openEditPopup">
-            <profile-form :editData="user.id" :mainData="user" mode="edit"></profile-form>
+            <profile-form :editData="user.id" :mainData="user" mode="edit" v-if="!$device.isMobile"></profile-form>
         </vs-popup>
         <page-footer v-if="$device.isDesktop"></page-footer>
     </div>
@@ -445,10 +445,8 @@
             scroll() {
                 var header = document.getElementById("portaMedia");
                 var sticky = header.offsetTop;
-                var sticky = sticky - 74;
+                var sticky = sticky + 180;
                 window.onscroll = () => {
-                    console.log('sticky: ', sticky);
-                    console.log('offset: ', window.pageYOffset);
                     if (window.pageYOffset > sticky) {
                         header.classList.remove("original");
                     } else {

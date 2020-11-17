@@ -59,9 +59,9 @@ class VerificationController extends Controller
      */
     public function resend(Request $request)
     {
-        $this->validate($request, ['email' => 'required|email']);
+        $this->validate($request, ['email' => 'required|string']);
 
-        $user = User::where('email', $request->email)->first();
+        $user = User::where('email', $request->get('email'))->orWhere('username', $request->get('email'))->first();
 
         if (is_null($user)) {
             throw ValidationException::withMessages([

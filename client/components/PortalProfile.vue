@@ -89,7 +89,7 @@
                 <div class="d-flex align-items-center">
                     <h1 class="username mr-2 mb-0 float-left">{{portal_detail.name}}
                     </h1>
-                    <a href="javascript:;" @click="openEditPopup = true" v-if="logged_user_id == portal_detail.id || logged_user_id == 1">
+                    <a href="javascript:;" @click="openEditPopup = true" v-if="auth_user && (auth_user.id == portal_detail.id || auth_user.id == 1)">
                         <img class="portal__edit" src="@/assets/imgs/edit.png" alt />
                     </a>
                 </div>
