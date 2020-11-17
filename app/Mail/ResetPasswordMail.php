@@ -32,6 +32,6 @@ class ResetPasswordMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('420Portal - Reset Password')->view('mail.reset_password');
+        return $this->from('noreply.420portal@google.com', '420Portal')->subject('420Portal - Reset Password')->view('mail.reset_password');
     }
 }

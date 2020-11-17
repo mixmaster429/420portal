@@ -27,7 +27,7 @@
                 <tr>
                     <td style="padding-left:20px;">
                         <p style="margin:5px 0px 5px 0px;font-size:20px;color:#222;font-family: Montserrat;font-weight:500;">
-                            Hello ! <span style="color:#EFA720;font-weight:600;">{{$user->name}}</span>
+                            Hello! <span style="color:#EFA720;font-weight:600;">{{$user->name}}</span>
                         </p>
                     </td>
                 </tr>

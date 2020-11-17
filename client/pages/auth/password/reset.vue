@@ -8,14 +8,14 @@
                     </div>
                     <form @submit.prevent="reset" @keydown="form.onKeydown($event)">
                         <!-- Email -->
-                        <div class="form-group floating-label mt-5">
+                        <!-- <div class="form-group floating-label mt-5">
                             <input v-model="form.email" :class="{ 'is-invalid': form.errors.has('email') }" type="email" name="email" class="floating-input" placeholder=" " />
                             <label class="">Email</label>
                             <has-error :form="form" field="email" />
-                        </div>
+                        </div> -->
 
                         <!-- Password -->
-                        <div class="form-group floating-label mt-4">
+                        <div class="form-group floating-label mt-5">
                             <input v-model="form.password" :class="{ 'is-invalid': form.errors.has('password') }" type="password" name="password" class="floating-input" placeholder=" " />
                             <label class="">New Password</label>
                             <has-error :form="form" field="password" />
