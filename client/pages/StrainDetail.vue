@@ -3,6 +3,7 @@
         <strain-nav></strain-nav>
         <strain-detail v-if="strain_data.type == 'strain'" :strain_data="strain_data"></strain-detail>
         <strain-category v-if="strain_data.type == 'category'" :category="strain_data.category"></strain-category>
+        <page-footer></page-footer>
     </div>
 </template>
 <script>
@@ -10,12 +11,13 @@
     import StrainNav from "~/components/strain/StrainNav";
     import StrainDetail from "~/components/strain/StrainDetail";
     import StrainCategory from "~/components/strain/StrainCategory";
-
+    import PageFooter from "~/components/PageFooter";
     export default {
         components: {
             StrainNav,
             StrainCategory,
-            StrainDetail
+            StrainDetail,
+            PageFooter
         },
         head () {
             return { 

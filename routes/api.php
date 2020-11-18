@@ -176,6 +176,7 @@ Route::middleware(['auth:api'])->group(function ($router){
     $router->get('/user/blockuserlistonmobile', 'UserController@blockuserlistonmobile');
     $router->post('/user/enableblock', 'UserController@enableblock');
     $router->post('/user/isblockuser', 'UserController@isblockuser');
+    $router->post('/user/get_unreads', 'UserController@getUnreads');
 
     $router->post('/usermessages/fetch', 'UserchatController@fetchMessages');
     $router->post('/usermessages/send', 'UserchatController@sendMessage');

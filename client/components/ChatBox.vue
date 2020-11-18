@@ -75,6 +75,17 @@
                 show_scroll_btn: false,
             }
         },
+        watch: {
+            user: function (newUser, oldUser) {
+                this.receiver = this.user.to;
+                this.sender = this.user.from;
+                this.username = this.user.username;
+                this.logo_url = this.user.url;
+                this.store_type = this.user.store_type;
+                this.chat_type = this.user.type;
+                this.fetchMessages();
+            }
+        },
         methods: {
             block(){
                 let uri = "/user/block";
@@ -105,6 +116,7 @@
                             read: true,
                         });
                         // this.$root.getUnreads();
+                        this.$store.dispatch('auth/getUnreadMessage');
                         this.$parent.getuserlist();
                     }
                 });
@@ -272,6 +284,7 @@
                             _this.readmessage();
                         }
                         // _this.$root.getUnreads();
+                        _this.$store.dispatch('auth/getUnreadMessage');
                         _this.$parent.getuserlist();
                     }
                 });
@@ -323,6 +336,7 @@
                 _this.receiver_is_typing = snapshot.val() ? snapshot.val().is_typing : false;
             });
             // this.$root.getUnreads();
+            this.$store.dispatch('auth/getUnreadMessage');
         },
     }
 </script>

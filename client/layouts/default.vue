@@ -52,6 +52,16 @@ export default {
     mounted() {
         let _this = this;
         if(this.auth_user) {
+            ////// Messenger
+            firebase.database().ref('chatrooms/' + this.auth_user.id + '/chats/').remove();
+            let starCountRef = firebase.database().ref('chatrooms/' + this.auth_user.id + '/chats/').limitToLast(1);
+            starCountRef.on('value', function(snapshot) {
+                snapshot.forEach((doc) => {
+                    _this.$store.dispatch('auth/getUnreadMessage');
+                    let audio = new Audio('/sound.mp3');
+                    audio.play();
+                });
+            });
             ////// Notification
             this.$store.dispatch('auth/getUnreadNotification');
             firebase.database().ref('notifications/' + this.auth_user.id).remove();

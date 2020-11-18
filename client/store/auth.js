@@ -9,6 +9,7 @@ export const state = () => ({
   map_location: null,
   message_count: 0,
   notification_count: 0,
+  message_count: 0,
 })
 
 // getters
@@ -20,6 +21,7 @@ export const getters = {
   map_location: state => state.map_location,
   message_count: state => state.message_count,
   notification_count: state => state.notification_count,
+  message_count: state => state.message_count,
 }
 
 // mutations
@@ -55,6 +57,10 @@ export const mutations = {
 
   SET_NOTIFICATION_COUNT(state, data) {
     state.notification_count = data
+  },
+
+  SET_MESSAGE_COUNT(state, data) {
+    state.message_count = data
   }
 }
 
@@ -123,6 +129,15 @@ export const actions = {
       let params = { id: user_id };
       const { data } = await axios.post('/notification/get_unreads', params);
       commit('SET_NOTIFICATION_COUNT', data);
+    }
+  },
+
+  async getUnreadMessage({ commit, state }) {
+    if(state.user) {
+      let user_id = state.user.id;
+      let params = { id: user_id };
+      const { data } = await axios.post('/user/get_unreads', params);
+      commit('SET_MESSAGE_COUNT', data);
     }
   }
 }

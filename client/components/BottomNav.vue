@@ -22,7 +22,8 @@
                         <li v-else>
                             <a href="javascript:;" @click="openMessenger()">
                                 <img src="~assets/imgs/messenger-mobile.png" alt="">                                   
-                                <span v-if="user" class="badge badge-pill badge-success messenger-unread" style="position:absolute;top: 5px;">{{user.unread_message_user_count == 0 ? '' : user.unread_message_user_count}}</span>
+                                <!-- <span v-if="user" class="badge badge-pill badge-success messenger-unread" style="position:absolute;top: 5px;">{{user.unread_message_user_count == 0 ? '' : user.unread_message_user_count}}</span> -->
+                                <span v-if="user" class="badge badge-pill badge-success messenger-unread" style="position:absolute;top: 5px;">{{message_count == 0 ? '' : message_count}}</span>
                                 <p>Messenger</p>
                             </a>
                         </li>
@@ -82,6 +83,7 @@ export default {
     computed: mapGetters({
         user: 'auth/user',
         notification_count: 'auth/notification_count',
+        message_count: 'auth/message_count',
     }),
 
     methods: {
