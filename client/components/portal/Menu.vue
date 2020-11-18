@@ -25,7 +25,7 @@
                         <div class="logo" for="menu_media" v-else>
                             <img class="signup_logo" :src="mediaData" alt="" v-show="mediaData" />
                         </div>
-                        <p style="color: #EFA720;font-size: 15px;">{{mediaData ? 'Change Media' : 'Add Media'}}</p>
+                        <p style="color: #EFA720;font-size: 15px;cursor:pointer;">{{mediaData ? 'Change Media' : 'Add Media'}}</p>
                     </label>
                     <span class="btn-remove-media" @click="removeMedia" v-if="is_editting && this.mediaData"><fa icon="times-circle"></fa></span>
                     <input type="hidden" name="remove_media" :value="remove_media" />

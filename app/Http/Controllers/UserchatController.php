@@ -54,9 +54,7 @@ class UserchatController extends Controller
         return ['status' => true, 'created_at' => $created_at];
     }
 
-    public function imageupload(Request $request, $sender, $receiver)
-    {
-
+    public function imageupload(Request $request, $sender, $receiver) {
         $imageables = ['jpg', 'JPG', 'jpeg', 'png', 'gif'];
         $attachment = request()->file('file');
 

@@ -527,9 +527,9 @@ header {
       border: none !important;
       font-size: 18px;
 
-      i {
+      svg {
         color: red;
-
+        cursor: pointer;
         &.active {
           color: #67e212;
         }
@@ -540,6 +540,7 @@ header {
       text-align: center;
       background-color: white !important;
       color: black !important;
+      padding-right: 0;
     }
   }
 

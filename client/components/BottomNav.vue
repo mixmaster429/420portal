@@ -98,7 +98,7 @@ export default {
         },
         openMessenger() {
             if(this.user) {
-                
+                this.$store.dispatch('chat/toggleFlatchat');
             } else {
                 this.openLoginModal();
             }

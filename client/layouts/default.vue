@@ -1,6 +1,7 @@
 <template>
     <div class="layout" id="app" v-touch:swipe="toggleSidebar">
         <left-sidebar :active="leftsidebarflag"></left-sidebar>
+        <flatchat v-if="auth_user"></flatchat>
         <top-nav />
 
         <div class="container-fluid">
@@ -32,12 +33,13 @@
 import TopNav from '~/components/TopNav'
 import BottomNav from '~/components/BottomNav'
 import Login from '~/components/Login'
+import Flatchat from '~/components/Flatchat'
 import LeftSidebar from '~/components/mobile/LeftSidebar'
 import { mapGetters } from "vuex";
 import firebase from '../Firebase';
 export default {
     components: {
-        TopNav, BottomNav, Login, LeftSidebar
+        TopNav, BottomNav, Login, LeftSidebar, Flatchat,
     },
     data(){
         return {

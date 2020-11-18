@@ -83,6 +83,7 @@ Route::get('/marijuana-forums/{id}','ForumsController@detail');
 
 Route::post('/portal/get_all_menus', 'PortalController@get_all_menus');
 
+Route::post('/usermessages/imageupload/{sender}/{receiver}', 'UserchatController@imageupload');
 
 
 Route::middleware(['auth:api'])->group(function ($router){
@@ -162,6 +163,23 @@ Route::middleware(['auth:api'])->group(function ($router){
     $router->post('/menu/update', 'PortalController@update_menu')->name('menu.update');
     $router->get('/menu/{id}/delete', 'PortalController@delete_menu')->name('menu.delete');
     $router->get('/menu/{id}/deactive', 'PortalController@deactive_menu')->name('menu.deactive');
+
+    // Messenger    
+    $router->get('/user/chatlist', 'UserController@chatlist');
+    $router->get('/user/getmessengerstatus', 'UserController@getMessengerStatus');
+    $router->post('/user/searchuser', 'UserController@searchuser');
+    $router->get('/user/togglemessenger', 'UserController@togglemessenger');
+    $router->post('/user/deletemessage', 'UserController@deletemessage');
+    
+    $router->post('/user/block', 'UserController@block');
+    $router->get('/user/blockuserlist', 'UserController@blockuserlist');
+    $router->get('/user/blockuserlistonmobile', 'UserController@blockuserlistonmobile');
+    $router->post('/user/enableblock', 'UserController@enableblock');
+    $router->post('/user/isblockuser', 'UserController@isblockuser');
+
+    $router->post('/usermessages/fetch', 'UserchatController@fetchMessages');
+    $router->post('/usermessages/send', 'UserchatController@sendMessage');
+    $router->post('/usermessages/readall', 'UserchatController@readall');
 
     // Admin Panel
 

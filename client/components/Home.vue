@@ -59,7 +59,7 @@
                 <div class="row justify-content-center" v-if="defaultpost != null">
                     <div class="col-4 media_container">
                         <div class="media" @click="showdefault">
-                            <img v-bind:src="imageLoad(defaultpost.url)" alt />
+                            <img v-bind:src="serverUrl(defaultpost.url)" alt />
                         </div>
                     </div>
                 </div>
@@ -67,8 +67,8 @@
                 <div class="row">
                     <div class="col-4 media_container" v-for="(item, index) in posts" :key="index">
                         <div class="media" @click="changeimage(index)" @dblclick="like(item)">
-                            <img v-bind:src="imageLoad(item.url)" alt v-if="item.type == 'image'" />
-                            <video v-bind:src="imageLoad(item.url)" alt v-if="item.type == 'video'" disablePictureInPicture controlsList="nodownload" onclick="this.paused ? this.play() : this.pause();"></video>
+                            <img v-bind:src="serverUrl(item.url)" alt v-if="item.type == 'image'" />
+                            <video v-bind:src="serverUrl(item.url)" alt v-if="item.type == 'video'" disablePictureInPicture controlsList="nodownload" onclick="this.paused ? this.play() : this.pause();"></video>
                             <img class="video__tag__mobile" style="width:35px;" v-if="item.type==='video'" src="https://i.imgur.com/88aBgwi.png" alt="">
                         </div>
                     </div>
@@ -240,12 +240,12 @@ export default {
                 $("#loginmodal").modal("show");
             }
         },
-        imageLoad(item) {
+        serverUrl(item) {
             if(item.charAt(0) != '/'){item = '/' + item;}
             try {
                 return process.env.serverUrl + item;
             } catch (error) {
-                return process.env.serverUrl + 'imgs/default.png';
+                return process.env.serverUrl + '/imgs/default.png';
             }
         }
         
