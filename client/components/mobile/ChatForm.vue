@@ -207,13 +207,9 @@
         .file-uploads {
             position: absolute;
             right: 6px;
-            top: 4px;
+            top: 6px;
             font-size: 20px;
             color: #EFA720;
-
-            label{
-                cursor: pointer;
-            }
             svg {
                 font-size: 24px;
             }

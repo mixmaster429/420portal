@@ -9,17 +9,8 @@
                                 <img src="~assets/imgs/home.png" alt="">
                                 <p>Home</p>
                             </a>
-                        </li>                        
-                        <li v-if="$device.isMobile">
-                            <!-- <router-link to="/mobile/chatlist"> -->
-                                <a href="/mobile/chatlist">
-                                    <img src="~assets/imgs/messenger-mobile.png" alt="">                                    
-                                    <span v-if="user" class="badge badge-pill badge-success messenger-unread" style="position:absolute;top: 5px;">{{user.unread_message_user_count == 0 ? '' : user.unread_message_user_count}}</span>
-                                    <p>Messenger</p>
-                                </a>
-                            <!-- </router-link> -->
                         </li>
-                        <li v-else>
+                        <li>
                             <a href="javascript:;" @click="openMessenger()">
                                 <img src="~assets/imgs/messenger-mobile.png" alt="">                                   
                                 <!-- <span v-if="user" class="badge badge-pill badge-success messenger-unread" style="position:absolute;top: 5px;">{{user.unread_message_user_count == 0 ? '' : user.unread_message_user_count}}</span> -->
@@ -100,7 +91,11 @@ export default {
         },
         openMessenger() {
             if(this.user) {
-                this.$store.dispatch('chat/toggleFlatchat');
+                if(this.$device.isMobile) {
+                    window.location.href = "/mobile/chatlist";
+                } else {
+                    this.$store.dispatch('chat/toggleFlatchat');
+                }
             } else {
                 this.openLoginModal();
             }
