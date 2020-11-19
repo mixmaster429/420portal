@@ -29,6 +29,8 @@ const routes = [
 
   { path: '/mobile/slideshow', name: 'weedgram', component: page('mobile/Weedgram.vue') },
   { path: '/mobile/comment', name: 'comment', component: page('mobile/Comment.vue') },
+  { path: '/mobile/chatlist', name: 'mobile_chatlist', component: page('mobile/ChatList.vue') },
+  { path: '/mobile/chatbox', name: 'mobile_chatbox', component: page('mobile/ChatBox.vue') },
   { path: '/mobile/media/add', name: 'add_media', component: page('mobile/AddMedia.vue') },
   { path: '/mobile/media/edit', name: 'edit_media', props: true, component: page('mobile/EditMedia.vue') },
   { path: '/mobile/profile/edit', name: 'edit_profile', props: true, component: page('mobile/EditProfile.vue') },

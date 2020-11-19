@@ -11,13 +11,13 @@
                             </a>
                         </li>                        
                         <li v-if="$device.isMobile">
-                            <router-link to="/mobile/userlist">
-                                <a href="/mobile/userlist">
+                            <!-- <router-link to="/mobile/chatlist"> -->
+                                <a href="/mobile/chatlist">
                                     <img src="~assets/imgs/messenger-mobile.png" alt="">                                    
                                     <span v-if="user" class="badge badge-pill badge-success messenger-unread" style="position:absolute;top: 5px;">{{user.unread_message_user_count == 0 ? '' : user.unread_message_user_count}}</span>
                                     <p>Messenger</p>
                                 </a>
-                            </router-link>
+                            <!-- </router-link> -->
                         </li>
                         <li v-else>
                             <a href="javascript:;" @click="openMessenger()">

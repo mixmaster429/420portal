@@ -1,33 +1,33 @@
 <template>
-    <div class="chatfooter">
+    <div class="mobilechatfooter" @blur="lostfocus()">
         <div class="progress progress-sm mb-0" v-show="uploading">
             <div class="progress-bar progress-bar-success" role="progressbar" :aria-valuenow="uploadProgress" aria-valuemin="0" aria-valuemax="100" :style="{width: uploadProgress + '%'}">
                 <span class="sr-only">{{uploadProgress}}% Complete</span>
             </div>
         </div>
-        <textarea :id="`d_chatbox_${sender}_${receiver}`"></textarea>
+        <textarea :id="'d_chatbox'+this.receiver"></textarea>
         <file-upload
             ref="upload"
-            :input-id="'uploader_' + sender + '-' + receiver"
             v-model="files"
             :post-action="this.action + this.sender + '/' + this.receiver"
             @input-file="inputFile"
             @input-filter="inputFilter"
         >
-            <fa icon="paperclip"></fa>
+            <fa icon="paperclip" fixed-width></fa>
         </file-upload>
+        <a href="javascript:;" id="btn-send" @click="sendmessage()"><fa :icon="['fab', 'telegram-plane']"></fa></a>
     </div>
 </template>
 
 <script>
-    import firebase from '../Firebase';
-    import _ from "lodash";
+    import firebase from '../../Firebase';
+    import { mapGetters } from "vuex";
     export default {
-        name: "ChatForm",
-        props: ['receiver', 'chat_type', 'sender'],
+        name: "mobilechatform",
+        props: ['receiver'],
         data: function () {
             return {
-                receiver_id: this.receiver,
+                sender: null,
                 files: [],
                 uploadProgress: 5,
                 uploading: false,
@@ -36,9 +36,12 @@
                 action: process.env.serverUrl + '/api/usermessages/imageupload/',
             }
         },
+        computed: mapGetters({
+            auth_user: 'auth/user',
+        }),
         watch: {
             is_typing: function (new_val, old_val) {
-                var typingFs = firebase.database().ref('chatrooms/' + this.sender + '/is_typing').child(this.receiver);
+                let typingFs = firebase.database().ref('chatrooms/' + this.sender + '/is_typing').child(this.receiver);
                 if(new_val) {
                     typingFs.set({
                         is_typing: true,
@@ -51,18 +54,11 @@
                         });
                     // }, 2000);
                 }
-                // this.debouncedTyping()
             }
         },
         methods: {
-            endTyping(){
-                var typingFs = firebase.database().ref('chatrooms/' + this.sender + '/is_typing').child(this.receiver);
-                typingFs.set({
-                    is_typing: true,
-                });
-            },
             sendmessage() {
-                let message = $(`#d_chatbox_${this.sender}_${this.receiver}`).data('emojioneArea').getText();
+                let message = $("#d_chatbox"+this.receiver).val();
                 if (message == '') {
                     return false;
                 } else {
@@ -70,10 +66,11 @@
                         message: message,
                         file: false
                     });
-                    // $("#d_chatbox"+this.sender+'-'+this.receiver_id).val('');
-                    // $(".chatfooter .emojionearea-editor").text('');
-                    $(`#d_chatbox_${this.sender}_${this.receiver}`).data('emojioneArea').setText('');
+                    $("#d_chatbox").val('');
+                    $(".mobilechatfooter .emojionearea-editor").text('');
                 }
+                $("#d_chatbox" + this.receiver).data('emojioneArea').setFocus();
+                this.is_typing = false;
             },
 
             inputFile(newFile, oldFile){
@@ -113,19 +110,25 @@
                         return prevent()
                     }
                 }
+            },
+            lostfocus(){
+                console.log('adsfasd');
             }
         },
-        created(){
-            this.debouncedTyping = _.debounce(this.endTyping, 500)
-        },
         mounted() {
+            this.sender = this.auth_user.id;
             let _this = this;
             firebase.database().ref('chatrooms/' + this.sender + '/is_typing').child(this.receiver).set({is_typing : false});
-            $(`#d_chatbox_${this.sender}_${this.receiver}`).emojioneArea({
+
+            $("#d_chatbox"+_this.receiver).emojioneArea({
                 pickerPosition: "top",
                 search: false,
                 autocomplete: false,
                 placeholder: "Write a message...",
+                attributes: {
+                    spellcheck : true,
+                    autocomplete   : "on",
+                },
                 events: {
                     keypress: function (editor, event) {
                         // _this.is_typing = true;
@@ -133,55 +136,86 @@
                         // var typingTimeout = setTimeout(function(){
                         //     _this.is_typing = false;
                         // }, 2500);
-                        // let message = $("#d_chatbox"+_this.sender+"-"+_this.receiver).data('emojioneArea').getText();
-                        // console.log(message);
-                        // if (message == '') {
-                        //     _this.is_typing = false;
-                        // } else {
-                        //     _this.is_typing = true;
-                        // }
                     },
+                    blur: function (editor, event) {
+                        if(event.relatedTarget && event.relatedTarget.id == 'btn-send') {
+
+                        } else {
+                            $("#app").removeClass('focus_comment');
+                            _this.$parent.scrollToBottom();
+                        }
+                    },
+                    focus: function (editor, event) {
+                        $("#app").addClass('focus_comment');
+                        _this.$parent.scrollToBottom();
+                    }
                 }
             });
 
-            $(".chatfooter .emojionearea-editor").text('').keydown(function (event) {
-                let message = $(`#d_chatbox_${_this.sender}_${_this.receiver}`).data('emojioneArea').getText();
+            $(".mobilechatfooter .emojionearea-editor").text('').keyup(function (event) {
+                let message = $("#d_chatbox"+_this.receiver).data('emojioneArea').getText();
                 if(message.length > 1) {
                     _this.is_typing = true;
                 } else {
                     _this.is_typing = false;
                 }
-                if (event.keyCode == 13 && !event.shiftKey) {
-                    _this.sendmessage();
-                    _this.is_typing = false;
-                    return false;
-                }
+                // if (event.keyCode == 13) {
+                //     if (event.shiftKey) {
+                //     } else {
+                //         $(".mobilechatfooter .emojionearea-editor").blur().focus();
+                //         _this.sendmessage();
+                //     }
+                // }
             });
+
+            // window.addEventListener("hashchange", function(e) {
+            //     // if(e.oldURL.length > e.newURL.length)
+            //         alert("back")
+            // });
         },
     }
 </script>
 
 <style lang="scss">
-
-    .file-uploads {
-        display: none;
-    }
-
-    .chatfooter {
+    .mobilechatfooter {
         height: 50px;
-        width: 268px;
-        position: absolute;
-        bottom: 0;
+        width: 100%;
+        position: relative;
+        // bottom: 45px;
+
+        .emojionearea {
+            padding-left: 30px !important;
+            padding-right: 30px !important;
+
+            .emojionearea-editor {
+                padding: 6px 30px 6px 12px;
+                white-space: normal !important;
+            }
+
+            .emojionearea-button {
+                left: 3px !important;
+                div {
+                    background-image: url(https://i.imgur.com/xljqgrH.png) !important;
+                    background-position: 0 -30px;
+                    background-size: cover;
+                    width: 28px;
+                    height: 28px;
+                }
+            }
+        }
 
         .file-uploads {
             position: absolute;
             right: 6px;
-            bottom: -4px;
+            top: 4px;
             font-size: 20px;
             color: #EFA720;
 
             label{
                 cursor: pointer;
+            }
+            svg {
+                font-size: 24px;
             }
         }
 
@@ -196,9 +230,12 @@
                 background-color: red;
             }
         }
-
-        i{
-            cursor: pointer;
+        #btn-send {
+            position: absolute;
+            right: 35px;
+            top: -3px;
+            font-size: 28px;
+            color: #EFA720;
         }
     }
 </style>

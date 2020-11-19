@@ -76,12 +76,12 @@
                             <img src="~assets/imgs/messenger-mobile.png" alt="Message"/>
                             <p class="mb-0">Message</p>
                         </div>
-                        <!-- <router-link :to="{ name: 'mobilechatbox', params: {userdetail: portal_detail}}">
-                            <div class="message btn-message mx-auto" v-if="portal_detail.messenger && logged_user_id != portal_detail.id && mobile && !isblockuser">
-                                <img src="imgs/messenger-mobile.png" />
+                        <router-link :to="{ name: 'mobile_chatbox', params: {userdetail: portal_detail}}" v-if="$device.isMobile">
+                            <div class="message btn-message mx-auto" v-if="portal_detail.messenger && logged_user_id != portal_detail.id && !isblockuser">
+                                <img src="~assets/imgs/messenger-mobile.png" />
                                 <p class="mb-0">Message</p>
                             </div>
-                        </router-link> -->
+                        </router-link>
                     </div>
                 </div>
             </div>

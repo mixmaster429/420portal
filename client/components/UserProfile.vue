@@ -27,7 +27,7 @@
                                         <img src="~assets/imgs/messenger-mobile.png" />
                                         <p class="my-0">Message</p> 
                                     </div>
-                                    <router-link :to="{ name: 'mobilechatbox', params: {userdetail: userdata}}" v-if="$device.isMobile">
+                                    <router-link :to="{ name: 'mobile_chatbox', params: {userdetail: userdata}}" v-if="$device.isMobile">
                                         <div class="message btn-message" v-if="userdata.messenger && logged_user_id != userdata.id && !isblockuser && !is_private">
                                             <img src="~assets/imgs/messenger-mobile.png" />
                                             <p class="my-0">Message</p>
