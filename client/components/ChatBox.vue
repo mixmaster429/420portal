@@ -2,8 +2,7 @@
     <div class="chatwindow" @click="readmessage()">
         <div class="chat_header">
             <fa icon="power-off" style="color:red; font-size: 16px; margin-left: 5px" @click="block()"></fa>
-            <p @click="gotouserprofile(username)" class="username" :class="{portal : user.type != 'user'}">
-                {{user.name}}
+            <p @click="gotouserprofile(username)" class="username" :class="{portal : user.type != 'user'}">{{user.name}}
                 <br v-if="user.type != 'user'" />
                 <span class="store_type" v-if="user.type != 'user'">
                     <img src="/imgs/dispensary.png" v-if="store_type == 1 || store_type == 3" />

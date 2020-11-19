@@ -9,7 +9,7 @@ use App\Models\Media;
 use App\Models\Portal;
 use App\Models\Brand;
 use App\Models\Save;
-use App\Models\Userchat;
+use App\Models\UserChat;
 use App\Models\Comment;
 use App\Models\Notification;
 use App\User;
@@ -213,8 +213,8 @@ class UserController extends Controller
 
     public function chatlist() {
         $user_id = auth()->id();
-        $relate_user1 = Userchat::where('user_id', $user_id)->where('deleted_by', '!=', $user_id)->pluck('user_to')->toarray();
-        $relate_user2 = Userchat::where('user_to', $user_id)->where('deleted_by', '!=', $user_id)->pluck('user_id')->toarray();
+        $relate_user1 = UserChat::where('user_id', $user_id)->where('deleted_by', '!=', $user_id)->pluck('user_to')->toarray();
+        $relate_user2 = UserChat::where('user_to', $user_id)->where('deleted_by', '!=', $user_id)->pluck('user_id')->toarray();
         $relate_user = array_unique(array_merge($relate_user1, $relate_user2));
 
         // check private
@@ -224,9 +224,9 @@ class UserController extends Controller
         $users = User::whereIn('id', $relate_user)->whereNotIn('id', $private_users)->get()->except($user_id);
         $result = [];
         foreach ($users as $user) {
-            $block = blockuser::where('loggeduser', $user_id)->where('blockeduser', $user->id)->count();
+            $block = BlockUser::where('loggeduser', $user_id)->where('blockeduser', $user->id)->count();
             if($block == 0){
-                $lastmessage = Userchat::whereIn('user_id', [$user_id, $user->id])->whereIn('user_to', [$user_id, $user->id])->orderBy('created_at', 'desc')->first();
+                $lastmessage = UserChat::whereIn('user_id', [$user_id, $user->id])->whereIn('user_to', [$user_id, $user->id])->orderBy('created_at', 'desc')->first();
                 if(!$lastmessage || $lastmessage->deleted_by == $user_id){
                     $user->lastmessage = '';
                     $user->last_time = 0;
@@ -235,7 +235,7 @@ class UserController extends Controller
                     $user->last_time = strtotime($lastmessage->created_at);
                 }
                 $user->url = $user->profilePic->url ?? '/imgs/default_sm.png';
-                $unreadcount = Userchat::where('user_id', $user->id)->where('user_to', $user_id)->where('read', 0)->count();
+                $unreadcount = UserChat::where('user_id', $user->id)->where('user_to', $user_id)->where('read', 0)->count();
                 $user->unread_count = $unreadcount;
                 array_push($result, $user);
             }
@@ -267,7 +267,7 @@ class UserController extends Controller
     {
         $sender = $request->get('sender');
         $receiver = $request->get('receiver');
-        $sender_chats = Userchat::where('user_id', $sender)->where('user_to', $receiver)->get();
+        $sender_chats = UserChat::where('user_id', $sender)->where('user_to', $receiver)->get();
         foreach($sender_chats as $chat){
             if($chat->deleted_by != 0){
                 $chat->delete();
@@ -276,7 +276,7 @@ class UserController extends Controller
                 $chat->save();
             }
         }
-        $receiver_chats = Userchat::where('user_to', $sender)->where('user_id', $receiver)->get();
+        $receiver_chats = UserChat::where('user_to', $sender)->where('user_id', $receiver)->get();
         foreach($receiver_chats as $chat){
             if($chat->deleted_by != 0){
                 $chat->delete();
@@ -305,7 +305,7 @@ class UserController extends Controller
         $result = [];
         foreach($userlist as $user)
         {
-            $block = blockuser::where('loggeduser', $user_id)->where('blockeduser', $user->id)->count();
+            $block = BlockUser::where('loggeduser', $user_id)->where('blockeduser', $user->id)->count();
 
             if ($block == 0) {
                 $tmp = [];
@@ -313,11 +313,11 @@ class UserController extends Controller
                 $tmp['name'] = $user->name;
                 $tmp['username'] = $user->name;
                 $tmp['url'] = $user->profilePic->url ?? '/imgs/default_sm.png';
-                $unread = Userchat::where('user_id', $user->id)->where('user_to', $user_id)->where('read', 0)->count();
+                $unread = UserChat::where('user_id', $user->id)->where('user_to', $user_id)->where('read', 0)->count();
                 $tmp['unread_count'] = $unread;
                 $tmp['type'] = $user->type;
                 $tmp['store_type'] = $user->store_type;
-                $lastmessage = Userchat::whereIn('user_id', [$user_id, $user->id])->whereIn('user_to', [$user_id, $user->id])->orderBy('created_at', 'desc')->first();
+                $lastmessage = UserChat::whereIn('user_id', [$user_id, $user->id])->whereIn('user_to', [$user_id, $user->id])->orderBy('created_at', 'desc')->first();
                 if(!$lastmessage || $lastmessage->deleted_by == $user_id){
                     $tmp['lastmessage'] = '';
                 }else{
@@ -353,7 +353,7 @@ class UserController extends Controller
             $tmp['name'] = $user->name;
             $tmp['username'] = $user->username;
             $tmp['url'] = $user->profilePic ? $user->profilePic->url : '/imgs/default_sm.png';
-            $unread = Userchat::where('user_id', $user->id)->where('user_to', $user_id)->where('read', 0)->count();
+            $unread = UserChat::where('user_id', $user->id)->where('user_to', $user_id)->where('read', 0)->count();
             $tmp['unread'] = $unread;
 
             array_push($result, $tmp);
@@ -372,7 +372,7 @@ class UserController extends Controller
     {
         $logged_id = auth()->id();
         $blockuserid = $request->get('blockuserid');
-        blockuser::create([
+        BlockUser::create([
             'loggeduser' => $logged_id,
             'blockeduser' => $blockuserid
         ]);
@@ -383,7 +383,7 @@ class UserController extends Controller
     {
         $logged_id = auth()->id();
         $blockuserid = $request->get('blockuserid');
-        $blockuser = blockuser::where('loggeduser', $logged_id)->where('blockeduser', $blockuserid)->first();
+        $blockuser = BlockUser::where('loggeduser', $logged_id)->where('blockeduser', $blockuserid)->first();
         $blockuser->delete();
         return response()->json(['status' => 1]);
     }
@@ -393,7 +393,7 @@ class UserController extends Controller
         $logged_id = auth()->id();
         $blockuserid = $request->get('receiver');
         $user_array = [$logged_id, $blockuserid];
-        $blockuser = blockuser::whereIn('blockeduser', $user_array)->whereIn('loggeduser', $user_array)->count();
+        $blockuser = BlockUser::whereIn('blockeduser', $user_array)->whereIn('loggeduser', $user_array)->count();
         if($blockuser)
             return 1;
         else
@@ -403,7 +403,7 @@ class UserController extends Controller
     public function blockuserlist()
     {
         $logged_id = auth()->id();
-        $userids = blockuser::where('loggeduser', $logged_id)->get();
+        $userids = BlockUser::where('loggeduser', $logged_id)->get();
         $result = [];
         foreach($userids as $userid)
         {
@@ -416,7 +416,7 @@ class UserController extends Controller
             $tmp['type'] = $user->type;
             $tmp['store_type'] = $user->store_type;
 
-            $lastmessage = Userchat::whereIn('user_id', [$logged_id, $user->id])->whereIn('user_to', [$logged_id, $user->id])->orderBy('created_at', 'desc')->first();
+            $lastmessage = UserChat::whereIn('user_id', [$logged_id, $user->id])->whereIn('user_to', [$logged_id, $user->id])->orderBy('created_at', 'desc')->first();
             if($lastmessage && $lastmessage->deleted_by == $logged_id){
                 $tmp['lastmessage'] = '';
             }else{
@@ -430,7 +430,7 @@ class UserController extends Controller
     public function blockuserlistonmobile()
     {
         $logged_id = auth()->id();
-        $userids = blockuser::where('loggeduser', $logged_id)->get();
+        $userids = BlockUser::where('loggeduser', $logged_id)->get();
         $result = [];
         foreach($userids as $userid) {
             $tmp = [];
