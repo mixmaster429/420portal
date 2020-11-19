@@ -229,7 +229,7 @@
         #btn-send {
             position: absolute;
             right: 35px;
-            top: -3px;
+            top: -1px;
             font-size: 28px;
             color: #EFA720;
         }
