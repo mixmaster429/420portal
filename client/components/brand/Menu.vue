@@ -9,8 +9,8 @@
             </h5> 
         </div>
         <div class="page-data">            
-            <button class="btn btn-block btn-lg btn-primary mt-1 mt-md-3" v-if="brand.id === auth_user.id || auth_user.id == 1" @click="addMenu">Add Menu Item</button>
-            <hr class="mb-0" v-if="brand.id === auth_user.id || auth_user.id == 1" style="background-color : #EFA720; height: 2px;">
+            <button class="btn btn-block btn-lg btn-primary mt-1 mt-md-3" v-if="auth_user && (brand.id === auth_user.id || auth_user.id == 1)" @click="addMenu">Add Menu Item</button>
+            <hr class="mb-0" v-if="auth_user && (brand.id === auth_user.id || auth_user.id == 1)" style="background-color : #EFA720; height: 2px;">
             <form action="" method="POST" class="mt-3" id="form_menu" v-show="is_open" @submit.prevent="formSubmit()" enctype="multipart/form-data">
                 <input type="hidden" name="portal_id" :value="brand.id" />
                 <input type="hidden" name="menu_id" :value="menu_id" />
@@ -147,7 +147,7 @@
                                 <div class="media" @mouseover="menu.show_description = true" @mouseleave="menu.show_description = false" v-else>
                                     <img src="/imgs/default.png" width="125" height="125" alt="">
                                 </div>
-                                <p class="btn-group mb-0" v-if="brand.id === auth_user.id || auth_user.id == 1">
+                                <p class="btn-group mb-0" v-if="auth_user && (brand.id === auth_user.id || auth_user.id == 1)">
                                     <a href="javascript:;" @click="editMenu(menu)" class="btn-action" data-toggle="tooltip" title="Edit"><fa icon="edit" fixed-width></fa></a>
                                     <a href="javascript:;" @click="deleteMenu(menu.id)" class="btn-action" data-toggle="tooltip" title="Delete"><fa icon="trash-alt" fixed-width></fa></a>
                                     <a href="javascript:;" @click="deactiveMenu(menu.id, menu.is_active)" class="btn-action" data-toggle="tooltip" :title="menu.is_active ? 'Deactivate' : 'Activate'">

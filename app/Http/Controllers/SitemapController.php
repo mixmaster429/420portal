@@ -74,7 +74,7 @@ class SitemapController extends Controller
     }
 
     public function companies() {
-        $companies = User::whereType('company')->where('is_active', '1')->get();
+        $companies = User::whereIn('type', ['company', 'brand'])->where('is_active', '1')->get();
         $routes = [];
 
         foreach ($companies as $item) {

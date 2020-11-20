@@ -198,7 +198,7 @@
                 </div>
             </div>
         </div>
-        <vs-popup class="strains__popup media__add" type="border" title="Edit Media" :active.sync="editMedia">
+        <vs-popup class="strains__popup media__add" type="border" title="Edit Media" :active.sync="editMedia" v-if="selected">
             <add-form :mainData="selected" :editData="sendata" mode="edit" :from="from"></add-form>
         </vs-popup>
     </div>

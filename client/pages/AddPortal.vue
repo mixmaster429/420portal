@@ -32,7 +32,7 @@
 <script>
     import AddPortal from "~/components/portal/AddPortal";
     import PageFooter from "~/components/PageFooter";
-    import "../assets/sass/_addportal.scss";
+    import "~/assets/sass/_addportal.scss";
     import Terms from "./auth/terms"
     export default {
         middleware: 'guest',

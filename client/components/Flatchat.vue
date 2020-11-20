@@ -175,14 +175,14 @@
             toggleactive() {
                 let uri = '/user/togglemessenger';
                 if (this.auth_user.messenger) {
-                    if (window.confirm("Deactive messenger?")) {
+                    if (window.confirm("Deactivate messenger?")) {
                         this.axios.get(uri).then((response) => {
                             // this.active = response.data.status;
                             this.$store.dispatch('auth/fetchUser');
                         });
                     }
                 } else {
-                    if (window.confirm("Active messenger?")) {
+                    if (window.confirm("Activate messenger?")) {
                         this.axios.get(uri).then((response) => {
                             // this.active = response.data.status;
                             this.$store.dispatch('auth/fetchUser');

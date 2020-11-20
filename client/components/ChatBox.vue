@@ -2,9 +2,9 @@
     <div class="chatwindow" @click="readmessage()">
         <div class="chat_header">
             <fa icon="power-off" style="color:red; font-size: 16px; margin-left: 5px" @click="block()"></fa>
-            <p @click="gotouserprofile(username)" class="username" :class="{portal : user.type != 'user'}">{{user.name}}
+            <p class="username" :class="{portal : user.type != 'user'}"><span @click="gotouserprofile(username)">{{user.name}}</span>
                 <br v-if="user.type != 'user'" />
-                <span class="store_type" v-if="user.type != 'user'">
+                <span class="store_type" v-if="user.type != 'user'" @click="gotouserprofile(username)">
                     <img src="/imgs/dispensary.png" v-if="store_type == 1 || store_type == 3" />
                     <img src="/imgs/delivery.png" v-if="store_type == 2 || store_type == 3" />
                     <img src="/imgs/brand.png" v-if="user.type == 'brand'" />
@@ -136,7 +136,7 @@
                 }
             },
             gotouserprofile(username){
-                window.location.href = username;
+                window.location.href = "/" + username;
             },
             closewindow() {
                 firebase.database().ref('chatrooms/' + this.sender + '/is_typing').remove();
@@ -360,13 +360,15 @@
             position: relative;
             border-bottom: 1px solid white;
             .username {
-                cursor: pointer;
                 font-size: 16px;
                 width: calc(100% - 70px);
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
                 line-height: 30px;
+                span {
+                    cursor: pointer;
+                }
                 &.portal {
                     line-height: 14px;
                 }
@@ -380,6 +382,7 @@
 
             svg {
                 margin-right: 5px;
+                cursor: pointer;
             }
 
             .tools {
