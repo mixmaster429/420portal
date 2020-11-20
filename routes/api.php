@@ -91,10 +91,14 @@ Route::post('/forum/index', 'Api\ForumController@index');
 Route::post('/forum/get_user_topics', 'Api\ForumController@getUserTopics');
 Route::post('/forum/detail', 'Api\ForumController@getDetail');
 
+// **** App Portal Routes ****
+Route::post('/portals/add', 'Api\PortalController@store');
+Route::post('/app/portal/get_all_menus', 'Api\PortalController@get_all_menus');
+
 
 Route::middleware(['auth:api'])->group(function ($router){
     $router->post('/profile/like', 'LikeController@likeProfile');
-    $router->post('/profile/unlike', 'LikeController@unlikeProfile');    
+    $router->post('/profile/unlike', 'LikeController@unlikeProfile');
     $router->post('/profile/update', 'UserController@update');
     $router->post('/profile/getisfollower', 'UserController@getisfollower');
     $router->post('/user/follow', 'UserController@follow');
@@ -126,11 +130,13 @@ Route::middleware(['auth:api'])->group(function ($router){
     $router->post('/portals/list', 'PortalController@list');
     $router->post('/users/list', 'UserController@list');  
     $router->delete('/user/{id}', 'UserController@destroy');
-    $router->post('/user/activate', 'UserController@activate');  
-
-    $router->post('/get/portal', 'Api\PortalController@getPortal');    
+    $router->post('/user/activate', 'UserController@activate');      
     
     $router->post('/portals/update', 'PortalController@update');
+
+    // App Portal Routes
+
+    $router->post('/app/get/portal', 'Api\PortalController@getPortal');
     
     $router->post('/brand/update', 'BrandController@update');
     $router->get('/brand/delete/{id}', 'BrandController@delete');
