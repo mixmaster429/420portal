@@ -1,6 +1,6 @@
 <template>
     <div class="col-12">
-        <div class="container" id="strain_show_page">
+        <div class="container px-0 px-md-2" id="strain_show_page">
             <div class="single__content d-flex text-center align-items-center mt-4">
                 <div class="single__img">
                     <div class="container_img">

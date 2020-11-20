@@ -224,7 +224,7 @@
                     <div class="row">
                         <div class="col-4 media_container" v-for="(item, index) of posts" :key="index">
                             <div v-if="$device.isMobile" class="media">
-                                <router-link :to="{ name: 'weedgram', hash:`#${index+1}`, params: {allpost : posts, start_index: index+1, page: page, model: 'portal', currentId : portal_detail.id}}" >
+                                <router-link :to="{ name: 'weedgram', hash:`#${index+1}`, params: {allpost : posts, start_index: index+1, page: page, model: 'portal', username: portal_detail.username, currentId : portal_detail.id}}" >
                                     <img v-bind:src="serverUrl(item.url)" alt v-if="item.type == 'image'" />
                                     <video v-bind:src="serverUrl(item.url)" alt v-if="item.type == 'video'" disablePictureInPicture controlsList="nodownload" onclick="this.paused ? this.play() : this.pause();"></video>
                                     <img class="video__tag__mobile" style="width:25px;" v-if="item.type==='video'" src="https://i.imgur.com/88aBgwi.png" alt="">

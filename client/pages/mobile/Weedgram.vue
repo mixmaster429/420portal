@@ -1,7 +1,7 @@
 <template>
   <!-- <div style="position: fixed"> -->
     <div class="slide_show">
-        <div class="weedgram-header" id="weedgram-header" ref="weedgram_header" v-if="prev_page == 'user_page' || prev_page == 'company_page'">
+        <div class="weedgram-header" id="weedgram-header" ref="weedgram_header" v-if="model == 'user' || model == 'portal' || model == 'brand'">
             <h4 class="my-1"><fa icon="arrow-left" fixed-width class="mr-2" @click="goBack()" /> {{username}}</h4>
         </div>
         <div id="media_scroll_wrapper" style="max-height:100vh;overflow-y: auto;" ref="scroll_wrapper">
@@ -164,7 +164,7 @@
                 category: this.$route.params.category,
                 initial: true,
                 prev_page : '',
-                username : '',
+                username : this.$route.params.username,
                 comment_text : '',
                 focused_index : null,
                 clicks: 0,
@@ -182,20 +182,19 @@
                 let scroll_div = document.getElementById(this.start_index);
                 let offset = 63;
                 if(this.model == 'user' || this.model == 'portal') {
-                    offset = 105;
+                    offset = 100;
+                } else if(this.model == 'strain') {
+                    offset = 125;
                 }
+
                 let scroll_to = scroll_div ? scroll_div.offsetTop - offset : 0;
                 this.$refs.scroll_wrapper.scrollTo(0, scroll_to); 
             }
-            this.prev_page = localStorage.getItem("prev_page");
-            if(this.prev_page == 'company_page') {this.username = localStorage.getItem('portal_name');}
-            if(this.prev_page == 'user_page') {this.username = localStorage.getItem('username');}
             if(!this.posts){
-                if(this.prev_page == 'homepage') { window.location.href = '/';}
-                else if(this.prev_page == 'company_page') {
-                    window.location.href = localStorage.getItem('portal_username');
-                } else if(this.prev_page == 'user_page') {
-                    window.location.href = localStorage.getItem('username');
+                if(this.model == 'portal' || this.model == 'user') {
+                    window.location.href = "/" + username;
+                } else if(this.model == 'strain') {
+                    window.location.href = '/';
                 } else {
                     window.location.href = '/';
                 }
@@ -213,7 +212,6 @@
             if(this.model == 'strain') {
                 $('#strain_show_page').hide();
             }
-            
         },
         methods: {
             getallposts($state) {                
@@ -576,6 +574,7 @@
                 padding: 5px !important;
                 resize: none;
                 border: none !important;
+                background: transparent !important;
             }
         }
         .button-group {
