@@ -85,6 +85,12 @@ Route::post('/portal/get_all_menus', 'PortalController@get_all_menus');
 
 Route::post('/usermessages/imageupload/{sender}/{receiver}', 'UserchatController@imageupload');
 
+// **** App Forum ****
+
+Route::post('/forum/index', 'Api\ForumController@index');
+Route::post('/forum/get_user_topics', 'Api\ForumController@getUserTopics');
+Route::post('/forum/detail', 'Api\ForumController@getDetail');
+
 
 Route::middleware(['auth:api'])->group(function ($router){
     $router->post('/profile/like', 'LikeController@likeProfile');
@@ -142,11 +148,14 @@ Route::middleware(['auth:api'])->group(function ($router){
     $router->any('/topic/like','ForumsController@like');
     $router->any('/topic/bookmark','ForumsController@bookmark');
 
-    // **** Forum Mobile ****
+    // App Forum
     
-    $router->post('/forum/index', 'Api\ForumController@index');
-    $router->post('/forum/get_user_topics', 'Api\ForumController@getUserTopics');
-    $router->post('/forum/detail', 'Api\ForumController@getDetail');
+    $router->post('/app/topic/like','Api\ForumController@like');
+    $router->post('/app/topic/bookmark','Api\ForumController@bookmark');
+    $router->post('/app/topic/create','Api\ForumController@create');
+    $router->post('/app/topic/edit','Api\ForumController@edit');
+    $router->post('/app/topic/reply','Api\ForumController@reply');
+    $router->get('/app/topic/delete/{id}','Api\ForumController@delete');
     
     $router->get('/strain/show/{id}', 'StrainController@show_mobile');
     $router->post('/marijuana-strains/follow', 'StrainController@follow');
@@ -208,6 +217,14 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::patch('settings/profile', 'Settings\ProfileController@update');
     Route::patch('settings/password', 'Settings\PasswordController@update');
+
+    // Custom Mobile Router
+    
+    Route::post('/app/portals/update', 'Api\PortalController@update');
+    Route::post('/app/profile/update', 'Api\UserController@update'); 
+    
+    Route::post('/app/menu/create', 'Api\PortalController@create_menu');
+    Route::post('/app/menu/update', 'Api\PortalController@update_menu');
 
 });
 
