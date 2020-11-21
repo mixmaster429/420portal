@@ -1,10 +1,10 @@
 <template>
     <div class="row justify-content-center coupon_page">
         <div class="container" style="min-height:calc(100vh - 522px);">
-            <h1 class="text-center coupon_header mt-3" data-toggle="modal" data-target="#couponModal">
-                <img src="/imgs/h_icon3.png" width="35" style="margin-top: -8px;" alt="" />
-                Marijuana Coupons
-            </h1>
+            <div class="page-header">
+                <img src="~/assets/imgs/h_icon3.png" alt="Marijuana Coupons" />                
+                <h1 @click="showModal()">Marijuana Coupons</h1>
+            </div>
             <div class="row mt-3">
                 <div class="col-md-6 col-12" v-for="(item, index) of coupons" :key="index">
                     <a :href="item.portal.username" class="coupon-item">
@@ -49,8 +49,9 @@
                         <button type="button" class="close text-420" data-dismiss="modal"><fa icon="times" fixed-width></fa></button>
                     </div>
                     <div class="modal-body" style="background:white !important;">
-                        <h2 class="text-center">Find Your Marijuana Coupons</h2>
-                        <p>If you're looking for Marijuana Coupons, look no further. 420Portal has Coupons Uploaded by Marijuana Dispensaries and Deliveries.</p>
+                        <h2 class="text-center">Marijuana Coupons Near You</h2>
+                        <!-- <p>If you're looking for Marijuana Coupons, look no further. 420Portal has Coupons Uploaded by Marijuana Dispensaries and Deliveries.</p> -->
+                        <description field_name="coupon_description"></description>
                     </div>
                 </div>
             </div>
@@ -59,10 +60,12 @@
 </template>
 
 <script>
+    import Description from '~/components/Description';
     import PageFooter from '~/components/PageFooter'
     export default {
         components: {
-            PageFooter,
+            Description,
+            PageFooter
         },
         head () {
             return { 
@@ -109,6 +112,9 @@
                     this.coupons = response.data;
                 });
             },
+            showModal() {
+                $("#couponModal").modal('show');
+            },
             serverUrl(item) {
                 if(item.charAt(0) != '/'){item = '/' + item;}
                 try {
@@ -122,6 +128,9 @@
 </script>
 
 <style lang="scss" scoped>
+    .page-header {
+        margin-top: 25px;
+    }
     .coupon-detail {
         &.result-container {
             display: flex;

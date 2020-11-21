@@ -1,41 +1,36 @@
 <template>
     <div class="row justy-content-center" :class="{menu_media :  media.menu && media.menu.is_active}" id="media-page">
-        <div class="col-md-6">
+        <div class="col-md-6 px-0 px-md-2">
             <div class="comment_box_mobile" v-if="$device.isMobile">
                 <div class="header">
-                    <div class="row">
-                        <div class="col-9">
-                            <div class="user_detail">
-                                <div class="profile_image">
-                                    <a :href="media.user.username">
-                                        <img :src="serverUrl(media.user.profile_pic ? media.user.profile_pic.url : default_logo)" alt />
-                                    </a>
-                                </div>
-                                <div class="username">
-                                    <p>
-                                        <a :href="media.user.username">{{media.user.name}}</a>
-                                        <span style="padding-left: 5px;" v-show="logged_user_id != media.user_id">•</span>
-                                        <span class="followuser" @click="follow()" v-show="logged_user_id != media.user_id" v-if="!isfollower">Follow</span>
-                                        <img src="/imgs/unfollow.png" alt class="pf-unfollow" @click="unfollow()" v-show="logged_user_id != media.user_id" v-if="isfollower" />
-                                    </p>
-                                    <p v-if="media.user.type != 'user'">
-                                        <img src="/imgs/dispensary.png" alt v-if="media.user.store_type === 1 || media.user.store_type === 3" />
-                                        <img src="/imgs/delivery.png" alt v-if="media.user.store_type === 2 || media.user.store_type === 3" />
-                                        <img src="/imgs/brand.png" alt v-if="media.user.type =='brand'" />
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-3 action">
-                            <a href="#" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-if="media.loged_user || media.user_role === 1">
-                                <fa icon="ellipsis-h"></fa>
+                    <div class="user_detail">
+                        <div class="profile_image">
+                            <a :href="media.user.username">
+                                <img :src="serverUrl(media.user.profile_pic ? media.user.profile_pic.url : default_logo)" alt />
                             </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                                <a v-if="media.model === 'post'" class="dropdown-item" href="#" @click.prevent="showEditModal()">Edit</a>
-                                <!-- <EditMedia :mainData="user" :editData="media.id" mode="edit"></EditMedia> -->
-                                <a class="dropdown-item" href="#" @click.prevent="deleteMedia()">Delete</a>
-                            </div>
+                        </div>
+                        <div class="username">
+                            <p>
+                                <a :href="media.user.username">{{media.user.name}}</a>
+                                <span style="padding-left: 5px;" v-show="logged_user_id != media.user_id">•</span>
+                                <span class="followuser" @click="follow()" v-show="logged_user_id != media.user_id" v-if="!isfollower">Follow</span>
+                                <img src="/imgs/unfollow.png" alt class="pf-unfollow" @click="unfollow()" v-show="logged_user_id != media.user_id" v-if="isfollower" />
+                            </p>
+                            <p v-if="media.user.type != 'user'">
+                                <img src="/imgs/dispensary.png" alt v-if="media.user.store_type === 1 || media.user.store_type === 3" />
+                                <img src="/imgs/delivery.png" alt v-if="media.user.store_type === 2 || media.user.store_type === 3" />
+                                <img src="/imgs/brand.png" alt v-if="media.user.type =='brand'" />
+                            </p>
+                        </div>
+                    </div>
+                    <div class="action">
+                        <a href="#" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-if="media.loged_user || media.user_role === 1">
+                            <fa icon="ellipsis-h"></fa>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                            <a v-if="media.model === 'post'" class="dropdown-item" href="#" @click.prevent="showEditModal()">Edit</a>
+                            <!-- <EditMedia :mainData="user" :editData="media.id" mode="edit"></EditMedia> -->
+                            <a class="dropdown-item" href="#" @click.prevent="deleteMedia()">Delete</a>
                         </div>
                     </div>
                 </div>
@@ -65,7 +60,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 px-0 px-md-2">
             <div class="commentbox">
                 <div class="header" v-if="!$device.isMobile">
                     <div class="row">
@@ -717,6 +712,7 @@
         @media only screen and (max-width: 600px) {
             .media {
                 height: 400px;
+                padding: 0;
             }
         }
         .commentbox {
@@ -852,12 +848,12 @@
             height: unset;
             position: relative;
             .header {
-                border-bottom: 1px solid grey;
+                display: flex;
                 .user_detail {
                     padding: 5px;
-                    margin-left: 10px;
                     display: flex;
                     align-items: center;
+                    flex-grow: 1;
                     .profile_image {
                         background-image: url("/imgs/profile-bg.png");
                         background-size: cover;
@@ -900,7 +896,6 @@
                     display: flex;
                     justify-content: flex-end;
                     align-items: center;
-                    padding-right: 30px;
                     svg {
                         margin-right: 5px;
                         color: #EFA720;
@@ -986,15 +981,17 @@
             }
         }
         .icon-panel {
-            padding-top: 3px;
+            padding-top: 5px;
             border-top: solid 1px grey;
-            border-bottom: solid 1px grey;
         }
         &.menu_media .comment_body {
             height: calc(100% - 250px);
         }
     }
     .media_toolbar {
+        padding-top: 6px;
+        border-top: none;
+        border-bottom: solid 1px grey;
         svg {
             font-size: 26px;
             color: #EFA720;

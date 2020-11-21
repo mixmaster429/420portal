@@ -95,6 +95,10 @@ Route::post('/forum/detail', 'Api\ForumController@getDetail');
 Route::post('/portals/add', 'Api\PortalController@store');
 Route::post('/app/portal/get_all_menus', 'Api\PortalController@get_all_menus');
 
+// Description
+Route::post('/get_description', 'SettingController@getDescription');
+Route::post('/update_description', 'SettingController@updateDescription');
+
 
 Route::middleware(['auth:api'])->group(function ($router){
     $router->post('/profile/like', 'LikeController@likeProfile');

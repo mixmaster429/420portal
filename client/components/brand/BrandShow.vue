@@ -1,11 +1,11 @@
 <template>
     <div id="brand_show" style="max-height:100vh;overflow-y: auto;margin-left:-15px;margin-right:-15px;">
-        <h1 class="page-title">
-            <img src="/imgs/brand.png" width="35" alt="" />
-            &nbsp;Marijuana Brands
-        </h1>
+        <div class="page-header">
+            <img src="/imgs/brand.png" width="35" alt="Marijuana Brands" />
+            <h1>Marijuana Brands</h1>
+        </div>
         <div class="container px-0">
-            <div class="brand-nav strains__extra mt-4 mt-md-5">
+            <div class="brand-nav strains__extra mx-2 mx-md-0 mt-4 mt-md-5">
                 <ul class="nav extra__list justify-content-center mb-3" id="pills-tab" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link" :class="{active: tab == 'flowers'}" @click="openTab('flowers')">Flowers</a>
@@ -237,16 +237,10 @@
     }
 </script>
 <style lang="scss" scoped>
-    .page-title {
-        cursor: pointer;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: #EFA720;
+    .page-header {
         margin-top: 60px;
         @media (max-width: 600px) {
             margin-top: 30px;
-            font-size: 28px;
         }
     }
     .brand-nav {

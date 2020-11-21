@@ -102,7 +102,7 @@
         <div class="col-md-12" id="portal_filter" v-else>
             <div class="row">
                 <div class="col-12 d-flex justify-content-center align-items-center">
-                    <img src="/imgs/h_icon1.png" width="35" height="35" style="margin-top: -8px;margin-right:7px" alt="" />
+                    <img src="/imgs/h_icon1.png" width="35" height="35" style="margin-top: -8px;margin-right:7px" alt="Marijuana Dispensaries and Deliveries" />
                     <h1 @click="openTitleModal()">{{page_title}}</h1>
                 </div>
             </div>

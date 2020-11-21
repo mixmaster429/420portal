@@ -9,7 +9,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="forum_header">
-                                <img src="/imgs/h_icon4.png" width="35" style="margin-top: -8px;margin-right:3px;" alt="" />
+                                <img src="/imgs/h_icon4.png" width="35" style="margin-top: -8px;margin-right:3px;" alt="Marijuana Forums" />
                                 <h2 @click="goForumHome()">Marijuana Forums</h2>
                                 <div class="forum_button">
                                     <div class="forum_button_area">

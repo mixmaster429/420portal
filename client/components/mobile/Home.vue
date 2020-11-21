@@ -47,7 +47,7 @@
             </div>
         </vs-sidebar>
 
-        <div class="col-12 text-center posts">
+        <div class="col-12 text-center posts" id="media_scroll_wrapper" style="overflow-y: auto;height:100vh">
             <div class="search">
                 <img src="~assets/imgs/search_option.png" class="search_option" alt @click="active=!active" />
                 <div class="input-group mb-3">
@@ -64,8 +64,7 @@
                     </div>
                 </div>
             </div>
-
-            <div class="container" id="media_scroll_wrapper" style="overflow-y: auto;height:100vh">
+            <div class="container">
                 <div class="row justify-content-center" v-if="defaultpost != null">
                     <div class="col-4 media_container">
                         <router-link :to="{ name: 'weedgram', hash:`#1`, params: {allpost : weedgram_posts, start_index: 1, keyword: keyword, page: page}}">

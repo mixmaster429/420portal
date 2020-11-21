@@ -9,8 +9,9 @@
                             <div class="fixedHeadingDiv">
                                 <div class="mobileMenuBarTop" @click="toggleSubmenuNews()">
                                     <fa :icon="mobile_menu_expanded ? 'times' : 'bars'" class="openSubMenuCategories"></fa>
-                                </div>
-                                <h1>Marijuana News</h1>
+                                </div>                                
+                                <img src="/imgs/news.png" width="35" style="margin-right:3px;" alt="Marijuana News" />
+                                <h1 @click="showModal()">Marijuana News</h1>
                             </div>
                             <div class="movableBoxedDiv">
                                 <a :href="'/marijuana-news/' + item.slug" v-for="(item, index) of news_data.posts" :key="index" class="linkDivAnchor">
@@ -47,16 +48,32 @@
                 </div>
             </div>
         </div>
-        <page-footer></page-footer>       
+        <page-footer></page-footer>        
+
+        <div class="modal fade" id="descriptionModal">
+            <div class="modal-dialog modal-lg border-0">
+                <div class="modal-content">
+                    <div class="modal-header bg-white">
+                        <button type="button" class="close text-420" data-dismiss="modal"><fa icon="times" fixed-width></fa></button>
+                    </div>
+                    <div class="modal-body" style="background:white !important;">
+                        <h2 class="text-center">Marijuana News Updates</h2>
+                        <description field_name="news_description"></description>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
     import PageFooter from "~/components/PageFooter"
+    import Description from "~/components/Description"
     import { mapGetters } from "vuex";
     export default {
         components: {
-            PageFooter
+            PageFooter,
+            Description,
         },        
         head () {
             return {
@@ -112,6 +129,9 @@
                 this.mobile_menu_expanded = !this.mobile_menu_expanded;
                 $(".mobileSubMenuNews").slideToggle();
             },
+            showModal() {
+                $("#descriptionModal").modal();
+            },
             serverUrl(item) {
                 if(item.charAt(0) != '/'){item = '/' + item;}
                 try {
@@ -123,3 +143,14 @@
         },
     }
 </script>
+<style lang="scss" scoped>
+    .fixedHeadingDiv {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 30px;
+        h1 {
+            margin: 0 !important;
+        }
+    }
+</style>

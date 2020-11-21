@@ -7,64 +7,60 @@
             </h1>
         </div>
         <div class="noti-body">
-            <div class="row justify-content-center">
-                <div class="col-xl-6 col-md-8 col-sm-9">
-                    <div class="notification-board pb-2 px-2 px-md-4" id="notification_wrapper">
-                        <div class="notification" v-for="(item, index) of notifications" :key="index" v-if="item.notifier">
-                            <a :href="item.notifier.username" class="userlogo">
-                                <img :src="serverUrl(item.notifier.profile_pic ? item.notifier.profile_pic.url : '/imgs/default_sm.png')" />
-                            </a>                                
-                            <div class="text notification-comment" v-if="item.type == 'comment'">
-                                <a :href="item.notifier.username" class="username">{{item.notifier.name}}</a>
-                                <p>Commented on your Media.</p>
-                            </div>
-                            <div class="text notification-reply" v-else-if="item.type == 'reply'">
-                                <a :href="item.notifier.username" class="username">{{item.notifier.name}}</a>
-                                <p>Replied to your <a class="notifiable" @click.prevent="goMedia(item)">Comment</a>.</p>
-                            </div>
-                            <div class="text notification-reply" v-else-if="item.type == 'reply_topic'">
-                                <a :href="item.notifier.username" class="username">{{item.notifier.name}}</a>
-                                <p>Replied to your <a class="notifiable" @click.prevent="goTopic(item)">Post</a>.</p>
-                            </div>
-                            <div class="text notification-like" v-else-if="item.type == 'like'">
-                                <a :href="item.notifier.username" class="username">{{item.notifier.name}}</a>
-                                <p>Likes your Media.</p>
-                            </div>
-                            <div class="text notification-like" v-else-if="item.type == 'like_comment'">
-                                <a :href="item.notifier.username" class="username">{{item.notifier.name}}</a>
-                                <p>Likes your <a class="notifiable" @click.prevent="goMedia(item)">Comment</a>.</p>
-                            </div>
-                            <div class="text notification-like" v-else-if="item.type == 'like_topic'">
-                                <a :href="item.notifier.username" class="username">{{item.notifier.name}}</a>
-                                <p>Likes your <a class="notifiable" @click.prevent="goTopic(item)">Post</a>.</p>
-                            </div>
-                            <div class="text notification-follow" v-else-if="auth_user.type == 'user' && item.type == 'follow'">
-                                <a :href="item.notifier.username" class="username">{{item.notifier.name}}</a>
-                                <p>Started following you. </p>
-                            </div>
-                            <div class="text notification-follow" v-else-if="item.type == 'follow_request'">
-                                <a :href="item.notifier.username" class="username">{{item.notifier.name}}</a>
-                                <p>Requested following you. </p>
-                            </div>
-                            
-                            <a class="notifiable" style="color:#efa720" @click.prevent="follow(item.notifier_id, index)" v-show="!item.is_follower" v-if="auth_user.type == 'user' && item.type == 'follow'"><img src="/imgs/follow.png" class="btn-follow" /></a>
-                            <a class="notifiable" style="color:#efa720" @click.prevent="acceptFollowRequest(item, index)" v-if="item.type == 'follow_request'">Accept</a>
-                            <a class="notifiable" style="color:#efa720" @click.prevent="goMedia(item)" v-if="item.type == 'like' || item.type == 'comment'">
-                                <img :src="serverUrl(item.notifiable.url)" v-if="item.notifiable && item.notifiable.type == 'image'" class="img-media" />
-                                <img :src="getPosterUrl(item.notifiable.url)" v-if="item.notifiable && item.notifiable.type == 'video'" class="img-media" />
-                            </a>
-                        </div>
-                        <infinite-loading ref="infinite_loading" 
-                            :distance="400" 
-                            spinner="spiral" 
-                            @infinite="getallnotifications"
-                            force-use-infinite-wrapper="#notification_wrapper"
-                        >                        
-                            <div slot="no-more"></div>
-                            <div slot="no-results"></div>
-                        </infinite-loading>
+            <div class="notification-board pb-2 px-2 px-md-4" id="notification_wrapper">
+                <div class="notification" v-for="(item, index) of notifications" :key="index" v-if="item.notifier">
+                    <a :href="item.notifier.username" class="userlogo">
+                        <img :src="serverUrl(item.notifier.profile_pic ? item.notifier.profile_pic.url : '/imgs/default_sm.png')" />
+                    </a>                                
+                    <div class="text notification-comment" v-if="item.type == 'comment'">
+                        <a :href="item.notifier.username" class="username">{{item.notifier.name}}</a>
+                        <p>Commented on your Media.</p>
                     </div>
+                    <div class="text notification-reply" v-else-if="item.type == 'reply'">
+                        <a :href="item.notifier.username" class="username">{{item.notifier.name}}</a>
+                        <p>Replied to your <a class="notifiable" @click.prevent="goMedia(item)">Comment</a>.</p>
+                    </div>
+                    <div class="text notification-reply" v-else-if="item.type == 'reply_topic'">
+                        <a :href="item.notifier.username" class="username">{{item.notifier.name}}</a>
+                        <p>Replied to your <a class="notifiable" @click.prevent="goTopic(item)">Post</a>.</p>
+                    </div>
+                    <div class="text notification-like" v-else-if="item.type == 'like'">
+                        <a :href="item.notifier.username" class="username">{{item.notifier.name}}</a>
+                        <p>Likes your Media.</p>
+                    </div>
+                    <div class="text notification-like" v-else-if="item.type == 'like_comment'">
+                        <a :href="item.notifier.username" class="username">{{item.notifier.name}}</a>
+                        <p>Likes your <a class="notifiable" @click.prevent="goMedia(item)">Comment</a>.</p>
+                    </div>
+                    <div class="text notification-like" v-else-if="item.type == 'like_topic'">
+                        <a :href="item.notifier.username" class="username">{{item.notifier.name}}</a>
+                        <p>Likes your <a class="notifiable" @click.prevent="goTopic(item)">Post</a>.</p>
+                    </div>
+                    <div class="text notification-follow" v-else-if="auth_user.type == 'user' && item.type == 'follow'">
+                        <a :href="item.notifier.username" class="username">{{item.notifier.name}}</a>
+                        <p>Started following you. </p>
+                    </div>
+                    <div class="text notification-follow" v-else-if="item.type == 'follow_request'">
+                        <a :href="item.notifier.username" class="username">{{item.notifier.name}}</a>
+                        <p>Requested following you. </p>
+                    </div>
+                    
+                    <a class="notifiable" style="color:#efa720" @click.prevent="follow(item.notifier_id, index)" v-show="!item.is_follower" v-if="auth_user.type == 'user' && item.type == 'follow'"><img src="/imgs/follow.png" class="btn-follow" /></a>
+                    <a class="notifiable" style="color:#efa720" @click.prevent="acceptFollowRequest(item, index)" v-if="item.type == 'follow_request'">Accept</a>
+                    <a class="notifiable" style="color:#efa720" @click.prevent="goMedia(item)" v-if="item.type == 'like' || item.type == 'comment'">
+                        <img :src="serverUrl(item.notifiable.url)" v-if="item.notifiable && item.notifiable.type == 'image'" class="img-media" />
+                        <img :src="getPosterUrl(item.notifiable.url)" v-if="item.notifiable && item.notifiable.type == 'video'" class="img-media" />
+                    </a>
                 </div>
+                <infinite-loading ref="infinite_loading" 
+                    :distance="400" 
+                    spinner="spiral" 
+                    @infinite="getallnotifications"
+                    force-use-infinite-wrapper="#notification_wrapper"
+                >                        
+                    <div slot="no-more"></div>
+                    <div slot="no-results"></div>
+                </infinite-loading>
             </div>
         </div>
         <vs-popup id="email_notification_filter" type="border" title :active.sync="showFilter">
@@ -247,9 +243,9 @@
 
 <style lang="scss">
     .noti-header {
-        padding: 20px 0;
         h1 {
             text-align: center;
+            margin: 15px 0;
             img {
                 width: 32px;
                 margin-top: -8px;
@@ -294,6 +290,9 @@
                     overflow: auto;
                     white-space: pre;
                     text-overflow: ellipsis;
+                    @media (max-width: 600px) {
+                        max-width: 165px;
+                    }
                 }
                 .notifiable {
                     color: blue;

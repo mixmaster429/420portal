@@ -1,7 +1,11 @@
 <template>
-    <div class="col-12" id="media_scroll_wrapper" style="overflow-y: auto;height:100vh">
+    <div class="col-12 px-0 px-md-2" id="media_scroll_wrapper" style="overflow-y: auto;height:100vh">
         <div class="container">
-            <h1 class="text-center my-4 category__header">{{ category.name }} Marijuana Strains</h1>
+            <div class="page-header">
+                <img src="~assets/imgs/h_icon2.png" :alt="category.name + 'Marijuana Strains'" />
+                <h1>{{ category.name }} Marijuana Strains</h1>
+            </div>
+            
             <edit-description class="category__content" type="category" :strain="category" :auth="user"></edit-description>
             <h2 class="text-center my-4 category__header">List of {{ category.name }} Marijuana Strains</h2>
         </div>
@@ -86,3 +90,15 @@
         }
     }
 </script>
+
+<style lang="scss" scoped>
+    .page-header {
+        margin-top: 40px;
+        margin-bottom: 30px;
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 26px;
+            }
+        }
+    }
+</style>

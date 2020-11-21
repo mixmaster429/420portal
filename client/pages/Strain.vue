@@ -3,8 +3,10 @@
         <div class="col-12 strains px-0">
             <strain-nav></strain-nav>
             <div class="container" style="min-height: calc(100vh - 555px);">
-                <h1 class="text-center my-4 clickable-title" data-toggle="modal" data-target="#headingModal">
-                    <img src="~assets/imgs/h_icon2.png" width="35" style="margin-top: -8px;" alt="" /> Marijuana Strains</h1>
+                <div class="page-header">
+                    <img src="~assets/imgs/h_icon2.png" alt="Marijuana Strains" />
+                    <h1 @click="showModal()"> Marijuana Strains</h1>
+                </div>
 
                 <div class="row mt-2 justify-content-center">
                     <div class="col-4 col-md-3 px-1">
@@ -89,7 +91,15 @@ export default {
     methods: {
         getModalData(){
             return this.$store.dispatch('strain/getModalData');
+        },
+        showModal() {
+            $("#headingModal").modal();
         }
     }
 }
 </script>
+<style scoped lang="scss">
+    .page-header {
+        margin-top: 25px;
+    }
+</style>

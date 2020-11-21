@@ -9,8 +9,8 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="forum_header">
-                                <img src="/imgs/h_icon4.png" width="35" style="margin-top: -8px; margin-right:3px;" alt="" />
-                                <h1 @click="showmainalert()">Marijuana Forums</h1>
+                                <img src="/imgs/h_icon4.png" width="35" style="margin-top: -8px; margin-right:3px;" alt="Marijuana Forums" />
+                                <h1 @click="showModal()">Marijuana Forums</h1>
                                 <div class="forum_button">
                                     <div class="forum_button_area">
                                         <ul>
@@ -266,15 +266,8 @@
                         <button type="button" class="close text-420" data-dismiss="modal"><fa icon="times" fixed-width></fa></button>
                     </div>
                     <div class="modal-body" style="background:white !important;">
-                        <div class="row">
-                            <div class="col-12 text-center">
-                                <p style="font-size: 18px;">
-                                    If You're Looking for Marijuana Forums, 420Portal is the Community for You. <br />
-                                    Learn and Share Your Knowledge on Weed Topics.
-                                    420Portal's Cannabis Forums will Help you Grow!
-                                </p>
-                            </div>
-                        </div>
+                        <h2 class="text-center">Marijuana Forums and Cannabis Forums</h2>
+                        <description field_name="forum_description"></description>
                     </div>
                 </div>
             </div>
@@ -285,6 +278,7 @@
 <script>
     import firebase from '../../Firebase';
     import { mapGetters } from "vuex";
+    import Description from "../Description";
 
     // require styles
     import 'quill/dist/quill.core.css'
@@ -292,6 +286,9 @@
     import 'quill/dist/quill.bubble.css'
 
     export default {
+        components: {
+            Description
+        },
         computed: mapGetters({
             auth_user: 'auth/user',
         }),
@@ -401,7 +398,7 @@
                 });
                 this.topic.category = "";
             },
-            showmainalert() {
+            showModal() {
                 $("#titleModal").modal();
             },
             alertconfirm() {

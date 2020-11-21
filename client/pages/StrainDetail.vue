@@ -21,7 +21,7 @@
         },
         head () {
             return { 
-                title: this.strain_data.type == 'strain' ? this.strain_data.strain.name : this.strain_data.category.name + ' Marijuana Strains',
+                title: this.strain_data.type == 'strain' ? this.strain_data.strain.name + ' Marijuana Strain' : this.strain_data.category.name + ' Marijuana Strains',
                 meta: [
                     { hid: 'title', name: 'title', content: this.strain_data.type == 'strain' ? `${this.strain_data.strain.name} Marijuana Strains - ${this.strain_data.strain.name} Cannabis` : `${this.strain_data.category.name} Marijuana Strains - ${this.strain_data.category.name} Cannabis` },
                     { hid: 'keywords', name: 'keywords', content: this.strain_data.type == 'strain' ? `${this.strain_data.strain.name}, marijuana, weed, cannabis, strains, pictures, videos, images` : `${this.strain_data.category.name}, strains, marijuana, weed, cannabis, videos, pictures, images` },

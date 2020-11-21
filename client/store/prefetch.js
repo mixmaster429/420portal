@@ -6,6 +6,7 @@ export const state = () => ({
     media: null,
     forum: null,
     topic: null,
+    description: '',
 })
 
 // getters
@@ -15,6 +16,7 @@ export const getters = {
     media: state => state.media,
     forum: state => state.forum,
     topic: state => state.topic,
+    description: state => state.description,
 }
 
 // mutations
@@ -37,6 +39,10 @@ export const mutations = {
 
     FETCH_TOPIC(state, data) {
         state.topic = data
+    },
+
+    SET_DESCRIPTION(state, data) {
+        state.description = data
     }
 }
 
@@ -88,6 +94,16 @@ export const actions = {
             let uri = `/topic/detail/${id}`;
             const { data } = await axios.get(uri);
             commit ('FETCH_TOPIC', data);
+        } catch (e) {
+            console.log(e);
+        }
+    },
+
+    async getDescription({commit}, field) {
+        try {
+            let uri = '/get_description';
+            const { data } = await axios.post(uri, {field_name: field});
+            commit ('SET_DESCRIPTION', data.description);
         } catch (e) {
             console.log(e);
         }

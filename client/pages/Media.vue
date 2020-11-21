@@ -1,13 +1,7 @@
 <template>
     <div class="row justify-content-center mb-5 mb-md-0">
-        <div class="col-12">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-md-10">
-                        <show-media :selected="media"></show-media>
-                    </div>
-                </div>
-            </div>            
+        <div class="col-md-8">
+            <show-media :selected="media"></show-media>
         </div>
         <page-footer v-if="$device.isDesktop"></page-footer>
     </div>

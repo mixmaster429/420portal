@@ -13,16 +13,6 @@
         padding-left: 0 !important;
     }
 
-    .clickable-title {
-        cursor: pointer;
-        font-size: 40px;
-
-        @media only screen and (max-width: 800px) {
-            font-size: 30px;
-        }
-
-    }
-
     .container-fluid {
         padding: 0;
     }
