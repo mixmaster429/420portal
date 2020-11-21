@@ -98,13 +98,6 @@
                     @infinite="getallposts"
                     force-use-infinite-wrapper="#media_scroll_wrapper"
                 ><div slot="no-more"></div></infinite-loading>
-                <div class="bottom-title" style="margin-top: 100px;">
-                    <img src="~/assets/imgs/logo.png" style="width:unset;height:50px;" alt="Marijuana Pictures and Cannabis Videos">
-                    <h1>Marijuana Pictures and Cannabis Videos</h1>
-                </div>
-                <div class="card-body" style="background-color: #FFF !important;text-align:initial;">
-                    <description field_name="home_description"></description>
-                </div>
             </div>
         </div>
     </div>
@@ -113,10 +106,8 @@
 <script>
 import { mapGetters } from 'vuex'
 import _ from 'lodash';
-import Description from '../Description';
 
 export default {
-    components: { Description },
     name: "MobileHome",
     data() {
         return {
@@ -294,12 +285,6 @@ export default {
         }
         .container-defaultpost {
             margin-top: 100px;
-        }
-    }
-    .bottom-title {
-        h1 {
-            font-size: 30px;
-            color: #EFA720;
         }
     }
     .search-header {

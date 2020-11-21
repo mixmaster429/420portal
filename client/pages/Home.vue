@@ -1,13 +1,24 @@
 <template>
-    <desktop-home v-if="!$device.isMobile"></desktop-home>
-    <mobile-home v-else ></mobile-home>
+    <div class="row">
+        <div class="col-12">
+            <desktop-home v-if="$device.isDesktop"></desktop-home>
+            <mobile-home v-else></mobile-home>
+        </div>
+        <div class="col-md-10 card card-body mx-auto" id="#description_section" style="margin-top: 100px;background-color: #FFF !important;text-align:initial;">
+            <div class="page-header">
+                <img src="~/assets/imgs/logo.png" style="width:unset;height:50px;" alt="Marijuana Pictures and Cannabis Videos">
+                <h1>Marijuana Pictures and Cannabis Videos</h1>
+            </div>
+            <description field_name="home_description"></description>
+        </div>
+    </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-
 import DesktopHome from '~/components/Home'
-import MobileHome from '~/components/mobile/Home'
+import MobileHome from '~/components/mobile/Home';
+import Description from '~/components/Description';
 export default {
     head () {
         return { 
@@ -23,6 +34,7 @@ export default {
     components: {
         DesktopHome,
         MobileHome,
+        Description,
     },
 
     computed: mapGetters({
@@ -30,3 +42,11 @@ export default {
     }),
 }
 </script>
+
+<style scoped lang="scss">
+    #description_section {
+        @media (max-width: 600px) {
+            display: none;
+        }
+    }
+</style>

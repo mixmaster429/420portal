@@ -84,13 +84,6 @@
         <div class="col-4">
             <fixed-comment :allposts="posts" :media="selected" v-if="selected"></fixed-comment>
         </div>
-        <div class="col-12 page-header" style="margin-top: 100px;">
-            <img src="~/assets/imgs/logo.png" style="width:unset;height:50px;" alt="Marijuana Pictures and Cannabis Videos">
-            <h1>Marijuana Pictures and Cannabis Videos</h1>
-        </div>
-        <div class="col-12 card card-body" style="background-color: #FFF !important;text-align:initial;">
-            <description field_name="home_description"></description>
-        </div>
     </div>
 </template>
 
