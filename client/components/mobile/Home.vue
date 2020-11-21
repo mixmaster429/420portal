@@ -65,7 +65,7 @@
                 </div>
             </div>
             <div class="container">
-                <div class="row justify-content-center" v-if="defaultpost != null">
+                <div class="row justify-content-center container-defaultpost" v-if="defaultpost != null">
                     <div class="col-4 media_container">
                         <router-link :to="{ name: 'weedgram', hash:`#1`, params: {allpost : weedgram_posts, start_index: 1, keyword: keyword, page: page}}">
                             <div class="media">
@@ -98,6 +98,13 @@
                     @infinite="getallposts"
                     force-use-infinite-wrapper="#media_scroll_wrapper"
                 ><div slot="no-more"></div></infinite-loading>
+                <div class="bottom-title" style="margin-top: 100px;">
+                    <img src="~/assets/imgs/logo.png" style="width:unset;height:50px;" alt="Marijuana Pictures and Cannabis Videos">
+                    <h1>Marijuana Pictures and Cannabis Videos</h1>
+                </div>
+                <div class="card-body" style="background-color: #FFF !important;text-align:initial;">
+                    <description field_name="home_description"></description>
+                </div>
             </div>
         </div>
     </div>
@@ -106,7 +113,10 @@
 <script>
 import { mapGetters } from 'vuex'
 import _ from 'lodash';
+import Description from '../Description';
+
 export default {
+    components: { Description },
     name: "MobileHome",
     data() {
         return {
@@ -272,9 +282,26 @@ export default {
 };
 </script>
 
-
-
 <style lang="scss" scoped>
+    #media_scroll_wrapper {
+        .search {
+            position: fixed;
+            width: 100%;
+            .input-group {
+                width: 220px;
+                margin: auto;
+            }
+        }
+        .container-defaultpost {
+            margin-top: 100px;
+        }
+    }
+    .bottom-title {
+        h1 {
+            font-size: 30px;
+            color: #EFA720;
+        }
+    }
     .search-header {
         padding: 8.5px 0;
         border-bottom: solid 1px white;

@@ -73,16 +73,23 @@
                         </div>
                     </div>
                 </div>
-                <infinite-loading 
-                    :distance="300" 
-                    :identifier="infiniteId" 
-                    spinner="spiral" 
-                    @infinite="getallposts"                    
-                ><div slot="no-more"></div></infinite-loading>
             </div>
+            <infinite-loading 
+                :distance="300" 
+                :identifier="infiniteId" 
+                spinner="spiral" 
+                @infinite="getallposts"                    
+            ><div slot="no-more"></div></infinite-loading>
         </div>
         <div class="col-4">
             <fixed-comment :allposts="posts" :media="selected" v-if="selected"></fixed-comment>
+        </div>
+        <div class="col-12 page-header" style="margin-top: 100px;">
+            <img src="~/assets/imgs/logo.png" style="width:unset;height:50px;" alt="Marijuana Pictures and Cannabis Videos">
+            <h1>Marijuana Pictures and Cannabis Videos</h1>
+        </div>
+        <div class="col-12 card card-body" style="background-color: #FFF !important;text-align:initial;">
+            <description field_name="home_description"></description>
         </div>
     </div>
 </template>
@@ -91,6 +98,7 @@
 import FixedComment from "./FixedComment";
 import PageFooter from "./PageFooter";
 import { mapGetters } from 'vuex'
+import Description from "./Description";
 import _ from 'lodash';
 
 
@@ -254,6 +262,7 @@ export default {
         this.changeDistance();
     },
     components: {
+        Description,
         FixedComment,
         PageFooter,
     }
