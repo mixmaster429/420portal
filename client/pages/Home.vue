@@ -17,7 +17,7 @@
                         <button type="button" class="close text-420" data-dismiss="modal"><fa icon="times" fixed-width></fa></button>
                     </div>
                     <div class="modal-body" style="background:white !important;">
-                        <h2 class="text-center">Marijuana Pictures and Cannabis Videos</h2>
+                        <h2 class="text-center">Marijuana Pictures &amp; Marijuana Videos Uploaded by our Members</h2>
                         <description field_name="home_description"></description>
                     </div>
                 </div>

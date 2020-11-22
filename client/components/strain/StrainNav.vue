@@ -102,6 +102,14 @@ export default {
                 }
             }
 
+            for(let j = result.length-1 ; j >= 0 ; j--) {
+                let el = result[j];
+                if(el[field].toLowerCase() == text.toLowerCase()) {
+                    let index = result.findIndex(item => item.id === el.id);
+                    result.splice(index, 1);
+                    result.unshift(el);
+                }
+            }
             return result;
         },
         getSuggestionValue(suggestion) {
