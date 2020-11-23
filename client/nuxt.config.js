@@ -70,7 +70,6 @@ module.exports = {
     '@nuxtjs/device',
     '@nuxtjs/toast',
     '@nuxtjs/sitemap',
-    // '@nuxtjs/gtm',
   ],
 
   build: {
@@ -169,11 +168,6 @@ module.exports = {
       },
     ],
   },
-  
-  // gtm: {
-  //   id: 'UA-142049334-2',
-  //   scriptURL: 'https://www.googletagmanager.com/gtag/js',
-  // }
 
   buildModules: [
     '@nuxtjs/google-analytics'

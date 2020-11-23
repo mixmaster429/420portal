@@ -2,7 +2,7 @@
     <div class="col-12 px-0 px-md-2" id="media_scroll_wrapper" style="overflow-y: auto;height:100vh">
         <div class="container">
             <div class="page-header">
-                <img src="~assets/imgs/h_icon2.png" :alt="category.name + 'Marijuana Strains'" />
+                <img src="~assets/imgs/h_icon2.png" :alt="category.name + ' Marijuana Strains'" />
                 <h1>{{ category.name }} Marijuana Strains</h1>
             </div>
             

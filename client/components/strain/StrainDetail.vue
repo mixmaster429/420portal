@@ -4,7 +4,7 @@
             <div class="single__content d-flex text-center align-items-center mt-4">
                 <div class="single__img">
                     <div class="container_img">
-                        <img class="img-fluid" :src="strain_data.main_media ? serverUrl(strain_data.main_media.url) : '~assets/imgs/strains/blue.jpg'" :alt="strain_data.strain.name + 'Marijuana Strain'">
+                        <img class="img-fluid" :src="strain_data.main_media ? serverUrl(strain_data.main_media.url) : '~assets/imgs/strains/blue.jpg'" :alt="strain_data.strain.name + ' Marijuana Strain'">
                     </div>
                 </div>
                 <div class="flex-grow-1">
