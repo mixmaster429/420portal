@@ -62,11 +62,7 @@
             </div>
         </form>
 
-        <p class="text-center mt-3" style="color: white;font-size:16px;">
-            Don't have an account?
-            <!-- <nuxt-link to="/register" class="text-420">Sign up</nuxt-link> -->
-            <a class="btn-link" href="/register" style="color: #EFA720;">Sign up</a>
-        </p>
+        <p class="text-center mt-3" style="color: white;font-size:16px;">Don't have an account? <a class="btn-link" href="/register" style="color: #EFA720;">Sign up</a></p>
     </div>
 </template>
 
