@@ -32,14 +32,15 @@ return [
             'DELETE',
         ],
         
-        'allow_headers' => ['*'],
+        // 'allow_headers' => ['*'],
 
-        // 'allow_headers' => [
-        //     'Content-Type',
-        //     'X-Auth-Token',
-        //     'Origin',
-        //     'Authorization',
-        // ],
+        'allow_headers' => [
+            'Access-Control-Allow-Origin',
+            'Content-Type',
+            'X-Auth-Token',
+            'Origin',
+            'Authorization',
+        ],
 
         'expose_headers' => [
             'Cache-Control',
