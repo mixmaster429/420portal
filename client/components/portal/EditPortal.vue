@@ -1,6 +1,6 @@
 <template>
     <div class="portal_addpage">
-        <div class="sticky-top strains__sticky" style="margin-right: -12px; margin-left: -12px; background: #fff;top:0;border-radius:5px 5px 0 0;" v-if="$device.isMobile">
+        <div class="sticky-top strains__sticky" style="margin-right: -13px; margin-left: -13px; background: #fff;top:0;width:unset" v-if="$device.isMobile">
             <ul class="nav strains__nav">
                 <p style="margin: auto 5px; padding: 8px; font-size: 20px;color:black;">
                     <fa @click="closePopUp()" icon="times" class="mr-2" fixed-width></fa> Edit Profile
@@ -762,7 +762,7 @@ export default {
             });
         },
         closePopUp(){
-            this.$parent.$parent.openEditPortal = false;
+            this.$parent.$parent.openEditPopup = false;
         },
         activatePortal(){
             if(!this.portal.is_active && !this.portal.state_license) {
@@ -794,7 +794,9 @@ export default {
                 });
         },
         async logout () {
-            await this.$store.dispatch('auth/logout')
+            if(window.confirm('Are you sure?')) {
+                await this.$store.dispatch('auth/logout')
+            }
         },
         serverUrl(item) {
             if(item.charAt(0) != '/'){item = '/' + item;}

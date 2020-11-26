@@ -104,7 +104,7 @@
                         <div class="cur_forum" v-show="loaded">
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="/marijuana-forums">Forums</a></li>
-                                <li class="breadcrumb-item"><a href="javascript:;" @click="viewCategoryForums(forum.category)">{{ forum.category }}</a></li>
+                                <li class="breadcrumb-item"><a href="javascript:;" class="text-420" @click="viewCategoryForums(forum.category)">{{ forum.category }}</a></li>
                                 <li class="breadcrumb-item active">{{ forum.title }}</li>
                             </ul>
                             <h1>{{ forum.title }}</h1>

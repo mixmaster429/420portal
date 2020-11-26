@@ -515,6 +515,12 @@ header {
     padding: 0 !important;
   }
 }
+@media (max-width: 600px) {
+  .vs-sidebar.vs-sidebar-primary {
+    max-width: 240px !important;
+  }
+
+}
 
 .userlist-right {
   border-left: 1px solid white;

@@ -77,6 +77,12 @@ export default {
         message_count: 'auth/message_count',
     }),
 
+    mounted() {
+        if(!this.message_count) {
+            this.$store.dispatch('auth/getUnreadMessage');
+        }
+    },
+
     methods: {
         openLoginModal() {
             $("#loginmodal").modal();

@@ -33,7 +33,7 @@
                                         <h5 class="modal-title" id="couponModalLabel">Comments</h5>
                                     </div>
                                     <div class="modal-body" style="padding: 0;">
-                                        <page-comment :page="post" model="news"></page-comment>
+                                        <page-comment :page="post" model="news" ref="mobile_page_comment"></page-comment>
                                     </div>
                                 </div>
                             </div>

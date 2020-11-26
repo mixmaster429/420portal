@@ -45,6 +45,10 @@
                     // }
                     .info_followers {
                         cursor: pointer;
+                        @media (max-width: 600px) {
+                            padding-left: 0 !important;
+                            padding-right: 0 !important;
+                        }
                     }
                     .info_following {
                         cursor: pointer;

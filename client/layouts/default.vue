@@ -1,6 +1,6 @@
 <template>
     <div class="layout" id="app" v-touch:swipe="toggleSidebar">
-        <left-sidebar :active="leftsidebarflag"></left-sidebar>
+        <left-sidebar :active="leftsidebarflag" class="left-sidebar"></left-sidebar>
         <flatchat v-if="auth_user"></flatchat>
         <top-nav />
 

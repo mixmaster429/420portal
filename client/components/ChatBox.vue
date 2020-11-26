@@ -234,7 +234,7 @@
                 }
             },
             isClosed(){
-                return this.$parent.chatuserlist.filter(chat => chat.to == this.receiver)[0] ? false : true;
+                return this.$parent.userlists.filter(chat => chat.to == this.receiver)[0] ? false : true;
             },
             linkify(text) {
                 var urlRegex =/(\b(https?|http):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;

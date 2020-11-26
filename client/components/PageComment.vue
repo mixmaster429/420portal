@@ -188,7 +188,7 @@ export default {
                 }
             }
         });
-		this.getcomment(this.selected.id);
+		this.getComments();
 	},
     computed: mapGetters({
         user: 'auth/user',        
@@ -314,10 +314,10 @@ export default {
             $("#main_comment_profile").data("emojioneArea").setText("@" + name + ' ');
             this.setCursor();
 		},
-		getcomment(id) {
+		getComments() {
 			let uri = "/comment/getall";
 			let params = {
-				target_id: id,
+				target_id: this.selected.id,
                 target_model: this.model,
 			};
 			this.loading = true;

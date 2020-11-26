@@ -74,6 +74,7 @@ export default {
 			}
         },
         openCommentModal(){
+            this.$parent.$refs.mobile_page_comment.getComments();
             $("#commentModal").modal();
         },        
         hideFooter(){

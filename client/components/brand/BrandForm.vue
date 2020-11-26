@@ -273,7 +273,9 @@
                     });
             },
             async logout () {
-                await this.$store.dispatch('auth/logout')
+                if(window.confirm('Are you sure?')) {
+                    await this.$store.dispatch('auth/logout');
+                }                
             },
             serverUrl(item) {
                 if(item.charAt(0) != '/'){item = '/' + item;}

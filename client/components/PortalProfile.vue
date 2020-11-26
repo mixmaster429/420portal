@@ -138,7 +138,7 @@
                         <p class="recreational my-0 pl-2" v-else-if="portal_detail.recreational">(Recreational)</p>
                         <p class="medical my-0 pl-2" v-else-if="portal_detail.medical">(Medical)</p>
                         <p style="height:5px"></p>
-                        <div class="portal__address">
+                        <div class="portal__address" style="cursor:pointer;" @click="openGoogleMap()">
                             <p v-if="portal_detail.store_type !== 2">
                                 {{portal_detail.address}},
                                 <span v-if="portal_detail.suite">(Suite {{portal_detail.suite}}) </span>
@@ -148,7 +148,7 @@
                     </div>
 
                     <p v-if="portal_detail.phone_number && portal_detail.type == 'company'" class="telephone">
-                        <a :href="`tel:+${portal_detail.phone_number}`" target="_blank">
+                        <a :href="`tel:${portal_detail.phone_number}`" target="_blank">
                             <fa icon="phone-alt"></fa>
                             {{portal_detail.phone_number}}
                         </a>
@@ -767,6 +767,13 @@ export default {
                 if(this.portal_detail.coupon) {
                     this.openCouponPopup = true;
                 }
+            }
+        },
+        openGoogleMap() {
+            if(this.portal_detail.latitude != '' && this.portal_detail.longitude != '') {
+                window.open(`https://maps.google.com/?ll=${this.portal_detail.latitude},${this.portal_detail.longitude}`, '_blank')
+            } else {
+                window.open(`https://maps.google.com/?q=${this.portal_detail.address}, ${this.portal_detail.city}, ${this.portal_detail.state}`, '_blank')
             }
         },
         serverUrl(item) {

@@ -5,14 +5,10 @@
                 <div class="row">
                     <div class="col-12 leftside-title">
                         <a href="/"><img src="~assets/imgs/logo.png" alt="" height="50"></a>
-                    </div>
-                    <div class="col-12 py-2">
-                        <h4 class="text-center mb-0"><a href="/marijuana-news" class="text-420">Marijuana News</a></h4>
-                    </div>                  
+                    </div>                
                 </div>
                 <div class="row" v-if="auth_user">
-                    <div class="col-12 text-center pb-2 pt-0">
-                        <hr class="sidebar-hr" />
+                    <div class="col-12 text-center pb-2 pt-3">
                         <a :href="'/' + auth_user.username" style="text-decoration: none">
                             <img class="logo mx-auto" :src="serverUrl(auth_user.profile_pic ? auth_user.profile_pic.url : '/imgs/default_sm.png')" alt=" ">
                             <h5 class="username">{{auth_user.type == 'user' ? auth_user.username : auth_user.name}}</h5>
@@ -110,10 +106,10 @@ export default {
         }
         .btn-edit {
             position: absolute;
-            top: 40px;
-            right: 50px;
+            top: 45px;
+            right: 20px;
             img {
-                width: 35px;
+                width: 30px;
             }
         }
     }
