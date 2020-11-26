@@ -31,8 +31,6 @@ return [
             'PATCH',
             'DELETE',
         ],
-        
-        // 'allow_headers' => ['*'],
 
         'allow_headers' => [
             'Access-Control-Allow-Origin',
