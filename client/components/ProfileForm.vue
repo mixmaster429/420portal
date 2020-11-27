@@ -273,7 +273,7 @@
                 event.preventDefault();
                 if(window.confirm('Are you sure?')) {
                     this.$store.dispatch('auth/logout');
-                    window.location.reload();
+                    window.location.href = "/";
                 }                
             },
             serverUrl(item) {
