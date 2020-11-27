@@ -93,10 +93,7 @@
                 };
                 if (window.confirm("Block this user?")) {
                     this.axios.post(uri, params).then((response) => {
-                        this.$emit('closewindow', {
-                            sender: this.sender,
-                            receiver: this.receiver
-                        });
+                        this.closewindow();
                     });
                 }
             },
@@ -142,10 +139,6 @@
                 firebase.database().ref('chatrooms/' + this.sender + '/is_typing').remove();
                 // this.$store.dispatch('chat/closeChatBox', this.user);
                 this.$store.commit('chat/REMOVE_CHAT_USER', this.user);
-                // this.$emit('closewindow', {
-                //     sender: this.sender,
-                //     receiver: this.receiver
-                // });
             },
             sendmessage(chatmessage) {
                 this.checkblockuser()
