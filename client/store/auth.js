@@ -92,10 +92,8 @@ export const actions = {
     } catch (e) { }
 
     Cookies.remove('token')
-
     commit('LOGOUT')
-
-    window.location.reload();
+    window.location.href = "/";
   },
 
   async fetchOauthUrl (ctx, { provider }) {

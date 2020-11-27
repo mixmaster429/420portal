@@ -275,7 +275,6 @@
             async logout () {
                 if(window.confirm('Are you sure?')) {
                     await this.$store.dispatch('auth/logout');
-                    window.location.href = "/";
                 }                
             },
             serverUrl(item) {
