@@ -495,6 +495,7 @@
                             }
                             this.posts[index].comment_text = '';
                             this.posts[index].count_comment ++;
+                            $("#app").removeClass('focus_comment');
                         });
                     }
                 } else {

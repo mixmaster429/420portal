@@ -169,7 +169,7 @@ Route::middleware(['auth:api'])->group(function ($router){
 
     $router->post('/notification/get_all', 'NotificationController@get_all');
     $router->post('/email_notification_filter/save', 'NotificationFilterController@save');
-    $router->get('/email_notification_filter/get_value', 'NotificationFilterController@get_value');
+    $router->any('/email_notification_filter/get_value', 'NotificationFilterController@get_value');
     $router->post('/notification/get_unreads', 'NotificationController@user_unreads');
 
     // Menu
@@ -180,8 +180,8 @@ Route::middleware(['auth:api'])->group(function ($router){
     $router->get('/menu/{id}/deactive', 'PortalController@deactive_menu')->name('menu.deactive');
 
     // Messenger    
-    $router->get('/user/chatlist', 'UserController@chatlist');
-    $router->get('/user/getmessengerstatus', 'UserController@getMessengerStatus');
+    $router->any('/user/chatlist', 'UserController@chatlist');
+    $router->any('/user/getmessengerstatus', 'UserController@getMessengerStatus');
     $router->post('/user/searchuser', 'UserController@searchuser');
     $router->get('/user/togglemessenger', 'UserController@togglemessenger');
     $router->post('/user/deletemessage', 'UserController@deletemessage');
