@@ -12,7 +12,8 @@ class UserController extends Controller
 {
     public function update(Request $request) {
         $user = User::find($request->get('id'));
-        $user->name = str_replace(' ', '', $request->get('name'));
+        $user->name = $request->get('username');
+        $user->username = str_replace(' ', '', $request->get('username'));
         $user->email = $request->get('email');
         $user->description = $request->get('description');
         $user->is_private = $request->get('is_private') ? 1 : 0;
