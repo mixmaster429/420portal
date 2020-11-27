@@ -135,7 +135,7 @@
                         <h5 class="text-center mt-2 mb-0">{{category.price_type == 2 ? 'Flower - ' + category.name : category.name}}</h5>
                         <div class="menu-container" v-for="menu of categoryMenu(category.id)">
                             <div class="menu-media">
-                                <div class="media" v-if="menu.media" @mouseover="menu.show_description = true" @mouseleave="menu.show_description = false">
+                                <div class="media" v-if="menu.media" @click="showDescriptionClick(menu)" @mouseover="showDescriptionHover(menu)" @mouseleave="menu.show_description = false">
                                     <img v-if="menu.media.type == 'image'" :src="serverUrl(menu.media.url)" width="125" height="125" alt="" />
                                     <video v-if="menu.media.type == 'video'" :src="serverUrl(menu.media.url)" width="125" height="125" disablepictureinpicture controlslist="nodownload">
                                         <source v-bind:src="serverUrl(menu.media.url)" type="video/mp4" />
@@ -144,7 +144,7 @@
                                     </video>                            
                                     <img class="video__tag__mobile" v-if="menu.media.type==='video'" src="https://i.imgur.com/88aBgwi.png" alt="">
                                 </div>
-                                <div class="media" @mouseover="menu.show_description = true" @mouseleave="menu.show_description = false" v-else>
+                                <div class="media" @click="showDescriptionClick(menu)" @mouseover="showDescriptionHover(menu)" @mouseleave="menu.show_description = false" v-else>
                                     <img src="/imgs/default.png" width="125" height="125" alt="">
                                 </div>
                                 <p class="btn-group mb-0" v-if="auth_user && (brand.id === auth_user.id || auth_user.id == 1)">
@@ -582,6 +582,16 @@ export default {
                 if(this.menu_filter.price_max) {                    
                     this.menus = this.menus.filter(item => item[filter_price_type] <= this.menu_filter.price_max);
                 }
+            }
+        },
+        showDescriptionClick(item) {
+            if(this.$device.isMobile) {
+                item.show_description = true;
+            }
+        },
+        showDescriptionHover(item) {
+            if(this.$device.isDesktop) {
+                item.show_description = true;
             }
         },
         serverUrl(item) {

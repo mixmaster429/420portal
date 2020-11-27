@@ -10,7 +10,7 @@
                 </div>
                 <input type="text" placeholder="Search Users/Companies" class="form-control search_user" @keypress="searchusers($event)"
                        v-model="userkeyword" @focus="searching = true" v-on:blur="searchunfocus" :disabled="disabledinput == 1">
-                <div class="input-group-prepend">
+                <div class="input-group-prepend" style="margin-right:unset;">
                     <span class="input-group-text">
                         <fa icon="power-off" class="block_list" @click="viewblockuserlist()" v-show="!blockview"></fa>
                         <fa icon="arrow-left" class="block_list" @click="disableblockpage()" v-show="blockview"></fa>
