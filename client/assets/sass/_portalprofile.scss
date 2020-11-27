@@ -224,14 +224,15 @@
             cursor: pointer;
         }
         @media screen and (max-width: 600px) {
-            i {
+            svg {
                 color: #efa720;
-                font-size: 40px;
+                font-size: 40.5px;
             }
             .options__span {
                 font-size: 18px;
             }
             img {
+                width: 36px;
                 height: 40px;
             }
             div {

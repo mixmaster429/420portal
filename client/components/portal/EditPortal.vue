@@ -26,7 +26,7 @@
                     <file-upload
                         name="postfile"
                         input-id="pa_imageselect"
-                        class="text-420"
+                        class="btn btn-sm btn-primary"
                         extensions="gif,jpg,jpeg,png,webp"
                         accept="image/png,image/gif,image/jpeg,image/webp"
                         ref="upload"

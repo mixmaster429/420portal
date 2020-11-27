@@ -645,8 +645,8 @@ export default {
             this.$refs.strain_multiselect.deactivate();
         },
         closeMenu(){
-            if(this.$root.$refs.portalprofile){
-                this.$root.$refs.portalprofile.openPortalMenu = false;
+            if(this.$parent.$parent){
+                this.$parent.$parent.openPortalMenu = false;
             }
         },
         resetSearchOptions() {
@@ -856,9 +856,10 @@ export default {
                 width: 80px;
                 .menu-description {
                     width: 585px;
-                    top: 80px;
-                    min-height: 80px;
-                    width: 315px;
+                    top: unset;
+                    bottom: -5px;
+                    min-height: 60px;
+                    width: 320px;
                 }
                 .media {
                     img, video {

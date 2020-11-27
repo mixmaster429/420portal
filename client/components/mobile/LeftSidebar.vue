@@ -60,8 +60,7 @@ export default {
         },
         async logout () {
             await this.$store.dispatch('auth/logout')
-            // Redirect to login.
-            // this.$router.push({ name: 'login' })
+            window.location.reload();
         },
         serverUrl(item) {
             if(item.charAt(0) != '/'){item = '/' + item;}

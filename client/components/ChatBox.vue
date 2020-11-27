@@ -496,7 +496,6 @@
                 background-color: black !important;
                 right: 2px !important;
                 opacity: 1 !important;
-
                 .emojionearea-button-open {
                     background-image: url('/imgs/emoji.png') !important;
                 }

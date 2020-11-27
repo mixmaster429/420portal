@@ -464,7 +464,7 @@ import { mapGetters } from "vuex";
             height: 25px;
             background-color: #000;
             position: absolute;
-            bottom: 53px;
+            bottom: 65px;
             left: 0;
             width: 30%;
         }

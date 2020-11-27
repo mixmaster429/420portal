@@ -194,6 +194,7 @@
 
             .emojionearea-button {
                 left: 3px !important;
+                opacity: 1 !important;
                 div {
                     background-image: url(https://i.imgur.com/xljqgrH.png) !important;
                     background-position: 0 -30px;

@@ -14,9 +14,8 @@ class UserController extends Controller
         $user = User::find($request->get('id'));
         $user->name = str_replace(' ', '', $request->get('name'));
         $user->email = $request->get('email');
-        $user->signature = $request->get('signature');
+        $user->description = $request->get('description');
         $user->strain_id = $request->get('strain_id');
-        $user->portal_id = $request->get('portal_id');
         $user->is_private = $request->get('is_private') ? 1 : 0;
         if($request->get('image_url') != '') {
             $media = Media::create([
