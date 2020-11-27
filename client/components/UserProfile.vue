@@ -5,7 +5,7 @@
                 <div class="profile_header row">
                     <div class="col-4 text-left mt-2 mt-md-0">
                         <div class="pf-logo">
-                            <img :src="serverUrl(userdata.profile_pic ? userdata.profile_pic.url : '/imgs/default_sm.png')" alt />
+                            <img :src="serverUrl(userdata.profile_pic ? userdata.profile_pic.url : '/imgs/default.png')" alt />
                         </div>
                     </div>
                     

@@ -111,11 +111,11 @@
                                     v-model="item.comment_text"
                                     placeholder="Write a comment..."
                                     @focus="hideFooter()"
-                                    @blur="showFooter()"
+                                    @blur="showFooter($event, item.id, index)"
                                 ></textarea>
                             </div>
                             <div class="button-group">
-                                <button class="btn" @click="postComment(item.id, index)">Post</button>
+                                <button class="btn" :id="'btn_post_'+item.id" @click="postComment(item.id, index)">Post</button>
                             </div>
                         </div>
                     </div>
@@ -506,10 +506,14 @@
                 console.log(this.posts[index]);
             },
             hideFooter() {
-                $('#footer_bar').hide();
+                 $("#app").addClass('focus_comment');
             },
-            showFooter() {
-                $('#footer_bar').show();
+            showFooter(event, id, index) {
+                if(event.relatedTarget && event.relatedTarget.id == 'btn_post_' + id) {
+                    // this.postComment(id, index);
+                } else {
+                    $("#app").removeClass('focus_comment');
+                }
             },
             serverUrl(item) {
                 if(item.charAt(0) != '/'){item = '/' + item;}
