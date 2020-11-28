@@ -162,6 +162,7 @@ export default {
                 .then(response => {
                     this.defaultpost = response.data.default;
                     if (response.data.allposts.data.length) {
+                        if(this.page == 1) this.posts = [];
                         if(this.posts.length == 0) {
                             this.posts = response.data.allposts.data;
                             this.weedgram_posts.push(response.data.default);
