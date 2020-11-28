@@ -205,7 +205,6 @@ export default {
             }
         },
         keywordChange(e) {
-            if(this.loading)  return false;
             if(e == 'search' || e == 'bookmark' || e == 'following' || e.keyCode == 13){
                 if(e.keyCode){
                     this.bookmark = this.following = false;
