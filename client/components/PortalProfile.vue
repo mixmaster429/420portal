@@ -770,10 +770,10 @@ export default {
             }
         },
         openGoogleMap() {
-            if(this.portal_detail.latitude != '' && this.portal_detail.longitude != '') {
+            if (this.portal_detail.address != '' && this.portal_detail.city != '' && this.portal_detail.state != '') {
+                window.open(`https://www.google.com/maps/dir/?api=1&destination=${this.portal_detail.address}, ${this.portal_detail.city}, ${this.portal_detail.state}, ${this.portal_detail.postal}`, '_blank')
+            } else if(this.portal_detail.latitude != '' && this.portal_detail.longitude != '') {
                 window.open(`https://maps.google.com/?ll=${this.portal_detail.latitude},${this.portal_detail.longitude}`, '_blank')
-            } else {
-                window.open(`https://maps.google.com/?q=${this.portal_detail.address}, ${this.portal_detail.city}, ${this.portal_detail.state}`, '_blank')
             }
         },
         serverUrl(item) {
