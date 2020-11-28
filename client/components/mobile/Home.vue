@@ -31,15 +31,6 @@
                         </select>
                         <label for="search_distance" :class="{focused : distance}">Distance</label>
                     </div>
-                    <!-- <div class="form-group floating-label mt-5" v-show="store_type">
-                        <select class="form-control floating-select mt-2" id="search_time" v-model="last_updated_time">
-                            <option value="" hidden></option>
-                            <option value="14">&lt; 2 Weeks</option>
-                            <option value="30">&lt; Month</option>
-                            <option value="10000">Since Adam & Eve</option>
-                        </select>
-                        <label for="search_time" :class="{focused : last_updated_time}">Time</label>
-                    </div> -->
                     <div class="form-group text-center mt-4">
                         <span class="text-420" id="reset_option" @click="resetSearchOption()">Reset Options</span>
                     </div>
@@ -185,12 +176,12 @@ export default {
                         });
 
                         this.page++;
-                        this.loading = false;
                         $state.loaded();
                     } else {
                         this.is_last = true;
                         $state.complete();
                     }
+                    this.loading = false;
                 });
         },
         getbookmarked() {
@@ -213,14 +204,15 @@ export default {
             }
         },
         keywordChange(e) {
+            if(this.loading)  return false;
             if(e == 'search' || e == 'bookmark' || e == 'following' || e.keyCode == 13){
                 if(e.keyCode){
                     this.bookmark = this.following = false;
                 }
                 this.page = 1;
-                this.posts = [],
-                this.defaultpost = null,
-                this.weedgram_posts = [],
+                this.posts = [];
+                this.defaultpost = null;
+                this.weedgram_posts = [];
                 this.infiniteId += 1;
                 this.$refs.search_weedgram.blur();
                 window.scrollTo({ top: 0, behavior: 'smooth' });

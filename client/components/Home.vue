@@ -192,7 +192,7 @@ export default {
                     this.bookmark = this.following = false;
                 }
                 this.page = 1;
-                this.posts = [],
+                this.posts = [];
                 this.infiniteId += 1;
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
