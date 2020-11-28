@@ -4,7 +4,7 @@
             <desktop-home v-if="$device.isDesktop"></desktop-home>
             <mobile-home v-else></mobile-home>
         </div>
-        <div class="col-md-12" id="#description_section" style="margin-top: 100px; margin-bottom:80px;">
+        <div class="col-md-12" id="description_section" style="margin-top: 100px; margin-bottom:80px;">
             <div class="page-header">
                 <img src="~/assets/imgs/logo.png" style="width:unset;height:50px;" alt="Marijuana Pictures and Cannabis Videos">
                 <h1 @click="showModal()">Marijuana Pictures and Cannabis Videos</h1>
