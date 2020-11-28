@@ -162,7 +162,6 @@ export default {
             this.axios.post(uri, params)
                 .then(response => {
                     this.defaultpost = response.data.default;
-                    if(this.page == 1) {this.posts = [];}
                     if (response.data.allposts.data.length) {
                         if(this.posts.length == 0) {
                             this.posts = response.data.allposts.data;
@@ -177,12 +176,12 @@ export default {
                         });
 
                         this.page++;
+                        this.loading = false;
                         $state.loaded();
                     } else {
                         this.is_last = true;
                         $state.complete();
                     }
-                    this.loading = false;
                 });
         },
         getbookmarked() {
