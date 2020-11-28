@@ -60,7 +60,7 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
     #description_section {
         @media (max-width: 600px) {
             display: none;
