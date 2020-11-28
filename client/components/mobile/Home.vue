@@ -38,7 +38,7 @@
             </div>
         </vs-sidebar>
 
-        <div class="col-12 text-center posts" id="media_scroll_wrapper" style="overflow-y: auto;height:100vh">
+        <div class="col-12 text-center posts">
             <div class="search">
                 <img src="~assets/imgs/search_option.png" class="search_option" alt @click="active=!active" />
                 <div class="input-group mb-3">
@@ -87,7 +87,6 @@
                     :distance="300" 
                     spinner="spiral" 
                     @infinite="getallposts"
-                    force-use-infinite-wrapper="#media_scroll_wrapper"
                 ><div slot="no-more"></div></infinite-loading>
             </div>
         </div>
