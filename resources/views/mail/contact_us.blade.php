@@ -41,8 +41,8 @@
                 <tr>
                     <td style="padding-left:20px;">
                         <p style="margin:5px 0px 5px 0px;font-size:18px;color:#222;font-family: Montserrat;font-weight:500;">
-                            <a href="{{url($user->name)}}" style="color:#EFA720;text-decoration:none;font-size:23px;font-weight:bold;">{{$user->name}}</a>
-                            wants to contact you. <a href="{{url($user->name)}}"><img src="{{asset('/imgs/hand.png')}}" /></a>
+                            <a href="{{site_url($user->name)}}" style="color:#EFA720;text-decoration:none;font-size:23px;font-weight:bold;">{{$user->name}}</a>
+                            wants to contact you. <a href="{{site_url($user->name)}}"><img src="{{asset('/imgs/hand.png')}}" /></a>
                         </p>                        
                     </td>
                 </tr>

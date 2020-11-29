@@ -147,13 +147,6 @@ class MediaController extends Controller
                         }
                         $portals = $portals->where('distance', '<', $distance);
                     }
-
-                    // if($request->get('last_updated_time') != '') {
-                    //     $dayAgo = $request->get('last_updated_time');
-                    //     $from_date = Carbon::now()->subDays($dayAgo);
-                    //     $portal_array = Media::whereNotNull('portal_id')->whereDate('created_at', '>=', $from_date)->distinct()->pluck('portal_id');
-                    //     $portals = $portals->whereIn('id', $portal_array);
-                    // }
                     $portal_ids = $portals->pluck('id')->toArray();
                     $type_mod = $type_mod->orWhere(function($query) use($portal_ids) {
                                 return $query->whereIn('user_id', $portal_ids)->orWhereIn('tagged_portal', $portal_ids);

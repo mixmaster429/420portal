@@ -124,7 +124,7 @@ class PortalController extends Controller
         }
 
         $type_array = $request->get('business_type');
-        if(count($type_array) == 2) {
+        if(count($type_array) >= 1) {
             array_push($type_array, 3);
         }        
         $mod = $mod->whereIn('store_type', $type_array);

@@ -122,3 +122,11 @@ function sendError($error, $errorMessages = [], $code = 400) {
     }
     return response()->json($response);
 }
+
+function site_url($url) {
+    $client_url = 'https://www.420portal.com';
+    if(substr($url, 0, 1) != '/') {
+        $client_url = 'https://www.420portal.com/';
+    }
+    return $client_url.$url;
+}

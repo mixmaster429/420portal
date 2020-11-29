@@ -46,14 +46,14 @@
                 <tr>
                     <td style="padding-left:20px;">
                         <p style="margin:5px 0px 5px 0px;font-size:18px;color:#222;font-family: Montserrat;font-weight:500;">
-                            You can view company page here: <a href="{{url($portal->username)}}"><img src="{{asset('/imgs/hand.png')}}" /></a>
+                            You can view company page here: <a href="{{site_url($portal->username)}}"><img src="{{asset('/imgs/hand.png')}}" /></a>
                         </p>                        
                     </td>
                 </tr>
                 <tr>
                     <td style="padding-left:20px;">
                         <p style="margin:5px 0px 5px 0px;font-size:18px;color:#222;font-family: Montserrat;font-weight:500;">
-                            Add your Menu, Coupons & Post Media here: <a href="{{url($portal->username)}}"><img src="{{asset('/imgs/hand.png')}}" /></a>
+                            Add your Menu, Coupons & Post Media here: <a href="{{site_url($portal->username)}}"><img src="{{asset('/imgs/hand.png')}}" /></a>
                         </p>                        
                     </td>
                 </tr>

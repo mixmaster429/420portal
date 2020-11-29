@@ -55,29 +55,29 @@
                         @switch($mdata->type)
                             @case('comment')
                                 <p style="margin:5px 0px 5px 0px;font-size:18px;color:#222;font-family: Montserrat;font-weight:500;">
-                                    <a href="{{url($mdata->notifier->name ?? '/')}}" style="color:#EFA720;text-decoration:none;font-size:23px;font-weight:bold;">{{$mdata->notifier->name}}</a>
+                                    <a href="{{site_url($mdata->notifier->name ?? '/')}}" style="color:#EFA720;text-decoration:none;font-size:23px;font-weight:bold;">{{$mdata->notifier->name}}</a>
                                     Commented on your Media.
-                                    <a href="{{url('/media/'.$mdata->notifiable_id)}}"><img src="{{asset('/imgs/hand.png')}}"></a>                            
+                                    <a href="{{site_url('media/'.$mdata->notifiable_id)}}"><img src="{{asset('/imgs/hand.png')}}"></a>                            
                                 </p>  
                                 @break
                             @case('reply')
                                 <p style="margin:5px 0px 5px 0px;font-size:18px;color:#222;font-family: Montserrat;font-weight:500;">
-                                    <a href="{{url($mdata->notifier->name ?? '/')}}" style="color:#EFA720;text-decoration:none;font-size:23px;font-weight:bold;">{{$mdata->notifier->name}}</a>
+                                    <a href="{{site_url($mdata->notifier->name ?? '/')}}" style="color:#EFA720;text-decoration:none;font-size:23px;font-weight:bold;">{{$mdata->notifier->name}}</a>
                                     Replied to your Comment.
-                                    <a href="{{url('/media/'.$mdata->notifiable_id)}}"><img src="{{asset('/imgs/hand.png')}}"></a>                            
+                                    <a href="{{site_url('media/'.$mdata->notifiable_id)}}"><img src="{{asset('/imgs/hand.png')}}"></a>                            
                                 </p>                                
                                 @break
                             @case('reply_topic')
                                 <p style="margin:5px 0px 5px 0px;font-size:18px;color:#222;font-family: Montserrat;font-weight:500;">
-                                    <a href="{{url($mdata->notifier->name ?? '/')}}" style="color:#EFA720;text-decoration:none;font-size:23px;font-weight:bold;">{{$mdata->notifier->name}}</a>
+                                    <a href="{{site_url($mdata->notifier->name ?? '/')}}" style="color:#EFA720;text-decoration:none;font-size:23px;font-weight:bold;">{{$mdata->notifier->name}}</a>
                                     Commented on your Post. 
                                     @php
                                         if($mdata->notifiable->title) {
                                             $slug = $mdata->notifiable->slug ?? 'master_slug';
-                                            $post_link = url('marijuana-forums/'.$slug.'/'.$mdata->notifiable_id);
+                                            $post_link = site_url('marijuana-forums/'.$slug.'/'.$mdata->notifiable_id);
                                         } else {
                                             $slug = $mdata->notifiable->get_m_parent->slug ?? 'master_slug';
-                                            $post_link = url('marijuana-forums/'.$slug.'/'.$mdata->notifiable_id);
+                                            $post_link = site_url('marijuana-forums/'.$slug.'/'.$mdata->notifiable_id);
                                         }
                                     @endphp
                                     <a href="{{$post_link}}"><img src="{{asset('/imgs/hand.png')}}"></a>
@@ -85,43 +85,43 @@
                                 @break
                             @case('reply_news')
                                 <p style="margin:5px 0px 5px 0px;font-size:18px;color:#222;font-family: Montserrat;font-weight:500;">
-                                    <a href="{{url($mdata->notifier->name ?? '/')}}" style="color:#EFA720;text-decoration:none;font-size:23px;font-weight:bold;">{{$mdata->notifier->name}}</a>
+                                    <a href="{{site_url($mdata->notifier->name ?? '/')}}" style="color:#EFA720;text-decoration:none;font-size:23px;font-weight:bold;">{{$mdata->notifier->name}}</a>
                                     Replied on your Comment. 
-                                    <a href="{{url('/marijuana-news/'.$mdata->notifiable->slug ?? '/')}}"><img src="{{asset('/imgs/hand.png')}}"></a>                            
+                                    <a href="{{site_url('marijuana-news/'.$mdata->notifiable->slug ?? '/')}}"><img src="{{asset('/imgs/hand.png')}}"></a>                            
                                 </p>                                
                                 @break
                             @case('like')
                                 <p style="margin:5px 0px 5px 0px;font-size:18px;color:#222;font-family: Montserrat;font-weight:500;">
-                                    <a href="{{url($mdata->notifier->name ?? '/')}}" style="color:#EFA720;text-decoration:none;font-size:23px;font-weight:bold;">{{$mdata->notifier->name}}</a>
+                                    <a href="{{site_url($mdata->notifier->name ?? '/')}}" style="color:#EFA720;text-decoration:none;font-size:23px;font-weight:bold;">{{$mdata->notifier->name}}</a>
                                     Likes your Media. 
-                                    <a href="{{url('/media/'.$mdata->notifiable_id)}}"><img src="{{asset('/imgs/hand.png')}}"></a>                            
+                                    <a href="{{site_url('media/'.$mdata->notifiable_id)}}"><img src="{{asset('/imgs/hand.png')}}"></a>                            
                                 </p>                                
                                 @break
                             @case('like_comment')
                                 <p style="margin:5px 0px 5px 0px;font-size:18px;color:#222;font-family: Montserrat;font-weight:500;">
-                                    <a href="{{url($mdata->notifier->name ?? '/')}}" style="color:#EFA720;text-decoration:none;font-size:23px;font-weight:bold;">{{$mdata->notifier->name}}</a>
+                                    <a href="{{site_url($mdata->notifier->name ?? '/')}}" style="color:#EFA720;text-decoration:none;font-size:23px;font-weight:bold;">{{$mdata->notifier->name}}</a>
                                     Likes your Comment. 
-                                    <a href="{{url($mdata->notifier->name ?? '/')}}"><img src="{{asset('/imgs/hand.png')}}"></a>                            
+                                    <a href="{{site_url($mdata->notifier->name ?? '/')}}"><img src="{{asset('/imgs/hand.png')}}"></a>                            
                                 </p>
                                 @break                            
                             @case('like_news_comment')
                                 <p style="margin:5px 0px 5px 0px;font-size:18px;color:#222;font-family: Montserrat;font-weight:500;">
-                                    <a href="{{url($mdata->notifier->name ?? '/')}}" style="color:#EFA720;text-decoration:none;font-size:23px;font-weight:bold;">{{$mdata->notifier->name}}</a>
+                                    <a href="{{site_url($mdata->notifier->name ?? '/')}}" style="color:#EFA720;text-decoration:none;font-size:23px;font-weight:bold;">{{$mdata->notifier->name}}</a>
                                     Likes your Comment. 
-                                    <a href="{{url('/marijuana-news/'.$mdata->notifiable->slug ?? '/')}}"><img src="{{asset('/imgs/hand.png')}}"></a>                            
+                                    <a href="{{site_url('/marijuana-news/'.$mdata->notifiable->slug ?? '/')}}"><img src="{{asset('/imgs/hand.png')}}"></a>                            
                                 </p>
                                 @break
                             @case('like_topic')
                                 <p style="margin:5px 0px 5px 0px;font-size:18px;color:#222;font-family: Montserrat;font-weight:500;">
-                                    <a href="{{url($mdata->notifier->name ?? '/')}}" style="color:#EFA720;text-decoration:none;font-size:23px;font-weight:bold;">{{$mdata->notifier->name}}</a>
+                                    <a href="{{site_url($mdata->notifier->name ?? '/')}}" style="color:#EFA720;text-decoration:none;font-size:23px;font-weight:bold;">{{$mdata->notifier->name}}</a>
                                     Likes your Post.  
                                     @php
                                         if($mdata->notifiable->title) {
                                             $slug = $mdata->notifiable->slug ?? 'master_slug';
-                                            $post_link = url('marijuana-forums/'.$slug.'/'.$mdata->notifiable_id);
+                                            $post_link = site_url('marijuana-forums/'.$slug.'/'.$mdata->notifiable_id);
                                         } else {
                                             $slug = $mdata->notifiable->get_m_parent->slug ?? 'master_slug';
-                                            $post_link = url('marijuana-forums/'.$slug.'/'.$mdata->notifiable_id);
+                                            $post_link = site_url('marijuana-forums/'.$slug.'/'.$mdata->notifiable_id);
                                         }
                                     @endphp
                                     <a href="{{$post_link}}"><img src="{{asset('/imgs/hand.png')}}"></a>                          
@@ -129,16 +129,16 @@
                                 @break
                             @case('follow')
                                 <p style="margin:5px 0px 5px 0px;font-size:18px;color:#222;font-family: Montserrat;font-weight:500;">
-                                    <a href="{{url($mdata->notifier->name ?? '/')}}" style="color:#EFA720;text-decoration:none;font-size:23px;font-weight:bold;">{{$mdata->notifier->name}}</a>
+                                    <a href="{{site_url($mdata->notifier->name ?? '/')}}" style="color:#EFA720;text-decoration:none;font-size:23px;font-weight:bold;">{{$mdata->notifier->name}}</a>
                                     Started Following you. 
-                                    <a href="{{url($mdata->notifier->name ?? '/')}}"><img src="{{asset('/imgs/hand.png')}}"></a>                            
+                                    <a href="{{site_url($mdata->notifier->name ?? '/')}}"><img src="{{asset('/imgs/hand.png')}}"></a>                            
                                 </p>
                                 @break
                             @case('follow_request')
                                 <p style="margin:5px 0px 5px 0px;font-size:18px;color:#222;font-family: Montserrat;font-weight:500;">
-                                    <a href="{{url($mdata->notifier->name ?? '/')}}" style="color:#EFA720;text-decoration:none;font-size:23px;font-weight:bold;">{{$mdata->notifier->name}}</a>
+                                    <a href="{{site_url($mdata->notifier->name ?? '/')}}" style="color:#EFA720;text-decoration:none;font-size:23px;font-weight:bold;">{{$mdata->notifier->name}}</a>
                                     Requested Following you. 
-                                    <a href="{{url('/notification')}}"><img src="{{asset('/imgs/hand.png')}}"></a>                            
+                                    <a href="{{site_url('/notification')}}"><img src="{{asset('/imgs/hand.png')}}"></a>                            
                                 </p>
                                 @break
                             @default                                

@@ -311,6 +311,8 @@
         @media only screen and (max-width: 800px) {
             .notification-board {
                 border: none;
+                padding-bottom: 60px !important;
+                max-height: calc(100vh - 150px);
                 .notification {
                     font-size: 16px;
                 }

@@ -38,23 +38,23 @@
                         @switch($flag->flaggable_type)
                             @case('App\Models\Media')
                                 <p style="margin:5px 0px 5px 0px;font-size:18px;color:#222;font-family: Montserrat;font-weight:500;">
-                                    <a href="{{url($flag->user->name ?? '/')}}" style="color:#EFA720;text-decoration:none;font-size:23px;font-weight:bold;">{{$flag->user->name}}</a>
+                                    <a href="{{site_url($flag->user->name ?? '/')}}" style="color:#EFA720;text-decoration:none;font-size:23px;font-weight:bold;">{{$flag->user->name}}</a>
                                     Flagged the Media.
-                                    <a href="{{url('/media/'.$flag->flaggable->id)}}"><img src="{{asset('/imgs/hand.png')}}"></a>                            
+                                    <a href="{{site_url('/media/'.$flag->flaggable->id)}}"><img src="{{asset('/imgs/hand.png')}}"></a>                            
                                 </p>  
                                 @break
-                            @case('App\Portal')
+                            @case('App\Models\Portal')
                                 <p style="margin:5px 0px 5px 0px;font-size:18px;color:#222;font-family: Montserrat;font-weight:500;">
-                                    <a href="{{url($flag->user->name ?? '/')}}" style="color:#EFA720;text-decoration:none;font-size:23px;font-weight:bold;">{{$flag->user->name}}</a>
+                                    <a href="{{site_url($flag->user->name ?? '/')}}" style="color:#EFA720;text-decoration:none;font-size:23px;font-weight:bold;">{{$flag->user->name}}</a>
                                     Flagged the Portal. 
-                                    <a href="{{url($flag->flaggable->username ?? '/')}}"><img src="{{asset('/imgs/hand.png')}}"></a>                            
+                                    <a href="{{site_url($flag->flaggable->username ?? '/')}}"><img src="{{asset('/imgs/hand.png')}}"></a>                            
                                 </p>
                                 @break
                             @case('App\User')
                                 <p style="margin:5px 0px 5px 0px;font-size:18px;color:#222;font-family: Montserrat;font-weight:500;">
-                                    <a href="{{url($flag->user->name ?? '/')}}" style="color:#EFA720;text-decoration:none;font-size:23px;font-weight:bold;">{{$flag->user->name}}</a>
+                                    <a href="{{site_url($flag->user->name ?? '/')}}" style="color:#EFA720;text-decoration:none;font-size:23px;font-weight:bold;">{{$flag->user->name}}</a>
                                     Flagged the User. 
-                                    <a href="{{url($flag->flaggable->name ?? '/')}}"><img src="{{asset('/imgs/hand.png')}}"></a>                            
+                                    <a href="{{site_url($flag->flaggable->name ?? '/')}}"><img src="{{asset('/imgs/hand.png')}}"></a>                            
                                 </p>
                                 @break
                             @default                                

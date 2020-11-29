@@ -37,8 +37,8 @@
                 <tr>
                     <td style="padding-left:20px;">
                         <p style="margin:5px 0px 5px 0px;font-size:18px;color:#222;font-family: Montserrat;font-weight:500;">
-                            <a href="{{url($sender_link)}}" style="color:#EFA720;text-decoration:none;font-size:23px;font-weight:bold;">{{$sender_name}}</a>
-                            Sent you a Message: <a href="{{url($receiver_link)}}"><img src="{{asset('imgs/hand.png')}}" /></a>                            
+                            <a href="{{site_url($sender_link)}}" style="color:#EFA720;text-decoration:none;font-size:23px;font-weight:bold;">{{$sender_name}}</a>
+                            Sent you a Message: <a href="{{site_url($receiver_link)}}"><img src="{{asset('imgs/hand.png')}}" /></a>                            
                         </p>                        
                     </td>
                 </tr>
