@@ -1,5 +1,5 @@
 <template>
-    <header class="sticky-top">
+    <header class="fixed-top">
         <div class="container">
             <!-- Desktop Nav -->
             <div class="row desktop_nav">
@@ -74,7 +74,7 @@
                 </div>
             </div> 
             <!-- Mobile Nav -->
-            <div class="mobile_nav">
+            <div class="row mobile_nav">
                 <div class="logo_image">
                     <a href="/"><img src="~assets/imgs/logo.png" height="50" alt=""></a>
                 </div>

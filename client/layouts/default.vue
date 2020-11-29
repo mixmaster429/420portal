@@ -4,7 +4,7 @@
         <flatchat v-if="auth_user"></flatchat>
         <top-nav />
 
-        <div class="container-fluid">
+        <div class="container-fluid" :style="{'margin-top': $device.isMobile ? '65px' : '73px'}">
             <nuxt />
         </div>
 

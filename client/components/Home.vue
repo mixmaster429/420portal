@@ -145,7 +145,6 @@ export default {
             if(this.page == 1) {this.posts = [];}
             this.axios.post(uri, params).then(response => {
                 this.defaultpost = response.data.default;
-                console.log(this.posts);
                 if(this.page == 1) {this.posts = [];}
                 if(response.data.allposts.data.length) {
                     if(this.posts.length == 0) {
