@@ -114,13 +114,15 @@
             </div>
 
             <div class="ap_dispensary mt-4" v-show="portal.store_type == 1 || portal.store_type == 3">
-                <div class="floating-label">
-                    <gmap-autocomplete
-                        class="form-control floating-input"
-                        @place_changed="updateAddress"
-                    ></gmap-autocomplete>
-                    <label>Company Address *</label>
-                </div>
+                <client-only>
+                    <div class="floating-label">
+                        <gmap-autocomplete
+                            class="floating-input"
+                            @place_changed="updateAddress"
+                        ></gmap-autocomplete>
+                        <label>Company Address *</label>
+                    </div>
+                </client-only>
 
                 <input type="hidden" id="address_name" name="address_name" :value="portal.address" />
                 <input type="hidden" id="city" name="city" :value="portal.city" />

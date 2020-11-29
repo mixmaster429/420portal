@@ -550,25 +550,6 @@ export default {
                     }
                 }
             });
-
-            // $('#pa_imageselect').fileupload({
-            //     dataType: 'json',
-            //     type: 'POST',
-            //     maxFileSize: 10000,
-            //     formData: {media_type: 'user', username : self.portal.username},
-            //     progressall: function (e, data) {
-            //         var progress = parseInt(data.loaded / data.total * 100, 10);
-            //         self.media_progress = progress;
-            //     },
-            //     done: function (e, data) {
-            //         self.media_progress = 0;
-            //         self.pa_logourl = data.result.fileurl;
-            //     },
-            //     fail: function (e, data) {
-            //         console.log('fail', e, data)
-            //     },
-            //     url: '/media/upload'
-            // });
         });
     },
     methods: {
