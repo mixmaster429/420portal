@@ -1,6 +1,6 @@
 <template>
     <div class="row">
-        <div class="sticky-top strains__sticky" style="width: 100%; background: #000;" >
+        <div class="strains__sticky">
             <ul class="nav strains__nav">
                 <p style="margin: auto 5px; font-size: 22px;color:#EFA720;" class="p-2">
                     <fa icon="arrow-left" @click="$router.go(-1)" class="mr-2" /> Comments                    
@@ -469,6 +469,14 @@
 </script>
 
 <style lang="scss" scoped>
+    .strains__sticky {
+        position: fixed;
+        width: 100%;
+        background-color: #000;
+    }
+    .comment_body {
+        margin-top: 50px;
+    }
     #btn_post, #btn_edit {
         position: absolute;
         top: 1px;
