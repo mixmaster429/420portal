@@ -74,7 +74,7 @@
                 </div>
             </div> 
             <!-- Mobile Nav -->
-            <div class="row mobile_nav">
+            <div class="mobile_nav">
                 <div class="logo_image">
                     <a href="/"><img src="~assets/imgs/logo.png" height="50" alt=""></a>
                 </div>

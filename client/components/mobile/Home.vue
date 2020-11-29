@@ -55,7 +55,7 @@
                     </div>
                 </div>
             </div>
-            <div class="container">
+            <div class="container" style="margin-bottom:60px;">
                 <div class="row justify-content-center container-defaultpost" v-if="defaultpost != null">
                     <div class="col-4 media_container">
                         <router-link :to="{ name: 'weedgram', hash:`#1`, params: {allpost : weedgram_posts, start_index: 1, keyword: keyword, page: page}}">

@@ -254,6 +254,9 @@
             display: none;
         }
         .mobile_nav {
+            position: fixed;
+            flex-wrap: wrap;
+            margin-left: -15px;
             display: flex;
             align-items: center;
             .logo_image {
