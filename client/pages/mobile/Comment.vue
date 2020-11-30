@@ -482,7 +482,7 @@
     }
     .focus_comment {
         .comment_body {
-            height: calc(100% - 172px);
+            height: calc(100vh - 172px);
             padding-bottom: 45px;
         }
     }
