@@ -30,7 +30,7 @@ module.exports = {
     titleTemplate: '%s',
     meta: [
       { charset: 'UTF-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=0' },
+      { name: 'viewport', content: 'width=device-width, height=device-height, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0' },
       { hid: 'description', name: 'description', content: 'Share Your Marijuana Pictures & Weed Videos for Fun. Cannabis Pictures and Videos.' },
       { hid: 'title', name: 'title', content: 'Marijuana Pictures - Weed Videos - Cannabis Images' },
       { hid: 'keywords', name: 'keywords', content: 'marijuana, weed, cannabis, images, pictures, videos' }
