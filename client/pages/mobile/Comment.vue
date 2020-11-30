@@ -1,5 +1,5 @@
 <template>
-    <div class="row">
+    <div class="row" id="comment_container">
         <div class="strains__sticky">
             <ul class="nav strains__nav">
                 <p style="margin: auto 5px; font-size: 22px;color:#EFA720;" class="p-2">
@@ -469,10 +469,13 @@
 </script>
 
 <style lang="scss" scoped>
+    #comment_container {
+        position: relative;
+    }
     .strains__sticky {
-        position: fixed;
+        position: absolute;
         transform: translate3d(0,0,0);
-        top: 65px;
+        top: 0;
         width: 100%;
         background-color: #000;
     }
