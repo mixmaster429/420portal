@@ -471,6 +471,7 @@
 <style lang="scss" scoped>
     .strains__sticky {
         position: fixed;
+        top: 65px;
         width: 100%;
         background-color: #000;
     }
