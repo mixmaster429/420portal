@@ -12,7 +12,7 @@
                         </label>
                         <div style="width:50%;margin:auto;">
                             <div class="pa_progress progress d-block" style="height:10px;" v-if="uploading">
-                                <div class="progress-bar progress-bar-striped progress-bar-animated" :style="{width: media_progress + '%'}"></div>
+                                <div class="progress-bar bg-warning progress-bar-striped progress-bar-animated" :style="{width: uploadProgress + '%', height: '10px'}"></div>
                             </div>
                         </div>
 
