@@ -624,6 +624,7 @@
         background-color: #000;
         color: #EFA720;
         position: fixed;
+        transform: translate3d(0,0,0);
         width: 100%;
         padding: 3px 10px;
         border-bottom: solid 1px #FFF;
