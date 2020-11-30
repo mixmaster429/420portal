@@ -477,6 +477,14 @@
     }
     .comment_body {
         margin-top: 50px;
+        overflow-y: auto;
+        height: calc(100vh - 200px);
+    }
+    .focus_comment {
+        .comment_body {
+            height: calc(100% - 172px);
+            padding-bottom: 45px;
+        }
     }
     #btn_post, #btn_edit {
         position: absolute;
