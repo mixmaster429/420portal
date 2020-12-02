@@ -94,7 +94,7 @@
                     </div>
                 </div>
             </div>
-            <div class="container">
+            <div class="container" :style="{'padding-top': $device.isMobile ? '60px' : '65px'}">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="btn_area">
