@@ -9,8 +9,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="forum_header">
-                                <img src="/imgs/h_icon4.png" width="35" style="margin-top: -8px;margin-right:3px;" alt="Marijuana Forums" v-if="$device.isDesktop" />
-                                <fa icon="arrow-left" class="btn-back" @click="goForumHome()" fixed-width v-else></fa>
+                                <img src="/imgs/h_icon4.png" width="35" style="margin-top: -8px;margin-right:3px;" alt="Marijuana Forums" />
                                 <h2 @click="goForumHome()">Marijuana Forums</h2>
                                 <div class="forum_button">
                                     <div class="forum_button_area">
@@ -998,17 +997,6 @@
     }
 </script>
 <style lang="scss" scoped>
-    .forum_header {
-        @media (max-width: 600px) {
-            justify-content: end;
-        }
-    }
-    .btn-back {
-        color: #EFA720;
-        font-size: 20px;
-        margin-top: -10px;
-        margin-right: 3px;
-    }
     .forum_header h2 {
         color: #EFA720;
         font-size: 2.5rem;
