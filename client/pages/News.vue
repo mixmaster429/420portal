@@ -105,6 +105,7 @@
             if(this.$route.params.category_id) {
                 this.selectCategory(this.$route.params.category_id);
             }
+            console.log(this.news_data);
         },
         methods: {
             fetchNewsData() {             
