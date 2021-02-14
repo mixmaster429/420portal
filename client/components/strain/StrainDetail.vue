@@ -94,7 +94,11 @@
                 </client-only>
             </div>
 
-            <h2 class="text-center my-4 category__header">{{ strain_data.strain.name }} Weed Pictures & Videos</h2>
+            <h2 class="text-center mt-4 mb-1 category__header">{{ strain_data.strain.name }} Weed Pictures & Videos</h2>
+            <p class="text-center category__addmedia">
+                Upload Your Pictures &amp; Videos of this Strain. 
+                <img src="/imgs/add.png" alt="Add Strain" class="img-fluid h-50" data-nsfw-filter-status="sfw" style="visibility: visible;">
+            </p>
         </div>
         <template>
             <!-- <keep-alive v-if="$device.isMobile">
