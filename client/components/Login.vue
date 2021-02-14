@@ -106,7 +106,7 @@ export default {
 
             // Redirect home.
             //   this.$router.push({ name: 'home' })
-            window.location.href = '/';
+            window.location.reload();
         },
         async requestResetPassword() {
             console.log('request reset password');
