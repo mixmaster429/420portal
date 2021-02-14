@@ -31,6 +31,7 @@ module.exports = {
     meta: [
       { charset: 'UTF-8' },
       { name: 'viewport', content: 'width=device-width, height=device-height, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0' },
+      { name: 'google-site-verification', content: 'pk0kXM7nbz8n8a3QwiytmEc6Up0h8U2NLzGoYPTsy48' },
       { hid: 'description', name: 'description', content: 'Share Your Marijuana Pictures & Weed Videos for Fun. Cannabis Pictures and Videos.' },
       { hid: 'title', name: 'title', content: 'Marijuana Pictures - Weed Videos - Cannabis Images' },
       { hid: 'keywords', name: 'keywords', content: 'marijuana, weed, cannabis, images, pictures, videos' }
@@ -89,7 +90,7 @@ module.exports = {
 
   hooks: {
     generate: {
-      done (generator) {
+      done(generator) {
         // Copy dist files to public/_nuxt
         if (generator.nuxt.options.dev === false && generator.nuxt.options.mode === 'spa') {
           const publicDir = join(generator.nuxt.options.rootDir, 'public', '_nuxt')
