@@ -1,47 +1,55 @@
 <template>
     <div class="col-12">
-        <div class="container px-0 px-md-2" id="strain_show_page">
-            <div class="single__content d-flex text-center align-items-center mt-4">
-                <div class="single__img">
-                    <div class="container_img">
-                        <img class="img-fluid" :src="strain_data.main_media ? serverUrl(strain_data.main_media.url) : '~assets/imgs/strains/blue.jpg'" :alt="strain_data.strain.name + ' Marijuana Strain'">
-                    </div>
-                </div>
-                <div class="flex-grow-1">
-                    <div class="strain-information d-flex justify-content-center">
-                        <div class="single__post__container">
-                            <div class="single__post__count">{{strain_data.posts_count}}</div>
-                            <div class="single__post__label">Posts</div>
+        <div class="container-fluid" id="strain_show_page">
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="single__content d-flex text-center align-items-center mt-4">
+                        <div class="single__img">
+                            <div class="container_img">
+                                <img class="img-fluid" :src="strain_data.main_media ? serverUrl(strain_data.main_media.url) : '~assets/imgs/strains/blue.jpg'" :alt="strain_data.strain.name + ' Marijuana Strain'">
+                            </div>
                         </div>
-                        <div class="single__follow__container" style="cursor: pointer;" @click="openFollowerPopup = true">
-                            <div class="single__follow__count btn-open-modal" id="followers_count">{{strain_data.followers_count}}</div>
-                            <div class="single__follow__label btn-open-modal">Followers</div>
+                        <div class="flex-grow-1">
+                            <div class="strain-information d-flex justify-content-center">
+                                <div class="single__post__container">
+                                    <div class="single__post__count">{{strain_data.posts_count}}</div>
+                                    <div class="single__post__label">Posts</div>
+                                </div>
+                                <div class="single__follow__container" style="cursor: pointer;" @click="openFollowerPopup = true">
+                                    <div class="single__follow__count btn-open-modal" id="followers_count">{{strain_data.followers_count}}</div>
+                                    <div class="single__follow__label btn-open-modal">Followers</div>
+                                </div>
+                            </div>
+                            <div class="strain-information text-center strain-action">
+                                <img src="~assets/imgs/follow-icon.png" alt class="btn-follow st-follow" @click="follow" :class="{'d-none': strain_data.is_follower == 1}" />
+                                <img src="~assets/imgs/unfollow.png" alt class="btn-follow st-unfollow" @click="follow" :class="{'d-none': strain_data.is_follower != 1}" />
+                                <div class="single__comment mt-1 mx-auto" style="width: 60px;" data-toggle="modal" data-target="#commentModal" v-if="$device.isMobile">
+                                    <fa :icon="['far', 'comment']" fixed-width class="single__icon" />
+                                    <p id="count_comments">0</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="strain-information text-center strain-action">
-                        <img src="~assets/imgs/follow-icon.png" alt class="btn-follow st-follow" @click="follow" :class="{'d-none': strain_data.is_follower == 1}" />
-                        <img src="~assets/imgs/unfollow.png" alt class="btn-follow st-unfollow" @click="follow" :class="{'d-none': strain_data.is_follower != 1}" />
-                        <div class="single__comment mt-1 mx-auto" style="width: 60px;" data-toggle="modal" data-target="#commentModal">
-                            <fa :icon="['far', 'comment']" fixed-width class="single__icon" />
-                            <p id="count_comments">0</p>
+                    <div class="single__content mb-5">
+                        <h1 class="single__name mt-2 text-white">
+                            {{ strain_data.strain.name }}
+                            <a href="#" v-if="user && user.name == '420portal'" @click.prevent="openEditPopup = true">
+                                <img class="portal__edit" src="~assets/imgs/edit.png" width="28" alt />
+                            </a>
+                        </h1>
+                        <div class="single__category">
+                            {{ strain_data.strain.category.name }}
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="single__content mb-5">
-                <h1 class="single__name mt-2 text-white">
-                    {{ strain_data.strain.name }}
-                    <a href="#" v-if="user && user.name == '420portal'" @click.prevent="openEditPopup = true">
-                        <img class="portal__edit" src="~assets/imgs/edit.png" width="28" alt />
-                    </a>
-                </h1>
-                <div class="single__category">
-                    {{ strain_data.strain.category.name }}
-                </div>
-            </div>
-            <h2 class="text-center my-4 category__header">{{ strain_data.strain.name }} Marijuana Strain</h2>
+                    <h2 class="text-center my-4 category__header">{{ strain_data.strain.name }} Marijuana Strain</h2>
 
-            <edit-description class="category__content" type="strain" :strain="strain_data.strain" :auth="user"></edit-description>
+                    <edit-description class="category__content" type="strain" :strain="strain_data.strain" :auth="user"></edit-description>
+                </div>
+
+                <div class="col-md-3" v-if="!$device.isMobile">
+                    <page-comment :page="strain_data.strain" model="strain"></page-comment>
+                </div>
+            </div>
 
             <div class="strains__extra mt-3">
                 <ul class="nav extra__list justify-content-center mb-3" id="pills-tab" role="tablist">
