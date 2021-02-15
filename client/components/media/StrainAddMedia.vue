@@ -1,5 +1,7 @@
 <template>
-    <img class="img-fluid h-50" src="/imgs/add.png" alt="Add Strain" @click="addMedia = true" />
+    <span @click="addMedia = true">
+        <img class="img-fluid h-50" src="/imgs/add.png" alt="Add Strain" />
+    </span>
     <vs-popup class="strains__popup media__add" type="border" title :active.sync="addMedia">
         <add-form :from="from" mode="add"></add-form>
     </vs-popup>
