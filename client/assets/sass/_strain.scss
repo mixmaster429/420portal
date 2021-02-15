@@ -126,6 +126,14 @@
                 img {
                     width: 50px;
                 }
+
+                @media only screen and (max-width: 600px) {
+                    font-size: 14px;
+
+                    img {
+                        width: 30px;
+                    }
+                }
             }
 
             &__content {

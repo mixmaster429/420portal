@@ -97,7 +97,18 @@
             <h2 class="text-center mt-4 mb-1 category__header">{{ strain_data.strain.name }} Weed Pictures & Videos</h2>
             <p class="text-center category__addmedia">
                 Upload Your Pictures &amp; Videos of this Strain. 
-                <img src="/imgs/add.png" alt="Add Strain" class="img-fluid h-50" data-nsfw-filter-status="sfw" style="visibility: visible;">
+                <template v-if="user">
+                    <!-- <router-link v-if="$device.isMobile" to="/mobile/media/add"> -->
+                        <a href="/mobile/media/add" v-if="$device.isMobile">
+                            <img src="/imgs/add.png" alt="">
+                        </a>
+                    <!-- </router-link> -->
+                    <add-media v-else></add-media>
+                </template>
+                
+                <a v-else href="javascript:;" @click="openLoginModal()" class="myprofile">
+                    <img src="/imgs/add.png" alt="">
+                </a>
             </p>
         </div>
         <template>
@@ -143,6 +154,7 @@
     import EditDescription from "./EditDescription";
     import StrainFollowers from "./StrainFollowers";
     import PageComment from "../PageComment";
+    import AddMedia from "./media/AddMedia";
     export default {
         name: 'StrainDetail',
         props: ['strain_data'],
@@ -154,6 +166,7 @@
             StrainFollowers,
             PageComment,
             StrainMobile,
+            AddMedia
         },
         data: function () {
             return {
