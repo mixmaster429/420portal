@@ -38,9 +38,9 @@
                         <h6 class="text-center">Wait for it...</h6>
                         <img src="/imgs/default_sm.png" width="35" alt=" ">
                     </div>
-                    
+
                     <div class="form-group floating-label floating-multiselect mobile_filter_portal" :class="{ selected : top_filter.portal }">
-                        <multiselect                            
+                        <multiselect
                             class="filter_portal"
                             id="mobile_filter_portal"
                             :options="all_portals"
@@ -48,7 +48,7 @@
                             track-by="id"
                             placeholder=" "
                             :show-labels="false"
-                            @select="selectPortal"                            
+                            @select="selectPortal"
                             @open="searchPortalOpen()"
                             @close="searchPortalClose()"
                         >
@@ -111,7 +111,7 @@
                 <div class="col-md-4">
                     <div class="filter-dropdown">
                         <img src="/imgs/search_option.png" class="d-block mx-auto" width="30" @mouseover="open_menus = !open_menus">
-                        <div class="filter-container">                            
+                        <div class="filter-container">
                             <div class="filter-dropdown-menu" v-show="open_menus" style="width: 400px;" id="panel_menus" @mouseleave="open_menus = false">
                                 <div class="row">
                                     <div class="col-md-6">
@@ -126,7 +126,7 @@
                                                 <input type="checkbox" class="custom-control-input" id="filter_delivery" value="2" v-model="top_filter.business_type" />
                                                 <label class="custom-control-label" for="filter_delivery">Delivery</label>
                                             </div>
-                                        </a>                                    
+                                        </a>
                                     </div>
                                     <div class="col-md-6 pl-0">
                                         <a class="filter-dropdown-item pl-0" href="javascript:;">
@@ -152,7 +152,7 @@
                                 <!-- ************* -->
                                 <hr style="background-color: #EFA720; height: 3px; margin: 15px 12px 8px;">
                                 <div class="row">
-                                    <div class="col-md-6">                                                
+                                    <div class="col-md-6">
                                         <a class="filter-dropdown-item" href="javascript:;" v-for="(category, c_index) in categories" :key="c_index">
                                             <div class="custom-control custom-radio filter-input">
                                                 <input type="radio" class="custom-control-input" name="category" :id="'menu_flowers_' + category.slug" :value="category.id" v-model="top_filter.category" @change="selectCategory" >
@@ -211,7 +211,7 @@
                             >
                                 <span slot="noResult">No Results</span>
                             </multiselect>
-                                
+
                             <label for="">Search Company</label>
                         </div>
                     </div>
@@ -222,7 +222,7 @@
             <div class="row">
                 <div class="w-100 border border" style="border-color: grey !important;margin: 1px;" v-if="!$device.isMobile">
                     <h5 class="text-center text-420 my-1">{{results_count}} Results</h5>
-                </div>                
+                </div>
                 <div class="w-100 portal-container" v-for="(item, index) of portals" :key="index" v-if="filter == null || filter == index">
                     <div class="pt_list" v-if="item.menus.length == 0" @click="goPortal(item.username)" @mouseover="hover_portal = item.id" @mouseleave="hover_portal = null">
                         <div class="pt_data">
@@ -253,7 +253,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="result-container" v-for="(m_item, m_index) of item.menus" :key="m_index" v-if="item.menus.length != 0" @click="goPortal(item.username)" @mouseover="hover_portal = item.id" @mouseleave="hover_portal = null">
                         <div class="result-media">
                             <div class="media" v-if="m_item.media">
@@ -452,6 +452,24 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="titleModal" v-else>
+          <div class="modal-dialog modal-lg border-0">
+            <div class="modal-content">
+              <div class="modal-header bg-white">
+                <button type="button" class="close text-420" data-dismiss="modal"><fa icon="times" fixed-width></fa></button>
+              </div>
+              <div class="modal-body" style="background:white !important;">
+                <div class="row">
+                  <div class="col-md-12 text-center">
+                    <img src="/imgs/dispensary.png" alt="">
+                    <p class="pt-3">Our map displays both <span style="font-size: 18px">marijuana dispensaries and deliveries in "city, state"</span>. Find your local cannabis dispensary and delivery nearest you. We display both recreational and medical marijuana dispensaries and deliveries in "city, state". So if you're looking for weed products, you have come to the right place!</p>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
     </div>
 </template>
 
@@ -462,6 +480,16 @@
     export default {
         name: "MapPage",
         props: ['page_title'],
+        head: {
+          title: 'Marijuana Dispensary and Delivery - Recreational and Medical',
+          meta: [
+            {
+              hid: 'description',
+              name: 'description',
+              content: 'Medical and Recreational Marijuana Dispensaries and Marijuana Deliveries Near You. Find Your Cannabis.'
+            }
+          ],
+        },
         data() {
             return {
                 loading: false,
@@ -521,9 +549,9 @@
                 search_count: 0,
                 results_count: 0,
             };
-        },        
+        },
         computed: mapGetters({
-            map_location: 'auth/map_location',        
+            map_location: 'auth/map_location',
         }),
         components: {
             Multiselect,
@@ -556,7 +584,7 @@
                     alert(
                         "Geolocation is not supported by this browser. \n Please enable it."
                     );
-                }   
+                }
             }
         },
         mounted() {
@@ -1030,8 +1058,8 @@
                         color: #FF0000;
                     }
                 }
-                .distance {  
-                    font-size: 13px;                      
+                .distance {
+                    font-size: 13px;
                     color: gray;
                 }
             }

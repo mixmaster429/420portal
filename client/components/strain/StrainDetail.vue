@@ -16,7 +16,7 @@
                         <div class="single__follow__container" style="cursor: pointer;" @click="openFollowerPopup = true">
                             <div class="single__follow__count btn-open-modal" id="followers_count">{{strain_data.followers_count}}</div>
                             <div class="single__follow__label btn-open-modal">Followers</div>
-                        </div>                    
+                        </div>
                     </div>
                     <div class="strain-information text-center strain-action">
                         <img src="~assets/imgs/follow-icon.png" alt class="btn-follow st-follow" @click="follow" :class="{'d-none': strain_data.is_follower == 1}" />
@@ -30,10 +30,10 @@
             </div>
             <div class="single__content mb-5">
                 <h1 class="single__name mt-2 text-white">
-                    {{ strain_data.strain.name }}                  
+                    {{ strain_data.strain.name }}
                     <a href="#" v-if="user && user.name == '420portal'" @click.prevent="openEditPopup = true">
                         <img class="portal__edit" src="~assets/imgs/edit.png" width="28" alt />
-                    </a>                        
+                    </a>
                 </h1>
                 <div class="single__category">
                     {{ strain_data.strain.category.name }}
@@ -96,19 +96,7 @@
 
             <h2 class="text-center mt-4 mb-1 category__header">{{ strain_data.strain.name }} Weed Pictures & Videos</h2>
             <p class="text-center category__addmedia">
-                Upload Your Pictures &amp; Videos of this Strain. 
-                <template v-if="user">
-                    <!-- <router-link v-if="$device.isMobile" to="/mobile/media/add"> -->
-                        <a href="/mobile/media/add" v-if="$device.isMobile">
-                            <img src="/imgs/add.png" alt="">
-                        </a>
-                    <!-- </router-link> -->
-                    <strain-add-media v-else></strain-add-media>
-                </template>
-                
-                <a v-else href="javascript:;" @click="openLoginModal()" class="myprofile">
-                    <img src="/imgs/add.png" alt="">
-                </a>
+                Upload Your Pictures &amp; Videos of this Strain.
             </p>
         </div>
         <template>
@@ -127,7 +115,7 @@
                 <strain-followers :strain="strain_data.strain"></strain-followers>
             </vs-popup>
         </client-only>
-        
+
         <!-- Comment Modal -->
         <div class="modal fade" id="commentModal">
             <div class="modal-dialog" role="document">
@@ -154,7 +142,6 @@
     import EditDescription from "./EditDescription";
     import StrainFollowers from "./StrainFollowers";
     import PageComment from "../PageComment";
-    import StrainAddMedia from "../media/StrainAddMedia";
     export default {
         name: 'StrainDetail',
         props: ['strain_data'],
@@ -166,7 +153,6 @@
             StrainFollowers,
             PageComment,
             StrainMobile,
-            StrainAddMedia
         },
         data: function () {
             return {
@@ -180,6 +166,9 @@
             }),
         },
         methods: {
+            openLoginModal() {
+              $("#loginmodal").modal();
+            },
             follow() {
                 if(!this.user) {
                     $("#loginmodal").modal();
@@ -279,7 +268,7 @@
     #editModal {
         color: #FFF;
         font-size: 16px;
-    }   
+    }
 
 </style>
 <style lang="scss">
