@@ -154,7 +154,7 @@
     import EditDescription from "./EditDescription";
     import StrainFollowers from "./StrainFollowers";
     import PageComment from "../PageComment";
-    import AddMedia from "./media/AddMedia";
+    import AddMedia from "../media/AddMedia";
     export default {
         name: 'StrainDetail',
         props: ['strain_data'],
