@@ -174,7 +174,7 @@
                                             <a v-else href="javascript:void(0);" title="Removed User">
                                                 <img class="img_user_pic" src="/imgs/default_sm.png" alt />
                                             </a>
-                                            <a v-for="sitem in item.reply_users" :key="sitem.id" :href="'/'+sitem.username" :title="sitem.name">
+                                            <a v-for="sitem in item.reply_users.slice(0, 4)" :key="sitem.id" :href="'/'+sitem.username" :title="sitem.name">
                                                 <img class="img_user_pic" :src="serverUrl(sitem.profile_pic ? sitem.profile_pic.url : '/imgs/default.png')" alt />
                                             </a>
                                         </td>
