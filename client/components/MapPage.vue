@@ -462,7 +462,7 @@
                 <div class="row">
                   <div class="col-md-12 text-center">
                     <img src="/imgs/dispensary.png" alt="">
-                    <p class="pt-3">Our map displays both <span style="font-size: 18px">marijuana dispensaries and deliveries in "city, state"</span>. Find your local cannabis dispensary and delivery nearest you. We display both recreational and medical marijuana dispensaries and deliveries in "city, state". So if you're looking for weed products, you have come to the right place!</p>
+                    <p class="pt-3">Our map displays both <span style="font-size: 18px">marijuana dispensaries and deliveries in <font style="text-transform: capitalize">"{{city}}, {{state}}"</font> </span>. Find your local cannabis dispensary and delivery nearest you. We display both recreational and medical marijuana dispensaries and deliveries in <font style="text-transform: capitalize">"{{city}}, {{state}}"</font>. So if you're looking for weed products, you have come to the right place!</p>
                   </div>
 
                 </div>
@@ -548,6 +548,8 @@
                 show_filter: false,
                 search_count: 0,
                 results_count: 0,
+                state: "",
+                city: ""
             };
         },
         computed: mapGetters({
@@ -588,6 +590,8 @@
             }
         },
         mounted() {
+            this.state = this.$route.params.state
+            this.city = this.$route.params.city
             this.init();
             var self = this;
             $(document).on('mouseleave', '.filter-dropdown-toggle', function(){
