@@ -103,7 +103,7 @@
                             <img src="/imgs/add.png" alt="">
                         </a>
                     <!-- </router-link> -->
-                    <add-media v-else></add-media>
+                    <strain-add-media v-else></strain-add-media>
                 </template>
                 
                 <a v-else href="javascript:;" @click="openLoginModal()" class="myprofile">
@@ -154,7 +154,7 @@
     import EditDescription from "./EditDescription";
     import StrainFollowers from "./StrainFollowers";
     import PageComment from "../PageComment";
-    import AddMedia from "../media/AddMedia";
+    import StrainAddMedia from "../media/StrainAddMedia";
     export default {
         name: 'StrainDetail',
         props: ['strain_data'],
@@ -166,7 +166,7 @@
             StrainFollowers,
             PageComment,
             StrainMobile,
-            AddMedia
+            StrainAddMedia
         },
         data: function () {
             return {
