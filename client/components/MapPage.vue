@@ -480,15 +480,17 @@
     export default {
         name: "MapPage",
         props: ['page_title'],
-        head: {
-          title: 'Marijuana Dispensary and Delivery - Recreational and Medical',
-          meta: [
-            {
-              hid: 'description',
-              name: 'description',
-              content: 'Medical and Recreational Marijuana Dispensaries and Marijuana Deliveries Near You. Find Your Cannabis.'
+        head () {
+            return {
+                title: "\"" + this.tocapitalize(this.city) + ", " + this.tocapitalize(this.state) + "\" - " + 'Marijuana Dispensary and Delivery - Recreational and Medical',
+                meta: [
+                    {
+                    hid: 'description',
+                    name: 'description',
+                    content: 'Medical and Recreational Marijuana Dispensaries and Marijuana Deliveries in ' + "\"" + this.tocapitalize(this.city) + ", " + this.tocapitalize(this.state) + "\"" +'. Find Your Cannabis.'
+                    }
+                ],
             }
-          ],
         },
         data() {
             return {
@@ -603,6 +605,9 @@
             });
         },
         methods: {
+            tocapitalize(string) {
+                return string.charAt(0).toUpperCase() + string.slice(1)
+            },
             init() {
                 this.axios.post('/categories')
                 .then(response => {
