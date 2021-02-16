@@ -462,7 +462,7 @@
                 <div class="row">
                   <div class="col-md-12 text-center">
                     <img src="/imgs/dispensary.png" alt="">
-                    <p class="pt-3">Our map displays both <span style="font-size: 18px">marijuana dispensaries and deliveries in <font style="text-transform: capitalize">"{{city}}, {{state}}"</font> </span>. Find your local cannabis dispensary and delivery nearest you. We display both recreational and medical marijuana dispensaries and deliveries in <font style="text-transform: capitalize">"{{city}}, {{state}}"</font>. So if you're looking for weed products, you have come to the right place!</p>
+                    <p class="pt-3">Our map displays both <span style="font-size: 18px">marijuana dispensaries and deliveries in <font style="text-transform: capitalize">{{city}}, {{state}}</font> </span>. Find your local cannabis dispensary and delivery nearest you. We display both recreational and medical marijuana dispensaries and deliveries in <font style="text-transform: capitalize">{{city}}, {{state}}</font>. So if you're looking for weed products, you have come to the right place!</p>
                   </div>
 
                 </div>
@@ -482,12 +482,17 @@
         props: ['page_title'],
         head () {
             return {
-                title: "\"" + this.tocapitalize(this.city) + ", " + this.tocapitalize(this.state) + "\" - " + 'Marijuana Dispensary and Delivery - Recreational and Medical',
+                title: this.tocapitalize(this.city) + ", " + this.tocapitalize(this.state) + 'Marijuana Dispensary and Delivery',
                 meta: [
                     {
-                    hid: 'description',
-                    name: 'description',
-                    content: 'Medical and Recreational Marijuana Dispensaries and Marijuana Deliveries in ' + "\"" + this.tocapitalize(this.city) + ", " + this.tocapitalize(this.state) + "\"" +'. Find Your Cannabis.'
+                        hid: 'description',
+                        name: 'description',
+                        content: 'Medical and Recreational Marijuana Dispensaries and Marijuana Deliveries in ' + this.tocapitalize(this.city) + ", " + this.tocapitalize(this.state) + '. Find Your Cannabis.'
+                    },
+                    {
+                        hid: 'title',
+                        name: 'title',
+                        content: this.tocapitalize(this.city) + ", " + this.tocapitalize(this.state) + 'Marijuana Dispensary and Delivery - Recreational and Medical'
                     }
                 ],
             }
@@ -606,7 +611,8 @@
         },
         methods: {
             tocapitalize(string) {
-                return string.charAt(0).toUpperCase() + string.slice(1)
+                let text = string.replace("-", " ")
+                return text.charAt(0).toUpperCase() + text.slice(1)
             },
             init() {
                 this.axios.post('/categories')
