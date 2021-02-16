@@ -346,6 +346,12 @@
     color: #efa720;
 }  
 
+.commentarea {
+    textarea {
+        background-color: black !important;
+        color: white;
+    }
+}
 
 @media (min-width: 768px){
     #admin-post-form {

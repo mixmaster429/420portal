@@ -597,8 +597,8 @@
             }
         },
         mounted() {
-            this.state = this.$route.params.state
-            this.city = this.$route.params.city
+            this.state = this.tocapitalize(this.$route.params.state)
+            this.city = this.tocapitalize(this.$route.params.city)
             this.init();
             var self = this;
             $(document).on('mouseleave', '.filter-dropdown-toggle', function(){
