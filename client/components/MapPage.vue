@@ -438,8 +438,7 @@
                     <div class="modal-body" style="background:white !important;">
                         <div class="row">
                             <div class="col-md-12 text-center">
-                                <img src="/imgs/dispensary.png" alt="">
-                                <img src="/imgs/delivery.png" alt="">
+                                <img src="/imgs/dispensary.png" alt=""><img src="/imgs/delivery.png" alt="">
                                 <h2 class="pt-2">Search Marijuana Dispensaries and Marijuana Deliveries Near You</h2>
                                 <edit-description class="strain__modal__content" type="map-modal" :strain="modal_data" :auth="auth_user"></edit-description>
                             </div>
