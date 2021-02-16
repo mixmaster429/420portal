@@ -436,6 +436,7 @@
                         <button type="button" class="close text-420" data-dismiss="modal"><fa icon="times" fixed-width></fa></button>
                     </div>
                     <div class="modal-body" style="background:white !important;">
+                        <edit-description class="strain__modal__content" type="map-modal" :strain="modal_data" :auth="auth_user"></edit-description>
                         <div class="row">
                             <div class="col-md-6 text-center">
                                 <img src="/imgs/dispensary.png" alt="">
@@ -477,6 +478,7 @@
 <script>
     import Multiselect from "vue-multiselect";
     import _ from "lodash";
+    import EditDescription from '~/components/strain/EditDescription'
     import { mapGetters } from "vuex";
     export default {
         name: "MapPage",
@@ -564,11 +566,13 @@
             return this.getModalData()
         },
         computed: mapGetters({
+            auth_user: 'auth/user',
             map_location: 'auth/map_location',
             modal_data: 'map/modal_data',
         }),
         components: {
             Multiselect,
+            EditDescription
         },
         filters : {
             category_name : function(name) {
@@ -616,7 +620,7 @@
         },
         methods: {
             getModalData(){
-                return this.$store.dispatch('brand/getMapModalData');
+                return this.$store.dispatch('map/getMapModalData');
             },
             tocapitalize(string) {
                 let text = string.replace("-", " ")

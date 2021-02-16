@@ -22,6 +22,7 @@ export const actions = {
     try {
       let url = `/sitemap/get_modal_data`;
       const { data } = await axios.get(url)
+      console.log(data)
       commit('GET_MAP_MODAL_DATA', data)
     } catch (e) {
         console.log(e)

@@ -12,6 +12,7 @@ use App\Models\City;
 use App\Models\Post;
 use App\Models\Media;
 use App\Models\ForumList;
+use App\Models\Generic;
 
 use Carbon\Carbon;
 
