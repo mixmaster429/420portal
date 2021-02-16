@@ -120,4 +120,23 @@ class SitemapController extends Controller
 
         return response()->json($routes);
     }
+
+    public function getModalData(Request $request) {
+        $modalData = Generic::where('type', 'map-modal-description')->first();
+        return response()->json($modalData);
+    }
+
+    public function updateModal(Request $request, $id) {
+
+        $validateRequest = $this->validate($request, [
+            'description' => 'required',
+        ]);
+
+        $modalData = Generic::findOrFail($id);
+
+        $modalData->description = $request->description;
+        $modalData->save();
+
+        return response()->json($modalData);
+    } 
 }

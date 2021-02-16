@@ -10,14 +10,14 @@
 
         <div v-if="auth" class="strain__description__edit text-right mb-4">
             <div v-if="editMode" class="edit-mode mt-2">
-                <button @click="save" class="btn btn-primary px-3 py-2"><i class="far fa-save mr-1"></i> Save
+                <button @click="save" class="btn btn-primary btn-sm px-3 py-2"><i class="far fa-save mr-1"></i> Save
                     <span v-if="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                 </button>
-                <button @click="cancel" class="btn btn-outline-secondary px-3 py-2"><i class="fas fa-times mr-1"></i> Cancel</button>
+                <button @click="cancel" class="btn btn-outline-secondary btn-sm px-3 py-2"><i class="fas fa-times mr-1"></i> Cancel</button>
             </div>
             <div v-else class="edit-mode mt-2">
                 <button @click="deleteItem" v-if="this.type == 'strain'" class="btn btn-outline-secondary px-3 py-2 mt-2 mr-2"><i class="far fa-trash-alt mr-1"></i> Delete</button>
-                <button @click="editMode = true" class="btn btn-primary px-3 py-2 mt-2"><i class="far fa-edit mr-1"></i> Edit</button>
+                <button @click="editMode = true" class="btn btn-primary btn-sm px-3 py-2 mt-2"><i class="far fa-edit mr-1"></i> Edit</button>
             </div>
             <div v-if="success === 1" class="text-success small mt-2">
                 Description changed successfully

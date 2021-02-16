@@ -845,8 +845,6 @@ header {
       }
   }
 
-
-
   .modal-content,
   .modal-body {
       background-color: #f9f9f9 !important;
@@ -860,5 +858,9 @@ header {
 
   h5, p, span, button {
       color: currentcolor;
+  }
+
+  trix-editor {
+    color: black !important;
   }
 }

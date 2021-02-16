@@ -104,7 +104,7 @@
                 <div class="modal-dialog modal-xl" role="document">
                     <div class="modal-content text-center">
                         <div class="modal-header">
-                            <h2 class="modal-title mx-auto" id="headingModalLabel">Search Thousands of Marijuana Strains</h2>
+                            <h2 class="modal-title mx-auto" id="headingModalLabel">Discover Marijuana Brands Near You</h2>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -150,7 +150,7 @@
         },
         computed: mapGetters({
             auth_user: 'auth/user',     
-            modal_data: 'strain/modal_data',   
+            modal_data: 'brand/modal_data',   
         }),
         mounted() {
             this.getBrands();

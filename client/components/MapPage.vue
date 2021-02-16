@@ -462,6 +462,7 @@
                 <div class="row">
                   <div class="col-md-12 text-center">
                     <img src="/imgs/dispensary.png" alt="">
+                    <img src="/imgs/delivery.png" alt="">
                     <p class="pt-3">Our map displays both <span style="font-size: 18px">marijuana dispensaries and deliveries in <font style="text-transform: capitalize">{{city}}, {{state}}</font> </span>. Find your local cannabis dispensary and delivery nearest you. We display both recreational and medical marijuana dispensaries and deliveries in <font style="text-transform: capitalize">{{city}}, {{state}}</font>. So if you're looking for weed products, you have come to the right place!</p>
                   </div>
 
@@ -559,8 +560,12 @@
                 city: ""
             };
         },
+        serverPrefetch () {
+            return this.getModalData()
+        },
         computed: mapGetters({
             map_location: 'auth/map_location',
+            modal_data: 'map/modal_data',
         }),
         components: {
             Multiselect,
@@ -610,6 +615,9 @@
             });
         },
         methods: {
+            getModalData(){
+                return this.$store.dispatch('brand/getMapModalData');
+            },
             tocapitalize(string) {
                 let text = string.replace("-", " ")
                 return text.charAt(0).toUpperCase() + text.slice(1)

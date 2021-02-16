@@ -72,6 +72,7 @@ Route::get('/sitemap/companies', 'SitemapController@companies');
 Route::get('/sitemap/states', 'SitemapController@states');
 Route::get('/sitemap/forums', 'SitemapController@forums');
 Route::get('/sitemap/news', 'SitemapController@news');
+Route::get('/sitemap/get_modal_data', 'SitemapController@getModalData');
 
 // Forum
 
@@ -168,6 +169,7 @@ Route::middleware(['auth:api'])->group(function ($router){
     $router->post('/marijuana-strains/follow', 'StrainController@follow');
     $router->put('/marijuana-strains/modal/{id}', 'StrainController@updateModal');
     $router->put('/marijuana-brands/modal/{id}', 'BrandController@updateModal');
+    $router->put('/sitemap/modal/{id}', 'SitemapController@updateModal');
 
     $router->post('/notification/get_all', 'NotificationController@get_all');
     $router->post('/email_notification_filter/save', 'NotificationFilterController@save');
