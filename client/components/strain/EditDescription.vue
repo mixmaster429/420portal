@@ -74,6 +74,10 @@ export default {
                     url = `/marijuana-brands/modal/${this.strain.id}`
                     break;
 
+                case 'map-modal':
+                    url = `/sitemap/modal/${this.strain.id}`
+                    break;
+
                 default:
                 break;
             }

@@ -436,17 +436,12 @@
                         <button type="button" class="close text-420" data-dismiss="modal"><fa icon="times" fixed-width></fa></button>
                     </div>
                     <div class="modal-body" style="background:white !important;">
-                        <edit-description class="strain__modal__content" type="map-modal" :strain="modal_data" :auth="auth_user"></edit-description>
                         <div class="row">
-                            <div class="col-md-6 text-center">
+                            <div class="col-md-12 text-center">
                                 <img src="/imgs/dispensary.png" alt="">
-                                <h2 class="pt-2">Marijuana Dispensary</h2>
-                                <p class="pt-3">420Portal is the site to find <span style="font-size: 18px">Marijuana Dispensaries & Marijuana Collectives</span> that are close to you.</p>
-                            </div>
-                            <div class="col-md-6 text-center">
                                 <img src="/imgs/delivery.png" alt="">
-                                <h2 class="pt-2">Marijuana Delivery</h2>
-                                <p class="pt-3">Looking to have your Medical or Recreational Marijuana Delivered to you? There are Hundreds of <span style="font-size: 18px">Marijuana Delivery</span>  companies to choose from.</p>
+                                <h2 class="pt-2">Search Marijuana Dispensaries and Marijuana Deliveries Near You</h2>
+                                <edit-description class="strain__modal__content" type="map-modal" :strain="modal_data" :auth="auth_user"></edit-description>
                             </div>
                         </div>
                     </div>
