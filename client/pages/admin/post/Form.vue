@@ -132,6 +132,10 @@
                 this.form.categories = this.post.category.split(',')
             },
             async savePost() {
+                if(this.mode === 'add' && this.form.image === '') {
+                    alert("Please select an image.")
+                    return false;
+                }
                 let uri = this.mode == 'add' ? '/admin/post/add' : `/admin/post/${this.post.id}/update`
                 const { data } = await this.form.post(uri);
                 if(data.status == 200) {
