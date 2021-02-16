@@ -835,3 +835,30 @@ header {
     }
   }
 }
+
+#headingModal {
+  .modal-dialog {
+      border: 0;
+      margin: 11rem auto;
+      @media only screen and (max-width: 800px) {
+          margin: 5rem auto;
+      }
+  }
+
+
+
+  .modal-content,
+  .modal-body {
+      background-color: #f9f9f9 !important;
+      color: #444 !important;
+      font-size: 14px;
+  }
+
+  h5 {
+      font-size: 26px;
+  }
+
+  h5, p, span, button {
+      color: currentcolor;
+  }
+}

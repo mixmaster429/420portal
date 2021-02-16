@@ -2,7 +2,7 @@
     <div id="brand_show" style="max-height:100vh;overflow-y: auto;margin-left:-15px;margin-right:-15px;">
         <div class="page-header">
             <img src="/imgs/brand.png" width="35" alt="Marijuana Brands" />
-            <h1>Marijuana Brands</h1>
+            <h1 @click="showModal()">Marijuana Brands</h1>
         </div>
         <div class="container px-0">
             <div class="brand-nav strains__extra mx-2 mx-md-0 mt-4 mt-md-5">
@@ -100,11 +100,27 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="headingModal" tabindex="-1" role="dialog" aria-labelledby="headingModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-xl" role="document">
+                    <div class="modal-content text-center">
+                        <div class="modal-header">
+                            <h2 class="modal-title mx-auto" id="headingModalLabel">Search Thousands of Marijuana Strains</h2>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <edit-description class="strain__modal__content" type="brand-modal" :strain="modal_data" :auth="auth_user"></edit-description>
+                        </div>
+                    </div>
+                </div>
+            </div>
         <page-footer></page-footer>
     </div>
 </template>
 <script>
     import FixedComment from "../FixedComment";
+    import EditDescription from '~/components/strain/EditDescription'
     import PageFooter from "../PageFooter";
     import Multiselect from "vue-multiselect";
     import firebase from "../../Firebase";
@@ -116,6 +132,7 @@
             FixedComment,
             Multiselect,
             PageFooter,
+            EditDescription
         },
         data() {
             return  {
@@ -128,8 +145,12 @@
                 infiniteId: +new Date(),
             };
         },
+        serverPrefetch () {
+            return this.getModalData()
+        },
         computed: mapGetters({
-            auth_user: 'auth/user',        
+            auth_user: 'auth/user',     
+            modal_data: 'strain/modal_data',   
         }),
         mounted() {
             this.getBrands();
@@ -138,6 +159,12 @@
             }
         },
         methods: {
+            showModal() {
+                $("#headingModal").modal();
+            },
+            getModalData(){
+                return this.$store.dispatch('brand/getBrandModalData');
+            },
             getBrands() {
                 let uri = '/brand/get_all';
                 this.axios.get(uri).then(response => {

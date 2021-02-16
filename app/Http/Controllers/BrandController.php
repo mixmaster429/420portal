@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\Generic;
 use App\Models\Portal;
 use App\Models\Menu;
 use App\Models\Follow;
@@ -219,4 +219,23 @@ class BrandController extends Controller
 
         return response()->json($return);
     }
+
+    public function getModalData(Request $request) {
+        $modalData = Generic::where('type', 'brand-modal-description')->first();
+        return response()->json($modalData);
+    }
+
+    public function updateModal(Request $request, $id) {
+
+        $validateRequest = $this->validate($request, [
+            'description' => 'required',
+        ]);
+
+        $modalData = Generic::findOrFail($id);
+
+        $modalData->description = $request->description;
+        $modalData->save();
+
+        return response()->json($modalData);
+    } 
 }

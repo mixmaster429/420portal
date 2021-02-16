@@ -70,6 +70,10 @@ export default {
                     url = `/marijuana-strains/modal/${this.strain.id}`
                     break;
 
+                case 'brand-modal':
+                    url = `/marijuana-brands/modal/${this.strain.id}`
+                    break;
+
                 default:
                 break;
             }

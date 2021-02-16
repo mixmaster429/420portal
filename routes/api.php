@@ -53,6 +53,7 @@ Route::post('/get/brand', 'BrandController@appGetBrand');
 Route::post('/brand/get_all_menus', 'BrandController@get_all_menus');
 Route::post('/brand/get_category_media', 'BrandController@getCategoryMedia');
 Route::post('/brand/save', 'BrandController@save');
+Route::get('/brand/get_modal_data', 'BrandController@getModalData');
 
 Route::post('/marijuana-news', 'BlogController@index');
 Route::get('/marijuana-news/{slug}', 'BlogController@show');
@@ -166,6 +167,7 @@ Route::middleware(['auth:api'])->group(function ($router){
     $router->get('/strain/show/{id}', 'StrainController@show_mobile');
     $router->post('/marijuana-strains/follow', 'StrainController@follow');
     $router->put('/marijuana-strains/modal/{id}', 'StrainController@updateModal');
+    $router->put('/marijuana-brands/modal/{id}', 'BrandController@updateModal');
 
     $router->post('/notification/get_all', 'NotificationController@get_all');
     $router->post('/email_notification_filter/save', 'NotificationFilterController@save');
