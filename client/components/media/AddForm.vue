@@ -148,7 +148,8 @@ export default {
             default: 0
         },
         editData: 0,
-        mainData: {}
+        mainData: {},
+        strain: ''
     },
     data() {
         return {
@@ -187,6 +188,10 @@ export default {
         auth_user: 'auth/user',
     }),
     mounted() {
+        if(this.strain) {
+            console.log(this.strain.name)
+            this.taggedStrains.push(this.strain)
+        }
         var _this = this;
         this.getData();
         this.$root.$on("eventing", () => {

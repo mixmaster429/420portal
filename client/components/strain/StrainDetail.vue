@@ -105,6 +105,10 @@
             <h2 class="text-center mt-4 mb-1 category__header">{{ strain_data.strain.name }} Weed Pictures & Videos</h2>
             <p class="text-center category__addmedia">
                 Upload Your Pictures &amp; Videos of this Strain.
+                <a href="/mobile/media/add" v-if="$device.isMobile">
+                    <img src="/imgs/add.png" alt="">
+                </a>
+                <strain-add-media v-else :strain_data="strain_data"></strain-add-media>
             </p>
         </div>
         <template>
@@ -150,6 +154,8 @@
     import EditDescription from "./EditDescription";
     import StrainFollowers from "./StrainFollowers";
     import PageComment from "../PageComment";
+    import StrainAddMedia from '../media/StrainAddMedia.vue';
+
     export default {
         name: 'StrainDetail',
         props: ['strain_data'],
@@ -161,6 +167,7 @@
             StrainFollowers,
             PageComment,
             StrainMobile,
+            StrainAddMedia,
         },
         data: function () {
             return {
