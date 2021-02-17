@@ -100,10 +100,11 @@ class AdminCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
         $remarkable_order = NewsCategory::find($id)->order;
-        NewsCategory::destroy($id);
+        NewsCategory::where('id', $id)->delete();
+       
         $max = $this->getNewOrder();
         // remove the news related to the category
         $posts = Post::all();
@@ -119,7 +120,7 @@ class AdminCategoryController extends Controller
                 $category->save();
             }
         }
-        return redirect()->back()->with('message', 'Deleted category');
+        return response()->json(['status' => 200]);
     }
 
     /**
