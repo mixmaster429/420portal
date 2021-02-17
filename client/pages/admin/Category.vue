@@ -73,7 +73,7 @@ export default {
         deleteCategory(item) {
             if(!window.confirm('Are you sure?')) return false;
             let uri = `/admin/cateogry/${item.id}/delete`
-            this.axios.get(uri).then(response => {
+            this.axios.post(uri).then(response => {
                 if(response.data.status == 200) {
                     this.getCategories();
                 }
