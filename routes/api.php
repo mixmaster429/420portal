@@ -212,7 +212,7 @@ Route::middleware(['auth:api'])->group(function ($router){
     Route::get('/admin/category', 'AdminCategoryController@index');
     Route::post('/admin/category/add', 'AdminCategoryController@store');
     Route::post('/admin/category/{id}/update', 'AdminCategoryController@update');
-    Route::post('/admin/category/{id}/delete', 'AdminCategoryController@delete');
+    Route::post('/admin/categoryremove/{id}/delete', 'AdminCategoryController@delete');
     Route::get('/admin/category/order/{id}/up', 'AdminCategoryController@upOrder');
     Route::get('/admin/category/order/{id}/down', 'AdminCategoryController@downOrder');
 });
