@@ -48,7 +48,7 @@
             save: function() {
                 const data = {
                     name: this.name,
-                    slug: this.name.trim().toLowerCase().replace(/ /g, '-').replace(/#/g, '').replace(/---/g, '-'),
+                    slug: this.name.trim().toLowerCase().replace(/ /g, '-').replace(/#/g, '').replace(/---/g, '-').replace(/'/g, ''),
                     description: this.description,
                     category_id: this.category_id,
                 }
