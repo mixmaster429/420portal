@@ -100,7 +100,7 @@
             <div class="footer">
                 <div class="comment_area main_comment" id="page_main_comment">
                     <textarea id="main_comment_profile" name="comment" class="comment_text"></textarea>
-                    <p class v-if="status != null">
+                    <p class="reply_text" v-if="status != null">
                         Reply to <a class="reply_to" :href="replyname">{{replyname}}</a>
                         <span @click="reset" class="ml-1">
                             <fa icon="times" fixed-width></fa>
@@ -628,6 +628,10 @@ export default {
                         top: 22% !important;
                         right: 30px;
                     }
+                    .reply_text {
+                      position: absolute;
+                      top: -20px;
+                    }
                     
                 }
             }
@@ -635,7 +639,7 @@ export default {
     }
     .comment_body {
         position: relative;
-        height: calc(100% - 70px);
+        height: calc(100% - 55px);
         @media only screen and (max-width:600px) {
             height: calc(100% - 50px);
             padding-bottom: 0;

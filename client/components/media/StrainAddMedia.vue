@@ -1,10 +1,14 @@
 <template>
-    <div @click="addMedia = true" color="primary" text-color="#000" type="flat">
-        <img class="img-fluid h-50" src="/imgs/strain_add_media.png" alt="Add Strain" />
-
-        <vs-popup class="strains__popup media__add" type="border" title :active.sync="addMedia">
-            <add-form :from="from" mode="add" :strain="strain_data.strain"></add-form>
-        </vs-popup>
+    <div  color="primary" text-color="#000" type="flat">
+      <p class="m-0">
+        <span @click="addMedia = true">Upload Your Pictures &amp; Videos of this Strain.</span> 
+      </p>
+      <p>
+        <img class="img-fluid h-50" src="/imgs/strain_add_media.png" alt="Add Strain" @click="addMedia = true" />
+      </p>
+      <vs-popup class="strains__popup media__add" type="border" title :active.sync="addMedia">
+          <add-form :from="from" mode="add" :strain="strain_data.strain"></add-form>
+      </vs-popup>
     </div>
 </template>
 

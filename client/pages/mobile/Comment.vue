@@ -402,7 +402,8 @@
                 tag.focus();
             },
             goProfile(username) {
-                window.location.href = username;
+                console.log(username)
+                window.location.href = "/"+username;
             },
             linkify(text) {
                 var urlRegex =/(\b(https?|http):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;

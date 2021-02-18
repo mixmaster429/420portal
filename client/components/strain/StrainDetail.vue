@@ -103,13 +103,16 @@
             </div>
 
             <h2 class="text-center mt-4 mb-1 category__header">{{ strain_data.strain.name }} Weed Pictures & Videos</h2>
-            <p class="text-center category__addmedia">
+            <p class="text-center category__addmedia" v-if="$device.isMobile">
                 Upload Your Pictures &amp; Videos of this Strain.
-                <a href="/mobile/media/add" v-if="$device.isMobile">
+                <a href="/mobile/media/add">
                     <img src="/imgs/add.png" alt="">
                 </a>
-                <strain-add-media v-else :strain_data="strain_data"></strain-add-media>
             </p>
+            <p class="text-center category__addmedia" v-else>
+                <strain-add-media :strain_data="strain_data"></strain-add-media>
+            </p>
+                
         </div>
         <template>
             <!-- <keep-alive v-if="$device.isMobile">
