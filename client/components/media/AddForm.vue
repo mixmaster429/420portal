@@ -189,8 +189,8 @@ export default {
     }),
     mounted() {
         if(this.strain) {
-            console.log(this.strain.name)
             this.taggedStrains.push(this.strain)
+            this.floatStrainLabel = true
         }
         var _this = this;
         this.getData();

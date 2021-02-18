@@ -524,5 +524,12 @@
 }
 
 .category__addmedia {
-  cursor: pointer;
+
+  span {
+    cursor: pointer;
+  }
+
+  img {
+    cursor: pointer;
+  }
 }
