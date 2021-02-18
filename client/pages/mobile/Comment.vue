@@ -33,13 +33,13 @@
             <div class="comment_container" v-for="(item, index) in comments" v-if="!loading" :key="index">
                 <div class="comment">
                     <div class="userlogo">
-                        <a v-bind:href="item.user.name">
+                        <a v-bind:href="'/'+item.user.name">
                             <img v-if="item.user.profile_pic" v-bind:src="serverUrl(item.user.profile_pic.url)" alt="">
                             <img v-else src="~assets/imgs/default.png" />
                         </a>
                     </div>
                     <div class="description">
-                        <a v-bind:href="item.user.name"><span class="username">{{item.user.name}}</span></a>
+                        <a v-bind:href="'/'+item.user.name"><span class="username">{{item.user.name}}</span></a>
                         <span v-html="linkify(item.text)"></span>
                         <p class="status">
                             <span class="likes" v-if="item.likes > 0 && item.likes == 1">{{item.likes}} Like.</span>
@@ -59,16 +59,16 @@
                 <div class="sub_comment_container" v-for="(sub_item, subindex) of item.sub_comment" :key="subindex">
                     <div class="sub_comment">
                         <div class="userlogo">
-                            <a v-bind:href="sub_item.user.name">
+                            <a v-bind:href="'/'+sub_item.user.name">
                                 <img v-if="sub_item.user.profile_pic" v-bind:src="serverUrl(sub_item.user.profile_pic.url)" alt />
                                 <img v-else src="~assets/imgs/default.png" />
                             </a>
                         </div>
                         <div class="description">
-                            <a v-bind:href="sub_item.user.name">
+                            <a v-bind:href="'/'+sub_item.user.name">
                                 <span class="username">{{sub_item.user.name}}</span>
                             </a>
-                            <a v-bind:href="sub_item.parent.user.name">
+                            <a v-bind:href="'/'+sub_item.parent.user.name">
                                 <span class="text-primary">@{{sub_item.parent.user.name}} </span>
                             </a>
                             <span v-html="linkify(sub_item.text)"></span>
@@ -89,16 +89,16 @@
                     <div class="sub2_comment_container" v-for="(sub2_item, sub2index) of sub_item.sub2_comments" :key="sub2index">
                         <div class="sub2_comment">
                             <div class="userlogo">
-                                <a v-bind:href="sub2_item.user.name">
+                                <a v-bind:href="'/'+sub2_item.user.name">
                                     <img v-if="sub2_item.user.profile_pic" v-bind:src="serverUrl(sub2_item.user.profile_pic.url)" alt />
                                     <img v-else src="~assets/imgs/default_sm.png" />
                                 </a>
                             </div>
                             <div class="description">
-                                <a v-bind:href="sub2_item.user.name">
+                                <a v-bind:href="'/'+sub2_item.user.name">
                                     <span class="username">{{sub2_item.user.name}}</span>
                                 </a>
-                                <a v-bind:href="sub2_item.parent.user.name">
+                                <a v-bind:href="'/'+sub2_item.parent.user.name">
                                     <span class="text-primary">@{{sub2_item.parent.user.name}} </span>
                                 </a>
                                 <span v-html="linkify(sub2_item.text)"></span>
