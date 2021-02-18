@@ -15,7 +15,7 @@
                 meta: [
                     { hid: 'title', name: 'title', content: `${this.map_location.city ? this.map_location.city.name + ', ' : ''}${this.map_location.state ? this.map_location.state.name + ' - ' : ''}Marijuana Dispensary - Marijuana Delivery`},
                     { hid: 'keywords', name: 'keywords', content: `${this.map_location.city ? this.map_location.city.name.toLowerCase() + ', ' : ''}${this.map_location.state ? this.map_location.state.name.toLowerCase() + ', ' : ''}marijuana, weed, dispensary, collective, delivery, medical, recreational, cannabis`},
-                    { hid: 'description', name: 'description', content: `Find Your Weed! Search for Marijuana Dispensaries, Deliveries and Collectives${this.map_location.state ? ' in ' : ''}${this.map_location.city ? this.map_location.city.name + ', ' : ''}${this.map_location.state ? this.map_location.state.name : ''}. Medical and Recreational Cannabis.`}
+                    { hid: 'description', name: 'description', content: `Medical and Recreational Marijuana Dispensaries and Marijuana Deliveries${this.map_location.state ? ' in ' : ''}${this.map_location.city ? this.map_location.city.name + ', ' : ''}${this.map_location.state ? this.map_location.state.name : ''}. Medical and Recreational Cannabis.`}
                 ],
             }
         },

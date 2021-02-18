@@ -477,23 +477,6 @@
     export default {
         name: "MapPage",
         props: ['page_title'],
-        head () {
-            return {
-                title: this.tocapitalize(this.city) + ", " + this.tocapitalize(this.state) + 'Marijuana Dispensary and Delivery',
-                meta: [
-                    {
-                        hid: 'description',
-                        name: 'description',
-                        content: 'Medical and Recreational Marijuana Dispensaries and Marijuana Deliveries in ' + this.tocapitalize(this.city) + ", " + this.tocapitalize(this.state) + '. Find Your Cannabis.'
-                    },
-                    {
-                        hid: 'title',
-                        name: 'title',
-                        content: this.tocapitalize(this.city) + ", " + this.tocapitalize(this.state) + 'Marijuana Dispensary and Delivery - Recreational and Medical'
-                    }
-                ],
-            }
-        },
         data() {
             return {
                 loading: false,
