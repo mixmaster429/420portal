@@ -50,7 +50,7 @@ class HomeController extends Controller
             'message' => $message,
         ]);
         try {
-            Mail::to('420portal@gmail.com')->send(new ContactUsMail($data));
+            Mail::to('mjone352@gmail.com')->send(new ContactUsMail($data));
         } catch (\Throwable $th) {
             //throw $th;
         }
