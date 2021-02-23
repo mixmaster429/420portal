@@ -31,7 +31,7 @@
         <div class="col-md-12 text-center">
           <p class="text-white">
             Please login to submit message:
-            <a href="#" style="color: #efa720;" @click="openLoginModal()" >
+            <a href="#" style="color: #efa720;" @click="openLoginModal()">
               Login
             </a>
           </p>
@@ -61,17 +61,16 @@ export default {
     loading: false
   }),
   methods: {
-    async sendmessage() {
+    sendmessage() {
       let data;
       this.loading = true;
+      const params = {
+        description: this.description
+      };
       // Submit the form.
-      try {
-        const response = await this.form.post("/contact-us");
-        data = response.data;
-        console.log(data);
-      } catch (e) {
-        return;
-      }
+      this.axios.post("/contact-us", params).then(response => {
+        this.loading = false;
+      });
     },
     openLoginModal() {
       console.log("login");

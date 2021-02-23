@@ -54,6 +54,8 @@ class HomeController extends Controller
         } catch (\Throwable $th) {
             //throw $th;
         }
-        return back()->with('success', 'Message Sent');
+        $return = array();
+        $return['success'] = 'success';
+        return response()->json($return);
     }
 }
