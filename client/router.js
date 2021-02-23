@@ -45,6 +45,8 @@ const routes = [
   { path: '/email/verify/:id', name: 'verification.verify', component: page('auth/verification/verify.vue') },
   { path: '/email/resend', name: 'verification.resend', component: page('auth/verification/resend.vue') },
 
+  { path: '/contact-us', name: "contactus", component: page('Contact-us.vue')},
+
   { path: '/settings',
     component: page('settings/index.vue'),
     children: [
@@ -63,8 +65,6 @@ const routes = [
       { path: 'category', name: 'admin.category', component: page('admin/Category.vue') },
     ] 
   },
-
-
 
   { path: '/dashboard', name: 'dashboard', component: page('Dashboard.vue') },
   { path: '/:username', name: 'profile', component: page('Profile.vue') },

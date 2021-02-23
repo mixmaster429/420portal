@@ -103,6 +103,9 @@ Route::post('/app/get/portal', 'Api\PortalController@getPortal');
 Route::post('/get_description', 'SettingController@getDescription');
 Route::post('/update_description', 'SettingController@updateDescription');
 
+// Contact us
+Route::post('/contact-us', 'HomeController@send_contact_message');
+
 Route::middleware(['auth:api'])->group(function ($router){
     $router->post('/profile/like', 'LikeController@likeProfile');
     $router->post('/profile/unlike', 'LikeController@unlikeProfile');
