@@ -24,6 +24,7 @@
             <v-button :loading="loading" v-if="user">
               Submit
             </v-button>
+            <p class="mt-3 text-white" v-if="success" >Thank you for contacting us.</p>
           </div>
         </div>
       </form>
@@ -31,7 +32,7 @@
         <div class="col-md-12 text-center">
           <p class="text-white">
             Please login to submit message:
-            <a href="#" style="color: #efa720;" @click="openLoginModal()">
+            <a href="#" style="color: #efa720;" @click="openLoginModal()" >
               Login
             </a>
           </p>
@@ -58,22 +59,22 @@ export default {
     form: new Form({
       description: ""
     }),
-    loading: false
+    loading: false,
+    success: false
   }),
   methods: {
-    sendmessage() {
-      let data;
+    async sendmessage() {
       this.loading = true;
-      const params = {
-        description: this.description
-      };
-      // Submit the form.
-      this.axios.post("/contact-us", params).then(response => {
+      try {
+        const response = await this.form.post("/contact-us");
         this.loading = false;
-      });
+        if(response.data.success === "success") this.success = true
+        this.form.description = ""
+      } catch (e) {
+        return;
+      }
     },
     openLoginModal() {
-      console.log("login");
       $("#loginmodal").modal();
     }
   }
