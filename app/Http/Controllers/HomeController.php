@@ -56,6 +56,6 @@ class HomeController extends Controller
         }
         $return = array();
         $return['success'] = 'success';
-        return response()->json($return);
+        return response()->json($data);
     }
 }
