@@ -192,7 +192,7 @@
             }),
         },
         mounted() {
-          const menus = this.strain_data.menu
+          const menus = this.strain_data.menus
           console.log(menus)
           for (let i = 0; i < menus.length; i++) {
             if(menus[i]['strain_id'] !== this.strain_data.strain.id) continue;
