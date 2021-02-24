@@ -95,9 +95,9 @@ class StrainController extends Controller
       $strainDetail = Strain::where('slug', $strain)->firstOrFail();
       $brand_array = User::whereType('brand')->pluck('id');
 
-      dd($brand_array);
       $strain_menus = $strainDetail->menus->whereNotIn('portal_id', $brand_array)->pluck('media_id')->unique()->toArray();
       $strain_menus = array_filter($strain_menus);
+      dd($strain_menus);
 
       // dd($strainDetail->id);
 
