@@ -100,8 +100,6 @@ class StrainController extends Controller
 
       $menus = $strainDetail->menus->whereNotIn('portal_id', $brand_array)->all();
 
-      dd($menus);
-
       $taggedMedia = Media::with('strain')->where('tagged_strain', $strainDetail->id)->orderByDesc('id')->get();
       // check private
       if (auth()->id()) {
@@ -123,6 +121,7 @@ class StrainController extends Controller
       return response()->json([
         'type' => 'strain',
         'strain' => $strainDetail->load('category'),
+        'menu' => $menus,
         'taggedMedia' => $taggedMedia,
         'posts_count' => $posts_count,
         'followers_count' => $followers_count,
@@ -137,6 +136,7 @@ class StrainController extends Controller
     $strain = Strain::with('category')->withCount(['likes', 'comments'])->find($id);
     $brand_array = User::whereType('brand')->pluck('id');
     $strain_menus = $strain->menus->whereNotIn('portal_id', $brand_array)->pluck('media_id')->unique()->toArray();
+    $menus = $strain->menus->whereNotIn('portal_id', $brand_array)->all();
     $strain->is_like = $strain->is_like();
     // check private
     $follow_users = Follow::where('user_id', auth()->id())->distinct()->pluck('follower_user_id')->toArray();
@@ -153,6 +153,7 @@ class StrainController extends Controller
     $is_follower = Follow::where('user_id', auth()->id())->where('follower_strain_id', $strain->id)->count();
     $data = [
       'strain' => $strain,
+      'menu' => $menus,
       'posts_count' => $posts_count,
       'followers_count' => $followers_count,
       'is_follower' => $is_follower,
