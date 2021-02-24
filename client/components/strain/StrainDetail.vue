@@ -53,22 +53,22 @@
 
             <div class="strains__extra mt-3">
                 <ul class="nav extra__list justify-content-center mb-3" id="pills-tab" role="tablist">
-                    <li class="nav-item">
+                    <li class="nav-item" v-if="this.menu.folowers > 0">
                         <a class="nav-link active" id="pills-flowers-tab" data-toggle="pill" href="#pills-flowers" role="tab" aria-controls="pills-flowers" aria-selected="true">Flowers</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" v-if="this.menu.concentrates > 0">
                         <a class="nav-link" id="pills-concentrates-tab" data-toggle="pill" href="#pills-concentrates" role="tab" aria-controls="pills-concentrates" aria-selected="false">Concentrates</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" v-if="this.menu.vapepens > 0">
                         <a class="nav-link" id="pills-vape-pens-tab" data-toggle="pill" href="#pills-vape-pens" role="tab" aria-controls="pills-vape-pens" aria-selected="false">Vape Pens</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" v-if="this.menu.clones > 0">
                         <a class="nav-link" id="pills-clones-tab" data-toggle="pill" href="#pills-clones" role="tab" aria-controls="pills-clones" aria-selected="false">Clones</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" v-if="this.menu.seeds > 0">
                         <a class="nav-link" id="pills-seeds-tab" data-toggle="pill" href="#pills-seeds" role="tab" aria-controls="pills-seeds" aria-selected="false">Seeds</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" v-if="this.menu.preroll > 0">
                         <a class="nav-link" id="pills-pre-roll-tab" data-toggle="pill" href="#pills-pre-roll" role="tab" aria-controls="pills-pre-roll" aria-selected="false">Pre Roll</a>
                     </li>
                 </ul>
@@ -176,12 +176,33 @@
             return {
                 openEditPopup: false,
                 openFollowerPopup: false,
+                menu : {
+                  'folowers': 0,
+                  'concentrates': 0,
+                  'vapepens': 0,
+                  'clones': 0,
+                  'seeds': 0,
+                  'preroll': 0
+                }
             }
         },
         computed: {
             ...mapGetters({
                 user: 'auth/user',
             }),
+        },
+        mounted() {
+          console.log(this.strain_data)
+          const menus = this.strain_data.strain.menus
+          for (let i = 0; i < menus.length; i++) {
+            if(menus[i]['strain_id'] !== this.strain_data.strain.id) continue;
+            if(menus[i]['category_id'] < 3) this.menu.folowers ++;
+            if(menus[i]['category_id'] === 4) this.menu.concentrates ++;
+            if(menus[i]['category_id'] === 5) this.menu.vapepens ++;
+            if(menus[i]['category_id'] === 9) this.menu.clones ++;
+            if(menus[i]['category_id'] === 10) this.menu.seeds ++;
+            if(menus[i]['category_id'] === 12) this.menu.preroll ++;
+          }
         },
         methods: {
             openLoginModal() {
