@@ -188,6 +188,8 @@
                 }
 
                 let scroll_to = scroll_div ? scroll_div.offsetTop - offset : 0;
+
+                if(this.posts.length > 20) scroll_to = scroll_to - 65
                 this.$refs.scroll_wrapper.scrollTo(0, scroll_to); 
             }
             if(!this.posts){
