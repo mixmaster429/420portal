@@ -95,11 +95,12 @@ class StrainController extends Controller
       $strainDetail = Strain::where('slug', $strain)->firstOrFail();
       $brand_array = User::whereType('brand')->pluck('id');
 
-      $strainDetail->menus = $strainDetail->menus->whereNotIn('portal_id', $brand_array)->all();
       $strain_menus = $strainDetail->menus->whereNotIn('portal_id', $brand_array)->pluck('media_id')->unique()->toArray();
       $strain_menus = array_filter($strain_menus);
 
-      dd($strainDetail->menus);
+      $menus = $strainDetail->menus->whereNotIn('portal_id', $brand_array)->all();
+
+      dd($menus);
 
       $taggedMedia = Media::with('strain')->where('tagged_strain', $strainDetail->id)->orderByDesc('id')->get();
       // check private
