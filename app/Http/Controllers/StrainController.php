@@ -98,7 +98,7 @@ class StrainController extends Controller
       $strain_menus = $strainDetail->menus->whereNotIn('portal_id', $brand_array)->pluck('media_id')->unique()->toArray();
       $strain_menus = array_filter($strain_menus);
 
-      $menus = $strainDetail->menus->whereNotIn('portal_id', $brand_array)->all()->toArray();
+      $menus = $strainDetail->menus->whereNotIn('portal_id', $brand_array)->all();
 
       $taggedMedia = Media::with('strain')->where('tagged_strain', $strainDetail->id)->orderByDesc('id')->get();
       // check private
@@ -136,7 +136,7 @@ class StrainController extends Controller
     $strain = Strain::with('category')->withCount(['likes', 'comments'])->find($id);
     $brand_array = User::whereType('brand')->pluck('id');
     $strain_menus = $strain->menus->whereNotIn('portal_id', $brand_array)->pluck('media_id')->unique()->toArray();
-    $menus = $strain->menus->whereNotIn('portal_id', $brand_array)->all()->toArray();
+    $menus = $strain->menus->whereNotIn('portal_id', $brand_array)->all();
     $strain->is_like = $strain->is_like();
     // check private
     $follow_users = Follow::where('user_id', auth()->id())->distinct()->pluck('follower_user_id')->toArray();
