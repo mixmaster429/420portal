@@ -85,7 +85,6 @@
                 };
                 this.axios.post(url, params).then(response => {
                     this.menus = response.data;
-                    console.log(response.data)
                 });
             },
             showPosition(position) {

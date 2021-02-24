@@ -121,7 +121,7 @@ class StrainController extends Controller
       return response()->json([
         'type' => 'strain',
         'strain' => $strainDetail->load('category'),
-        'menu' => $menus,
+        'menus' => $menus,
         'taggedMedia' => $taggedMedia,
         'posts_count' => $posts_count,
         'followers_count' => $followers_count,
@@ -153,7 +153,7 @@ class StrainController extends Controller
     $is_follower = Follow::where('user_id', auth()->id())->where('follower_strain_id', $strain->id)->count();
     $data = [
       'strain' => $strain,
-      'menu' => $menus,
+      'menus' => $menus,
       'posts_count' => $posts_count,
       'followers_count' => $followers_count,
       'is_follower' => $is_follower,

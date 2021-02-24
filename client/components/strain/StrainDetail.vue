@@ -192,8 +192,8 @@
             }),
         },
         mounted() {
-          console.log(this.strain_data)
-          const menus = this.strain_data.strain.menus
+          const menus = this.strain_data.menu
+          console.log(menus)
           for (let i = 0; i < menus.length; i++) {
             if(menus[i]['strain_id'] !== this.strain_data.strain.id) continue;
             if(menus[i]['category_id'] < 3) this.menu.folowers ++;
