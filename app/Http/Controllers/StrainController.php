@@ -94,10 +94,8 @@ class StrainController extends Controller
     } else {
       $strainDetail = Strain::where('slug', $strain)->firstOrFail();
       $brand_array = User::whereType('brand')->pluck('id');
-
       $strain_menus = $strainDetail->menus->whereNotIn('portal_id', $brand_array)->pluck('media_id')->unique()->toArray();
       $strain_menus = array_filter($strain_menus);
-      dd($strain_menus);
 
       // dd($strainDetail->id);
 
@@ -134,7 +132,8 @@ class StrainController extends Controller
   public function show_mobile($id)
   {
     $strain = Strain::with('category')->withCount(['likes', 'comments'])->find($id);
-    $strain_menus = $strain->menus->pluck('media_id')->unique()->toArray();
+    $brand_array = User::whereType('brand')->pluck('id');
+    $strain_menus = $strain->menus->whereNotIn('portal_id', $brand_array)->pluck('media_id')->unique()->toArray();
     $strain->is_like = $strain->is_like();
     // check private
     $follow_users = Follow::where('user_id', auth()->id())->distinct()->pluck('follower_user_id')->toArray();
