@@ -32,6 +32,7 @@ export const actions = {
     try {
       let url = `/get_strain/${slug}`;
       const { data } = await axios.get(url)
+      console.log(data)
       commit('FETCH_STRAIN_DATA', data)
     } catch (e) {
         console.log(e)
