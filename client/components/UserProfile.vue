@@ -305,8 +305,6 @@
                         type: this.userdata.type,
                         store_type: this.userdata.store_type,
                     };
-
-                    // this.$parent.pushchatuserlist(user);
                     this.$store.dispatch('chat/openChatBox', chat_user);
                 } else {
                     $("#loginmodal").modal("show");

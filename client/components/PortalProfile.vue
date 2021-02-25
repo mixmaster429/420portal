@@ -440,7 +440,7 @@ export default {
             if(new_flag) {
                 this.show_description = this.profile.description;
             } else {
-                this.show_description = this.profile.description ? this.profile.description.substring(0, this.description_max_length) : '';
+                this.show_description = this.profile.description ? this.profile.description.slice(0, this.description_max_length) : '';
             }
         }
     },
@@ -494,7 +494,7 @@ export default {
             currentTab: 'followers',
             page: 1,
             posts_count: 0,
-            show_description: this.profile.description ? this.profile.description.substring(0, 100) : '',
+            show_description: this.profile.description ? this.profile.description.substring(0, 200) : '',
             description_expanded : false,
             description_max_length: this.$device.isMobile ? 80 : 200,
             distance: '',
