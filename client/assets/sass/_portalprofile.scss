@@ -282,6 +282,16 @@
         }
     }
 
+    .detail-container {
+        @media (min-width: 600px) {
+            padding-left: 7%;
+            margin-left: 10px;
+        }
+        @media (max-width: 600px) {
+            margin: 0 -15px;
+        }
+    }
+
     #page_comment {
         border: 1px solid #fff;
         padding: 0 7px;

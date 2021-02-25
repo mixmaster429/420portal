@@ -22,7 +22,7 @@
         <div class="container-fluid">
             <div class="row" style="margin: 0 auto">
                 <div class="col-md-8">
-                    <div style="padding-left: 7%;margin: 10px;">                        
+                    <div class="detail-container">                        
                         <div class="portal_details row mb-2">
                             <div class="col-4 text-left">
                                 <div class="logo_image">
@@ -207,7 +207,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4" v-if="!$device.isMobile">
                     <page-comment :page="portal_detail" model="portal"></page-comment>
                 </div>
             </div>
@@ -494,7 +494,7 @@ export default {
             currentTab: 'followers',
             page: 1,
             posts_count: 0,
-            show_description: this.profile.description ? this.profile.description.substring(0, 200) : '',
+            show_description: this.profile.description ? this.profile.description.substring(0, this.$device.isMobile ? 80 : 200) : '',
             description_expanded : false,
             description_max_length: this.$device.isMobile ? 80 : 200,
             distance: '',
