@@ -106,7 +106,6 @@
             :auth="user"
           ></edit-description>
         </div>
-
         <div class="col-md-3" v-if="!$device.isMobile">
           <page-comment
             :page="strain_data.strain"
@@ -335,7 +334,7 @@
     </client-only>
 
     <!-- Comment Modal -->
-    <div class="modal fade" id="commentModal">
+    <div class="modal fade" id="commentModal" v-if="$device.isMobile">
       <div class="modal-dialog" role="document">
         <div class="modal-content comment_page">
           <div class="modal-header">

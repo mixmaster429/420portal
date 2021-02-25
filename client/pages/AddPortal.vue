@@ -30,16 +30,36 @@
 </template>
 
 <script>
+    import { mapGetters } from 'vuex'
+    import Cookies from 'js-cookie'
     import AddPortal from "~/components/portal/AddPortal";
     import PageFooter from "~/components/PageFooter";
     import "~/assets/sass/_addportal.scss";
     import Terms from "./auth/terms"
     export default {
-        middleware: 'guest',
         components: {
             AddPortal,
             PageFooter,
             Terms,
+        },
+        computed: mapGetters({
+            user: "auth/user"
+        }),
+        mounted() {
+            if(this.user) {
+                this.logout();
+            }
+        },
+        methods: {
+            async logout () {
+                // await this.$store.dispatch('auth/logout');
+                try {
+                    await axios.post('/logout')
+                } catch (e) { }
+
+                Cookies.remove('token');
+                this.$store.commit('auth/LOGOUT');
+            }
         }
     }
 </script>

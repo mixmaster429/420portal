@@ -109,7 +109,7 @@
             .btn-readmore {
                 cursor: pointer;
                 text-decoration: underline;
-                white-space: nowrap;
+                // white-space: nowrap;
             }
         }
         .recreational, .medical {
@@ -281,6 +281,12 @@
             }
         }
     }
+
+    #page_comment {
+        border: 1px solid #fff;
+        padding: 0 7px;
+        margin-top: 30px;
+    }
 }
 
 .portalprofile__popup {
@@ -299,6 +305,9 @@
 
 .pf-details {
     font-size: 20px;
+    @media (min-width: 600px) {
+        padding-right: 120px;
+    }
     .info-container {
         &>div {
             padding-right: 1.3rem;

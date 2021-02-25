@@ -296,7 +296,7 @@
             },
             openchat() {
                 if (this.auth_user) {
-                    let user = {
+                    let chat_user = {
                         from: this.auth_user.id,
                         to: this.userdata.id,
                         name: this.userdata.name,
@@ -306,7 +306,8 @@
                         store_type: this.userdata.store_type,
                     };
 
-                    this.$parent.pushchatuserlist(user);
+                    // this.$parent.pushchatuserlist(user);
+                    this.$store.dispatch('chat/openChatBox', chat_user);
                 } else {
                     $("#loginmodal").modal("show");
                 }

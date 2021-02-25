@@ -19,187 +19,196 @@
                 </div>
             </client-only>
         </div>
-        <div class="container">
-            <div class="portal_details row mb-2">
-                <div class="col-4 col-md-2 text-left">
-                    <div class="logo_image">
-                        <img :src="serverUrl(portal_detail.profile_pic ? portal_detail.profile_pic.url : '/imgs/default.png')" alt />
-                    </div>
-                </div>
-                
-                <div class="pf-details col-8 text-center mt-md-1">
-                    <div class="info-container d-flex text-center justify-content-center">
-                        <div class="info_posts">
-                            <span>{{portal_detail.posts_count}}</span>
-                            <p class="mb-0">Posts</p>
-                        </div>
-                        <div class="info_followers" @click="openfollow(portal_detail.id)">
-                            <span>{{this.followers}}</span>
-                            <p class="mb-0">Followers</p>
-                        </div>
-                    </div>
-                    <vs-popup class="portalprofile__popup" title="Follower & Following" :active.sync="popupActive">
-                        <div>
-                            <Tabs
-                                :tabs="tabs"
-                                :currentTab="currentTab"
-                                :wrapper-class="'default-tabs'"
-                                :tab-class="'default-tabs__item'"
-                                :tab-active-class="'default-tabs__item_active'"
-                                :line-class="'default-tabs__active-line'"
-                                @onClick="handleClick"
-                            />
-                            <div class="tabs-content">
-                                <div v-if="currentTab === 'followers'">
-                                    <ul>
-                                        <li v-for="(followerobj, index) of followerobjs" :key="`followerobj-${index}`">
-                                            <div class="follower-logo" @click="gotouserprofile(followerobj.username)">
-                                                <img :src="serverUrl(followerobj.url)"/>
+        <div class="container-fluid">
+            <div class="row" style="margin: 0 auto">
+                <div class="col-md-8">
+                    <div style="padding-left: 7%;margin: 10px;">                        
+                        <div class="portal_details row mb-2">
+                            <div class="col-4 text-left">
+                                <div class="logo_image">
+                                    <img :src="serverUrl(portal_detail.profile_pic ? portal_detail.profile_pic.url : '/imgs/default.png')" alt />
+                                </div>
+                            </div>
+                            
+                            <div class="pf-details col-8 text-center mt-md-1">
+                                <div class="info-container d-flex text-center justify-content-center">
+                                    <div class="info_posts">
+                                        <span>{{portal_detail.posts_count}}</span>
+                                        <p class="mb-0">Posts</p>
+                                    </div>
+                                    <div class="info_followers" @click="openfollow(portal_detail.id)">
+                                        <span>{{this.followers}}</span>
+                                        <p class="mb-0">Followers</p>
+                                    </div>
+                                </div>
+                                <vs-popup class="portalprofile__popup" title="Follower & Following" :active.sync="popupActive">
+                                    <div>
+                                        <Tabs
+                                            :tabs="tabs"
+                                            :currentTab="currentTab"
+                                            :wrapper-class="'default-tabs'"
+                                            :tab-class="'default-tabs__item'"
+                                            :tab-active-class="'default-tabs__item_active'"
+                                            :line-class="'default-tabs__active-line'"
+                                            @onClick="handleClick"
+                                        />
+                                        <div class="tabs-content">
+                                            <div v-if="currentTab === 'followers'">
+                                                <ul>
+                                                    <li v-for="(followerobj, index) of followerobjs" :key="`followerobj-${index}`">
+                                                        <div class="follower-logo" @click="gotouserprofile(followerobj.username)">
+                                                            <img :src="serverUrl(followerobj.url)"/>
+                                                        </div>
+                                                        <div class="username" @click="gotouserprofile(followerobj.username)">
+                                                            <p>{{followerobj.name}}</p>
+                                                        </div>
+                                                        <div class="action">
+                                                            <img src="~assets/imgs/follow-icon.png" v-if="followerobj.isfollower == 0" @click="follow(followerobj.id, 'tab', followerobj.isportal, 1)"/>
+                                                            <img src="~assets/imgs/unfollow.png" v-else @click="unfollow(followerobj.id, 'tab', followerobj.isportal, 1)"/>
+                                                        </div>
+                                                    </li>
+                                                </ul>
                                             </div>
-                                            <div class="username" @click="gotouserprofile(followerobj.username)">
-                                                <p>{{followerobj.name}}</p>
-                                            </div>
-                                            <div class="action">
-                                                <img src="~assets/imgs/follow-icon.png" v-if="followerobj.isfollower == 0" @click="follow(followerobj.id, 'tab', followerobj.isportal, 1)"/>
-                                                <img src="~assets/imgs/unfollow.png" v-else @click="unfollow(followerobj.id, 'tab', followerobj.isportal, 1)"/>
-                                            </div>
-                                        </li>
-                                    </ul>
+                                        </div>
+                                    </div>
+                                </vs-popup>
+                                <div class="portal__extra mt-md-0 mx-md-auto">
+                                    <img src="~assets/imgs/follow-icon.png" alt class="pf-follow" @click="follow(portal_detail.id, 'normal', 0, 1)" v-show="logged_user_id != portal_detail.id" v-if="!isfollower"/>
+                                    <img src="~assets/imgs/unfollow.png" alt class="pf-unfollow" @click="unfollow(portal_detail.id, 'normal', 0, 1)" v-show="logged_user_id != portal_detail.id" v-if="isfollower"/>
+                                    <div class="message mx-auto" style="width: 60px;" @click="openchat()" v-if="portal_detail.messenger && logged_user_id != portal_detail.id && !$device.isMobile && !isblockuser">
+                                        <img src="~assets/imgs/messenger-mobile.png" alt="Message"/>
+                                        <p class="mb-0">Message</p>
+                                    </div>
+                                    <router-link :to="{ name: 'mobile_chatbox', params: {userdetail: portal_detail}}" v-if="$device.isMobile">
+                                        <div class="message btn-message mx-auto" v-if="portal_detail.messenger && logged_user_id != portal_detail.id && !isblockuser">
+                                            <img src="~assets/imgs/messenger-mobile.png" />
+                                            <p class="mb-0">Message</p>
+                                        </div>
+                                    </router-link>
                                 </div>
                             </div>
                         </div>
-                    </vs-popup>
-                    <div class="portal__extra mt-md-0 mx-md-auto">
-                        <img src="~assets/imgs/follow-icon.png" alt class="pf-follow" @click="follow(portal_detail.id, 'normal', 0, 1)" v-show="logged_user_id != portal_detail.id" v-if="!isfollower"/>
-                        <img src="~assets/imgs/unfollow.png" alt class="pf-unfollow" @click="unfollow(portal_detail.id, 'normal', 0, 1)" v-show="logged_user_id != portal_detail.id" v-if="isfollower"/>
-                        <div class="message mx-auto" style="width: 60px;" @click="openchat()" v-if="portal_detail.messenger && logged_user_id != portal_detail.id && !$device.isMobile && !isblockuser">
-                            <img src="~assets/imgs/messenger-mobile.png" alt="Message"/>
-                            <p class="mb-0">Message</p>
-                        </div>
-                        <router-link :to="{ name: 'mobile_chatbox', params: {userdetail: portal_detail}}" v-if="$device.isMobile">
-                            <div class="message btn-message mx-auto" v-if="portal_detail.messenger && logged_user_id != portal_detail.id && !isblockuser">
-                                <img src="~assets/imgs/messenger-mobile.png" />
-                                <p class="mb-0">Message</p>
+                        <div class="portal_info clearfix">
+                            <div class="d-flex align-items-center">
+                                <h1 class="username mr-2 mb-0 float-left">{{portal_detail.name}}
+                                </h1>
+                                <a href="javascript:;" @click="openEditPopup = true" v-if="auth_user && (auth_user.id == portal_detail.id || auth_user.id == 1)">
+                                    <img class="portal__edit" src="@/assets/imgs/edit.png" alt />
+                                </a>
                             </div>
-                        </router-link>
-                    </div>
-                </div>
-            </div>
-            <div class="portal_info clearfix">
-                <div class="d-flex align-items-center">
-                    <h1 class="username mr-2 mb-0 float-left">{{portal_detail.name}}
-                    </h1>
-                    <a href="javascript:;" @click="openEditPopup = true" v-if="auth_user && (auth_user.id == portal_detail.id || auth_user.id == 1)">
-                        <img class="portal__edit" src="@/assets/imgs/edit.png" alt />
-                    </a>
-                </div>
-                <p class="font-weight-bold" style="color: gray;margin-left: 15px;margin-top: -5px; clear: both;">@{{portal_detail.username}}</p>
-                <p class="store_type" v-if="portal_detail.type == 'company'">
-                    <img
-                        src="@/assets/imgs/dispensary.png"
-                        alt
-                        v-if="portal_detail.store_type == 1 || portal_detail.store_type == 3"
-                    />
-                    <img
-                        src="@/assets/imgs/delivery.png"
-                        alt
-                        v-if="portal_detail.store_type == 2 || portal_detail.store_type == 3"
-                    />
+                            <p class="font-weight-bold" style="color: gray;margin-left: 15px;margin-top: -5px; clear: both;">@{{portal_detail.username}}</p>
+                            <p class="store_type" v-if="portal_detail.type == 'company'">
+                                <img
+                                    src="@/assets/imgs/dispensary.png"
+                                    alt
+                                    v-if="portal_detail.store_type == 1 || portal_detail.store_type == 3"
+                                />
+                                <img
+                                    src="@/assets/imgs/delivery.png"
+                                    alt
+                                    v-if="portal_detail.store_type == 2 || portal_detail.store_type == 3"
+                                />
 
-                    <span v-if="portal_detail.store_type == 3">(Storefront + Delivery)</span>
-                    <span v-if="portal_detail.store_type == 1">(Storefront)</span>
-                    <span v-if="portal_detail.store_type == 2">(Delivery)</span>
+                                <span v-if="portal_detail.store_type == 3">(Storefront + Delivery)</span>
+                                <span v-if="portal_detail.store_type == 1">(Storefront)</span>
+                                <span v-if="portal_detail.store_type == 2">(Delivery)</span>
 
-                    <span
-                        v-if="portal_detail.shop_status == 2"
-                        class="text-center ml-2 clickable-title text-success"
-                        data-toggle="modal"
-                        data-target="#companyTiming"
-                    >
-                        Open
-                        <fa icon="angle-down" class="ml-1"></fa>
-                    </span>
+                                <span
+                                    v-if="portal_detail.shop_status == 2"
+                                    class="text-center ml-2 clickable-title text-success"
+                                    data-toggle="modal"
+                                    data-target="#companyTiming"
+                                >
+                                    Open
+                                    <fa icon="angle-down" class="ml-1"></fa>
+                                </span>
 
-                    <span
-                        v-else
-                        class="text-center ml-2 clickable-title text-danger"
-                        data-toggle="modal"
-                        data-target="#companyTiming"
-                    >
-                        Closed
-                        <fa icon="angle-down" class="ml-1"></fa>
-                    </span>
-                </p>
-
-                <div class="portal__information mt-1">
-                    <div class="address" v-if="portal_detail.type == 'company'">
-                        <p class="state_license" v-if="portal_detail.state_license">State License # {{portal_detail.state_license}}</p>
-                        <p class="recreational my-0 pl-2" v-if="portal_detail.recreational && portal_detail.medical">(Recreational - Medical)</p>
-                        <p class="recreational my-0 pl-2" v-else-if="portal_detail.recreational">(Recreational)</p>
-                        <p class="medical my-0 pl-2" v-else-if="portal_detail.medical">(Medical)</p>
-                        <p style="height:5px"></p>
-                        <div class="portal__address" style="cursor:pointer;" @click="openGoogleMap()">
-                            <p v-if="portal_detail.store_type !== 2">
-                                {{portal_detail.address}},
-                                <span v-if="portal_detail.suite">(Suite {{portal_detail.suite}}) </span>
+                                <span
+                                    v-else
+                                    class="text-center ml-2 clickable-title text-danger"
+                                    data-toggle="modal"
+                                    data-target="#companyTiming"
+                                >
+                                    Closed
+                                    <fa icon="angle-down" class="ml-1"></fa>
+                                </span>
                             </p>
-                            <p>{{portal_detail.city}}, {{portal_detail.state}} {{portal_detail.postal}}</p>
+
+                            <div class="portal__information mt-1">
+                                <div class="address" v-if="portal_detail.type == 'company'">
+                                    <p class="state_license" v-if="portal_detail.state_license">State License # {{portal_detail.state_license}}</p>
+                                    <p class="recreational my-0 pl-2" v-if="portal_detail.recreational && portal_detail.medical">(Recreational - Medical)</p>
+                                    <p class="recreational my-0 pl-2" v-else-if="portal_detail.recreational">(Recreational)</p>
+                                    <p class="medical my-0 pl-2" v-else-if="portal_detail.medical">(Medical)</p>
+                                    <p style="height:5px"></p>
+                                    <div class="portal__address" style="cursor:pointer;" @click="openGoogleMap()">
+                                        <p v-if="portal_detail.store_type !== 2">
+                                            {{portal_detail.address}},
+                                            <span v-if="portal_detail.suite">(Suite {{portal_detail.suite}}) </span>
+                                        </p>
+                                        <p>{{portal_detail.city}}, {{portal_detail.state}} {{portal_detail.postal}}</p>
+                                    </div>
+                                </div>
+
+                                <p v-if="portal_detail.phone_number && portal_detail.type == 'company'" class="telephone">
+                                    <a :href="`tel:${portal_detail.phone_number}`" target="_blank">
+                                        <fa icon="phone-alt"></fa>
+                                        {{portal_detail.phone_number}}
+                                    </a>
+                                </p>
+
+                                <!-- <editdescription class="category__content mt-3" type="portal" :strain="portal_detail"></editdescription> -->
+                                <p class="mt-3 description" v-if="portal_detail.description && portal_detail.description.length <= description_max_length">{{portal_detail.description}}</p>
+                                <p class="mt-3 description" v-if="portal_detail.description && portal_detail.description.length > description_max_length">
+                                    {{show_description}}
+                                    <span class="text-420 ml-3 btn-readmore" v-if="description_expanded" @click="description_expanded = false">Read Less</span>
+                                    <span class="text-420 ml-3 btn-readmore" v-else @click="description_expanded = true">Read More</span>
+                                </p>
+
+                                <!-- {{portal_detail}} -->
+
+                                <div class="social mt-2">
+                                    <span v-if="portal_detail.website_url" class="website">
+                                        <a :href="`${portal_detail.website_url}`" target="_blank">
+                                            <fa icon="globe-americas"></fa>
+                                        </a>
+                                    </span>
+                                    <span v-if="portal_detail.facebook_url" class="facebook">
+                                        <a :href="`https://${portal_detail.facebook_url}`" target="_blank">
+                                            <fa :icon="['fab', 'facebook-f']"></fa>
+                                        </a>
+                                    </span>
+                                    <span v-if="portal_detail.twitter_url" class="twitter">
+                                        <a :href="`https://${portal_detail.twitter_url}`" target="_blank">
+                                            <fa :icon="['fab', 'twitter']"></fa>
+                                        </a>
+                                    </span>
+                                    <span v-if="portal_detail.instagram_url" class="instagram">
+                                        <a :href="`https://${portal_detail.instagram_url}`" target="_blank">
+                                            <fa :icon="['fab', 'instagram']"></fa>
+                                        </a>
+                                    </span>
+                                    <span v-if="portal_detail.youtube_url" class="youtube">
+                                        <a :href="`https://${portal_detail.youtube_url}`" target="_blank">
+                                            <fa :icon="['fab', 'youtube']"></fa>
+                                        </a>
+                                    </span>
+                                    <span v-if="portal_detail.email" class="email">
+                                        <a :href="`mailto:${portal_detail.email}`">
+                                            <fa icon="envelope"></fa>
+                                        </a>
+                                    </span>
+                                </div>
+                                <div class="amenities">
+                                    <img src="~assets/imgs/atm.png" alt="" v-if="portal_detail.atm" />
+                                    <img src="~assets/imgs/security.png" alt="" v-if="portal_detail.security" />
+                                </div>
+                            </div>
                         </div>
                     </div>
-
-                    <p v-if="portal_detail.phone_number && portal_detail.type == 'company'" class="telephone">
-                        <a :href="`tel:${portal_detail.phone_number}`" target="_blank">
-                            <fa icon="phone-alt"></fa>
-                            {{portal_detail.phone_number}}
-                        </a>
-                    </p>
-
-                    <!-- <editdescription class="category__content mt-3" type="portal" :strain="portal_detail"></editdescription> -->
-                    <p class="mt-3 description" v-if="portal_detail.description && portal_detail.description.length <= description_max_length">{{portal_detail.description}}</p>
-                    <p class="mt-3 description" v-if="portal_detail.description && portal_detail.description.length > description_max_length">
-                        {{show_description}}
-                        <span class="text-420 ml-3 btn-readmore" v-if="description_expanded" @click="description_expanded = false">Read Less</span>
-                        <span class="text-420 ml-3 btn-readmore" v-else @click="description_expanded = true">Read More</span>
-                    </p>
-
-                    <!-- {{portal_detail}} -->
-
-                    <div class="social mt-2">
-                        <span v-if="portal_detail.website_url" class="website">
-                            <a :href="`${portal_detail.website_url}`" target="_blank">
-                                <fa icon="globe-americas"></fa>
-                            </a>
-                        </span>
-                        <span v-if="portal_detail.facebook_url" class="facebook">
-                            <a :href="`https://${portal_detail.facebook_url}`" target="_blank">
-                                <fa :icon="['fab', 'facebook-f']"></fa>
-                            </a>
-                        </span>
-                        <span v-if="portal_detail.twitter_url" class="twitter">
-                            <a :href="`https://${portal_detail.twitter_url}`" target="_blank">
-                                <fa :icon="['fab', 'twitter']"></fa>
-                            </a>
-                        </span>
-                        <span v-if="portal_detail.instagram_url" class="instagram">
-                            <a :href="`https://${portal_detail.instagram_url}`" target="_blank">
-                                <fa :icon="['fab', 'instagram']"></fa>
-                            </a>
-                        </span>
-                        <span v-if="portal_detail.youtube_url" class="youtube">
-                            <a :href="`https://${portal_detail.youtube_url}`" target="_blank">
-                                <fa :icon="['fab', 'youtube']"></fa>
-                            </a>
-                        </span>
-                        <span v-if="portal_detail.email" class="email">
-                            <a :href="`mailto:${portal_detail.email}`">
-                                <fa icon="envelope"></fa>
-                            </a>
-                        </span>
-                    </div>
-                    <div class="amenities">
-                        <img src="~assets/imgs/atm.png" alt="" v-if="portal_detail.atm" />
-                        <img src="~assets/imgs/security.png" alt="" v-if="portal_detail.security" />
-                    </div>
+                </div>
+                <div class="col-md-4">
+                    <page-comment :page="portal_detail" model="portal"></page-comment>
                 </div>
             </div>
             <div class="portal_options mb-2 d-flex justify-content-center">
@@ -211,7 +220,7 @@
                     <img class="img-fluid" src="~assets/imgs/coupon1.png" alt="Coupon" />
                     <span class="options__span">{{portal_detail.coupon ? 1 : 0}}</span>
                 </div>
-                <div class="comment" data-toggle="modal" data-target="#commentModal">
+                <div class="comment" data-toggle="modal" data-target="#commentModal" v-if="$device.isMobile">
                     <fa :icon="['far', 'comment']"></fa>
                     <span class="options__span" id="count_comments">{{portal_detail.total_comments}}</span>
                 </div>
@@ -341,7 +350,7 @@
         </div>
 
         <!-- Comment Modal -->
-        <div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="commentModalLabel" aria-hidden="true">
+        <div class="modal fade" id="commentModal" v-if="$device.isMobile">
             <div class="modal-dialog" role="document" style>
                 <div class="modal-content comment_page">
                     <div class="modal-header">
@@ -631,7 +640,7 @@ export default {
         },
         openchat(){
             if(this.auth_user){
-                let user = {
+                let chat_user = {
                     from: this.auth_user.id,
                     to: this.portal_detail.id,
                     name: this.portal_detail.name,
@@ -640,10 +649,10 @@ export default {
                     type: this.portal_detail.type,
                     store_type: this.portal_detail.store_type,
                 };
+                this.$store.dispatch('chat/openChatBox', chat_user);
             }else{
                 $("#loginmodal").modal("show");
             }
-
         },
         openMenuModal() {
             this.openPortalMenu = true;
