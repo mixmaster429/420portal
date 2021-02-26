@@ -515,11 +515,20 @@
 
 #strain_show_page {
     padding: 0 5%;
-
+    .commentbox-header {
+        border: 1px solid #fff;
+        padding: 12px 7px;
+        margin-top: 20px;
+        border-bottom: none;
+        h5 {
+            color: #EFA720;
+            font-size: 1.3rem;
+            margin-bottom: 0;
+        }
+    }
     #page_comment {
         border: 1px solid white;
         padding: 0 7px;
-        margin-top: 20px;
     }
 }
 

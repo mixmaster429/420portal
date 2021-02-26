@@ -107,6 +107,9 @@
           ></edit-description>
         </div>
         <div class="col-md-3" v-if="!$device.isMobile">
+          <div class="commentbox-header">
+              <h5>Reviews - Comments</h5> 
+          </div>
           <page-comment
             :page="strain_data.strain"
             model="strain"

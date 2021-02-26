@@ -141,12 +141,12 @@
                                     <p class="recreational my-0 pl-2" v-else-if="portal_detail.recreational">(Recreational)</p>
                                     <p class="medical my-0 pl-2" v-else-if="portal_detail.medical">(Medical)</p>
                                     <p style="height:5px"></p>
-                                    <div class="portal__address" style="cursor:pointer;" @click="openGoogleMap()">
-                                        <p v-if="portal_detail.store_type !== 2">
+                                    <div class="portal__address" @click="openGoogleMap()">
+                                        <a href="javascript:;" v-if="portal_detail.store_type !== 2">
                                             {{portal_detail.address}},
                                             <span v-if="portal_detail.suite">(Suite {{portal_detail.suite}}) </span>
-                                        </p>
-                                        <p>{{portal_detail.city}}, {{portal_detail.state}} {{portal_detail.postal}}</p>
+                                        </a><br />
+                                        <a href="javascript:;">{{portal_detail.city}}, {{portal_detail.state}} {{portal_detail.postal}}</a>
                                     </div>
                                 </div>
 
@@ -208,6 +208,9 @@
                     </div>
                 </div>
                 <div class="col-md-4" v-if="!$device.isMobile">
+                    <div class="commentbox-header">
+                        <h5>Reviews - Comments</h5> 
+                    </div>
                     <page-comment :page="portal_detail" model="portal"></page-comment>
                 </div>
             </div>
@@ -440,7 +443,7 @@ export default {
             if(new_flag) {
                 this.show_description = this.profile.description;
             } else {
-                this.show_description = this.profile.description ? this.profile.description.slice(0, this.description_max_length) : '';
+                this.show_description = this.profile.description ? this.profile.description.slice(0, this.description_max_length) + '...' : '';
             }
         }
     },
@@ -494,7 +497,7 @@ export default {
             currentTab: 'followers',
             page: 1,
             posts_count: 0,
-            show_description: this.profile.description ? this.profile.description.substring(0, this.$device.isMobile ? 80 : 200) : '',
+            show_description: this.profile.description ? this.profile.description.substring(0, this.$device.isMobile ? 80 : 200) + '...' : '',
             description_expanded : false,
             description_max_length: this.$device.isMobile ? 80 : 200,
             distance: '',

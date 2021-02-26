@@ -348,7 +348,7 @@
                         <div class="pt_list" v-if="details && details.menus.length == 0">
                             <div class="pt_data">
                                 <div class="pt_logo">
-                                    <img :src="details.media ? details.media.url : default_logo">
+                                    <img :src="details.profile_pic ? serverUrl(details.profile_pic.url) : default_logo">
                                 </div>
                                 <div class="pt_details">
                                     <p class="pt_name" style="font-size: 18px;">{{ details ? details.name : ""}}</p>
@@ -460,7 +460,6 @@
                     <img src="/imgs/delivery.png" alt="">
                     <p class="pt-3">Our map displays both <span style="font-size: 18px">marijuana dispensaries and deliveries in <font style="text-transform: capitalize">{{city}}, {{state}}</font> </span>. Find your local cannabis dispensary and delivery nearest you. We display both recreational and medical marijuana dispensaries and deliveries in <font style="text-transform: capitalize">{{city}}, {{state}}</font>. So if you're looking for weed products, you have come to the right place!</p>
                   </div>
-
                 </div>
               </div>
             </div>
@@ -583,8 +582,12 @@
             }
         },
         mounted() {
-            this.state = this.tocapitalize(this.$route.params.state)
-            this.city = this.tocapitalize(this.$route.params.city)
+            if(this.$route.params.state) {
+                this.state = this.tocapitalize(this.$route.params.state)
+            }
+            if(this.$route.params.city) {
+                this.city = this.tocapitalize(this.$route.params.city)
+            }            
             this.init();
             var self = this;
             $(document).on('mouseleave', '.filter-dropdown-toggle', function(){

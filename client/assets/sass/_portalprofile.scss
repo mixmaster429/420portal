@@ -291,11 +291,21 @@
             margin: 0 -15px;
         }
     }
+    .commentbox-header {
+        border: 1px solid #fff;
+        padding: 12px 7px;
+        margin-top: 30px;
+        border-bottom: none;
+        h5 {
+            color: #EFA720;
+            font-size: 1.3rem;
+            margin-bottom: 0;
+        }
+    }
 
     #page_comment {
         border: 1px solid #fff;
         padding: 0 7px;
-        margin-top: 30px;
     }
 }
 
