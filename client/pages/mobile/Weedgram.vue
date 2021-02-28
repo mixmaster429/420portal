@@ -145,10 +145,14 @@
 
 <script>
     import firebase from "../../Firebase";
+    import MediaTags from "~/components/media/MediaTags"
     import { mapGetters } from 'vuex'
     import _ from 'lodash';
     export default {
         name : 'Weedgram',
+        components: {
+            MediaTags,
+        },
         watch : {
             '$route.params.start_index' : function(new_index) {
                 // this.setScroll();
