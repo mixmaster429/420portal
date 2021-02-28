@@ -1,6 +1,6 @@
 <template>
   <div class="media-taged-items" v-if="tagged_data">
-    <p class="text-center text-white m-0 mb-1 popup-title">In this Media</p>
+    <p class="text-center text-white m-1 popup-title">In This Media</p>
     <hr class="bg-white m-0 mb-3">
 
     <div

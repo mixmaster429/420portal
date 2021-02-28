@@ -813,6 +813,10 @@
         padding: 0 30px;
         border-top: 1px solid white;
 
+        .vue-bottom-dialog-wrapper-touch-indent {
+          display: none;
+        }
+
         @media (min-width: 600px) {
           left: 50%;
           transform: translate(-50%, 0);
