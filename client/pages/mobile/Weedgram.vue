@@ -239,6 +239,7 @@
             open_tag_dialog(item) {
               this.dialog = true
               this.selected = item;
+              console.log(this.selected)
             },
             getallposts($state) {                
                 let uri = '';
