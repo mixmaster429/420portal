@@ -225,9 +225,14 @@ class MediaController extends Controller
     public function removetag(Request $request) {
       $type = $request->get('type');
       $media_id = $request->get('media_id');
+      $target_id = $request->get('target_id');
 
       if($type === "user") {
-        MediaUser::where('media_id', $media_id)->where('user_id', Auth::user()->id)->delete();
+        MediaUser::where('media_id', $media_id)->where('user_id', $target_id)->delete();
+      } else if($type === "strain") {
+        $media = Media::find($media_id);
+        $media->tagged_strain = null;
+        $media->save();
       } else {
         $media = Media::find($media_id);
         $media->tagged_portal = null;

@@ -1,5 +1,7 @@
 <template>
   <div class="media-taged-items" v-if="tagged_data">
+    <p class="text-center text-white m-0 mb-1 popup-title">In this Media</p>
+    <hr class="bg-white m-0 mb-3">
     <div
       v-for="item in tagged_data.tagged_users"
       :key="item.id"
@@ -11,9 +13,9 @@
       </p>
       <p>
         <Button
-          @click="remove_tag('user')"
-          v-show="logged_user_id === item.id"
-          >Remove Tag</Button
+          @click="remove_tag('user', item.id)"
+          v-show="logged_user_id === item.id || logged_user_id === 1"
+          >Untag</Button
         >
         <Button
           @click="follow(item.id)"
@@ -43,9 +45,9 @@
       </p>
       <p>
         <Button
-          @click="remove_tag('portal')"
-          v-show="logged_user_id === item.id"
-          >Remove Tag</Button
+          @click="remove_tag('portal', item.id)"
+          v-show="logged_user_id === item.id  || logged_user_id === 1"
+          >Untag</Button
         >
         <Button
           @click="follow(item.id)"
@@ -74,6 +76,11 @@
         <a :href="item.slug" class="username">{{ item.name }}</a>
       </p>
       <p>
+        <Button
+          @click="remove_tag('strain', item.id)"
+          v-show="logged_user_id === 1"
+          >Untag</Button
+        >
         <Button
           @click="strainfollow(item.id)"
           v-show="logged_user_id != item.id"
@@ -148,12 +155,13 @@ export default {
         $("#loginmodal").modal("show");
       }
     },
-    remove_tag(type) {
+    remove_tag(type, id) {
       if (this.logged_user_id) {
         let uri = "/media/removetag";
         let params = {
           type: type,
-          media_id: this.mediadata.id
+          media_id: this.mediadata.id,
+          target_id: id
         };
         let _this = this;
         this.axios.post(uri, params).then(response => {
@@ -202,6 +210,11 @@ export default {
 
 <style lang="scss">
 .media-taged-items {
+
+  .popup-title {
+    font-size: 20px;
+  }
+  
   .taged_item {
     display: flex;
     justify-content: space-between;
