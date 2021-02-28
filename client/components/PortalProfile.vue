@@ -141,12 +141,12 @@
                                     <p class="recreational my-0 pl-2" v-else-if="portal_detail.recreational">(Recreational)</p>
                                     <p class="medical my-0 pl-2" v-else-if="portal_detail.medical">(Medical)</p>
                                     <p style="height:5px"></p>
-                                    <div class="portal__address" @click="openGoogleMap()">
-                                        <a href="javascript:;" v-if="portal_detail.store_type !== 2">
+                                    <div class="portal__address">
+                                        <a href="javascript:;" v-if="portal_detail.store_type !== 2" @click="openGoogleMap()">
                                             {{portal_detail.address}},
                                             <span v-if="portal_detail.suite">(Suite {{portal_detail.suite}}) </span>
                                         </a><br />
-                                        <a href="javascript:;">{{portal_detail.city}}, {{portal_detail.state}} {{portal_detail.postal}}</a>
+                                        <a href="javascript:;" @click="openGoogleMap()">{{portal_detail.city}}, {{portal_detail.state}} {{portal_detail.postal}}</a>
                                     </div>
                                 </div>
 
