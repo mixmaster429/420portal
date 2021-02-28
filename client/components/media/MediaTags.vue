@@ -9,10 +9,10 @@
       class="taged_item"
     >
       <p>
-        <a :href="'/' + item.slug">
+        <a :href="'/marijuana-strains/' + item.slug">
             <img :src="serverUrl(item.main_media.url)" alt="Profile picture" />
         </a>
-        <a :href="item.slug" class="username">{{ item.name }}</a>
+        <a :href="'/marijuana-strains/'+item.slug" class="username">{{ item.name }}</a>
       </p>
       <p>
         <Button
@@ -46,7 +46,7 @@
         <a :href="'/' + item.name">
             <img :src="serverUrl(item.profile_pic.url)" alt="Profile picture" />
         </a>
-        <a :href="item.name" class="username">{{ item.name }}</a>
+        <a :href="'/'+item.name" class="username">{{ item.name }}</a>
       </p>
       <p>
         <Button
@@ -80,7 +80,7 @@
         <a :href="'/' + item.name">
             <img :src="serverUrl(item.profile_pic.url)" alt="Profile picture" />
         </a>
-        <a :href="item.name" class="username">{{ item.name }}</a>
+        <a :href="'/'+item.name" class="username">{{ item.name }}</a>
       </p>
       <p>
         <Button
