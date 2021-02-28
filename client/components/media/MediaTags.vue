@@ -2,6 +2,39 @@
   <div class="media-taged-items" v-if="tagged_data">
     <p class="text-center text-white m-0 mb-1 popup-title">In this Media</p>
     <hr class="bg-white m-0 mb-3">
+
+    <div
+      v-for="item in tagged_data.tagged_strainData"
+      :key="item.id"
+      class="taged_item"
+    >
+      <p>
+        <img v-bind:src="serverUrl(item.main_media.url)" alt="" />
+        <a :href="item.slug" class="username">{{ item.name }}</a>
+      </p>
+      <p>
+        <Button
+          @click="remove_tag('strain', item.id)"
+          v-show="logged_user_id === 1"
+          >Untag</Button
+        >
+        <Button
+          @click="strainfollow(item.id)"
+          v-show="logged_user_id != item.id"
+          v-if="!item.following"
+          >Follow</Button
+        >
+        <img
+          src="~assets/imgs/unfollow.png"
+          alt
+          class="pf-unfollow"
+          @click="strainfollow(item.id)"
+          v-show="logged_user_id != item.id"
+          v-if="item.following"
+        />
+      </p>
+    </div>
+    
     <div
       v-for="item in tagged_data.tagged_users"
       :key="item.id"
@@ -66,37 +99,7 @@
       </p>
     </div>
 
-    <div
-      v-for="item in tagged_data.tagged_strainData"
-      :key="item.id"
-      class="taged_item"
-    >
-      <p>
-        <img v-bind:src="serverUrl(item.main_media.url)" alt="" />
-        <a :href="item.slug" class="username">{{ item.name }}</a>
-      </p>
-      <p>
-        <Button
-          @click="remove_tag('strain', item.id)"
-          v-show="logged_user_id === 1"
-          >Untag</Button
-        >
-        <Button
-          @click="strainfollow(item.id)"
-          v-show="logged_user_id != item.id"
-          v-if="!item.following"
-          >Follow</Button
-        >
-        <img
-          src="~assets/imgs/unfollow.png"
-          alt
-          class="pf-unfollow"
-          @click="strainfollow(item.id)"
-          v-show="logged_user_id != item.id"
-          v-if="item.following"
-        />
-      </p>
-    </div>
+    
   </div>
 </template>
 
