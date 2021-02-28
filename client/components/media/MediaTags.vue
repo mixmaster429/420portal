@@ -8,7 +8,7 @@
       :key="item.id"
       class="taged_item"
     >
-      <p>
+      <p class="d-flex align-items-center">
         <a :href="'/marijuana-strains/' + item.slug">
             <img :src="serverUrl(item.main_media.url)" alt="Profile picture" />
         </a>
@@ -16,7 +16,7 @@
           <a :href="'/marijuana-strains/'+item.slug" class="username">{{ item.name }}</a>
         </span>
       </p>
-      <p class="d-flex align-items-center">
+      <p>
         <Button
           @click="remove_tag('strain', item.id)"
           v-show="logged_user_id === 1"
