@@ -188,6 +188,7 @@ export default {
         auth_user: 'auth/user',
     }),
     mounted() {
+        console.log(this.mainData)
         if(this.strain) {
             this.taggedStrains.push(this.strain)
             this.floatStrainLabel = true
@@ -230,6 +231,7 @@ export default {
     },
     watch: {
         editData: function(newVal, oldVal) {
+            console.log(newVal)
             this.selected = newVal;
             if(this.mode == 'edit') {
                 this.fetchData(newVal);

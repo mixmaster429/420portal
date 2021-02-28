@@ -195,6 +195,17 @@ class StrainController extends Controller
       $item->taggedStrain;
       $item->taggedPortal;
 
+      if ($item->taggedStrain) {
+          $item['tagged_strainData'] = [$item->taggedStrain];
+      } else {
+          $item['tagged_strainData'] = [];
+      }
+      if ($item->taggedPortal) {
+          $item['tagged_companyData'] = [$item->taggedPortal];
+      } else {
+          $item['tagged_companyData'] = [];
+      }
+
       $media_id = $item['id'];
       $likes = Like::where('target_id', $media_id)->where('model', 'post')->count();
       $item['likes'] = $likes;
