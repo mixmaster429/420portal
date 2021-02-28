@@ -45,10 +45,10 @@
       class="taged_item"
     >
       <p class="d-flex align-items-center">
-        <a :href="'/' + item.name">
+        <a :href="'/' + item.username">
             <img :src="serverUrl(item.profile_pic.url)" alt="Profile picture" />
         </a>
-        <a :href="'/'+item.name" class="username">{{ item.name }}</a>
+        <a :href="'/'+item.username" class="username">{{ item.name }}</a>
       </p>
       <p>
         <Button
@@ -79,10 +79,10 @@
       class="taged_item"
     >
       <p class="d-flex align-items-center">
-        <a :href="'/' + item.name">
+        <a :href="'/' + item.username">
             <img :src="serverUrl(item.profile_pic.url)" alt="Profile picture" />
         </a>
-        <a :href="'/'+item.name" class="username">{{ item.name }}</a>
+        <a :href="'/'+item.username" class="username">{{ item.name }}</a>
       </p>
       <p>
         <Button
