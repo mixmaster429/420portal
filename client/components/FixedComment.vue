@@ -6,13 +6,13 @@
                     <div class="col-9">
                         <div class="user_detail">
                             <div class="profile_image">
-                                <a :href="selected.user.username" v-if="selected.user">
+                                <a :href="'/'+selected.user.username" v-if="selected.user">
                                     <img :src="serverUrl(selected.user.profile_pic ? selected.user.profile_pic.url : default_logo)" alt />
                                 </a>
                             </div>
                             <div class="username">
                                 <p v-if="selected.user">
-                                    <a :href="selected.user.username">{{selected.user.name}}</a>
+                                    <a :href="'/'+selected.user.username">{{selected.user.name}}</a>
                                     <span style="padding-left: 5px;" v-show="logged_user_id != selected.user_id">•</span>
                                     <span class="followuser" @click="follow()" v-show="logged_user_id != selected.user_id" v-if="!isfollower">Follow</span>
                                     <img src="~assets/imgs/unfollow.png" alt class="pf-unfollow" @click="unfollow()" v-show="logged_user_id != selected.user_id" v-if="isfollower" />
@@ -45,12 +45,12 @@
                 </div>
                 <div class="image_description" v-if="selected && selected.description">
                     <div class="userlogo">
-                        <a :href="selected.user.username" v-if="selected.user">
+                        <a :href="'/'+selected.user.username" v-if="selected.user">
                             <img :src="serverUrl(selected.user.profile_pic ? selected.user.profile_pic.url : default_logo)" alt />
                         </a>
                     </div>
                     <div class="description">
-                        <a :href="selected.user.username">
+                        <a :href="'/'+selected.user.username">
                             <span class="username">{{selected.user.type == 'user' ? selected.user.username : selected.user.name}}</span>
                         </a>
                         <span>{{selected.description}}</span>
@@ -66,13 +66,13 @@
                 <div class="comment_container" :key="index" v-for="(item, index) in comments" v-if="!loading">
                     <div class="comment">
                         <div class="userlogo">
-                            <a :href="item.user.username">
+                            <a :href="'/'+item.user.username">
                                 <img :src="item.user.profile_pic ? serverUrl(item.user.profile_pic.url) : default_logo" alt />
                             </a>
                         </div>
 
                         <div class="description">
-                            <a :href="item.user.username">
+                            <a :href="'/'+item.user.username">
                                 <span class="username">{{item.user.type == 'user' ? item.user.username : item.user.name}}</span>
                             </a>
                             <span style="white-space:pre-line" v-html="linkify(item.text)"></span>
@@ -93,15 +93,15 @@
                     <div class="sub_comment_container" v-for="(sub_item, subindex) of item.sub_comment" :key="subindex">
                         <div class="sub_comment">
                             <div class="userlogo">
-                                <a :href="sub_item.user.username">
+                                <a :href="'/'+sub_item.user.username">
                                     <img :src="sub_item.user.profile_pic ? serverUrl(sub_item.user.profile_pic.url) : default_logo" alt />
                                 </a>
                             </div>
                             <div class="description">
-                                <a :href="sub_item.user.username">
+                                <a :href="'/'+sub_item.user.username">
                                     <span class="username">{{sub_item.user.type == 'user' ? sub_item.user.username : sub_item.user.name}}</span>
                                 </a>
-                                <a :href="sub_item.parent.user.username">
+                                <a :href="'/'+sub_item.parent.user.username">
                                     <span class="text-primary">@{{sub_item.parent.user.type == 'user' ? sub_item.parent.user.username : sub_item.parent.user.name}} </span>
                                 </a>
                                 <span style="white-space:pre-line" v-html="linkify(sub_item.text)"></span>
@@ -122,15 +122,15 @@
                         <div class="sub2_comment_container" v-for="(sub2_item, sub2index) of sub_item.sub2_comments" :key="sub2index">
                             <div class="sub2_comment">
                                 <div class="userlogo">
-                                    <a :href="sub2_item.user.username">
+                                    <a :href="'/'+sub2_item.user.username">
                                         <img :src="sub2_item.user.profile_pic ? serverUrl(sub2_item.user.profile_pic.url) : default_logo" alt />                                        
                                     </a>
                                 </div>
                                 <div class="description">
-                                    <a :href="sub2_item.user.username">
+                                    <a :href="'/'+sub2_item.user.username">
                                         <span class="username">{{sub2_item.user.type == 'user' ? sub2_item.user.username : sub2_item.user.name}}</span>
                                     </a>
-                                    <a :href="sub2_item.parent.user.username">
+                                    <a :href="'/'+sub2_item.parent.user.username">
                                         <span class="text-primary">@{{sub2_item.parent.user.type == 'user' ? sub2_item.parent.user.username : sub2_item.parent.user.name}} </span>
                                     </a>
                                     <span style="white-space:pre-line" v-html="linkify(sub2_item.text)"></span>
