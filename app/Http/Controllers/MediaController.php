@@ -222,6 +222,87 @@ class MediaController extends Controller
         return response()->json($return);
     }
 
+    public function removetag(Request $request) {
+      $type = $request->get('type');
+      $media_id = $request->get('media_id');
+
+      if($type === "user") {
+        MediaUser::where('media_id', $media_id)->where('user_id', Auth::user()->id)->delete();
+      } else {
+        $media = Media::find($media_id);
+        $media->tagged_portal = null;
+        $media->save();
+      }
+
+      return response()->json(['success' => 'success']);
+    }
+
+    public function gettaged(Request $request)
+    {
+      $item = Media::find($request->get('id'));
+
+      $item['tagged_usersData'] = $item->taggedUsers;
+
+      foreach ($item['tagged_usersData'] as $key => $user) 
+      {
+          if(Auth::check()) {
+            $user_id = Auth::user()->id;
+            $follower_user_id = $user->id;
+            $follower = User::find($follower_user_id);
+            $count = Follow::where('user_id', $user_id)->where('follower_user_id', $follower_user_id)->count();
+            $following = 0;
+            if($count == 0) {
+                if($follower->is_private) {
+                    $follow_requested = Notification::where('user_id', $follower_user_id)->where('notifier_id', $user_id)->whereType('follow_request')->exists();
+                    if($follow_requested) {
+                      $following = 2;
+                    }
+                }
+            } else {
+              $following = 1;
+            }            
+            $user['following'] = $following;
+          } else {
+            $user['following'] = 0;
+          }
+      }
+
+      if ($item->taggedStrain) {
+          $item->taggedStrain['main_media'] = $item->taggedStrain->get_main_media();
+          $is_follower = Follow::where('user_id', auth()->id())->where('follower_strain_id', $item->taggedStrain->id)->count();
+          $item->taggedStrain['following'] = $is_follower;
+          $item['tagged_strainData'] = [$item->taggedStrain];
+      } else {
+          $item['tagged_strainData'] = [];
+      }
+      if ($item->taggedPortal) {
+          $following = 0;
+          if(Auth::check()) {
+            $user_id = Auth::user()->id;
+            $follower_user_id = $item->taggedPortal->id;
+            $follower = User::find($follower_user_id);
+            $count = Follow::where('user_id', $user_id)->where('follower_user_id', $follower_user_id)->count();
+            
+            if($count == 0) {
+                if($follower->is_private) {
+                    $follow_requested = Notification::where('user_id', $follower_user_id)->where('notifier_id', $user_id)->whereType('follow_request')->exists();
+                    if($follow_requested) {
+                      $following = 2;
+                    }
+                }
+            } else {
+              $following = 1;
+            }
+          }
+          $item->taggedPortal['following'] = $following;
+          $item['tagged_companyData'] = [$item->taggedPortal];
+      } else {
+          $item['tagged_companyData'] = [];
+      }
+
+      return response()->json($item);
+    }
+
     public function mediauplaod(Request $request)
     {        
         $file = $request->file('postfile');

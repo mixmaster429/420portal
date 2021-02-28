@@ -40,6 +40,8 @@ Route::put('/category/{id}', 'CategoryController@update');
 
 Route::post('/media/upload', 'MediaController@mediauplaod')->middleware('cors.api');
 Route::post('/media/show/{id}', 'MediaController@show');
+Route::post('/media/gettaged', 'MediaController@gettaged');
+Route::post('/media/removetag', 'MediaController@removetag');
 Route::post('/comment/count_comments', 'CommentController@count_comments');
 
 Route::post('/medical-recreational-marijuana-dispensary-delivery', 'PortalController@searchmap');

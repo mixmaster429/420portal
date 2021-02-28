@@ -176,6 +176,7 @@
             if(process.client) {
                 window.addEventListener('scroll', this.handleScroll);
             }
+            console.log(this.$route.params)
         },
         mounted() {
             if(process.client) {

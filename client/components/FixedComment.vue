@@ -40,6 +40,9 @@
                 </div>
             </div>
             <div class="comment_body" >
+                <div class="taged_icon" @click="open_tag_dialog" v-if="hasmediatags">
+                  <img src="/imgs/taged.png" alt="">
+                </div>
                 <div class="image_description" v-if="selected && selected.description">
                     <div class="userlogo">
                         <a :href="selected.user.username" v-if="selected.user">
@@ -201,11 +204,18 @@
         <vs-popup class="strains__popup media__add" type="border" title="Edit Media" :active.sync="editMedia" v-if="selected">
             <add-form :mainData="selected" :editData="sendata" mode="edit" :from="from"></add-form>
         </vs-popup>
+
+        <vue-bottom-dialog v-model="dialog" >
+          <div>
+            <media-tags :media="selected" :logged_user_id="logged_user_id"></media-tags>
+          </div>
+        </vue-bottom-dialog>
     </div>
 </template>
 
 <script>
     import EditMedia from "./media/EditMedia";
+    import MediaTags from "./media/MediaTags"
     import firebase from "../Firebase";
     import { mapGetters } from 'vuex';
     import AddForm from "./media/AddForm";
@@ -216,12 +226,19 @@
         components: {
             EditMedia,
             AddForm,
+            MediaTags,
         },
         watch: {
             media: function(newVal, oldVal) {
                 this.selected = newVal;
                 this.getcomment(this.selected.id);
                 this.getIsFollower(this.selected);
+
+                if(newVal.tagged_portal || newVal.tagged_strain || newVal.tagged_users.length > 0) {
+                  this.hasmediatags = true;
+                } else {
+                  this.hasmediatags = false;
+                }
                 // this.$nextTick(function () {
                 //     $("#main_comment").data("emojioneArea").setFocus();
                 // });
@@ -254,9 +271,15 @@
                 isfollower: 0,
                 logged_user_id: 0,
                 comment_fixed: false,
+                
+                dialog: false,
+                hasmediatags : false
             };
         },
         methods: {
+            open_tag_dialog() {
+              this.dialog = true
+            },
             showEditModal(id) {
                 this.editMedia = true;
                 this.sendata = id;
@@ -646,6 +669,11 @@
             }
         },
         mounted() {
+            if(this.media.tagged_portal || this.media.tagged_strain || this.media.tagged_users.length > 0) {
+              this.hasmediatags = true;
+            } else {
+              this.hasmediatags = false;
+            }
             if (this.user) {
                 this.logged_user_id = this.user.id
             }
@@ -762,5 +790,54 @@
                 }
             }
         }
+    }
+
+    .postmedia .right_side {
+      z-index: 100;
+    }
+
+    .vue-bottom-dialog {
+      z-index: 100;
+
+      * {
+        z-index: 100;
+      }
+      
+      .vue-bottom-dialog-ground {
+        background-color: unset !important;
+      }
+
+      .vue-bottom-dialog-wrapper {
+        background: black !important;
+        color: white;
+        padding: 0 30px;
+        border-top: 1px solid white;
+
+        @media (min-width: 600px) {
+          left: 50%;
+          transform: translate(-50%, 0);
+          max-width: 600px;
+          padding: 0 50px;
+        }
+      }
+
+      &.vue-bottom-dialog-overlay {
+        .vue-bottom-dialog-wrapper {
+          height: auto !important;
+        }
+      }
+    }
+
+    .taged_icon {
+      text-align: center;
+      padding: 5px;
+      position: sticky;
+      z-index: 1;
+      background-color: black;
+
+      img {
+        width: 20px;
+        cursor: pointer;
+      }
     }
 </style>
