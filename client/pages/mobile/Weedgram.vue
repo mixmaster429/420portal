@@ -238,6 +238,7 @@
             },
             open_tag_dialog(item) {
               this.dialog = true
+              this.selected = item;
             },
             getallposts($state) {                
                 let uri = '';
