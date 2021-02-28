@@ -85,6 +85,10 @@
                         <div class="bookmark_icon" @click="removebookmark(index)" v-else>
                             <fa :icon="['fas', 'bookmark']" fixed-width />
                         </div>
+
+                        <div class="bookmark_icon" @click="open_tag_dialog(item)" v-if="hasmediatags(item)">
+                            <img src="/imgs/taged.png" alt="" width="27px">
+                        </div>
                     </div>
                     <div class="media_description">
                         <p v-if="item.description">
@@ -129,6 +133,12 @@
                 force-use-infinite-wrapper="#media_scroll_wrapper"
             ><div slot="no-more">No Posts</div></infinite-loading>
         </div>
+
+        <vue-bottom-dialog v-model="dialog" >
+          <div>
+            <media-tags :media="selected" :logged_user_id="logged_user_id"></media-tags>
+          </div>
+        </vue-bottom-dialog>
     </div>
   <!-- </div> -->
 </template>
@@ -169,6 +179,8 @@
                 focused_index : null,
                 clicks: 0,
                 timer: null,
+                dialog: false,
+                selected: null
             };
         },
         created() {
@@ -217,6 +229,16 @@
             }
         },
         methods: {
+            hasmediatags(item) {
+              if(item.tagged_portal || item.tagged_strain || item.tagged_users.length > 0) {
+                return true
+              } else {
+                return false
+              }
+            },
+            open_tag_dialog(item) {
+              this.dialog = true
+            },
             getallposts($state) {                
                 let uri = '';
                 let params = {};
