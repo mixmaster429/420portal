@@ -12,9 +12,11 @@
         <a :href="'/marijuana-strains/' + item.slug">
             <img :src="serverUrl(item.main_media.url)" alt="Profile picture" />
         </a>
-        <a :href="'/marijuana-strains/'+item.slug" class="username">{{ item.name }}</a>
+        <span>
+          <a :href="'/marijuana-strains/'+item.slug" class="username">{{ item.name }}</a>
+        </span>
       </p>
-      <p>
+      <p class="d-flex align-items-center">
         <Button
           @click="remove_tag('strain', item.id)"
           v-show="logged_user_id === 1"
@@ -42,7 +44,7 @@
       :key="item.id"
       class="taged_item"
     >
-      <p>
+      <p class="d-flex align-items-center">
         <a :href="'/' + item.name">
             <img :src="serverUrl(item.profile_pic.url)" alt="Profile picture" />
         </a>
@@ -76,7 +78,7 @@
       :key="item.id"
       class="taged_item"
     >
-      <p>
+      <p class="d-flex align-items-center">
         <a :href="'/' + item.name">
             <img :src="serverUrl(item.profile_pic.url)" alt="Profile picture" />
         </a>
