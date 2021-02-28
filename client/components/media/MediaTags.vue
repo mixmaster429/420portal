@@ -9,7 +9,9 @@
       class="taged_item"
     >
       <p>
-        <img v-bind:src="serverUrl(item.main_media.url)" alt="" />
+        <a :href="'/' + item.slug">
+            <img :src="serverUrl(item.main_media.url)" alt="Profile picture" />
+        </a>
         <a :href="item.slug" class="username">{{ item.name }}</a>
       </p>
       <p>
@@ -41,7 +43,9 @@
       class="taged_item"
     >
       <p>
-        <img v-bind:src="serverUrl(item.profile_pic.url)" alt="" />
+        <a :href="'/' + item.name">
+            <img :src="serverUrl(item.profile_pic.url)" alt="Profile picture" />
+        </a>
         <a :href="item.name" class="username">{{ item.name }}</a>
       </p>
       <p>
@@ -73,7 +77,9 @@
       class="taged_item"
     >
       <p>
-        <img v-bind:src="serverUrl(item.profile_pic.url)" alt="" />
+        <a :href="'/' + item.name">
+            <img :src="serverUrl(item.profile_pic.url)" alt="Profile picture" />
+        </a>
         <a :href="item.name" class="username">{{ item.name }}</a>
       </p>
       <p>
