@@ -153,7 +153,7 @@ export default {
     },
     data() {
         return {
-            companiesUrl: "/portals",
+            companiesUrl: "/portalswithbrand",
             usersUrl: "/users",
             strainsUrl: "/marijuana-strains",
             media: "",
@@ -417,7 +417,7 @@ export default {
                         setTimeout(() => {
                             const results = this.companyData.filter(
                                 (element, index, array) => {
-                                    return element.username
+                                    return element.name
                                         .toLowerCase()
                                         .includes(query.toLowerCase());
                                 }

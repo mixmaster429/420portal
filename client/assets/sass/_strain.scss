@@ -515,6 +515,10 @@
 
 #strain_show_page {
     padding: 0 5%;
+
+    @media (max-width: 600px) {
+      padding: 0 0;
+    }
     .commentbox-header {
         border: 1px solid #fff;
         padding: 12px 7px;

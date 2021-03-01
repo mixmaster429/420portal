@@ -292,12 +292,12 @@
       </div>
 
       <h2 class="text-center mt-4 mb-1 category__header">
-        {{ strain_data.strain.name }} Weed Pictures & Videos
+        {{ strain_data.strain.name }} Pictures & Videos
       </h2>
       <p class="text-center category__addmedia" v-if="$device.isMobile">
         Upload Your Pictures &amp; Videos of this Strain.
-        <a href="/mobile/media/add">
-          <img src="/imgs/add.png" alt="" />
+        <a href="/mobile/media/add" class="d-block">
+          <img src="/imgs/strain_add_media.png" alt="" />
         </a>
       </p>
       <p class="text-center category__addmedia" v-else>

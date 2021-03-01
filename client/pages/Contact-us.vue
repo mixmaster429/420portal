@@ -81,4 +81,10 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+
+.floating-input:not(:placeholder-shown) ~ label {
+  top: -20px;
+}
+
+</style>
