@@ -1,7 +1,7 @@
 <template>
   <div class="media-taged-items" v-if="tagged_data">
     <p class="text-center text-white m-1 popup-title">In This Media</p>
-    <hr class="bg-white m-0 mb-3">
+    <hr class="bg-white m-0 mb-3" />
 
     <div
       v-for="item in tagged_data.tagged_strainData"
@@ -10,10 +10,12 @@
     >
       <p class="d-flex align-items-center">
         <a :href="'/marijuana-strains/' + item.slug">
-            <img :src="serverUrl(item.main_media.url)" alt="Profile picture" />
+          <img :src="serverUrl(item.main_media.url)" alt="Profile picture" />
         </a>
         <span>
-          <a :href="'/marijuana-strains/'+item.slug" class="username">{{ item.name }}</a>
+          <a :href="'/marijuana-strains/' + item.slug" class="username">{{
+            item.name
+          }}</a>
         </span>
       </p>
       <p>
@@ -38,7 +40,7 @@
         />
       </p>
     </div>
-    
+
     <div
       v-for="item in tagged_data.tagged_users"
       :key="item.id"
@@ -46,9 +48,9 @@
     >
       <p class="d-flex align-items-center">
         <a :href="'/' + item.username">
-            <img :src="serverUrl(item.profile_pic.url)" alt="Profile picture" />
+          <img :src="serverUrl(item.profile_pic.url)" alt="Profile picture" />
         </a>
-        <a :href="'/'+item.username" class="username">{{ item.name }}</a>
+        <a :href="'/' + item.username" class="username">{{ item.name }}</a>
       </p>
       <p>
         <Button
@@ -80,14 +82,25 @@
     >
       <p class="d-flex align-items-center">
         <a :href="'/' + item.username">
-            <img :src="serverUrl(item.profile_pic.url)" alt="Profile picture" />
+          <img :src="serverUrl(item.profile_pic.url)" alt="Profile picture" />
         </a>
-        <a :href="'/'+item.username" class="username">{{ item.name }}</a>
+        <span class="taged-company">
+          <a :href="'/' + item.username" class="username">{{ item.name }}</a>
+          <img
+            src="/imgs/dispensary.png"
+            v-if="item.store_type == 1 || item.store_type == 3"
+          />
+          <img
+            src="/imgs/delivery.png"
+            v-if="item.store_type == 2 || item.store_type == 3"
+          />
+          <img src="/imgs/brand.png" v-if="item.type == 'brand'" />
+        </span>
       </p>
       <p>
         <Button
           @click="remove_tag('portal', item.id)"
-          v-show="logged_user_id === item.id  || logged_user_id === 1"
+          v-show="logged_user_id === item.id || logged_user_id === 1"
           >Untag</Button
         >
         <Button
@@ -106,8 +119,6 @@
         />
       </p>
     </div>
-
-    
   </div>
 </template>
 
@@ -125,7 +136,6 @@ export default {
     media: function(newVal, oldVal) {
       console.log("------------");
       console.log(newVal);
-      console.log(this.logged_user_id)
       this.mediadata = newVal;
       this.gettagged();
     }
@@ -221,11 +231,10 @@ export default {
 
 <style lang="scss">
 .media-taged-items {
-
   .popup-title {
     font-size: 20px;
   }
-  
+
   .taged_item {
     display: flex;
     justify-content: space-between;
@@ -253,6 +262,18 @@ export default {
       background-color: #efa720;
       padding: 2px 4px;
       border: none;
+      margin-bottom: 1px;
+    }
+
+    .taged-company {
+      a {
+        display: block;
+      }
+
+      img {
+        width: 25px;
+        height: 25px;
+      }
     }
   }
 }
