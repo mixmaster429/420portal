@@ -404,6 +404,11 @@ class PortalController extends Controller
         return response()->json($portals);
     }
 
+    public function portalswithbrand() {
+        $portals = User::where('type', 'company')->orWhere('type', 'brand')->get();
+        return response()->json($portals);
+    }
+
     // Customize Company Menu
 
     public function get_all_menus(Request $request) {

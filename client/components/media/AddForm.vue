@@ -153,7 +153,7 @@ export default {
     },
     data() {
         return {
-            companiesUrl: "/portals",
+            companiesUrl: "/portalswithbrand",
             usersUrl: "/users",
             strainsUrl: "/marijuana-strains",
             media: "",
