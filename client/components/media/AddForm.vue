@@ -417,7 +417,7 @@ export default {
                         setTimeout(() => {
                             const results = this.companyData.filter(
                                 (element, index, array) => {
-                                    return element.username
+                                    return element.name
                                         .toLowerCase()
                                         .includes(query.toLowerCase());
                                 }
