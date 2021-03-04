@@ -12,7 +12,7 @@ class CompanyController extends Controller
 {
     public function importCompany(Request $request) {
         ini_set('max_execution_time', '0');
-        $companies = Company::all();
+        $companies = Company::whereNull('imported')->get();
         // dd($companies->count());
         foreach ($companies as $company) {
             $user = User::create([
@@ -76,6 +76,7 @@ class CompanyController extends Controller
                 'user_id' => $user->id,
             ]);
             $user->update(['media_id' => $media->id]);
+            $company->update(['imported' => 1]);
         }
     }
 }
