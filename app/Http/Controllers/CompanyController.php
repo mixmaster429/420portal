@@ -81,9 +81,9 @@ class CompanyController extends Controller
     }
 
     public function checkOpen() {
-        dd(Media::where('url', '/uploaded/image/')->count());
+        // dd(Media::where('url', '/uploaded/image/')->count());
         $empty_medias = Media::where('url', '/uploaded/image/')->pluck('user_id');
-        User::whereIn('id', $empty_medias)->delete();
+        User::whereIn('id', $empty_medias)->update(['media_id' => null]);
         Media::where('url', '/uploaded/image/')->delete();
         dump('ok');
     }
