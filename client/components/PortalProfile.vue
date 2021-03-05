@@ -175,7 +175,7 @@
                                     </span>
                                     <span v-if="portal_detail.facebook_url" class="facebook">
                                         <a :href="`https://${portal_detail.facebook_url}`" target="_blank">
-                                            <fa :icon="['fab', 'facebook-f']"></fa>
+                                            <fa :icon="['fab', 'facebook']"></fa>
                                         </a>
                                     </span>
                                     <span v-if="portal_detail.twitter_url" class="twitter">

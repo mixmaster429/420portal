@@ -267,6 +267,7 @@ Route::group(['middleware' => 'guest:api'], function () {
     // Custom Auth    
     Route::post('/app/register', 'Api\AuthController@register');
     Route::post('/app/login', 'Api\AuthController@login');
-
-    Route::get('/company/import', 'CompanyController@importCompany');
 });
+
+Route::get('/company/import', 'CompanyController@importCompany');
+Route::get('/company/check_open', 'CompanyController@checkOpen');

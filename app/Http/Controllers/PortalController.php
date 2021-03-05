@@ -122,7 +122,6 @@ class PortalController extends Controller
             $portal_id = $request->get('portal_id');
             $mod = $mod->where('id', $portal_id);
         }
-
         $type_array = $request->get('business_type');
         if(count($type_array) >= 1) {
             array_push($type_array, 3);

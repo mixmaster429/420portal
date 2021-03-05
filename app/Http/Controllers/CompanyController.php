@@ -79,4 +79,17 @@ class CompanyController extends Controller
             $company->update(['imported' => 1]);
         }
     }
+
+    public function checkOpen() {
+        User::where('mon_open', '0')->delete();
+        // foreach (User::all() as $item) {
+
+        //     // try {
+        //     //     $is_open = $item->get_shop_status();
+        //     // } catch (\Throwable $th) {
+        //     //     dump($item->id);
+        //     //     // dump($th);
+        //     // }
+        // }
+    }
 }
