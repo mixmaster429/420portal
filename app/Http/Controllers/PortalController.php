@@ -112,6 +112,7 @@ class PortalController extends Controller
     }
 
     public function searchPortals(Request $request) {
+        ini_set('max_execution_time', '0');
         $user_latitude = $request['lat'];
         $user_longitude = $request['lng'];
 
@@ -169,6 +170,14 @@ class PortalController extends Controller
                         ->orWhere('item_name', 'like', "%$strain_name%");
                         // ->orWhereIn('portal_id',  $menu_strain_brands);                
                 });
+        }
+
+        // whereBetween Bounds
+
+        if($request->get('bounds') != null) {
+            $bounds = $request->get('bounds');
+            $mod = $mod->whereBetween('latitude', [$bounds['south'], $bounds['north']]);
+            $mod = $mod->whereBetween('longitude', [$bounds['west'], $bounds['east']]);
         }
 
         $menus = $menu_mod->get();

@@ -81,7 +81,9 @@ class CompanyController extends Controller
     }
 
     public function checkOpen() {
-        User::where('mon_open', '0')->delete();
+        User::where('from_weedmap', 1)->update(['description' => '']);
+        $companies = User::where('from_weedmap', 1)->pluck('id');
+        Media::whereIn('user_id', $companies)->update(['description' => '']);
         // foreach (User::all() as $item) {
 
         //     // try {

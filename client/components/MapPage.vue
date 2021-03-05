@@ -316,6 +316,7 @@
                     :zoom="7"
                     map-type-id="roadmap"
                     style="width: 100%; height: 100%"
+                    @bounds_changed="boundsChangedMap($event)"
                 >
                     <GmapMarker :position="current_position" :icon="mylocationicon"/>
 
@@ -535,7 +536,8 @@
                 search_count: 0,
                 results_count: 0,
                 state: "",
-                city: ""
+                city: "",
+                bounds: null,
             };
         },
         serverPrefetch () {
@@ -626,7 +628,7 @@
             showPosition(position) {
                 this.current_position.lat = position.coords.latitude;
                 this.current_position.lng = position.coords.longitude;
-                this.getportals();
+                // this.getportals();
             },
             getportals: _.debounce(function() {
                     let uri = "/portals/getall";
@@ -641,6 +643,7 @@
                         menu_strain : this.top_filter.menu_strain,
                         menu_price_type : this.top_filter.menu_price_type,
                         menu_price_max : this.top_filter.menu_price_max,
+                        bounds: this.bounds,
                     };
                     this.loading = true;
                     this.axios.post(uri, params).then(response => {
@@ -775,7 +778,14 @@
                 } catch (error) {
                     return process.env.serverUrl + 'imgs/default.png';
                 }
-            }
+            },
+            zoomChangedMap(e) {
+                console.log(e);
+            },
+            boundsChangedMap: _.debounce(function(e) {
+                this.bounds = e;
+                this.getportals();
+            }, 1000),
         },
     };
 </script>
