@@ -447,7 +447,7 @@ class UserController extends Controller
     }
 
     public function api() {
-        $user = User::all()->except(Auth::id());
+        $user = User::where('type', 'user')->get()->except(Auth::id());
         return response()->json($user);
     }
 
