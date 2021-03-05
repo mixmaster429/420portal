@@ -313,7 +313,7 @@
                            streetViewControl: false,
                          }"
                     :center="current_position"
-                    :zoom="10"
+                    :zoom="12"
                     map-type-id="roadmap"
                     style="width: 100%; height: 100%"
                     @bounds_changed="boundsChangedMap($event)"

@@ -82,9 +82,28 @@ class CompanyController extends Controller
 
     public function checkOpen() {
         // dd(Media::where('url', '/uploaded/image/')->count());
-        $empty_medias = Media::where('url', '/uploaded/image/')->pluck('user_id');
-        User::whereIn('id', $empty_medias)->update(['media_id' => null]);
-        Media::where('url', '/uploaded/image/')->delete();
-        dump('ok');
+        // $empty_medias = Media::where('url', '/uploaded/image/')->pluck('user_id');
+        // User::whereIn('id', $empty_medias)->update(['media_id' => null]);
+        // Media::where('url', '/uploaded/image/')->delete();
+        $user = User::find(5373);
+        dump($user->get_shop_status());
+    }
+
+    public function solveClosed() {
+        ini_set('max_execution_time', '0');
+        $day_array = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+        foreach ($day_array as $day) {
+          
+            $open_companies = User::where('from_weedmap', 1)->where($day.'_closed', 1)->get();
+            $closed_companies = User::where('from_weedmap', 1)->where($day.'_closed', 2)->get();
+            // dump($day, $companies->count());
+            foreach ($open_companies as $item) {
+                $item->update([$day.'_closed' => 2]);
+            }
+            foreach ($closed_companies as $item) {
+                $item->update([$day.'_closed' => 1]);
+            }
+        }
+        dd('ok');
     }
 }
