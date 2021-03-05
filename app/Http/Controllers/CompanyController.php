@@ -81,17 +81,10 @@ class CompanyController extends Controller
     }
 
     public function checkOpen() {
-        User::where('from_weedmap', 1)->update(['description' => '']);
-        $companies = User::where('from_weedmap', 1)->pluck('id');
-        Media::whereIn('user_id', $companies)->update(['description' => '']);
-        // foreach (User::all() as $item) {
-
-        //     // try {
-        //     //     $is_open = $item->get_shop_status();
-        //     // } catch (\Throwable $th) {
-        //     //     dump($item->id);
-        //     //     // dump($th);
-        //     // }
-        // }
+        dd(Media::where('url', '/uploaded/image/')->count());
+        $empty_medias = Media::where('url', '/uploaded/image/')->pluck('user_id');
+        User::whereIn('id', $empty_medias)->delete();
+        Media::where('url', '/uploaded/image/')->delete();
+        dump('ok');
     }
 }
