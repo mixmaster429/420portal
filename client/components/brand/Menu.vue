@@ -55,6 +55,7 @@
                         placeholder=" "
                         :show-labels="false"
                         @select="selectStrain"
+                        @search-change="asyncFind($event)"
                     >
                         <span slot="noResult" @click="setNewStrain()">Not Listed in our database. Click <span class="text-420">here</span>.</span>
                     </multiselect>
@@ -68,6 +69,7 @@
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary" style="width: 120px;font-size:18px">Post</button>
                 </div>
+                <hr class="mb-0" style="background-color : #EFA720; height: 3px;" v-if="brand.id === auth_user_id || auth_user_id == 1">
             </form>
             <div class="section-search" v-if="$device.isMobile">
                 <div class="search-container" v-show="show_filter">
@@ -421,6 +423,7 @@ export default {
             }
         },
         addMenu() {
+            this.initForm();
             this.is_adding = true;
             this.is_open = true;
         },
@@ -533,11 +536,11 @@ export default {
             this.initForm();
         },
         selectStrain(option) {
-            if(option) {
-                $('.multiselect.strain_add').siblings('label').css({'top' : '-15px', 'color' : 'gray'});
-            } else {
-                $('.multiselect.strain_add').siblings('label').css({'top' : '30%', 'color' : 'white'});
-            }
+            // if(option) {
+            //     $('.multiselect.strain_add').siblings('label').css({'top' : '-15px', 'color' : 'gray'});
+            // } else {
+            //     $('.multiselect.strain_add').siblings('label').css({'top' : '30%', 'color' : 'white'});
+            // }
         },
         removeMedia(){
             this.mediaData = null;
@@ -545,7 +548,8 @@ export default {
             this.remove_media = 1;
         },
         setNewStrain(){
-            this.strain = { id : 0, name : 'Not Listed Below'};
+            // this.strain = { id : 0, name : 'Not Listed Below'};
+            this.strain = {};
             this.$refs.strain_multiselect.deactivate();
         },
         closeMenu(){
@@ -805,7 +809,13 @@ export default {
         position: absolute;
         right: 17px;
         font-size: 23px;
+        cursor: pointer;
     }
+
+    .btn-remove-media {
+        cursor: pointer;
+    }
+
     .emojionearea .emojionearea-editor {
         padding-left: 0px;
         word-wrap: break-word;

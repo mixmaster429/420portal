@@ -54,7 +54,7 @@
                         >
                             <span slot="noResult">No Results</span>
                         </multiselect>
-                        <label for="mobile_filter_portal">Search Company</label>
+                        <label for="mobile_filter_portal" style="cursor:pointer;">Search Company</label>
                     </div>
                 </div>
             </div>

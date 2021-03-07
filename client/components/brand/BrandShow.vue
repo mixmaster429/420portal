@@ -136,7 +136,7 @@
         },
         data() {
             return  {
-                tab: 'flowers',
+                tab: 'all-brands',
                 posts: [],
                 brands: [],
                 selected_brand: null,
