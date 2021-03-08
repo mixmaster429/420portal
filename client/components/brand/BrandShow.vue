@@ -64,7 +64,7 @@
                     ><div slot="no-more"></div></infinite-loading>
                 </div>
                 <div class="col-md-4" v-if="!$device.isMobile && selected">
-                    <fixed-comment :user="selected" :allposts="posts"></fixed-comment>
+                    <fixed-comment :media="selected" :allposts="posts"></fixed-comment>
                 </div>
             </div>
         </div>
@@ -153,8 +153,8 @@
             modal_data: 'brand/modal_data',   
         }),
         mounted() {
-            this.getBrands();
             if(process.client) {
+                this.getBrands();
                 this.scroll();
             }
         },

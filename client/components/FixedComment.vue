@@ -205,10 +205,10 @@
             <add-form :mainData="selected" :editData="sendata" mode="edit" :from="from"></add-form>
         </vs-popup>
 
-        <vue-bottom-dialog v-model="dialog" >
-          <div>
-            <media-tags :media="selected" :logged_user_id="logged_user_id"></media-tags>
-          </div>
+        <vue-bottom-dialog v-model="dialog" v-if="this.selected" >
+            <div>
+                <media-tags :media="selected" :logged_user_id="logged_user_id"></media-tags>
+            </div>
         </vue-bottom-dialog>
     </div>
 </template>
@@ -669,10 +669,12 @@
             }
         },
         mounted() {
-            if(this.media.tagged_portal || this.media.tagged_strain || this.media.tagged_users.length > 0) {
-              this.hasmediatags = true;
-            } else {
-              this.hasmediatags = false;
+            if(this.media) {
+                if(this.media.tagged_portal || this.media.tagged_strain || this.media.tagged_users.length > 0) {
+                    this.hasmediatags = true;
+                } else {
+                    this.hasmediatags = false;
+                }  
             }
             if (this.user) {
                 this.logged_user_id = this.user.id

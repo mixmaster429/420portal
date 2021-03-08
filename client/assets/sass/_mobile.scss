@@ -186,14 +186,14 @@
             }
         }
         .map-wraper {
-            height: calc(100vh - 158px);
+            height: calc(100vh - 210px);
             .row {
                 height: 100%;
             }
         }
         .map_list {
             display: none;
-            height: calc(100vh - 158px);
+            height: calc(100vh - 210px);
             overflow-y: scroll;
         }
     }
