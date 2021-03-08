@@ -602,8 +602,8 @@
             if (this.$device.isMobile && navigator.userAgent.search("Safari") >= 0 && navigator.userAgent.search("Chrome") < 0)  {
                 this.is_ios = true;        
             }
-            console.log('Safari:', navigator.userAgent.search("Safari"));
-            console.log('Chrome:', navigator.userAgent.search("Chrome"));
+            // console.log('Safari:', navigator.userAgent.search("Safari"));
+            // console.log('Chrome:', navigator.userAgent.search("Chrome"));
         },
         methods: {
             getModalData(){

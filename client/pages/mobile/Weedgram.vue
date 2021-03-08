@@ -191,8 +191,8 @@
             this.posts = this.$route.params.allpost;
             if(process.client) {
                 window.addEventListener('scroll', this.handleScroll);
-            }
-            console.log(this.$route.params)
+            }            
+            console.log(navigator.userAgent);
         },
         mounted() {
             if(process.client) {
