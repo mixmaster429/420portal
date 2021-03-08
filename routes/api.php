@@ -273,3 +273,4 @@ Route::group(['middleware' => 'guest:api'], function () {
 Route::get('/company/import', 'CompanyController@importCompany');
 Route::get('/company/check_open', 'CompanyController@checkOpen');
 Route::get('/company/solve_closed', 'CompanyController@solveClosed');
+Route::get('/brand/import', 'CompanyController@importBrand');

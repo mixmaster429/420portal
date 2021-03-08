@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Company;
+use App\Models\Brand;
 use App\Models\Media;
 use App\User;
 
@@ -105,5 +106,34 @@ class CompanyController extends Controller
             }
         }
         dd('ok');
+    }
+    public function importBrand(Request $request) {
+        ini_set('max_execution_time', '0');
+        $brands = Brand::whereNull('imported')->get();
+        // dd($brands->count());
+        foreach ($brands as $brand) {
+            $user = User::create([
+                'name' => $brand->name,
+                'username' => $brand->username,
+                'slug' => $brand->slug,
+                'password' => bcrypt('420portalpassword'),
+                'media_id' => 1,
+                'role_id' => 2,
+                'type' => 'brand',
+                'website_url' => $brand->website_url,
+                'facebook_url' => $brand->facebook_url,
+                'instagram_url' => $brand->instagram_url,
+                'youtube_url' => $brand->youtube_url,
+                'from_weedmap' => 1,
+            ]);
+            $media = Media::create([
+                'url' => "/uploaded/image/".$brand->image,
+                'type' => 'image',
+                'model' => 'logo',
+                'user_id' => $user->id,
+            ]);
+            $user->update(['media_id' => $media->id]);
+            $brand->update(['imported' => 1]);
+        }
     }
 }
