@@ -217,7 +217,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3 map_list" :style="{height: is_ios ? 'calc(100vh - 272px)' : 'calc(100vh - 158px)'}">
+        <div class="col-md-3 map_list" :style="{height: is_ios ? 'calc(100vh - 272px)' : 'calc(100vh - 214px)'}">
             <div class="row">
                 <div class="w-100 border border" style="border-color: grey !important;margin: 1px;" v-if="!$device.isMobile">
                     <h5 class="text-center text-420 my-1">{{results_count}} Results</h5>
@@ -303,7 +303,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-9 map-wraper" :style="{height: is_ios ? 'calc(100vh - 272px)' : 'calc(100vh - 158px)'}">
+        <div class="col-md-9 map-wraper" :style="{height: is_ios ? 'calc(100vh - 272px)' : 'calc(100vh - 214px)'}">
             <div class="row">
                 <GmapMap
                     ref="mapRef"
