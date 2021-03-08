@@ -303,7 +303,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-9 map-wraper" :style="{height: is_ios ? 'calc(100vh - 267px)' : 'calc(100vh - 158px)'}">
+        <div class="col-md-9 map-wraper" :style="{height: is_ios ? 'calc(100vh - 272px)' : 'calc(100vh - 158px)'}">
             <div class="row">
                 <GmapMap
                     ref="mapRef"

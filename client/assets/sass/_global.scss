@@ -631,12 +631,17 @@ header {
     display: none;
   }
   .map_list {
-    height: calc(100vh - 267px);
+    @media (min-width: 600px) {
+      height: calc(100vh - 267px) !important;
+    }
     overflow: hidden;
     overflow-y: scroll;
   }
   .map-wraper {
-    height: calc(100vh - 267px);
+    @media (min-width: 600px) {
+      height: calc(100vh - 267px) !important;
+    }
+    
     .row {
       height: 100%;
       .portal_add {
