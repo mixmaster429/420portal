@@ -276,6 +276,9 @@ class User extends Authenticatable implements JWTSubject //, MustVerifyEmail
     public function isOpen($open, $close, $timezone) {
         $fopen = Carbon::createFromFormat('h:i A', $open, $timezone);
         $fclose = Carbon::createFromFormat('h:i A', $close, $timezone);
+        if($fopen->isAfter($fclose)) {
+            $fclose->addDays(1);
+        }
         $currentTime = Carbon::now($timezone);
         if ($currentTime->between($fopen, $fclose)) {
             return 2;
