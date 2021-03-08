@@ -32,6 +32,10 @@ class UserController extends Controller
         }
         if ($user->type == 'user') {
             $user->load('medias', 'profilePic');
+            $user->title_tag = $user->name;
+            $user->meta_title = $user->name;
+            $user->meta_keywords = strtolower($user->name);
+            $user->meta_description = 'View '.$user->name.' profile page that displays marijuana pictures and cannabis videos.';
             return response()->json(['status' => 200, 'profile' => $user]);
         } else {
             // check private
@@ -49,18 +53,35 @@ class UserController extends Controller
                     })->count();
 
             $user->total_comments = Comment::where('target_id', $user->id)->where('target_model', 'portal')->count();
-            $title = $user->name;
+            $title_tag = $user->name;
             if($user->type == 'company') {
                 $user->shop_status = $user->get_shop_status();
                 if($user->store_type == 3) {
-                    $title = $user->name." Marijuana Dispensary - Delivery";
+                    $title_tag = $user->name." ".$user->city.", ".$user->state." Marijuana Dispensary - Delivery";
+                    $meta_title = $title_tag;
+                    $meta_keywords = strtolower($user->name).", ".strtolower($user->city).", ".strtolower($user->state).", marijuana dispensary - delivery";
+                    $meta_description = $user->name." is a Marijuana Dispensary and Delivery Selling Cannabis Products in ".$user->city.", ".$user->state;
                 } else if($user->store_type == 1) {
-                    $title = $user->name." Marijuana Dispensary";
+                    $title_tag = $user->name." ".$user->city.", ".$user->state." Marijuana Dispensary";
+                    $meta_title = $title_tag;
+                    $meta_keywords = strtolower($user->name).", ".strtolower($user->city).", ".strtolower($user->state).", marijuana dispensary";
+                    $meta_description = $user->name." is a Marijuana Dispensary Selling Cannabis Products in ".$user->city.", ".$user->state;
                 } else if($user->store_type == 2) {
-                    $title = $user->name." Marijuana Delivery";
+                    $title_tag = $user->name." ".$user->city.", ".$user->state." Marijuana Delivery";
+                    $meta_title = $title_tag;
+                    $meta_keywords = strtolower($user->name).", ".strtolower($user->city).", ".strtolower($user->state).", marijuana delivery";
+                    $meta_description = $user->name." is a Marijuana Delivery Selling Cannabis Products in ".$user->city.", ".$user->state;
                 }
+            } else {
+                $title_tag = $user->name. " Marijuana Brand";
+                $meta_title = $title_tag;
+                $meta_keywords = strtolower($user->name).", marijuana brand";
+                $meta_description = $user->name." is a Marijuana Brand";
             }
-            $user->title_tag = $title;
+            $user->title_tag = $title_tag;
+            $user->meta_title = $meta_title;
+            $user->meta_keywords = $meta_keywords;
+            $user->meta_description = $meta_description;
             $user->load('profilePic', 'medias', 'taggedMedia', 'taggedPortalMedia', 'coupon', 'menus');
             return response()->json(['status' => 200, 'profile' => $user]);
         }
