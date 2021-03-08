@@ -117,6 +117,7 @@ class CompanyController extends Controller
                 'username' => $brand->username,
                 'slug' => $brand->slug,
                 'password' => bcrypt('420portalpassword'),
+                'description' => '',
                 'media_id' => 1,
                 'role_id' => 2,
                 'type' => 'brand',
@@ -131,6 +132,7 @@ class CompanyController extends Controller
                 'type' => 'image',
                 'model' => 'logo',
                 'user_id' => $user->id,
+                'description' => '',
             ]);
             $user->update(['media_id' => $media->id]);
             $brand->update(['imported' => 1]);

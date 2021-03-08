@@ -49,9 +49,18 @@ class UserController extends Controller
                     })->count();
 
             $user->total_comments = Comment::where('target_id', $user->id)->where('target_model', 'portal')->count();
+            $title = $user->name;
             if($user->type == 'company') {
-                $user->shop_status = $user->get_shop_status(); 
+                $user->shop_status = $user->get_shop_status();
+                if($user->store_type == 3) {
+                    $title = $user->name." Marijuana Dispensary - Delivery";
+                } else if($user->store_type == 1) {
+                    $title = $user->name." Marijuana Dispensary";
+                } else if($user->store_type == 2) {
+                    $title = $user->name." Marijuana Delivery";
+                }
             }
+            $user->title_tag = $title;
             $user->load('profilePic', 'medias', 'taggedMedia', 'taggedPortalMedia', 'coupon', 'menus');
             return response()->json(['status' => 200, 'profile' => $user]);
         }
