@@ -598,6 +598,8 @@
                     self.open_filters = false;
                 }
             });
+            console.log('Safari:', navigator.userAgent.search("Safari"));
+            console.log('Chrome:', navigator.userAgent.search("Chrome"));
         },
         methods: {
             getModalData(){
