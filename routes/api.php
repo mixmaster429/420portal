@@ -145,6 +145,7 @@ Route::middleware(['auth:api'])->group(function ($router){
     $router->post('/user/activate', 'UserController@activate');      
     
     $router->post('/portals/update', 'PortalController@update');
+    $router->delete('/portals/{id}', 'PortalController@destroy');
     
     $router->post('/brand/update', 'BrandController@update');
     $router->get('/brand/delete/{id}', 'BrandController@delete');

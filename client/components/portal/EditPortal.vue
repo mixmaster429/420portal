@@ -758,8 +758,9 @@ export default {
             this.axios.post(uri, params)
                 .then(response => {
                     this.openActivatePopup = false;
+                    this.$store.dispatch('auth/activateProfile', response.data)
                     this.portal.is_active = response.data;
-                    this.$parent.$parent.portal_detail.is_active = response.data;
+                    // this.$parent.$parent.portal_detail.is_active = response.data;
                 });
         },
         deletePortal(){
@@ -768,11 +769,10 @@ export default {
             }
             let params = { id: this.portal.id };
             let uri = `/portals/${this.portal.id}`;
-            this.axios.delete(uri, params)
-                .then(response => {
-                    this.openActivatePopup = false;
-                    window.location.href = '/';
-                });
+            this.axios.delete(uri, params).then(response => {
+                this.openActivatePopup = false;
+                window.location.href = '/';
+            });
         },
         async logout () {
             if(window.confirm('Are you sure?')) {

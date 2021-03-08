@@ -1,6 +1,10 @@
 <template>
-  <div class="row">
-    <div class="mt-5 col-md-6 offset-md-3">
+  <div class="row justify-content-center">
+    <div class="mt-4 col-md-6">
+      <div class="page-header">
+          <!-- <img src="~/assets/imgs/h_icon3.png" alt="Contact Us" />                 -->
+          <h1 >Contact Us</h1>
+      </div>
       <form
         id="login_modal"
         @submit.prevent="sendmessage"

@@ -58,7 +58,7 @@
             <div class="container">
                 <div class="row justify-content-center" v-if="defaultpost != null">
                     <div class="col-4 media_container">
-                        <div class="media" @click="showdefault">
+                        <div class="media" @click="showdefault" @dblclick="like(defaultpost)">
                             <img v-bind:src="serverUrl(defaultpost.url)" alt />
                         </div>
                     </div>

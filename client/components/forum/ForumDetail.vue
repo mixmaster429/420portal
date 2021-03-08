@@ -355,6 +355,11 @@
                                     <div style="clear:both;"></div>
                                 </div>
                                 <div class="lastborder"></div>
+                                <div class="bottom-reply">
+                                    <button class="btn_topic_reply" data-topic-id="" @click="toggle(forum.user_id)" title="Reply to this topic">
+                                        <fa icon="reply" fixed-width></fa> Reply
+                                    </button>
+                                </div>
                                 <div v-if="noSearchResult">
                                     <p style="text-align:center;">There is no match data.</p>
                                 </div>

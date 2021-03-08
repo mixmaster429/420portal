@@ -1,6 +1,6 @@
 <template>
     <user-profile v-if="profile.type == 'user'" :user="profile"></user-profile>
-    <portal-profile :profile="profile" v-else></portal-profile>
+    <portal-profile :profile="profile" ref="portalprofile" v-else></portal-profile>
 </template>
 
 <script>

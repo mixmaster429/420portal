@@ -47,6 +47,10 @@ export const mutations = {
     state.user = user
   },
 
+  ACTIVATE_PROFILE(state, value) {
+    state.profile.is_active = value;
+  },
+
   FETCH_PROFILE (state, data) {
     state.profile = data
   },
@@ -112,6 +116,10 @@ export const actions = {
     } catch (e) {
         console.log(e)
     }
+  },
+
+  activateProfile ({ commit }, value) {
+    commit('ACTIVATE_PROFILE', value)
   },
 
   async fetchMapLocation({commit}, location) {

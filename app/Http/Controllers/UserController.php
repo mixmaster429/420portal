@@ -49,8 +49,9 @@ class UserController extends Controller
                     })->count();
 
             $user->total_comments = Comment::where('target_id', $user->id)->where('target_model', 'portal')->count();
-
-            $user->shop_status = $user->get_shop_status();
+            if($user->type == 'company') {
+                $user->shop_status = $user->get_shop_status(); 
+            }
             $user->load('profilePic', 'medias', 'taggedMedia', 'taggedPortalMedia', 'coupon', 'menus');
             return response()->json(['status' => 200, 'profile' => $user]);
         }

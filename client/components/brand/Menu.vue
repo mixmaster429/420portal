@@ -2,7 +2,7 @@
     <div id="menuForm">
         <div v-if="$device.isMobile" class="btn-close-popup">            
             <fa @click="closeMenu()" icon="times" class="mr-2" fixed-width></fa>
-            <h5 class="page-title">
+            <h5 class="page-title" style="margin-top:1px;">
                 Menu
                 <img src="/imgs/search_option.png" width="25" @click="show_filter = !show_filter">
                 <span class="results-count" @click="show_filter = false;">{{menus.length}} Results</span>
@@ -69,31 +69,18 @@
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary" style="width: 120px;font-size:18px">Post</button>
                 </div>
-                <hr class="mb-0" style="background-color : #EFA720; height: 3px;" v-if="brand.id === auth_user_id || auth_user_id == 1">
+                <hr class="mb-0" style="background-color : #EFA720; height: 3px;" v-if="brand.id === auth_user.id || auth_user.id == 1">
             </form>
             <div class="section-search" v-if="$device.isMobile">
                 <div class="search-container" v-show="show_filter">
                     <div class="container-fluid search-body">
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-12">
                                 <div class="custom-control custom-radio filter-input" style="padding-top: 3px;" v-for="(item, c_index) in category" :key="c_index" v-show="getCategoryResults(item)">
                                     <input type="radio" class="custom-control-input" name="category" :id="'menu_category_' + item.slug" :value="item.id" v-model="menu_filter.category_id" @change="menu_filter.selected_category = item" />
                                     <label class="custom-control-label" :for="'menu_category_' + item.slug">{{item.price_type == 2 ? 'Flower - ' + item.name : item.name}}<span class="category-count"> ({{getCategoryResults(item)}})</span></label>
-                                </div>                                                                
-                            </div>
-                            <div class="col-6">
-                                <div class="custom-control custom-radio filter-input text-420" style="padding: 8px 0 0;font-size:18px;">
-                                    Brands
                                 </div>
-                                <div class="custom-control custom-radio filter-input" style="padding-top: 3px;">
-                                    <input type="radio" class="custom-control-input" name="brand" :id="'menu_brand_1'" />
-                                    <label class="custom-control-label" :for="'menu_brand_1'">Brand Name</label>
-                                </div>
-                                <div class="custom-control custom-radio filter-input" style="padding-top: 3px;">
-                                    <input type="radio" class="custom-control-input" name="brand" :id="'menu_brand_2'" />
-                                    <label class="custom-control-label" :for="'menu_brand_2'">Brand Name</label>
-                                </div>
-                                <h5 class="mt-3"><a href="javascript:;" class="text-420" @click="resetSearchOptions()">Reset Options</a></h5>                                
+                                <h5 class="mt-3"><a href="javascript:;" class="text-420" @click="resetSearchOptions()">Reset Options</a></h5>                                                        
                             </div>
                         </div>
                     </div>
@@ -106,7 +93,7 @@
                         <input type="radio" class="custom-control-input" name="category" :id="'menu_category_' + item.slug" :value="item.id" v-model="menu_filter.category_id" @change="menu_filter.selected_category = item" />
                         <label class="custom-control-label" :for="'menu_category_' + item.slug">{{item.price_type == 2 ? 'Flower - ' + item.name : item.name}}<span class="category-count"> ({{getCategoryResults(item)}})</span></label>
                     </div>
-                    <h5 class="search-type" v-if="menu_filter.category_id">Weight</h5>
+                    <!-- <h5 class="search-type" v-if="menu_filter.category_id">Weight</h5>
                     <div class="form-group floating-label" v-if="menu_filter.category_id">
                         <select class="form-control floating-select mt-2" id="mobile_weight_amount" v-model="menu_filter.price_type">
                             <option value="price_each">Each</option>
@@ -128,7 +115,7 @@
                             v-model="menu_filter.price_max"
                         />
                         <label for="mobile_max_price">Max $</label>
-                    </div>
+                    </div> -->
 
                     <h5 class="mt-3"><a href="javascript:;" class="text-420" @click="resetSearchOptions()">Reset Options</a></h5>
                 </div>
@@ -553,9 +540,9 @@ export default {
             this.$refs.strain_multiselect.deactivate();
         },
         closeMenu(){
-            console.log(123);
-            if(this.$root.$refs.portalprofile){
-                this.$root.$refs.portalprofile.openPortalMenu = false;
+            console.log(this.$parent.$parent.$options.name);
+            if(this.$parent.$parent.$options.name == 'PortalProfile'){
+                this.$parent.$parent.openPortalMenu = false;
             }
         },
         toggleDescription(item, type) {
@@ -871,7 +858,7 @@ export default {
                 padding-top: 10px;
                 padding-bottom: 10px;
                 .filter-input {
-                    max-width: 170px;
+                    // max-width: 170px;
                     border-bottom: solid 1px #666;
                     padding-bottom: 4px;
                     cursor: pointer;

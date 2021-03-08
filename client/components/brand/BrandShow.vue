@@ -71,7 +71,7 @@
         <div class="container all-brands" v-else>
             <div class="row justify-content-end">
                 <div class="col-md-3">
-                    <div class=" float-right offset-md-4 form-group floating-label">
+                    <div class=" float-right offset-md-4 form-group floating-label" style="cursor:pointer;">
                         <multiselect
                             v-model="selected_brand"
                             class="floating-label filter_portal"
@@ -237,16 +237,18 @@
                 window.location.href = "/" + item.username;
             },
             scroll() {
-                var header = document.getElementById("brand_menus");
-                var sticky = header.offsetTop;
-                var sticky = sticky - 100;
-                window.onscroll = () => {
-                    if (window.pageYOffset > sticky) {
-                        header.classList.remove("original");
-                    } else {
-                        header.classList.add("original");
-                    }
-                };
+                if(this.tab != 'all-brands') {
+                    var header = document.getElementById("brand_menus");
+                    var sticky = header.offsetTop;
+                    var sticky = sticky - 100;
+                    window.onscroll = () => {
+                        if (window.pageYOffset > sticky) {
+                            header.classList.remove("original");
+                        } else {
+                            header.classList.add("original");
+                        }
+                    }; 
+                }
             },
             selectBrand(selected_brand, id) {
                  $(".filter_portal").siblings('label').addClass('focused');
@@ -265,7 +267,7 @@
 </script>
 <style lang="scss" scoped>
     .page-header {
-        margin-top: 60px;
+        margin-top: 25px;
         @media (max-width: 600px) {
             margin-top: 30px;
         }

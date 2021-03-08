@@ -54,7 +54,7 @@
                         >
                             <span slot="noResult">No Results</span>
                         </multiselect>
-                        <label for="mobile_filter_portal" style="cursor:pointer;">Search Company</label>
+                        <label for="mobile_filter_portal">Search Company</label>
                     </div>
                 </div>
             </div>
@@ -197,7 +197,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="row">
-                        <div class="col-md-8 mb-0 float-right offset-md-4 form-group floating-label">
+                        <div class="col-md-8 mb-0 float-right offset-md-4 form-group floating-label" style="cursor:pointer;">
                             <multiselect
                                 v-model="top_filter.portal"
                                 class="floating-label filter_portal"
@@ -211,7 +211,6 @@
                             >
                                 <span slot="noResult">No Results</span>
                             </multiselect>
-
                             <label for="">Search Company</label>
                         </div>
                     </div>
