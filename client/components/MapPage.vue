@@ -303,7 +303,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-9 map-wraper">
+        <div class="col-md-9 map-wraper" :style="{height: is_ios ? 'calc(100vh - 250px)' : 'calc(100vh - 158px)'}">
             <div class="row">
                 <GmapMap
                     ref="mapRef"
@@ -537,6 +537,7 @@
                 state: "",
                 city: "",
                 bounds: null,
+                is_ios: false,
             };
         },
         serverPrefetch () {
@@ -598,6 +599,9 @@
                     self.open_filters = false;
                 }
             });
+            if (navigator.userAgent.search("Safari") >= 0 && navigator.userAgent.search("Chrome") < 0)  {
+                this.is_ios = true;        
+            }
             console.log('Safari:', navigator.userAgent.search("Safari"));
             console.log('Chrome:', navigator.userAgent.search("Chrome"));
         },
