@@ -778,9 +778,6 @@
                     return process.env.serverUrl + 'imgs/default.png';
                 }
             },
-            zoomChangedMap(e) {
-                console.log(e);
-            },
             boundsChangedMap: _.debounce(function(e) {
                 this.bounds = e;
                 this.getportals();
