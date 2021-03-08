@@ -92,11 +92,12 @@ class BrandController extends Controller
 
     public function getBrands(Request $request) {
         $user = auth()->user();
+        $mod = new User();
+        $mod = $mod->whereType('brand');
         if ($user && $user->role_id == 1) {
-            $brands = User::whereType('brand')->orderBy('name')->get();
-        } else {
-            $brands = User::where('is_active', 1)->whereType('brand')->orderBy('name')->get();
+            $mod = $mod->where('is_active', 1);
         }
+        $brands = $mod->orderBy('name')->paginate(30);
         return response()->json(['status' => 200, 'brands' => $brands]);
     }
 

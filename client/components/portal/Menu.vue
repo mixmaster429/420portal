@@ -101,7 +101,7 @@
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary" style="width: 120px;font-size:18px">Post</button>
                 </div>
-                <hr class="mb-0" style="background-color : #EFA720; height: 3px;" v-if="portal.id === auth_user_id || auth_user_id == 1">
+                <hr class="mb-0" style="background-color : #EFA720; height: 3px;" v-if="auth_user && (portal.id === auth_user_id || auth_user_id == 1)">
             </form>
             <div class="section-search" v-if="$device.isMobile">
                 <div class="search-container" v-show="show_filter">

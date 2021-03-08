@@ -98,6 +98,13 @@
                         </div>
                     </div>
                 </div>
+                <infinite-loading 
+                    :distance="300" 
+                    spinner="spiral" 
+                    :identifier="infiniteId"
+                    @infinite="getBrands"
+                    force-use-infinite-wrapper="#brand_show"
+                ><div slot="no-more"></div></infinite-loading>
             </div>
         </div>
         <div class="modal fade" id="headingModal" tabindex="-1" role="dialog" aria-labelledby="headingModalLabel" aria-hidden="true">
@@ -143,6 +150,7 @@
                 selected: null,
                 page: 1,
                 infiniteId: +new Date(),
+                all_page: 1,
             };
         },
         serverPrefetch () {
@@ -165,10 +173,23 @@
             getModalData(){
                 return this.$store.dispatch('brand/getBrandModalData');
             },
-            getBrands() {
+            getBrands($state) {
                 let uri = '/brand/get_all';
-                this.axios.get(uri).then(response => {
-                    this.brands = response.data.brands;
+                let params = {
+                    page: this.all_page,
+                };
+                this.axios.post(uri, params).then(response => {
+                    if (response.data.brands.data.length) {
+                        if(this.brands.length == 0) {
+                            this.brands = response.data.brands.data;
+                        } else {
+                            this.brands = _.concat(this.brands, response.data.brands.data);
+                        }
+                        this.all_page++ ;
+                        $state.loaded();
+                    } else {
+                        $state.complete();
+                    }
                 });
             },
             openTab(slug) {

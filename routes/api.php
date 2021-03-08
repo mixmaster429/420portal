@@ -50,7 +50,7 @@ Route::post('/portals/getall', 'PortalController@searchPortals');
 Route::post('/marijuana-coupons', 'CouponController@show');
 
 //Brand
-Route::get('/brand/get_all', 'BrandController@getBrands');
+Route::any('/brand/get_all', 'BrandController@getBrands');
 Route::post('/get/brand', 'BrandController@appGetBrand');
 Route::post('/brand/get_all_menus', 'BrandController@get_all_menus');
 Route::post('/brand/get_category_media', 'BrandController@getCategoryMedia');

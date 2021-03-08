@@ -69,7 +69,7 @@
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary" style="width: 120px;font-size:18px">Post</button>
                 </div>
-                <hr class="mb-0" style="background-color : #EFA720; height: 3px;" v-if="brand.id === auth_user.id || auth_user.id == 1">
+                <hr class="mb-0" style="background-color : #EFA720; height: 3px;" v-if="auth_user && (brand.id === auth_user.id || auth_user.id == 1)">
             </form>
             <div class="section-search" v-if="$device.isMobile">
                 <div class="search-container" v-show="show_filter">
@@ -215,7 +215,7 @@ export default {
     },
     props : ['brand'],
     created() {
-
+        console.log(this.brand);
     },
     watch : {
         brand : function(new_brand, old_brand){
