@@ -206,7 +206,7 @@
 
                 // check iphone chrome
                 if(/CriOS/i.test(navigator.userAgent) && /iphone|ipod|ipad/i.test(navigator.userAgent)){
-                    offset = offset - 119;
+                    offset = offset + 119;
                 }
 
                 let scroll_to = scroll_div ? scroll_div.offsetTop - offset : 0;
