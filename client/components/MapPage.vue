@@ -43,7 +43,7 @@
                         <multiselect
                             class="filter_portal"
                             id="mobile_filter_portal"
-                            :options="all_portals"
+                            :options="search_portals"
                             label="name"
                             track-by="id"
                             placeholder=" "
@@ -482,7 +482,6 @@
                 default_logo : '/imgs/default.png',
                 showmap: false,
                 portals: [],
-                all_portals: [],
                 info_marker: null,
                 infowindow: {lat: 10, lng: 10.0},
                 window_open: false,
@@ -662,9 +661,6 @@
                         // this.portals.map(portal => {
                         //     this.results_count += portal.menus.length;
                         // });
-                        if(this.search_count == 1) {
-                            this.all_portals = this.portals;
-                        }
                         this.portals.sort(function (a, b) {
                             return a.distance - b.distance;
                         });
