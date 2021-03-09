@@ -71,7 +71,7 @@
         <div class="container all-brands" v-else>
             <div class="row justify-content-end">
                 <div class="col-md-3">
-                    <div class=" float-right offset-md-4 form-group floating-label" style="cursor:pointer;">
+                    <div class=" float-right offset-md-4 form-group floating-label brand-search" style="cursor:pointer;">
                         <multiselect
                             v-model="selected_brand"
                             class="floating-label filter_portal"
@@ -86,7 +86,7 @@
                         >
                             <span slot="noResult">No Results</span>
                         </multiselect>                            
-                        <label for="">Search Brand</label>
+                        <label for="" :class="{focused: selected_brand != null}">Search Brand</label>
                     </div>
                 </div>
             </div>
@@ -376,7 +376,8 @@
     }
 
     .multiselect--active ~ label,
-    .floating-multiselect.selected > label {
+    .floating-multiselect.selected > label,
+    .brand-search label.focused {
         top: -15px;
         color: gray;
     }
