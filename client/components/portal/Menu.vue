@@ -42,10 +42,6 @@
                     <input type="text" name="item_name" class="form-control floating-input item_name" placeholder=" " maxlength="50" v-model="item_name" />
                     <label>Item Name</label>
                 </div>
-                <div class="form-group floating-label mt-4" v-show="selected_category.id">
-                    <input type="text" name="brand_name" class="form-control floating-input brand" placeholder=" " v-model="brand_name" />
-                    <label>Brand</label>
-                </div>
                 <div class="form-group floating-label mt-4" v-show="selected_category.type == 'strain_selectable'">
                     <multiselect
                         ref="strain_multiselect"
@@ -111,18 +107,7 @@
                                 <div class="custom-control custom-radio filter-input" style="padding-top: 3px;" v-for="(item, c_index) in category" :key="c_index" v-show="getCategoryResults(item)">
                                     <input type="radio" class="custom-control-input" name="category" :id="'menu_category_' + item.slug" :value="item.id" v-model="menu_filter.category_id" @change="menu_filter.selected_category = item" />
                                     <label class="custom-control-label" :for="'menu_category_' + item.slug">{{item.price_type == 2 ? 'Flower - ' + item.name : item.name}}<span class="category-count"> ({{getCategoryResults(item)}})</span></label>
-                                </div>
-                                <div class="custom-control custom-radio filter-input text-420" style="padding: 8px 0 0;font-size:18px;">
-                                    Brands
-                                </div>
-                                <div class="custom-control custom-radio filter-input" style="padding-top: 3px;">
-                                    <input type="radio" class="custom-control-input" name="brand" :id="'menu_brand_1'" />
-                                    <label class="custom-control-label" :for="'menu_brand_1'">Brand Name</label>
-                                </div>
-                                <div class="custom-control custom-radio filter-input" style="padding-top: 3px;">
-                                    <input type="radio" class="custom-control-input" name="brand" :id="'menu_brand_2'" />
-                                    <label class="custom-control-label" :for="'menu_brand_2'">Brand Name</label>
-                                </div>                                
+                                </div>                              
                             </div>
                             <div class="col-6">
                                 <div class="pt-5">
@@ -185,15 +170,6 @@
                         />
                         <label for="mobile_max_price">Max $</label>
                     </div>
-                    <h5 class="search-type">Brands</h5>
-                    <div class="custom-control custom-radio filter-input" style="padding-top: 3px;">
-                        <input type="radio" class="custom-control-input" name="brand" :id="'menu_brand_1'" />
-                        <label class="custom-control-label" :for="'menu_brand_1'">Brand Name</label>
-                    </div>
-                    <div class="custom-control custom-radio filter-input" style="padding-top: 3px;">
-                        <input type="radio" class="custom-control-input" name="brand" :id="'menu_brand_2'" />
-                        <label class="custom-control-label" :for="'menu_brand_2'">Brand Name</label>
-                    </div>
 
                     <h5 class="mt-3"><a href="javascript:;" class="text-420" @click="resetSearchOptions()">Reset Options</a></h5>
                 </div>
@@ -230,7 +206,6 @@
                                     <span class="strain" v-if="menu.strain"> | {{menu.strain.name}}</span>
                                 </p>
                                 <h4 class="item_name">{{menu.item_name}}</h4>
-                                <p class="brand my-0">{{menu.brand_name}}</p>
                                 <p class="price-data mb-0">
                                     <span v-if="menu.price_each != null">{{menu.price_each}}<sup class="text-420">each</sup></span>
                                     <span v-if="menu.price_half_gram != null">{{menu.price_half_gram}}<sup class="text-420">1/2g</sup></span>
@@ -287,7 +262,6 @@ export default {
             category_id : null,
             strain_id : null,
             item_name : null,
-            brand_name : null,
             description : '',
             price_gram : null,
             price_half_gram : null,
@@ -302,7 +276,6 @@ export default {
             show_filter: false,
             menu_filter : {
                 category_id : null,
-                brand_id : null,
                 selected_category : {},
                 price_type : '',
                 price_max : '',
@@ -448,7 +421,6 @@ export default {
             this.strains = [],
             this.strain = {},
             this.item_name = null;
-            this.brand_name = null;
             this.menu_id = null;
             this.category_id = null;
             this.strain_id = null;
@@ -576,7 +548,6 @@ export default {
             this.menu_id = menu.id;
             this.category_id = menu.category_id;
             this.item_name = menu.item_name;
-            this.brand_name = menu.brand_name;
             this.description = menu.description;
             this.price_gram = menu.price_gram;
             this.price_half_gram = menu.price_half_gram;
