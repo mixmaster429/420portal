@@ -27,9 +27,9 @@ class UserController extends Controller
         $auth_id = auth()->id();
         $user = User::where('username', $slug)->first();
         if(!$user) {return response()->json(['status' => 404, 'message' => 'User not found!']);}
-        if($user->is_active != 1 && ($auth_id != $user->id && $auth_id != 1)) {
-            return response()->json(['status' => 400, 'message' => 'Inactive user!']);
-        }
+        // if($user->is_active != 1 && ($auth_id != $user->id && $auth_id != 1)) {
+        //     return response()->json(['status' => 400, 'message' => 'Inactive user!']);
+        // }
         if ($user->type == 'user') {
             $user->load('medias', 'profilePic');
             $user->title_tag = $user->name;
