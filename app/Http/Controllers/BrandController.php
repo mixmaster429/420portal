@@ -249,4 +249,13 @@ class BrandController extends Controller
 
         return response()->json($modalData);
     } 
+
+    public function search(Request $request) {
+        $keyword = $request->get('keyword');
+        $mod = new User();
+        $mod = $mod->where('type', 'brand');
+        $mod = $mod->where('name', 'like', "%$keyword%");
+        $brands = $mod->orderBy('name')->get(['name', 'username']);
+        return response()->json($brands);
+    }
 }

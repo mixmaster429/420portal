@@ -56,6 +56,7 @@ Route::post('/brand/get_all_menus', 'BrandController@get_all_menus');
 Route::post('/brand/get_category_media', 'BrandController@getCategoryMedia');
 Route::post('/brand/save', 'BrandController@save');
 Route::get('/brand/get_modal_data', 'BrandController@getModalData');
+Route::post('/brand/search', 'BrandController@search');
 
 Route::post('/marijuana-news', 'BlogController@index');
 Route::get('/marijuana-news/{slug}', 'BlogController@show');

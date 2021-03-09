@@ -76,11 +76,12 @@
                             v-model="selected_brand"
                             class="floating-label filter_portal"
                             id="filter_portal"
-                            :options="brands"
+                            :options="search_brands"
                             label="name"
                             track-by="id"
                             placeholder=" "
                             :show-labels="false"
+                            @search-change="searchBrands"
                             @select="selectBrand"
                         >
                             <span slot="noResult">No Results</span>
@@ -90,7 +91,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-2 col-4 media_container px-1" v-for="(item, index) of brands" :key="index">
+                <div class="col-md-2 col-4 media_container px-1 mt-2" v-for="(item, index) of brands" :key="index">
                     <div class="media" @click="goToProfile(item)">
                         <img :src="serverUrl(item.profile_pic ? item.profile_pic.url : '/imgs/default.png')" />
                         <div class="menu-info">
@@ -151,6 +152,7 @@
                 page: 1,
                 infiniteId: +new Date(),
                 all_page: 1,
+                search_brands: [],
             };
         },
         serverPrefetch () {
@@ -275,6 +277,13 @@
                  $(".filter_portal").siblings('label').addClass('focused');
                 window.location.href = "/" + selected_brand.username;
             },
+            searchBrands: _.debounce(function(keyword) {
+                let url = '/brand/search';
+                let params = {keyword: keyword};
+                this.axios.post(url, params).then(response => {
+                    this.search_brands = response.data;
+                });
+            }, 500),
             serverUrl(item) {
                 if(item.charAt(0) != '/'){item = '/' + item;}
                 try {
