@@ -44,8 +44,7 @@ class StrainController extends Controller
 
   public function api()
   {
-    $strains = Strain::all();
-
+    $strains = Strain::all('id', 'name', 'slug');
     return response()->json($strains);
   }
 
