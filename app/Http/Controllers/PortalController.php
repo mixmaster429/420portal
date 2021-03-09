@@ -408,12 +408,12 @@ class PortalController extends Controller
     }
 
     public function getAllPortals() {
-        $portals = User::where('type', 'company')->get();
+        $portals = User::where('type', 'company')->get(['name', 'username']);
         return response()->json($portals);
     }
 
     public function portalswithbrand() {
-        $portals = User::where('type', 'company')->orWhere('type', 'brand')->take(5000)->get();
+        $portals = User::where('type', 'company')->orWhere('type', 'brand')->get(['id', 'name', 'username']);
         return response()->json($portals);
     }
 

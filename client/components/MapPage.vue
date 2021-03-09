@@ -202,7 +202,7 @@
                                 v-model="top_filter.portal"
                                 class="floating-label filter_portal"
                                 id="filter_portal"
-                                :options="portals"
+                                :options="search_portals"
                                 label="name"
                                 track-by="id"
                                 placeholder=" "
@@ -448,22 +448,22 @@
             </div>
         </div>
         <div class="modal fade" id="titleModal" v-else>
-          <div class="modal-dialog modal-lg border-0">
-            <div class="modal-content">
-              <div class="modal-header bg-white">
-                <button type="button" class="close text-420" data-dismiss="modal"><fa icon="times" fixed-width></fa></button>
-              </div>
-              <div class="modal-body" style="background:white !important;">
-                <div class="row">
-                  <div class="col-md-12 text-center">
-                    <img src="/imgs/dispensary.png" alt="">
-                    <img src="/imgs/delivery.png" alt="">
-                    <p class="pt-3">Our map displays both <span style="font-size: 18px">marijuana dispensaries and deliveries in <font style="text-transform: capitalize">{{city}}, {{state}}</font> </span>. Find your local cannabis dispensary and delivery nearest you. We display both recreational and medical marijuana dispensaries and deliveries in <font style="text-transform: capitalize">{{city}}, {{state}}</font>. So if you're looking for weed products, you have come to the right place!</p>
-                  </div>
+            <div class="modal-dialog modal-lg border-0">
+                <div class="modal-content">
+                    <div class="modal-header bg-white">
+                        <button type="button" class="close text-420" data-dismiss="modal"><fa icon="times" fixed-width></fa></button>
+                    </div>
+                    <div class="modal-body" style="background:white !important;">
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <img src="/imgs/dispensary.png" alt="">
+                                <img src="/imgs/delivery.png" alt="">
+                                <p class="pt-3">Our map displays both <span style="font-size: 18px">marijuana dispensaries and deliveries in <font style="text-transform: capitalize">{{city}}, {{state}}</font> </span>. Find your local cannabis dispensary and delivery nearest you. We display both recreational and medical marijuana dispensaries and deliveries in <font style="text-transform: capitalize">{{city}}, {{state}}</font>. So if you're looking for weed products, you have come to the right place!</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
-          </div>
         </div>
     </div>
 </template>
@@ -538,6 +538,7 @@
                 city: "",
                 bounds: null,
                 is_ios: false,
+                search_portals: [],
             };
         },
         serverPrefetch () {
@@ -602,10 +603,13 @@
             if (this.$device.isMobile && navigator.userAgent.search("Safari") >= 0 && navigator.userAgent.search("Chrome") < 0)  {
                 this.is_ios = true;        
             }
-            // console.log('Safari:', navigator.userAgent.search("Safari"));
-            // console.log('Chrome:', navigator.userAgent.search("Chrome"));
         },
         methods: {
+            getSearchPortals() {
+                this.axios.get('/portals').then(response => {
+                    this.search_portals = response.data;
+                });
+            },
             getModalData(){
                 return this.$store.dispatch('map/getMapModalData');
             },
@@ -614,10 +618,10 @@
                 return text.charAt(0).toUpperCase() + text.slice(1)
             },
             init() {
-                this.axios.post('/categories')
-                .then(response => {
+                this.axios.post('/categories').then(response => {
                     this.categories = response.data;
                 });
+                this.getSearchPortals();
             },
             openWindow(position, index) {
                 this.details = this.portals[index];

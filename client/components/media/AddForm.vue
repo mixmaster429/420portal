@@ -300,25 +300,23 @@ export default {
                 }
             };
             this.loading = true;
-            this.axios
-                .put(url, params)
-                .then(res => {
-                    this.loading = false;
-                    // console.log('response data is', res.data);
-                    this.$toast.success("Edited Successfully.", "");
-                    if(this.auth_user) {
-                        if(this.from) {
-                            this.axios.post('/get/portal', {id : this.from}).then(response => {
-                                window.location.href = "/" + response.data.username;
-                            });
-                        } else {
-                            window.location.href = "/" + this.auth_user.name;
-                        }
+            this.axios.put(url, params).then(res => {
+                this.loading = false;
+                // console.log('response data is', res.data);
+                this.$toast.success("Edited Successfully.", "");
+                if(this.auth_user) {
+                    if(this.from) {
+                        this.axios.post('/get/portal', {id : this.from}).then(response => {
+                            window.location.href = "/" + response.data.username;
+                        });
                     } else {
-                        window.location.href = '/';
+                        window.location.href = "/" + this.auth_user.name;
                     }
-                })
-                .catch(e => {this.$toast.error("Error editing media", "");this.loading = false;});
+                } else {
+                    window.location.href = '/';
+                }
+            })
+            .catch(e => {this.$toast.error("Error editing media", "");this.loading = false;});
             
         },
         save() {
@@ -360,7 +358,7 @@ export default {
                 .catch(e => {this.$toast.error("Error adding media", ""); console.log('error'); this.loading = true;});
         },
         getData() {
-            const req1 = this.axios.post(this.companiesUrl);
+            const req1 = this.axios.get(this.companiesUrl);
             const req2 = this.axios.get(this.strainsUrl);
             const req3 = this.axios.get(this.usersUrl);
 
