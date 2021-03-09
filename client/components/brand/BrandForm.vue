@@ -50,9 +50,33 @@
                     <input type="password" id="portal_password" class="floating-input" name="password" required autocomplete="off" v-model="brand_form.password" placeholder=" ">
                     <label for="portal_password">Password *</label>
                 </div>
+                <div class="floating-label mt-4">
+                    <input type="email" id="portal_email" class="floating-input" name="email" required autocomplete="off" v-model="brand_form.email" placeholder=" ">
+                    <label for="portal_email">Brand Email *</label>
+                </div>
                 <div class="floating-label mt-2">
                     <input type="text" class="floating-input" name="website_url" id="website" data-value="http://" v-model="brand_form.website_url" placeholder=" ">
                     <label for="website">Brand Website</label>
+                </div>
+
+                <div class="floating-label">
+                    <input type="text" class="floating-input" name="facebook_url" id="facebook" v-model="brand_form.facebook_url" data-value="facebook.com/" placeholder="fb">
+                    <label for="facebook">Facebook Url</label>
+                </div>
+
+                <div class="floating-label">
+                    <input type="text" class="floating-input" name="twitter_url" id="twitter" v-model="brand_form.twitter_url" data-value="twitter.com/" placeholder="tw">
+                    <label for="twitter">Twitter Url</label>
+                </div>
+
+                <div class="floating-label">
+                    <input type="text" class="floating-input" name="instagram_url" id="instagram" v-model="brand_form.instagram_url" data-value="instagram.com/" placeholder="is">
+                    <label for="instagram">Instagram Url</label>
+                </div>
+
+                <div class="floating-label">
+                    <input type="text" class="floating-input" name="youtube_url" id="youtube" v-model="brand_form.youtube_url" data-value="youtube.com/user/" placeholder=" ">
+                    <label for="youtube">Youtube Url</label>
                 </div>
                 <div class="form-label-group portal_description floating-portal floating-label mt-4" style="height: 100px;margin-bottom:12px;">
                     <textarea class="form-control comment_text" name="description" id="brand-description" placeholder=" " v-model="brand_form.description"></textarea>
@@ -101,8 +125,13 @@
                     media_id: null,
                     name: '',
                     username: '',
+                    email: '',
                     password: '',
                     website_url: '',
+                    facebook_url: '',
+                    instagram_url: '',
+                    twitter_url: '',
+                    youtube_url: '',
                     is_active: null,
                     description: '',
                 },
@@ -157,6 +186,10 @@
         methods: {
             init() {
                 this.makeInitialTextReadOnly(document.getElementById('website'));
+                this.makeInitialTextReadOnly(document.getElementById('facebook'));
+                this.makeInitialTextReadOnly(document.getElementById('twitter'));
+                this.makeInitialTextReadOnly(document.getElementById('instagram'));
+                this.makeInitialTextReadOnly(document.getElementById('youtube'));
             },
             makeInitialTextReadOnly(input) {
                 var readOnlyLength;
@@ -175,6 +208,22 @@
                         switch (input.id) {
                             case "website":
                                 readOnlyLength = 7;
+                                break;
+
+                            case "facebook":
+                                readOnlyLength = 13;
+                                break;
+
+                            case "twitter":
+                                readOnlyLength = 12;
+                                break;
+
+                            case "instagram":
+                                readOnlyLength = 14;
+                                break;
+
+                            case "youtube":
+                                readOnlyLength = 17;
                                 break;
 
                             default:
@@ -206,8 +255,13 @@
                     media_id: this.from.media_id,
                     name: this.from.name,
                     username: this.from.username,
+                    email: this.from.email,
                     is_active: this.from.is_active,
                     website_url: this.from.website_url,
+                    facebook_url: this.from.facebook_url,
+                    twitter_url: this.from.twitter_url,
+                    instagram_url: this.from.instagram_url,
+                    youtube_url: this.from.youtube_url,
                     description: this.from.description,
                 };
                 $("#brand-description").data('emojioneArea').setText(this.from.description);

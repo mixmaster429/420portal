@@ -67,10 +67,15 @@ class BrandController extends Controller
         $item = new User();
         $item->name = $request->get('name');
         $item->username = $request->get('username');
+        $item->email = $request->get('email');
         $item->password = bcrypt($request->get('password'));
         $item->type = 'brand';
         $item->slug = convertNameToSlug($request->get('name'));
         $item->website_url = $request->get('website_url');
+        $item->facebook_url = $request->get('facebook_url');
+        $item->twitter_url = $request->get('twitter_url');
+        $item->instagram_url = $request->get('instagram_url');
+        $item->youtube_url = $request->get('youtube_url');
         $item->description = $request->get('description');        
         $item->save();
         if($request->get('image_url') != '') {
@@ -105,8 +110,13 @@ class BrandController extends Controller
         $item = User::find($request->get('id'));
         $item->name = $request->get('name');
         $item->username = $request->get('username');
+        $item->email = $request->get('email');
         $item->slug = convertNameToSlug($request->get('name'));
         $item->website_url = $request->get('website_url');
+        $item->facebook_url = $request->get('facebook_url');
+        $item->twitter_url = $request->get('twitter_url');
+        $item->instagram_url = $request->get('instagram_url');
+        $item->youtube_url = $request->get('youtube_url');
         $item->description = $request->get('description');
         if($request->get('image_url') == '') {
             $item->media_id = null;

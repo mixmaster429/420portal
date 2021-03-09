@@ -47,8 +47,10 @@ export default {
             this.fetchProfile();
         }
         if (this.profile.is_active == 0) {
-            alert('Deactivated user or company');
-            window.location.href = "/";
+            if(this.user == null || (this.user && this.user.id != this.profile.id && this.user.id != 1)) {
+                alert('Deactivated user or company');
+                window.location.href = "/"; 
+            }
         }
     },
     methods: {

@@ -598,8 +598,9 @@ export default {
                     this.strains = response.data;
                 })
                 .then(() => {
-                    this.strain = this.strains.filter(st => st.id === menu.strain_id)[0];
-                    $('.multiselect.strain_add').siblings('label').css({'top' : '-15px', 'color' : 'gray'});
+                    let strain = this.strains.filter(st => st.id === menu.strain_id)[0];
+                    this.strain = strain ? strain : {};
+                    // $('.multiselect.strain_add').siblings('label').css({'top' : '-15px', 'color' : 'gray'});
                     this.is_editting = true;
                     this.is_open = true;
                     $("#menuForm").parent().scrollTop(0);

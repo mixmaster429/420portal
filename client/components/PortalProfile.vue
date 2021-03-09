@@ -169,7 +169,7 @@
 
                                 <div class="social mt-2">
                                     <span v-if="portal_detail.website_url" class="website">
-                                        <a :href="`${portal_detail.website_url}`" target="_blank">
+                                        <a :href="`${(portal_detail.website_url.includes('http') ? '' : 'http://') + portal_detail.website_url}`" target="_blank">
                                             <fa icon="globe-americas"></fa>
                                         </a>
                                     </span>
@@ -180,7 +180,7 @@
                                     </span>
                                     <span v-if="portal_detail.twitter_url" class="twitter">
                                         <a :href="`https://${portal_detail.twitter_url}`" target="_blank">
-                                            <fa :icon="['fab', 'twitter']"></fa>
+                                            <fa :icon="['fab', 'twitter-square']"></fa>
                                         </a>
                                     </span>
                                     <span v-if="portal_detail.instagram_url" class="instagram">
@@ -190,7 +190,7 @@
                                     </span>
                                     <span v-if="portal_detail.youtube_url" class="youtube">
                                         <a :href="`https://${portal_detail.youtube_url}`" target="_blank">
-                                            <fa :icon="['fab', 'youtube']"></fa>
+                                            <fa :icon="['fab', 'youtube-square']"></fa>
                                         </a>
                                     </span>
                                     <span v-if="portal_detail.email" class="email">

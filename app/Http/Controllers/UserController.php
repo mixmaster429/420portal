@@ -57,26 +57,26 @@ class UserController extends Controller
             if($user->type == 'company') {
                 $user->shop_status = $user->get_shop_status();
                 if($user->store_type == 3) {
-                    $title_tag = $user->name." ".$user->city.", ".$user->state." Marijuana Dispensary - Delivery";
+                    $title_tag = $user->name." - ".$user->city.", ".$user->state." Marijuana Dispensary - Delivery";
                     $meta_title = $title_tag;
                     $meta_keywords = strtolower($user->name).", ".strtolower($user->city).", ".strtolower($user->state).", marijuana dispensary - delivery";
-                    $meta_description = $user->name." is a Marijuana Dispensary and Delivery Selling Cannabis Products in ".$user->city.", ".$user->state;
+                    $meta_description = $user->name." is a Marijuana Dispensary and Delivery Selling Cannabis Products in ".$user->city.", ".$user->state.".";
                 } else if($user->store_type == 1) {
-                    $title_tag = $user->name." ".$user->city.", ".$user->state." Marijuana Dispensary";
+                    $title_tag = $user->name." - ".$user->city.", ".$user->state." Marijuana Dispensary";
                     $meta_title = $title_tag;
                     $meta_keywords = strtolower($user->name).", ".strtolower($user->city).", ".strtolower($user->state).", marijuana dispensary";
-                    $meta_description = $user->name." is a Marijuana Dispensary Selling Cannabis Products in ".$user->city.", ".$user->state;
+                    $meta_description = $user->name." is a Marijuana Dispensary Selling Cannabis Products in ".$user->city.", ".$user->state.".";
                 } else if($user->store_type == 2) {
-                    $title_tag = $user->name." ".$user->city.", ".$user->state." Marijuana Delivery";
+                    $title_tag = $user->name." - ".$user->city.", ".$user->state." Marijuana Delivery";
                     $meta_title = $title_tag;
                     $meta_keywords = strtolower($user->name).", ".strtolower($user->city).", ".strtolower($user->state).", marijuana delivery";
-                    $meta_description = $user->name." is a Marijuana Delivery Selling Cannabis Products in ".$user->city.", ".$user->state;
+                    $meta_description = $user->name." is a Marijuana Delivery Selling Cannabis Products in ".$user->city.", ".$user->state.".";
                 }
             } else {
-                $title_tag = $user->name. " Marijuana Brand";
+                $title_tag = $user->name. " - Marijuana Brand";
                 $meta_title = $title_tag;
                 $meta_keywords = strtolower($user->name).", marijuana brand";
-                $meta_description = $user->name." is a Marijuana Brand";
+                $meta_description = $user->name." is a Marijuana Brand.";
             }
             $user->title_tag = $title_tag;
             $user->meta_title = $meta_title;
