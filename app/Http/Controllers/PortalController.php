@@ -399,8 +399,10 @@ class PortalController extends Controller
         $portals = User::with('coupon')->whereType('company')->get();
         
         foreach ($portals as $item) {
-            if($item->type == 'company') {                
-                $item->distance = $item->get_distance($latitude, $longitude);
+            if($item->type == 'company') {  
+                if($latitude != '' && $longitude != '') {
+                    $item->distance = $item->get_distance($latitude, $longitude);
+                }
                 $item->shop_status = $item->get_shop_status();
             }
         }
