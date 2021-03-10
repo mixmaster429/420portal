@@ -37,8 +37,9 @@ class PortalController extends Controller
             })->count();
 
         $portal->totalComments = Comment::where('target_id', $portal->id)->where('target_model', 'portal')->count();
-
-        $portal->shop_status = $portal->get_shop_status();
+        if($portal->type == 'company') {
+            $portal->shop_status = $portal->get_shop_status();
+        }        
         return response()->json(['success' => true, 'data' => $portal]);
     }
 
