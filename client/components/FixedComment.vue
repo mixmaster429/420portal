@@ -40,9 +40,6 @@
                 </div>
             </div>
             <div class="comment_body" >
-                <div class="taged_icon" @click="open_tag_dialog" v-if="hasmediatags">
-                  <img src="/imgs/taged.png" alt="">
-                </div>
                 <div class="image_description" v-if="selected && selected.description">
                     <div class="userlogo">
                         <a :href="'/'+selected.user.username" v-if="selected.user">
@@ -186,6 +183,9 @@
                     </div>
                     <div class="bookmark_icon" @click="removebookmark" v-else>
                         <fa icon="bookmark" fixed-width />
+                    </div>
+                    <div class="taged_icon" @click="open_tag_dialog" v-if="hasmediatags">
+                      <img src="/imgs/taged.png" alt="">
                     </div>
                 </div>
                 <div class="comment_area main_comment">
@@ -836,13 +836,13 @@
 
     .taged_icon {
       text-align: center;
-      padding: 5px;
-      position: sticky;
+      float: right;
       z-index: 1;
       background-color: black;
+      margin-right: 10px;
 
       img {
-        width: 20px;
+        width: 25px;
         cursor: pointer;
       }
     }
