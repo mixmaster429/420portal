@@ -410,7 +410,7 @@ class PortalController extends Controller
     }
 
     public function getAllPortals() {
-        $portals = User::where('type', 'company')->get(['name', 'username']);
+        $portals = User::where('type', 'company')->get(['id', 'name', 'username']);
         return response()->json($portals);
     }
 
