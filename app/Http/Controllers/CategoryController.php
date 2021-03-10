@@ -98,7 +98,7 @@ class CategoryController extends Controller
 
     public function get_strains(Request $request) {
         // $item = Category::find($request->get('id'));
-        $data = Strain::all();
+        $data = Strain::all('id', 'name');
         return response()->json($data);
     }
 
