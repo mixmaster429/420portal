@@ -164,8 +164,8 @@ class CompanyController extends Controller
                     $user->update(['media_id' => $media->id]);
                 }
             } catch (\Throwable $th) {
-                throw $th;
-                // dump($item->id);
+                // throw $th;
+                dump($item->id);
             }
         }
     }
