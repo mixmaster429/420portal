@@ -42,6 +42,7 @@ Route::post('/media/upload', 'MediaController@mediauplaod')->middleware('cors.ap
 Route::post('/media/show/{id}', 'MediaController@show');
 Route::post('/media/gettaged', 'MediaController@gettaged');
 Route::post('/media/removetag', 'MediaController@removetag');
+Route::post('/file/upload', 'MediaController@api_add');
 Route::post('/comment/count_comments', 'CommentController@count_comments');
 
 Route::post('/medical-recreational-marijuana-dispensary-delivery', 'PortalController@searchmap');
@@ -140,7 +141,6 @@ Route::middleware(['auth:api'])->group(function ($router){
     $router->get('/media/{media}', 'MediaController@destroy');   
     $router->put('/media/{media}', 'MediaController@update'); 
     $router->delete('/media/{media}', 'MediaController@destroy');
-    $router->post('/file/upload', 'MediaController@api_add');
 
     $router->post('/users/list', 'UserController@list');  
     $router->delete('/user/{id}', 'UserController@destroy');
