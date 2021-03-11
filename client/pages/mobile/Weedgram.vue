@@ -190,7 +190,7 @@
         created() {
             this.posts = this.$route.params.allpost;
             if(process.client) {
-                window.addEventListener('scroll', this.handleScroll);
+                this.$refs.scroll_wrapper.addEventListener('scroll', this.handleScroll);
             }
         },
         mounted() {
@@ -465,16 +465,17 @@
                 });
             },
             handleScroll(){
-                console.log('Top :', window.scrollY, 'Bottom : ', window.scrollY + window.innerHeight);
-                let window_top = window.scrollY;
-                let window_bottom = window_top + window.innerHeight;
+                let scroll_wrapper = document.getElementById('media_scroll_wrapper');
+                console.log('Top :', scroll_wrapper.scrollY, 'Bottom : ', scroll_wrapper.scrollY + scroll_wrapper.innerHeight);
+                let scroll_wrapper_top = scroll_wrapper.scrollY;
+                let scroll_wrapper_bottom = scroll_wrapper_top + scroll_wrapper.innerHeight;
                 var video_elements = document.getElementsByTagName('video');
                 video_elements.forEach(element => {
                     let parent = element.closest('.slide_media');
                     if(parent) {
                         let parent_top = parent.offsetTop;
                         let parent_bottom = parent_top + parent.offsetHeight;
-                        if(parent_top < window_bottom && parent_bottom > window_top) {
+                        if(parent_top < scroll_wrapper_bottom && parent_bottom > scroll_wrapper_top) {
                             element.play();
                         } else {
                             element.pause();
