@@ -140,6 +140,7 @@ Route::middleware(['auth:api'])->group(function ($router){
     $router->get('/media/{media}', 'MediaController@destroy');   
     $router->put('/media/{media}', 'MediaController@update'); 
     $router->delete('/media/{media}', 'MediaController@destroy');
+    $router->post('/file/upload', 'MediaController@api_add');
 
     $router->post('/users/list', 'UserController@list');  
     $router->delete('/user/{id}', 'UserController@destroy');
