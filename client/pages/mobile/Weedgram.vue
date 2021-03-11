@@ -191,8 +191,7 @@
             this.posts = this.$route.params.allpost;
             if(process.client) {
                 window.addEventListener('scroll', this.handleScroll);
-            }            
-            console.log(navigator.userAgent);
+            }
         },
         mounted() {
             if(process.client) {
@@ -466,7 +465,7 @@
                 });
             },
             handleScroll(){
-                // console.log('Top :', window.scrollY, 'Bottom : ', window.scrollY + window.innerHeight);
+                console.log('Top :', window.scrollY, 'Bottom : ', window.scrollY + window.innerHeight);
                 let window_top = window.scrollY;
                 let window_bottom = window_top + window.innerHeight;
                 var video_elements = document.getElementsByTagName('video');
