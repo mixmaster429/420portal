@@ -165,7 +165,7 @@ class CompanyController extends Controller
                 }
             } catch (\Throwable $th) {
                 // throw $th;
-                dump($item->id);
+                dump($th);
             }
         }
     }
