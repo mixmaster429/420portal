@@ -275,3 +275,4 @@ Route::get('/company/import', 'CompanyController@importCompany');
 Route::get('/company/check_open', 'CompanyController@checkOpen');
 Route::get('/company/solve_closed', 'CompanyController@solveClosed');
 Route::get('/brand/import', 'CompanyController@importBrand');
+Route::get('/company/download_empty_images', 'CompanyController@downloadEmptyImages');
