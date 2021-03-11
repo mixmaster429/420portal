@@ -138,4 +138,34 @@ class CompanyController extends Controller
             $brand->update(['imported' => 1]);
         }
     }
+
+    public function downloadEmptyImages() {
+        ini_set('max_execution_time', '0');
+        $companies = Company::where('avatar_image', '!=', '')->whereNull('image')->get();
+        foreach ($companies as $item) {
+            $url = $item->avatar_image;
+            $info = pathinfo($url);
+            try {
+                $contents = file_get_contents($url);
+                $extension = isset($info['extension']) ? $info['extension'] : 'jpg';
+                $new_file_name = $item->username."_marijuana_".time();
+                $file = public_path('company/'.$new_file_name.".".$extension);
+                file_put_contents($file, $contents);  
+                $item->update(['image' => $new_file_name.".".$extension]);
+                $user = User::where('username', $item->username)->first();
+                if($user) {
+                    $media = Media::create([
+                        'url' => "/uploaded/image/".$item->image,
+                        'type' => 'image',
+                        'description' => '',
+                        'model' => 'logo',
+                        'user_id' => $user->id,
+                    ]);
+                    $user->update(['media_id' => $media->id]);
+                }
+            } catch (\Throwable $th) {
+                //throw $th;
+            }
+        }
+    }
 }
