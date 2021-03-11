@@ -4,7 +4,7 @@
         <div class="weedgram-header" id="weedgram-header" ref="weedgram_header" v-if="model == 'user' || model == 'portal' || model == 'brand'">
             <h4 class="my-1"><fa icon="arrow-left" fixed-width class="mr-2" @click="goBack()" /> {{username}}</h4>
         </div>
-        <div id="media_scroll_wrapper" style="max-height:100vh;overflow-y: auto;" ref="scroll_wrapper">
+        <div id="media_scroll_wrapper" style="max-height:100vh;overflow-y: auto;" ref="scroll_wrapper" @scroll="handleScroll()">
             <div :class="{header_show: prev_page == 'user_page' || prev_page == 'company_page'}" ref="slide_container" id="slide_container">
                 <div class="slide_media" v-for="(item, index) in posts" :key="index" :id="index+1">
                     <div class="media_header">
@@ -189,9 +189,9 @@
         },
         created() {
             this.posts = this.$route.params.allpost;
-            if(process.client) {
-                this.$refs.scroll_wrapper.addEventListener('scroll', this.handleScroll);
-            }
+            // if(process.client) {
+            //     this.$refs.scroll_wrapper.addEventListener('scroll', this.handleScroll);
+            // }
         },
         mounted() {
             if(process.client) {
@@ -225,12 +225,11 @@
             if (this.user) {
                 this.logged_user_id = this.user.id;
             }
-            if(process.client) {
-                this.$nextTick(function(){
-                    window.addEventListener('scroll', this.handleScroll);
-                });
-            }
-              
+            // if(process.client) {
+            //     this.$nextTick(function(){
+            //         window.addEventListener('scroll', this.handleScroll);
+            //     });
+            // }
 
             if(this.model == 'strain') {
                 $('#strain_show_page').hide();
@@ -466,9 +465,9 @@
             },
             handleScroll(){
                 let scroll_wrapper = document.getElementById('media_scroll_wrapper');
-                console.log('Top :', scroll_wrapper.scrollY, 'Bottom : ', scroll_wrapper.scrollY + scroll_wrapper.innerHeight);
-                let scroll_wrapper_top = scroll_wrapper.scrollY;
-                let scroll_wrapper_bottom = scroll_wrapper_top + scroll_wrapper.innerHeight;
+                // console.log('Top :', scroll_wrapper.scrollTop, 'Bottom : ', scroll_wrapper.scrollTop + scroll_wrapper.offsetHeight);
+                let scroll_wrapper_top = scroll_wrapper.scrollTop;
+                let scroll_wrapper_bottom = scroll_wrapper_top + scroll_wrapper.offsetHeight;
                 var video_elements = document.getElementsByTagName('video');
                 video_elements.forEach(element => {
                     let parent = element.closest('.slide_media');
