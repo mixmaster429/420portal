@@ -42,6 +42,7 @@ Route::post('/media/upload', 'MediaController@mediauplaod')->middleware('cors.ap
 Route::post('/media/show/{id}', 'MediaController@show');
 Route::post('/media/gettaged', 'MediaController@gettaged');
 Route::post('/media/removetag', 'MediaController@removetag');
+Route::post('/file/upload', 'MediaController@api_add');
 Route::post('/comment/count_comments', 'CommentController@count_comments');
 
 Route::post('/medical-recreational-marijuana-dispensary-delivery', 'PortalController@searchmap');
@@ -275,3 +276,4 @@ Route::get('/company/import', 'CompanyController@importCompany');
 Route::get('/company/check_open', 'CompanyController@checkOpen');
 Route::get('/company/solve_closed', 'CompanyController@solveClosed');
 Route::get('/brand/import', 'CompanyController@importBrand');
+Route::get('/company/download_empty_images', 'CompanyController@downloadEmptyImages');

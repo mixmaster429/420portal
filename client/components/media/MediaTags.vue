@@ -139,7 +139,9 @@ export default {
       console.log("------------");
       console.log(newVal);
       this.mediadata = newVal;
-      this.gettagged();
+      if(this.mediadata) {
+        this.gettagged();
+      }
     }
   },
   methods: {
@@ -226,7 +228,9 @@ export default {
     }
   },
   mounted() {
-    this.gettagged();
+    if(this.mediadata) {
+      this.gettagged();
+    }
   }
 };
 </script>

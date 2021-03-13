@@ -255,7 +255,7 @@ class BrandController extends Controller
         $mod = new User();
         $mod = $mod->where('type', 'brand');
         $mod = $mod->where('name', 'like', "%$keyword%");
-        $brands = $mod->orderBy('name')->get(['name', 'username']);
+        $brands = $mod->orderBy('name')->get(['id', 'name', 'username']);
         return response()->json($brands);
     }
 }

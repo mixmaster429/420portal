@@ -4,7 +4,7 @@
         <div class="weedgram-header" id="weedgram-header" ref="weedgram_header" v-if="model == 'user' || model == 'portal' || model == 'brand'">
             <h4 class="my-1"><fa icon="arrow-left" fixed-width class="mr-2" @click="goBack()" /> {{username}}</h4>
         </div>
-        <div id="media_scroll_wrapper" style="max-height:100vh;overflow-y: auto;" ref="scroll_wrapper">
+        <div id="media_scroll_wrapper" style="max-height:100vh;overflow-y: auto;" ref="scroll_wrapper" @scroll="handleScroll()">
             <div :class="{header_show: prev_page == 'user_page' || prev_page == 'company_page'}" ref="slide_container" id="slide_container">
                 <div class="slide_media" v-for="(item, index) in posts" :key="index" :id="index+1">
                     <div class="media_header">
@@ -189,10 +189,9 @@
         },
         created() {
             this.posts = this.$route.params.allpost;
-            if(process.client) {
-                window.addEventListener('scroll', this.handleScroll);
-            }            
-            console.log(navigator.userAgent);
+            // if(process.client) {
+            //     this.$refs.scroll_wrapper.addEventListener('scroll', this.handleScroll);
+            // }
         },
         mounted() {
             if(process.client) {
@@ -226,12 +225,11 @@
             if (this.user) {
                 this.logged_user_id = this.user.id;
             }
-            if(process.client) {
-                this.$nextTick(function(){
-                    window.addEventListener('scroll', this.handleScroll);
-                });
-            }
-              
+            // if(process.client) {
+            //     this.$nextTick(function(){
+            //         window.addEventListener('scroll', this.handleScroll);
+            //     });
+            // }
 
             if(this.model == 'strain') {
                 $('#strain_show_page').hide();
@@ -466,16 +464,17 @@
                 });
             },
             handleScroll(){
-                // console.log('Top :', window.scrollY, 'Bottom : ', window.scrollY + window.innerHeight);
-                let window_top = window.scrollY;
-                let window_bottom = window_top + window.innerHeight;
+                let scroll_wrapper = document.getElementById('media_scroll_wrapper');
+                // console.log('Top :', scroll_wrapper.scrollTop, 'Bottom : ', scroll_wrapper.scrollTop + scroll_wrapper.offsetHeight);
+                let scroll_wrapper_top = scroll_wrapper.scrollTop;
+                let scroll_wrapper_bottom = scroll_wrapper_top + scroll_wrapper.offsetHeight;
                 var video_elements = document.getElementsByTagName('video');
                 video_elements.forEach(element => {
                     let parent = element.closest('.slide_media');
                     if(parent) {
                         let parent_top = parent.offsetTop;
                         let parent_bottom = parent_top + parent.offsetHeight;
-                        if(parent_top < window_bottom && parent_bottom > window_top) {
+                        if(parent_top < scroll_wrapper_bottom && parent_bottom > scroll_wrapper_top) {
                             element.play();
                         } else {
                             element.pause();
