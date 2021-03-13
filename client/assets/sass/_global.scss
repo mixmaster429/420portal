@@ -240,14 +240,21 @@ header {
           }
           .username {
             margin-left: 5px;
+            flex-grow: 1;
+            max-width: calc(100% + 75px);
             p {
               margin: 0;
               color: white;
-              width: max-content;
+              width: 100%;
+              display: flex;
               a {
                 color: white;
                 font-size: 16px;
                 text-decoration: none;
+                max-width: calc(100% - 135px);
+                white-space: pre;
+                text-overflow: ellipsis;
+                overflow: hidden;
               }
               .followuser {
                 margin-left: 5px;
