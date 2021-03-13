@@ -215,6 +215,7 @@
                 :strain="strain_data.strain"
                 category="flowers"
                 type="2"
+                v-if="menu.flowers > 0"
               ></strain-menu>
             </div>
             <div
@@ -229,6 +230,7 @@
                 :strain="strain_data.strain"
                 category="concentrates"
                 type="1"
+                v-if="menu.concentrates > 0"
               ></strain-menu>
             </div>
             <div
@@ -243,6 +245,7 @@
                 :strain="strain_data.strain"
                 category="vape-pens"
                 type="1"
+                v-if="menu.vapepens > 0"
               ></strain-menu>
             </div>
             <div
@@ -257,6 +260,7 @@
                 :strain="strain_data.strain"
                 category="clones"
                 type="0"
+                v-if="menu.clones > 0"
               ></strain-menu>
             </div>
             <div
@@ -271,6 +275,7 @@
                 :strain="strain_data.strain"
                 category="seeds"
                 type="0"
+                v-if="menu.seeds > 0"
               ></strain-menu>
             </div>
             <div
@@ -285,6 +290,7 @@
                 :strain="strain_data.strain"
                 category="pre-roll"
                 type="0"
+                v-if="menu.preroll > 0"
               ></strain-menu>
             </div>
           </div>
@@ -395,7 +401,7 @@ export default {
         all: false,
         active: "",
         flowers: 0,
-        concentrates: 1,
+        concentrates: 0,
         vapepens: 0,
         clones: 0,
         seeds: 0,
@@ -410,6 +416,7 @@ export default {
   },
   mounted() {
     const menus = Object.values(this.strain_data.menus);
+    console.log(menus)
     for (let i = 0; i < menus.length; i++) {
       if (menus[i]["strain_id"] !== this.strain_data.strain.id) continue;
       if (menus[i]["category_id"] < 3) {

@@ -195,14 +195,14 @@ class StrainController extends Controller
       $item->taggedPortal;
 
       if ($item->taggedStrain) {
-          $item['tagged_strainData'] = [$item->taggedStrain];
+        $item['tagged_strainData'] = [$item->taggedStrain];
       } else {
-          $item['tagged_strainData'] = [];
+        $item['tagged_strainData'] = [];
       }
       if ($item->taggedPortal) {
-          $item['tagged_companyData'] = [$item->taggedPortal];
+        $item['tagged_companyData'] = [$item->taggedPortal];
       } else {
-          $item['tagged_companyData'] = [];
+        $item['tagged_companyData'] = [];
       }
 
       $media_id = $item['id'];
@@ -421,7 +421,8 @@ class StrainController extends Controller
     }
     foreach ($menus as $item) {
       $item->distance = $item->portal->get_distance($latitude, $longitude);
-      $item->shop_status = $item->portal->get_shop_status();
+      if ($item->portal->type === "company")
+        $item->shop_status = $item->portal->get_shop_status();
     }
     $brand_array = User::whereType('brand')->pluck('id');
     $data = $menus->whereNotIn('portal_id', $brand_array)->sortBy('distance')->values()->all();
