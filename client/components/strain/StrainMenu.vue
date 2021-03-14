@@ -14,7 +14,7 @@
                             <img class="video__tag__mobile" v-if="item.media.type==='video'" src="https://i.imgur.com/88aBgwi.png" alt="">
                         </div>
                         <div class="media" @mouseover="item.show_description = true" @mouseleave="item.show_description = false" v-else>
-                            <img src="~assets/imgs/default.png" alt="" />
+                            <img :src="serverUrl(strain.url.url)" alt="" />
                         </div>
                         <div class="item-description" v-if="item.description && item.show_description" @mouseover="item.show_description = true" @mouseleave="item.show_description = false">{{item.description}}</div>
                     </div>
@@ -97,8 +97,6 @@
                 window.location.href = "/" + item.portal.username;
             },
             serverUrl(item) {
-                console.log('--- media image ---')
-                console.log(item)
                 if(item.charAt(0) != '/'){item = '/' + item;}
                 try {
                     return process.env.serverUrl + item;
