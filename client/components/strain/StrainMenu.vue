@@ -24,7 +24,6 @@
                             <span class="strain" v-if="item.strain"> | {{item.strain.name}}</span>
                         </p>
                         <h4 class="title">{{item.item_name}}</h4>
-                        <p class="sub-title mt-0">by brand</p>
                         <div class="company-name">
                             <img class="store-type-img" src="/imgs/dispensary.png" alt v-if="item.portal.store_type == 1 || item.portal.store_type == 3" />
                             <img class="store-type-img" src="/imgs/delivery.png" alt v-if="item.portal.store_type == 2 || item.portal.store_type == 3" />

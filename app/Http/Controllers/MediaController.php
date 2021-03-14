@@ -247,7 +247,6 @@ class MediaController extends Controller
       $item = Media::find($request->get('id'));
 
       if($item->model === "menu") {
-        $item['menu'] = $item->menu;
         if($item->menu->strain) {
           $tagedstrain = $item->menu->strain;
           $tagedstrain['main_media'] = $tagedstrain->get_main_media();
@@ -256,29 +255,29 @@ class MediaController extends Controller
           $item['tagged_strainData'] = [$tagedstrain];
         }
 
-        if($item->menu->portal) {
-          $tagedportal = $item->menu->portal;
-          $following = 0;
-            if(Auth::check()) {
-              $user_id = Auth::user()->id;
-              $follower_user_id = $tagedportal->id;
-              $follower = User::find($follower_user_id);
-              $count = Follow::where('user_id', $user_id)->where('follower_user_id', $follower_user_id)->count();
+        // if($item->menu->portal) {
+        //   $tagedportal = $item->menu->portal;
+        //   $following = 0;
+        //     if(Auth::check()) {
+        //       $user_id = Auth::user()->id;
+        //       $follower_user_id = $tagedportal->id;
+        //       $follower = User::find($follower_user_id);
+        //       $count = Follow::where('user_id', $user_id)->where('follower_user_id', $follower_user_id)->count();
               
-              if($count == 0) {
-                  if($follower->is_private) {
-                      $follow_requested = Notification::where('user_id', $follower_user_id)->where('notifier_id', $user_id)->whereType('follow_request')->exists();
-                      if($follow_requested) {
-                        $following = 2;
-                      }
-                  }
-              } else {
-                $following = 1;
-              }
-            }
-            $tagedportal['following'] = $following;
-            $item['tagged_companyData'] = [$tagedportal];
-        }
+        //       if($count == 0) {
+        //           if($follower->is_private) {
+        //               $follow_requested = Notification::where('user_id', $follower_user_id)->where('notifier_id', $user_id)->whereType('follow_request')->exists();
+        //               if($follow_requested) {
+        //                 $following = 2;
+        //               }
+        //           }
+        //       } else {
+        //         $following = 1;
+        //       }
+        //     }
+        //     $tagedportal['following'] = $following;
+        //     $item['tagged_companyData'] = [$tagedportal];
+        // }
         
       } else {
         $item['tagged_usersData'] = $item->taggedUsers;
