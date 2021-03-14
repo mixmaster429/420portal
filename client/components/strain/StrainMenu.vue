@@ -14,7 +14,7 @@
                             <img class="video__tag__mobile" v-if="item.media.type==='video'" src="https://i.imgur.com/88aBgwi.png" alt="">
                         </div>
                         <div class="media" @mouseover="item.show_description = true" @mouseleave="item.show_description = false" v-else>
-                            <img :src="serverUrl(strain.url.url)" alt="" />
+                            <img :src="serverUrl(item.portal.profile_pic.url)" alt="" />
                         </div>
                         <div class="item-description" v-if="item.description && item.show_description" @mouseover="item.show_description = true" @mouseleave="item.show_description = false">{{item.description}}</div>
                     </div>
