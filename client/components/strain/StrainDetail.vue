@@ -421,7 +421,6 @@ export default {
     const menus = Object.values(this.strain_data.menus);
 
     this.strain_data.strain.url = this.strain_data.main_media;
-    console.log(this.strain_data.strain);
     for (let i = 0; i < menus.length; i++) {
       if (menus[i]["strain_id"] !== this.strain_data.strain.id) continue;
       if (menus[i]["category_id"] < 3) {

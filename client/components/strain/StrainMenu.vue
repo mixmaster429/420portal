@@ -65,7 +65,6 @@
             user: 'auth/user',
         }),
         created() {
-          console.log(this.strain)
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(this.showPosition);
             } else {
@@ -85,7 +84,6 @@
                 };
                 this.axios.post(url, params).then(response => {
                     this.menus = response.data;
-                    console.log(response.data)
                 });
             },
             showPosition(position) {
