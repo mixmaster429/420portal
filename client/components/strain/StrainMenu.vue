@@ -65,6 +65,7 @@
             user: 'auth/user',
         }),
         created() {
+          console.log(this.strain)
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(this.showPosition);
             } else {
@@ -100,7 +101,7 @@
                 try {
                     return process.env.serverUrl + item;
                 } catch (error) {
-                    return process.env.serverUrl + 'imgs/default.png';
+                    return process.env.serverUrl + this.strain.url.url;
                 }
             }
         }
