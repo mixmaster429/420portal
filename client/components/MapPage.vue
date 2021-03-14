@@ -264,6 +264,9 @@
                                 </video>
                                 <img class="video__tag__mobile" v-if="m_item.media.type==='video'" src="https://i.imgur.com/88aBgwi.png" alt="">
                             </div>
+                            <div class="media" v-else-if="item.profile_pic">
+                                <img v-bind:src="serverUrl(item.profile_pic ? item.profile_pic.url : default_logo)" alt/>
+                            </div>
                             <div class="media" v-else>
                                 <img src="/imgs/default.png" alt="" />
                             </div>
@@ -274,12 +277,10 @@
                                 <span class="strain" v-if="m_item.strain"> | {{m_item.strain.name}}</span>
                             </p>
                             <h4 class="title">{{m_item.item_name}}</h4>
-                            <p class="sub-title my-0">by brand</p>
                             <h5 class="company-name my-0">
                                 <img class="store-type-img" src="/imgs/dispensary.png" alt v-if="item.store_type == 1 || item.store_type == 3" />
                                 <img class="store-type-img" src="/imgs/delivery.png" alt v-if="item.store_type == 2 || item.store_type == 3" />
-                                &nbsp;
-                                {{item.name}}
+                                <span class="company_name">{{item.name}}</span>
                             </h5>
                             <div class="company-status">
                                 <span class="shop_status open" v-if="item.shop_status == 2">Open</span>
@@ -392,6 +393,9 @@
                                     </video>
                                     <img class="video__tag__mobile" v-if="m_item.media.type==='video'" src="https://i.imgur.com/88aBgwi.png" alt="">
                                 </div>
+                                <div class="media" v-else-if="details.profile_pic">
+                                    <img v-bind:src="serverUrl(details.profile_pic ? details.profile_pic.url : default_logo)" alt/>
+                                </div>
                                 <div class="media" v-else>
                                     <img src="/imgs/default.png" alt="" />
                                 </div>
@@ -402,7 +406,6 @@
                                     <span class="strain" v-if="m_item.strain"> | {{m_item.strain.name}}</span>
                                 </p>
                                 <h4 class="title">{{m_item.item_name}}</h4>
-                                <p class="sub-title my-0">by brand</p>
                                 <h5 class="company-name my-0">
                                     <img class="store-type-img" src="/imgs/dispensary.png" alt v-if="details.store_type == 1 || details.store_type == 3" />
                                     <img class="store-type-img" src="/imgs/delivery.png" alt v-if="details.store_type == 2 || details.store_type == 3" />
@@ -1059,10 +1062,18 @@
             .company-name {
                 display: flex;
                 align-items: center;
-                color: #EFA720;
-                font-size: 16px;
                 .store-type-img {
                     width: 22px;
+                }
+                .company_name {
+                    color: #EFA720;
+                    font-size: 16px;
+                    display: inline-block;
+                    max-width: calc(100% - 130px);
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    white-space: pre;
+                    margin-left: 5px;
                 }
             }
             .company-status {
