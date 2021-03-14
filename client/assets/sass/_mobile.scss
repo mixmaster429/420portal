@@ -23,16 +23,23 @@
                 width: calc(100% - 44px);
                 .user_holder {
                     .username {
+                        display: inline-block;
                         color: white;
                         font-size: 15px;
-                        max-width: 65%;
+                        max-width: calc(100% - 75px);
                         overflow: auto;
                         text-overflow: ellipsis;
                         white-space: pre;
                     }
                     .user_data {
                         line-height: 1;
-
+                        width: 100%;
+                        display: flex;
+                        align-items: center;
+                        flex-flow: wrap;
+                        .user_icons {
+                            width: 100%;
+                        }
                     }
                 }
                 img {

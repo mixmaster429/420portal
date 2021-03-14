@@ -3,7 +3,7 @@
         <div class="comments" id="fixedcommentbox" :class="{ comments_menu: selected && selected.menu && selected.menu.is_active }">
             <div class="header" v-if="selected">
                 <div class="row">
-                    <div class="col-9">
+                    <div class="col-10 pr-0">
                         <div class="user_detail">
                             <div class="profile_image">
                                 <a :href="'/'+selected.user.username" v-if="selected.user">
@@ -26,7 +26,7 @@
                         </div>
                     </div>
 
-                    <div class="col-3 action">
+                    <div class="col-2 action">
                         <a href="#" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <fa icon="ellipsis-h" />
                         </a>
