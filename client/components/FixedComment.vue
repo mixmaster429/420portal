@@ -233,6 +233,7 @@
                 this.selected = newVal;
                 this.getcomment(this.selected.id);
                 this.getIsFollower(this.selected);
+                console.log(newVal)
 
                 if(newVal.model === "menu") {
                   if(newVal.menu.strain || newVal.menu.portal) {
