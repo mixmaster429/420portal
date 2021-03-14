@@ -436,6 +436,23 @@ class PortalController extends Controller
 
         $menus = $mod->orderBy('category_id')->get();
 
+        // $item['tagged_usersData'] = $item->taggedUsers;
+        // $item->taggedStrain;
+        // $item->taggedPortal;
+        // $item->is_flag = $item->is_flag();
+        // // $item->menu;
+
+        // if ($item->taggedStrain) {
+        //     $item['tagged_strainData'] = [$item->taggedStrain];
+        // } else {
+        //     $item['tagged_strainData'] = [];
+        // }
+        // if ($item->taggedPortal) {
+        //     $item['tagged_companyData'] = [$item->taggedPortal];
+        // } else {
+        //     $item['tagged_companyData'] = [];
+        // }
+
         $portal_categories_array = $menus->pluck('category_id')->unique()->toArray();
 
         $portal_categories = array();

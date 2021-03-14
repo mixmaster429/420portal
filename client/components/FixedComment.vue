@@ -234,10 +234,18 @@
                 this.getcomment(this.selected.id);
                 this.getIsFollower(this.selected);
 
-                if(newVal.tagged_portal || newVal.tagged_strain || newVal.tagged_users.length > 0) {
-                  this.hasmediatags = true;
+                if(newVal.model === "menu") {
+                  if(newVal.menu.strain || newVal.menu.portal) {
+                    this.hasmediatags = true;
+                  } else {
+                    this.hasmediatags = false;
+                  }
                 } else {
-                  this.hasmediatags = false;
+                  if(newVal.tagged_portal || newVal.tagged_strain || newVal.tagged_users.length > 0) {
+                    this.hasmediatags = true;
+                  } else {
+                    this.hasmediatags = false;
+                  }
                 }
                 // this.$nextTick(function () {
                 //     $("#main_comment").data("emojioneArea").setFocus();

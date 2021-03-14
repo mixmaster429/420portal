@@ -246,63 +246,98 @@ class MediaController extends Controller
     {
       $item = Media::find($request->get('id'));
 
-      $item['tagged_usersData'] = $item->taggedUsers;
+      if($item->model === "menu") {
+        if($item->menu->strain) {
+          $tagedstrain = $item->menu->strain;
+          $tagedstrain['main_media'] = $tagedstrain->get_main_media();
+          $is_follower = Follow::where('user_id', auth()->id())->where('follower_strain_id', $tagedstrain->id)->count();
+          $tagedstrain['following'] = $is_follower;
+          $item['tagged_strainData'] = [$tagedstrain];
+        }
 
-      foreach ($item['tagged_usersData'] as $key => $user) 
-      {
-          if(Auth::check()) {
-            $user_id = Auth::user()->id;
-            $follower_user_id = $user->id;
-            $follower = User::find($follower_user_id);
-            $count = Follow::where('user_id', $user_id)->where('follower_user_id', $follower_user_id)->count();
-            $following = 0;
-            if($count == 0) {
-                if($follower->is_private) {
-                    $follow_requested = Notification::where('user_id', $follower_user_id)->where('notifier_id', $user_id)->whereType('follow_request')->exists();
-                    if($follow_requested) {
-                      $following = 2;
-                    }
-                }
-            } else {
-              $following = 1;
-            }            
-            $user['following'] = $following;
-          } else {
-            $user['following'] = 0;
-          }
-      }
-
-      if ($item->taggedStrain) {
-          $item->taggedStrain['main_media'] = $item->taggedStrain->get_main_media();
-          $is_follower = Follow::where('user_id', auth()->id())->where('follower_strain_id', $item->taggedStrain->id)->count();
-          $item->taggedStrain['following'] = $is_follower;
-          $item['tagged_strainData'] = [$item->taggedStrain];
-      } else {
-          $item['tagged_strainData'] = [];
-      }
-      if ($item->taggedPortal) {
+        if($item->menu->portal) {
+          $tagedportal = $item->menu->portal;
           $following = 0;
-          if(Auth::check()) {
-            $user_id = Auth::user()->id;
-            $follower_user_id = $item->taggedPortal->id;
-            $follower = User::find($follower_user_id);
-            $count = Follow::where('user_id', $user_id)->where('follower_user_id', $follower_user_id)->count();
-            
-            if($count == 0) {
-                if($follower->is_private) {
-                    $follow_requested = Notification::where('user_id', $follower_user_id)->where('notifier_id', $user_id)->whereType('follow_request')->exists();
-                    if($follow_requested) {
-                      $following = 2;
-                    }
-                }
-            } else {
-              $following = 1;
+            if(Auth::check()) {
+              $user_id = Auth::user()->id;
+              $follower_user_id = $tagedportal->id;
+              $follower = User::find($follower_user_id);
+              $count = Follow::where('user_id', $user_id)->where('follower_user_id', $follower_user_id)->count();
+              
+              if($count == 0) {
+                  if($follower->is_private) {
+                      $follow_requested = Notification::where('user_id', $follower_user_id)->where('notifier_id', $user_id)->whereType('follow_request')->exists();
+                      if($follow_requested) {
+                        $following = 2;
+                      }
+                  }
+              } else {
+                $following = 1;
+              }
             }
-          }
-          $item->taggedPortal['following'] = $following;
-          $item['tagged_companyData'] = [$item->taggedPortal];
+            $tagedportal['following'] = $following;
+            $item['tagged_companyData'] = [$tagedportal];
+        }
+        
       } else {
-          $item['tagged_companyData'] = [];
+        $item['tagged_usersData'] = $item->taggedUsers;
+
+        foreach ($item['tagged_usersData'] as $key => $user) 
+        {
+            if(Auth::check()) {
+              $user_id = Auth::user()->id;
+              $follower_user_id = $user->id;
+              $follower = User::find($follower_user_id);
+              $count = Follow::where('user_id', $user_id)->where('follower_user_id', $follower_user_id)->count();
+              $following = 0;
+              if($count == 0) {
+                  if($follower->is_private) {
+                      $follow_requested = Notification::where('user_id', $follower_user_id)->where('notifier_id', $user_id)->whereType('follow_request')->exists();
+                      if($follow_requested) {
+                        $following = 2;
+                      }
+                  }
+              } else {
+                $following = 1;
+              }            
+              $user['following'] = $following;
+            } else {
+              $user['following'] = 0;
+            }
+        }
+  
+        if ($item->taggedStrain) {
+            $item->taggedStrain['main_media'] = $item->taggedStrain->get_main_media();
+            $is_follower = Follow::where('user_id', auth()->id())->where('follower_strain_id', $item->taggedStrain->id)->count();
+            $item->taggedStrain['following'] = $is_follower;
+            $item['tagged_strainData'] = [$item->taggedStrain];
+        } else {
+            $item['tagged_strainData'] = [];
+        }
+        if ($item->taggedPortal) {
+            $following = 0;
+            if(Auth::check()) {
+              $user_id = Auth::user()->id;
+              $follower_user_id = $item->taggedPortal->id;
+              $follower = User::find($follower_user_id);
+              $count = Follow::where('user_id', $user_id)->where('follower_user_id', $follower_user_id)->count();
+              
+              if($count == 0) {
+                  if($follower->is_private) {
+                      $follow_requested = Notification::where('user_id', $follower_user_id)->where('notifier_id', $user_id)->whereType('follow_request')->exists();
+                      if($follow_requested) {
+                        $following = 2;
+                      }
+                  }
+              } else {
+                $following = 1;
+              }
+            }
+            $item->taggedPortal['following'] = $following;
+            $item['tagged_companyData'] = [$item->taggedPortal];
+        } else {
+            $item['tagged_companyData'] = [];
+        }
       }
 
       return response()->json($item);
