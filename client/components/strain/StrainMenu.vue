@@ -97,6 +97,8 @@
                 window.location.href = "/" + item.portal.username;
             },
             serverUrl(item) {
+                console.log('--- media image ---')
+                console.log(item)
                 if(item.charAt(0) != '/'){item = '/' + item;}
                 try {
                     return process.env.serverUrl + item;
