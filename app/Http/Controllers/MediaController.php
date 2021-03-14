@@ -247,6 +247,7 @@ class MediaController extends Controller
       $item = Media::find($request->get('id'));
 
       if($item->model === "menu") {
+        $item['menu'] = $item->menu;
         if($item->menu->strain) {
           $tagedstrain = $item->menu->strain;
           $tagedstrain['main_media'] = $tagedstrain->get_main_media();
