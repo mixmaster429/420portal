@@ -233,7 +233,6 @@
                 this.selected = newVal;
                 this.getcomment(this.selected.id);
                 this.getIsFollower(this.selected);
-                console.log(newVal)
 
                 if(newVal.model === "menu") {
                   if(newVal.menu.strain || newVal.menu.portal) {
@@ -679,11 +678,19 @@
         },
         mounted() {
             if(this.media) {
-                if(this.media.tagged_portal || this.media.tagged_strain || this.media.tagged_users.length > 0) {
+              if(this.media.model === "menu") {
+                  if(this.media.menu.strain || this.media.menu.portal) {
                     this.hasmediatags = true;
-                } else {
+                  } else {
                     this.hasmediatags = false;
-                }  
+                  }
+                } else {
+                  if(this.media.tagged_portal || this.media.tagged_strain || this.media.tagged_users.length > 0) {
+                      this.hasmediatags = true;
+                  } else {
+                      this.hasmediatags = false;
+                  }  
+                } 
             }
             if (this.user) {
                 this.logged_user_id = this.user.id
