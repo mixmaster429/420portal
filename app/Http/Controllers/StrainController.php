@@ -135,7 +135,7 @@ class StrainController extends Controller
     $strain = Strain::with('category')->withCount(['likes', 'comments'])->find($id);
     $brand_array = User::whereType('brand')->pluck('id');
     $strain_menus = $strain->menus->whereNotIn('portal_id', $brand_array)->pluck('media_id')->unique()->toArray();
-    $menus = $strain->menus->whereNotIn('portal_id', $brand_array)->all();
+    $menus = $strain->menus()->whereNotIn('portal_id', $brand_array)->get();
     $strain->is_like = $strain->is_like();
     // check private
     $follow_users = Follow::where('user_id', auth()->id())->distinct()->pluck('follower_user_id')->toArray();
