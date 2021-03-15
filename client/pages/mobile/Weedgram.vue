@@ -231,23 +231,23 @@
         },
         methods: {
             hasmediatags(item) {
-              if(item.model === "menu") {
-                  if(item.menu.strain || item.menu.portal) {
-                    return true;
-                  } else {
-                    return false;
-                  }
+                if(item.model === "menu") {
+                    if(item.menu.strain) {
+                        return true;
+                    } else {
+                        return false;
+                    }
                 } else {
-                  if(item.tagged_portal || item.tagged_strain || item.tagged_users.length > 0) {
-                    return true;
-                  } else {
-                    return false
-                  }
+                    if(item.tagged_portal || item.tagged_strain || item.tagged_users.length > 0) {
+                        return true;
+                    } else {
+                        return false
+                    }
                 }
             },
             open_tag_dialog(item) {
-              this.dialog = true
-              this.selected = item;
+                this.dialog = true
+                this.selected = item;
             },
             getallposts($state) {                
                 let uri = '';
