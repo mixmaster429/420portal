@@ -250,7 +250,7 @@ export default {
       height: 35px;
       border-radius: 100%;
       object-fit: cover;
-      margin-right: 20px;
+      margin-right: 10px;
     }
 
     .username {

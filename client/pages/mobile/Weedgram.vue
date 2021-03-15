@@ -134,11 +134,13 @@
             ><div slot="no-more">No Posts</div></infinite-loading>
         </div>
 
-        <vue-bottom-dialog v-model="dialog" >
+        <!-- <vue-bottom-dialog v-model="dialog" > -->
+        <vs-popup class="media_tags" type="border" title="Tagged In This Media" :active.sync="dialog" v-if="selected">
           <div>
             <media-tags :media="selected" :logged_user_id="logged_user_id"></media-tags>
           </div>
-        </vue-bottom-dialog>
+        </vs-popup>
+        <!-- </vue-bottom-dialog> -->
     </div>
   <!-- </div> -->
 </template>
@@ -189,9 +191,6 @@
         },
         created() {
             this.posts = this.$route.params.allpost;
-            // if(process.client) {
-            //     this.$refs.scroll_wrapper.addEventListener('scroll', this.handleScroll);
-            // }
         },
         mounted() {
             if(process.client) {
@@ -225,11 +224,6 @@
             if (this.user) {
                 this.logged_user_id = this.user.id;
             }
-            // if(process.client) {
-            //     this.$nextTick(function(){
-            //         window.addEventListener('scroll', this.handleScroll);
-            //     });
-            // }
 
             if(this.model == 'strain') {
                 $('#strain_show_page').hide();
@@ -254,7 +248,6 @@
             open_tag_dialog(item) {
               this.dialog = true
               this.selected = item;
-              console.log(this.selected)
             },
             getallposts($state) {                
                 let uri = '';

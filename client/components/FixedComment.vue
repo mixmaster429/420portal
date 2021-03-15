@@ -205,11 +205,13 @@
             <add-form :mainData="selected" :editData="sendata" mode="edit" :from="from"></add-form>
         </vs-popup>
 
-        <vue-bottom-dialog v-model="dialog" v-if="this.selected" >
+        <!-- <vue-bottom-dialog v-model="dialog" v-if="this.selected" > -->
+        <vs-popup class="media_tags" type="border" title="Tagged In This Media" :active.sync="dialog" v-if="selected">
             <div>
                 <media-tags :media="selected" :logged_user_id="logged_user_id"></media-tags>
             </div>
-        </vue-bottom-dialog>
+        </vs-popup>
+        <!-- </vue-bottom-dialog> -->
     </div>
 </template>
 

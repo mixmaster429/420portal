@@ -233,6 +233,9 @@ class MediaController extends Controller
         $media = Media::find($media_id);
         $media->tagged_strain = null;
         $media->save();
+        if($media->model == 'menu' && $media->menu) {
+            $media->menu->update(['strain_id' => null]);
+        }
       } else {
         $media = Media::find($media_id);
         $media->tagged_portal = null;
@@ -282,8 +285,7 @@ class MediaController extends Controller
       } else {
         $item['tagged_usersData'] = $item->taggedUsers;
 
-        foreach ($item['tagged_usersData'] as $key => $user) 
-        {
+        foreach ($item['tagged_usersData'] as $key => $user) {
             if(Auth::check()) {
               $user_id = Auth::user()->id;
               $follower_user_id = $user->id;
