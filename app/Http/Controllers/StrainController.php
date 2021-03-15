@@ -97,7 +97,7 @@ class StrainController extends Controller
       $strain_menus = $strainDetail->menus->whereNotIn('portal_id', $brand_array)->pluck('media_id')->unique()->toArray();
       $strain_menus = array_filter($strain_menus);
 
-      $menus = $strainDetail->menus->whereNotIn('portal_id', $brand_array)->all();
+      $menus = $strainDetail->menus()->whereNotIn('portal_id', $brand_array)->get();
 
       $taggedMedia = Media::with('strain')->where('tagged_strain', $strainDetail->id)->orderByDesc('id')->get();
       // check private
