@@ -1069,7 +1069,7 @@
                     color: #EFA720;
                     font-size: 16px;
                     display: inline-block;
-                    max-width: calc(100% - 130px);
+                    max-width: calc(100% - 45px);
                     text-overflow: ellipsis;
                     overflow: hidden;
                     white-space: pre;
