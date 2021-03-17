@@ -1,7 +1,7 @@
 <template>
     <div :class="{'mt-2': !is_edit}">
         <div class="pa_addform border-0" :class="{pa_mobile : $device.isMobile}">
-            <div class="sticky-top strains__sticky" style="margin-right: -12px; margin-left: -12px; background: #fff;top:0;border-radius:5px 5px 0 0;" v-if="$device.isMobile && is_edit">
+            <div class="sticky-top strains__sticky" style="margin-right: -12px; margin-left: -12px; background: #fff;top:0;border-radius:5px 5px 0 0;width:unset;" v-if="$device.isMobile && is_edit">
                 <ul class="nav strains__nav">
                     <p style="margin: auto 5px; padding: 8px; font-size: 20px;color:black;">
                         <fa @click="closePopUp()" icon="times" class="mr-2"></fa> Edit Profile
@@ -44,7 +44,7 @@
                 </div>
                 <div class="floating-label mt-4">
                     <input type="text" id="portal_username" class="floating-input" name="username" required autocomplete="off" v-model="brand_form.username" placeholder=" ">
-                    <label for="portal_username">Brand Userame *</label>
+                    <label for="portal_username">Brand Username *</label>
                 </div>
                 <div class="floating-label mt-4" v-if="!is_edit">
                     <input type="password" id="portal_password" class="floating-input" name="password" required autocomplete="off" v-model="brand_form.password" placeholder=" ">
@@ -301,7 +301,7 @@
                 });
             },
             closePopUp() {
-                this.$parent.$parent.openEditPortal = false;
+                this.$parent.$parent.openEditPopup = false;
             },            
             activeBrand(){
                 let params = {

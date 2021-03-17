@@ -70,8 +70,8 @@
         </div>
         <div class="container all-brands" v-else>
             <div class="row justify-content-end">
-                <div class="col-md-3">
-                    <div class=" float-right offset-md-4 form-group floating-label brand-search" style="cursor:pointer;">
+                <div class="col-md-3 d-flex">
+                    <div class="form-group floating-label brand-search" style="cursor:pointer;">
                         <multiselect
                             v-model="selected_brand"
                             class="floating-label filter_portal"
@@ -88,6 +88,9 @@
                         </multiselect>                            
                         <label for="" :class="{focused: selected_brand != null}">Search Brand</label>
                     </div>
+                    <a href="/brand/add" class="link-add add_brand">
+                        <img src="~assets/imgs/add_brand.png" width="40" alt="">
+                    </a>
                 </div>
             </div>
             <div class="row">
