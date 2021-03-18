@@ -235,6 +235,10 @@ class UserController extends Controller
         $user->username = $name;
         $user->name = $name;
         $user->email = $email;
+        $user->facebook_url = $request->get('facebook_url');
+        $user->twitter_url = $request->get('twitter_url');
+        $user->instagram_url = $request->get('instagram_url');
+        $user->youtube_url = $request->get('youtube_url');
         $user->is_private = $request->get('is_private');
 
         $user->save();

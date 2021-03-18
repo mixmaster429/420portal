@@ -54,6 +54,15 @@
                     <input type="email" id="portal_email" class="floating-input" name="email" required autocomplete="off" v-model="brand_form.email" placeholder=" ">
                     <label for="portal_email">Brand Email *</label>
                 </div>
+                <div class="form-label-group portal_description floating-portal floating-label mt-4" style="height: 100px;margin-bottom:12px;">
+                    <textarea class="form-control comment_text" name="description" id="brand-description" placeholder=" " v-model="brand_form.description"></textarea>
+                    <label class="pt-0" :class="{floating : brand_form.description}">Brand Bio</label>
+                </div>
+
+                <div class="pa-time my-3 text-center">
+                    <h4>Social Media</h4>
+                </div>
+
                 <div class="floating-label mt-2">
                     <input type="text" class="floating-input" name="website_url" id="website" data-value="http://" v-model="brand_form.website_url" placeholder=" ">
                     <label for="website">Brand Website</label>
@@ -77,10 +86,6 @@
                 <div class="floating-label">
                     <input type="text" class="floating-input" name="youtube_url" id="youtube" v-model="brand_form.youtube_url" data-value="youtube.com/user/" placeholder=" ">
                     <label for="youtube">Youtube Url</label>
-                </div>
-                <div class="form-label-group portal_description floating-portal floating-label mt-4" style="height: 100px;margin-bottom:12px;">
-                    <textarea class="form-control comment_text" name="description" id="brand-description" placeholder=" " v-model="brand_form.description"></textarea>
-                    <label class="pt-0" :class="{floating : brand_form.description}">Brand Bio</label>
                 </div>
                 <div class="custom-check d-flex" v-if="!is_edit">
                     <div class="round mr-1">

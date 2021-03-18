@@ -104,6 +104,33 @@
                             <p class="my-0">Follow this account to see their media.</p>
                         </div>
                     </div>
+                    <div class="social mt-2" v-if="!is_private">
+                        <span v-if="userdata.facebook_url" class="facebook">
+                            <a :href="`https://${userdata.facebook_url}`" target="_blank">
+                                <fa :icon="['fab', 'facebook-square']" />
+                            </a>
+                        </span>
+                        <span v-if="userdata.twitter_url" class="twitter">
+                            <a :href="`https://${userdata.twitter_url}`" target="_blank">
+                                <fa :icon="['fab', 'twitter-square']"></fa>
+                            </a>
+                        </span>
+                        <span v-if="userdata.instagram_url" class="instagram">
+                            <a :href="`https://${userdata.instagram_url}`" target="_blank">
+                                <fa :icon="['fab', 'instagram']"></fa>
+                            </a>
+                        </span>
+                        <span v-if="userdata.youtube_url" class="youtube">
+                            <a :href="`https://${userdata.youtube_url}`" target="_blank">
+                                <fa :icon="['fab', 'youtube-square']"></fa>
+                            </a>
+                        </span>
+                        <span v-if="userdata.email" class="email">
+                            <a :href="`mailto:${userdata.email}`">
+                                <fa icon="envelope"></fa>
+                            </a>
+                        </span>
+                    </div>
                     <span class="mt-2" v-if="userdata.description" v-show="!is_private">{{userdata.description}}</span>
                 </div>
             </div>

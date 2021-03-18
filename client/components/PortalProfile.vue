@@ -157,16 +157,6 @@
                                     </a>
                                 </p>
 
-                                <!-- <editdescription class="category__content mt-3" type="portal" :strain="portal_detail"></editdescription> -->
-                                <p class="mt-3 description" v-if="portal_detail.description && portal_detail.description.length <= description_max_length">{{portal_detail.description}}</p>
-                                <p class="mt-3 description" v-if="portal_detail.description && portal_detail.description.length > description_max_length">
-                                    {{show_description}}
-                                    <span class="text-420 ml-3 btn-readmore" v-if="description_expanded" @click="description_expanded = false">Read Less</span>
-                                    <span class="text-420 ml-3 btn-readmore" v-else @click="description_expanded = true">Read More</span>
-                                </p>
-
-                                <!-- {{portal_detail}} -->
-
                                 <div class="social mt-2">
                                     <span v-if="portal_detail.website_url" class="website">
                                         <a :href="`${(portal_detail.website_url.includes('http') ? '' : 'http://') + portal_detail.website_url}`" target="_blank">
@@ -203,6 +193,12 @@
                                     <img src="~assets/imgs/atm.png" alt="" v-if="portal_detail.atm" />
                                     <img src="~assets/imgs/security.png" alt="" v-if="portal_detail.security" />
                                 </div>
+                                <p class="mt-3 description" v-if="portal_detail.description && portal_detail.description.length <= description_max_length">{{portal_detail.description}}</p>
+                                <p class="mt-3 description" v-if="portal_detail.description && portal_detail.description.length > description_max_length">
+                                    {{show_description}}
+                                    <span class="text-420 ml-3 btn-readmore" v-if="description_expanded" @click="description_expanded = false">Read Less</span>
+                                    <span class="text-420 ml-3 btn-readmore" v-else @click="description_expanded = true">Read More</span>
+                                </p>
                             </div>
                         </div>
                     </div>

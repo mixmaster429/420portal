@@ -33,6 +33,31 @@
             <label for="user_signature" :class="{focused : description}">Bio</label>
         </div>
 
+        <template v-if="mode === 'edit'">
+            <div class="pa-time mt-4 mb-3 text-center">
+                <h4>Social Media</h4>
+            </div>
+            <div class="floating-label">
+                <input type="text" class="floating-input" name="facebook_url" id="facebook" v-model="facebook_url" data-value="facebook.com/" placeholder="fb">
+                <label for="facebook">Facebook Url</label>
+            </div>
+
+            <div class="floating-label">
+                <input type="text" class="floating-input" name="twitter_url" id="twitter" v-model="twitter_url" data-value="twitter.com/" placeholder="tw">
+                <label for="twitter">Twitter Url</label>
+            </div>
+
+            <div class="floating-label">
+                <input type="text" class="floating-input" name="instagram_url" id="instagram" v-model="instagram_url" data-value="instagram.com/" placeholder="is">
+                <label for="instagram">Instagram Url</label>
+            </div>
+
+            <div class="floating-label">
+                <input type="text" class="floating-input" name="youtube_url" id="youtube" v-model="youtube_url" data-value="youtube.com/user/" placeholder=" ">
+                <label for="youtube">Youtube Url</label>
+            </div>
+        </template>
+
         <div class="custom-check d-flex mt-2">
             <div class="round mr-1">
                 <input type="checkbox" name="is_private" id="is_private" v-model="is_private" />
@@ -85,6 +110,10 @@
                 id: '',
                 username: "",
                 email: "",
+                facebook_url: '',
+                twitter_url: '',
+                instagram_url: '',
+                youtube_url: '',
                 description: "",
                 model: "",
                 success: null,
@@ -100,6 +129,10 @@
             this.$root.$on("edit-profile", () => {
                 this.updateProfile();
             });
+            
+            if(process.client && this.mode === 'edit') {
+                this.init();
+            }
 
             $("#user_signature").emojioneArea({
                 pickerPosition: "top",
@@ -139,10 +172,77 @@
             $route: "getallposts",
         },
         methods: {
+            init() {
+                this.makeInitialTextReadOnly(document.getElementById('facebook'));
+                this.makeInitialTextReadOnly(document.getElementById('twitter'));
+                this.makeInitialTextReadOnly(document.getElementById('instagram'));
+                this.makeInitialTextReadOnly(document.getElementById('youtube'));
+            },
+            makeInitialTextReadOnly(input) {
+                var readOnlyLength;
+                var type;
+                input.addEventListener('keydown', function(event) {
+                    var which = event.which;
+                    if (((which == 8) && (input.selectionStart <= readOnlyLength)) ||
+                        ((which == 46) && (input.selectionStart < readOnlyLength))) {
+                        event.preventDefault();
+                    }
+                });
+                input.addEventListener('click', function(event) {
+                    if(input.value !== '') {
+                        type = 1;
+
+                        switch (input.id) {
+                            case "website":
+                                readOnlyLength = 7;
+                                break;
+
+                            case "facebook":
+                                readOnlyLength = 13;
+                                break;
+
+                            case "twitter":
+                                readOnlyLength = 12;
+                                break;
+
+                            case "instagram":
+                                readOnlyLength = 14;
+                                break;
+
+                            case "youtube":
+                                readOnlyLength = 17;
+                                break;
+
+                            default:
+                                break;
+                        }
+                        return;
+                    }
+                    input.value = input.dataset.value;
+                    readOnlyLength = input.value.length;
+                    // console.log('readonly length is', input);
+                });
+                input.addEventListener('blur', function(event) {
+                    if (readOnlyLength === input.value.length) {
+                        input.value = "";
+                    }
+                });
+                input.addEventListener('keypress', function(event) {
+                    var which = event.which;
+
+                    if ((event.which != 0) && (input.selectionStart < readOnlyLength)) {
+                        event.preventDefault();
+                    }
+                });
+            },
             fetchData(id) {
                 this.id = this.mainData.id;
                 this.username = this.mainData.username;
                 this.email = this.mainData.email;
+                this.facebook_url = this.mainData.facebook_url;
+                this.twitter_url = this.mainData.twitter_url;
+                this.instagram_url = this.mainData.instagram_url;
+                this.youtube_url = this.mainData.youtube_url;
                 this.is_active = this.mainData.is_active;
                 this.is_private = this.mainData.is_private;
                 this.description = this.mainData.description;
@@ -156,24 +256,24 @@
             },
             type() {
                 if (this.mode === "edit") {
-                    console.log("edit");
                     this.updateProfile();
                     return;
                 }
-                // console.log("add");
                 this.save();
                 return;
             },
             updateProfile() {
                 const url = `/profile/update`;
-
                 let description = $("#user_signature").data("emojioneArea").getText();
-
                 const params = {
                     id: this.mainData.id,
                     name: this.username,
                     username: this.username,
                     email: this.email,
+                    facebook_url: this.facebook_url,
+                    twitter_url: this.twitter_url,
+                    instagram_url: this.instagram_url,
+                    youtube_url: this.youtube_url,
                     image: this.media,
                     description: description,
                     is_private: this.is_private ? 1 : 0,

@@ -15,6 +15,10 @@ class UserController extends Controller
         $user->name = $request->get('username');
         $user->username = str_replace(' ', '', $request->get('username'));
         $user->email = $request->get('email');
+        $user->facebook_url = $request->get('facebook_url');
+        $user->twitter_url = $request->get('twitter_url');
+        $user->instagram_url = $request->get('instagram_url');
+        $user->youtube_url = $request->get('youtube_url');
         $user->description = $request->get('description');
         $user->is_private = $request->get('is_private') ? 1 : 0;
         if($request->get('image_url') != '') {
