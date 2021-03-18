@@ -257,10 +257,10 @@
                         <div class="result-media">
                             <div class="media" v-if="m_item.media">
                                 <img v-if="m_item.media.type == 'image'" :src="serverUrl(m_item.media.url)" alt="" />
-                                <video v-if="m_item.media.type == 'video'" :src="(m_item.media.url)" disablepictureinpicture controlslist="nodownload">
-                                    <source v-bind:src="m_item.media.url" type="video/mp4" />
-                                    <source v-bind:src="m_item.media.url" type="video/webm" />
-                                    <source v-bind:src="m_item.media.url" type="video/ogg" />Your browser does not support the video tag.
+                                <video v-if="m_item.media.type == 'video'" :src="serverUrl(m_item.media.url)" disablepictureinpicture controlslist="nodownload">
+                                    <source v-bind:src="serverUrl(m_item.media.url)" type="video/mp4" />
+                                    <source v-bind:src="serverUrl(m_item.media.url)" type="video/webm" />
+                                    <source v-bind:src="serverUrl(m_item.media.url)" type="video/ogg" />Your browser does not support the video tag.
                                 </video>
                                 <img class="video__tag__mobile" v-if="m_item.media.type==='video'" src="https://i.imgur.com/88aBgwi.png" alt="">
                             </div>
@@ -385,11 +385,11 @@
                         <div class="result-container" v-for="(m_item, m_index) of details.menus" :key="m_index" v-if="details.menus.length != 0" @click="goPortal(details.username)">
                             <div class="result-media">
                                 <div class="media" v-if="m_item.media">
-                                    <img v-if="m_item.media.type == 'image'" :src="m_item.media.url" alt="" />
-                                    <video v-if="m_item.media.type == 'video'" :src="m_item.media.url" controls disablepictureinpicture controlslist="nodownload">
-                                        <source v-bind:src="m_item.media.url" type="video/mp4" />
-                                        <source v-bind:src="m_item.media.url" type="video/webm" />
-                                        <source v-bind:src="m_item.media.url" type="video/ogg" />Your browser does not support the video tag.
+                                    <img v-if="m_item.media.type == 'image'" :src="serverUrl(m_item.media.url)" alt="" />
+                                    <video v-if="m_item.media.type == 'video'" :src="serverUrl(m_item.media.url)" controls disablepictureinpicture controlslist="nodownload">
+                                        <source v-bind:src="serverUrl(m_item.media.url)" type="video/mp4" />
+                                        <source v-bind:src="serverUrl(m_item.media.url)" type="video/webm" />
+                                        <source v-bind:src="serverUrl(m_item.media.url)" type="video/ogg" />Your browser does not support the video tag.
                                     </video>
                                     <img class="video__tag__mobile" v-if="m_item.media.type==='video'" src="https://i.imgur.com/88aBgwi.png" alt="">
                                 </div>
@@ -406,11 +406,10 @@
                                     <span class="strain" v-if="m_item.strain"> | {{m_item.strain.name}}</span>
                                 </p>
                                 <h4 class="title">{{m_item.item_name}}</h4>
-                                <h5 class="company-name my-0">
+                                <h5 class="company-name">
                                     <img class="store-type-img" src="/imgs/dispensary.png" alt v-if="details.store_type == 1 || details.store_type == 3" />
                                     <img class="store-type-img" src="/imgs/delivery.png" alt v-if="details.store_type == 2 || details.store_type == 3" />
-                                    &nbsp;
-                                    {{details.name}}
+                                    <span class="company_name">{{details.name}}</span>
                                 </h5>
                                 <div class="company-status">
                                     <span class="shop_status open" v-if="details.shop_status == 2">Open</span>
@@ -1062,6 +1061,8 @@
             .company-name {
                 display: flex;
                 align-items: center;
+                margin-top: .25rem;
+                margin-bottom: 0;
                 .store-type-img {
                     width: 22px;
                 }
