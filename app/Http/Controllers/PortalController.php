@@ -138,7 +138,7 @@ class PortalController extends Controller
         $menu_mod = new Menu();
         $menu_mod = $menu_mod->where('is_active', 1)->whereIn('portal_id', $all_companies_array);
         $flag_show_menu = 0;
-        if($request->get('category') != '') {
+        if($request->get('category') != '' && $request->get('menu_strain') == '') {
             $flag_show_menu = 1;
             $category_id = $request->get('category');
             // $flower = [1,2,3];
