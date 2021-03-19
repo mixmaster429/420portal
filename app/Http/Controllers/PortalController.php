@@ -220,7 +220,6 @@ class PortalController extends Controller
         $this->validate($request, [
             'name' => ['required', 'string', 'max:255'],
             'username' => ['required', 'string', 'max:25'],
-            'phone_number' => ['required', 'string'],
             'address_name' => ['required', 'string'],
             'state_license' => ['required', 'string'],
         ]);

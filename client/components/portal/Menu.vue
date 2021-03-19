@@ -27,7 +27,7 @@
                         </div>
                         <p style="color: #EFA720;font-size: 15px;cursor:pointer;">{{mediaData ? 'Change Media' : 'Add Media'}}</p>
                     </label>
-                    <span class="btn-remove-media" @click="removeMedia" v-if="is_editting && this.mediaData"><fa icon="times-circle"></fa></span>
+                    <span class="btn-remove-media" @click="removeMedia()" v-if="is_editting && mediaData"><fa icon="times-circle"></fa></span>
                     <input type="hidden" name="remove_media" :value="remove_media" />
                     <input type="file" hidden id="menu_media" name="file"  class="btn-file" @change="previewImage" accept="image/*|video/*" />
                 </div>
