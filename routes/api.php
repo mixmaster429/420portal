@@ -64,7 +64,7 @@ Route::post('/marijuana-news', 'BlogController@index');
 Route::get('/marijuana-news/{slug}', 'BlogController@show');
 
 
-Route::get('/portals', 'PortalController@getAllPortals');
+Route::any('/portals', 'PortalController@getAllPortals');
 Route::get('/portalswithbrand', 'PortalController@portalswithbrand');
 Route::get('/users', 'UserController@api');
 Route::get('/marijuana-strains', 'StrainController@api');
