@@ -144,7 +144,7 @@
                                     <div class="portal__address">
                                         <a href="javascript:;" v-if="portal_detail.store_type !== 2" @click="openGoogleMap()">
                                             {{portal_detail.address}}
-                                            <span v-if="portal_detail.suite">, (Suite {{portal_detail.suite}}) </span>
+                                            <span v-if="portal_detail.suite"> (Suite {{portal_detail.suite}}) </span>
                                         </a>
                                         <a href="javascript:;" @click="openGoogleMap()" style="display:block;margin-top:-8px;">{{portal_detail.city}}, {{portal_detail.state}} {{portal_detail.postal}}</a>
                                     </div>

@@ -20,7 +20,7 @@
             }
             .user_details {
                 display: flex;
-                width: calc(100% - 44px);
+                width: calc(100% - 43px);
                 .user_holder {
                     .username {
                         display: inline-block;
@@ -32,8 +32,7 @@
                         white-space: pre;
                     }
                     .user_data {
-                        line-height: 1;
-                        width: 100%;
+                        max-width: calc(100% - 20px);
                         display: flex;
                         align-items: center;
                         flex-flow: wrap;

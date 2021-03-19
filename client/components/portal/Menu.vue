@@ -566,7 +566,7 @@ export default {
             this.loading = true;
             this.axios.post('/category/strains', {id : this.category_id})
                 .then(response => {
-                    this.strains = response.data;
+                    this.taggedStrains = this.strains = response.data;
                 })
                 .then(() => {
                     let strain = this.strains.filter(st => st.id === menu.strain_id)[0];

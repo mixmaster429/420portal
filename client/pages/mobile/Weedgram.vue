@@ -466,7 +466,6 @@
             },
             handleScroll(){
                 let scroll_wrapper = document.getElementById('media_scroll_wrapper');
-                console.log('Top :', scroll_wrapper.scrollTop, 'Bottom : ', scroll_wrapper.scrollTop + scroll_wrapper.offsetHeight);
                 let scroll_wrapper_top = scroll_wrapper.scrollTop;
                 let scroll_wrapper_bottom = scroll_wrapper_top + scroll_wrapper.offsetHeight;
                 var video_elements = document.getElementsByTagName('video');
