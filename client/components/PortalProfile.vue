@@ -143,14 +143,14 @@
                                     <p style="height:5px"></p>
                                     <div class="portal__address">
                                         <a href="javascript:;" v-if="portal_detail.store_type !== 2" @click="openGoogleMap()">
-                                            {{portal_detail.address}},
-                                            <span v-if="portal_detail.suite">(Suite {{portal_detail.suite}}) </span>
-                                        </a><br />
-                                        <a href="javascript:;" @click="openGoogleMap()">{{portal_detail.city}}, {{portal_detail.state}} {{portal_detail.postal}}</a>
+                                            {{portal_detail.address}}
+                                            <span v-if="portal_detail.suite">, (Suite {{portal_detail.suite}}) </span>
+                                        </a>
+                                        <a href="javascript:;" @click="openGoogleMap()" style="display:block;margin-top:-8px;">{{portal_detail.city}}, {{portal_detail.state}} {{portal_detail.postal}}</a>
                                     </div>
                                 </div>
 
-                                <p v-if="portal_detail.phone_number && portal_detail.type == 'company'" class="telephone">
+                                <p v-if="portal_detail.phone_number && portal_detail.type == 'company'" class="telephone mt-2">
                                     <a :href="`tel:${portal_detail.phone_number}`" target="_blank">
                                         <fa icon="phone-alt"></fa>
                                         {{portal_detail.phone_number}}
