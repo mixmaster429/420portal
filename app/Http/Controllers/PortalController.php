@@ -206,6 +206,17 @@ class PortalController extends Controller
             $portals = array_values((array) $portals);
         }
 
+        $portals->makeHidden(['created_at', 'updated_at', 'email', 'phone_number', 'description','package_level', 'state_license', 
+                                'website_url', 'facebook_url', 'twitter_url', 'instagram_url', 'youtube_url',
+                                'mon_open', 'mon_close', 'mon_closed', 
+                                'tue_open', 'tue_close', 'tue_closed', 
+                                'wed_open', 'wed_close', 'wed_closed', 
+                                'thu_open', 'thu_close', 'thu_closed', 
+                                'fri_open', 'fri_close', 'fri_closed', 
+                                'sat_open', 'sat_close', 'sat_closed', 
+                                'sun_open', 'sun_close', 'sun_closed', 
+                            ]);
+
         $data = [
             'status' => 200,
             'portals' => $portals,
