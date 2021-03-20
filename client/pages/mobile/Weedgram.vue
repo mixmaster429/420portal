@@ -2,9 +2,9 @@
   <!-- <div style="position: fixed"> -->
     <div class="slide_show">
         <div class="weedgram-header" id="weedgram-header" ref="weedgram_header" v-if="model == 'user' || model == 'portal' || model == 'brand'">
-            <h4 class="my-1"><fa icon="arrow-left" fixed-width class="mr-2" @click="goBack()" /> {{username}}</h4>
+            <h4 class="my-1"><fa icon="arrow-left" fixed-width @click="goBack()" /> {{username}}</h4>
         </div>
-        <div id="media_scroll_wrapper" style="max-height:100vh;overflow-y: auto;" ref="scroll_wrapper" @scroll="handleScroll()">
+        <div id="media_scroll_wrapper" style="max-height:100vh;overflow-y: auto;" :style="{'padding-top': model == 'user' || model == 'portal' || model == 'brand' ? '40px' : 'unset'}" ref="scroll_wrapper" @scroll="handleScroll()">
             <div :class="{header_show: prev_page == 'user_page' || prev_page == 'company_page'}" ref="slide_container" id="slide_container">
                 <div class="slide_media" v-for="(item, index) in posts" :key="index" :id="index+1">
                     <div class="media_header">
@@ -193,6 +193,15 @@
             this.posts = this.$route.params.allpost;
         },
         mounted() {
+            if(!this.posts){
+                if(this.model == 'portal' || this.model == 'user') {
+                    window.location.href = "/" + username;
+                } else if(this.model == 'strain') {
+                    window.location.href = '/';
+                } else {
+                    window.location.href = '/';
+                }
+            }
             if(process.client) {
                 let scroll_div = document.getElementById(this.start_index);
                 let offset = 63;
@@ -211,15 +220,6 @@
 
                 if(this.posts.length > 20) scroll_to = scroll_to - 65
                 this.$refs.scroll_wrapper.scrollTo(0, scroll_to); 
-            }
-            if(!this.posts){
-                if(this.model == 'portal' || this.model == 'user') {
-                    window.location.href = "/" + username;
-                } else if(this.model == 'strain') {
-                    window.location.href = '/';
-                } else {
-                    window.location.href = '/';
-                }
             }
             if (this.user) {
                 this.logged_user_id = this.user.id;
@@ -472,9 +472,9 @@
                 video_elements.forEach(element => {
                     let parent = element.closest('.slide_media');
                     if(parent) {
-                        let parent_top = parent.offsetTop;
-                        let parent_bottom = parent_top + parent.offsetHeight;
-                        if(parent_top < scroll_wrapper_bottom && parent_bottom > scroll_wrapper_top) {
+                        let element_top = parent.offsetTop + 60;
+                        let element_bottom = element_top + parent.offsetWidth;
+                        if(element_top > scroll_wrapper_top && element_bottom < scroll_wrapper_bottom) {
                             element.play();
                         } else {
                             element.pause();

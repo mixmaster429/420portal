@@ -124,7 +124,7 @@ class MediaController extends Controller
             $distance = $request->get('distance');
             $mod = $mod->where(function($type_mod) use($account_type_array, $latitude, $longitude, $distance) {
                 if(in_array('user', $account_type_array)) {
-                    $user_media_array = User::pluck('media_id')->toArray();
+                    $user_media_array = User::whereType('user')->pluck('media_id')->toArray();
                     $media_user_array = MediaUser::pluck('media_id')->toArray();
                     $type_mod = $type_mod->whereIn('id', array_merge($user_media_array, $media_user_array));
                 }
