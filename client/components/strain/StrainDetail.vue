@@ -81,7 +81,7 @@
                 {{ strain_data.strain.name }}
                 <a
                   href="#"
-                  v-if="user && user.name == '420portal'"
+                  v-if="user && user.id == 1"
                   @click.prevent="openEditPopup = true"
                 >
                   <img

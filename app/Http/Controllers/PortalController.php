@@ -257,7 +257,7 @@ class PortalController extends Controller
             $media_id = $media->id;
             $portal->media_id = $media_id;
         }
-
+        $data['address'] = '';
         if ('' != $data['address_name'] && null != $data['address_name']) {
             $data['address'] = $data['address_name'];
             unset($data['address_name']);

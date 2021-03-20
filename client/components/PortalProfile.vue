@@ -140,7 +140,7 @@
                                     <p class="recreational my-0 pl-2" v-if="portal_detail.recreational && portal_detail.medical">(Recreational - Medical)</p>
                                     <p class="recreational my-0 pl-2" v-else-if="portal_detail.recreational">(Recreational)</p>
                                     <p class="medical my-0 pl-2" v-else-if="portal_detail.medical">(Medical)</p>
-                                    <p style="height:5px"></p>
+                                    <p style="height:15px"></p>
                                     <div class="portal__address">
                                         <a href="javascript:;" v-if="portal_detail.store_type !== 2" @click="openGoogleMap()">
                                             {{portal_detail.address}}

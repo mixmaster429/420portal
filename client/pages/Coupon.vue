@@ -21,7 +21,7 @@
                                     <span class="category">{{item.category.price_type == 2 ? 'Flower | ' + item.category.name : item.category.name}}</span>
                                     <span class="strain" v-if="item.strain"> | {{item.strain.name}}</span>
                                 </p>
-                                <h4 class="title">{{item.description}}</h4>
+                                <h4 class="title">{{item.description && item.description.length > 45 ? item.description.substring(0, 45) + '...' : item.description}}</h4>
                                 <p class="sub-title my-0">by: {{item.brand_name}}</p>
                                 <div class="company-name">
                                     <img class="store-type-img" src="/imgs/dispensary.png" alt v-if="item.portal.store_type == 1 || item.portal.store_type == 3" />

@@ -26,7 +26,7 @@
                     </div>
                 </div>
                 <client-only>
-                    <div class="row justify-content-center mt-4" v-if="user && user.name == '420portal'">
+                    <div class="row justify-content-center mt-4" v-if="user && user.id == 1">
                         <add-strain></add-strain>
                     </div>
                 </client-only>

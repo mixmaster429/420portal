@@ -8,7 +8,7 @@
             <div v-html="description"></div>
         </div>
 
-        <div v-if="auth_user && auth_user.name == '420portal'" class="strain__description__edit text-right mb-4">
+        <div v-if="auth_user && auth_user.id == 1" class="strain__description__edit text-right mb-4">
             <div v-if="editMode" class="edit-mode mt-2">
                 <button @click="save" class="btn btn-sm btn-primary px-3 py-2"><fa :icon="['far', 'save']" class="mr-1"></fa> Save
                     <span v-if="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>

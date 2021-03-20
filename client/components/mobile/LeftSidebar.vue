@@ -13,7 +13,7 @@
                             <img class="logo mx-auto" :src="serverUrl(auth_user.profile_pic ? auth_user.profile_pic.url : '/imgs/default_sm.png')" alt=" ">
                             <h5 class="username">{{auth_user.type == 'user' ? auth_user.username : auth_user.name}}</h5>
                         </a>
-                        <a href="/dashboard" class="btn-edit" v-if="auth_user.name == '420portal'"><img src="~assets/imgs/edit.png" alt=""></a>
+                        <a href="/dashboard" class="btn-edit" v-if="auth_user.id == 1"><img src="~assets/imgs/edit.png" alt=""></a>
                     </div>
                     <div class="col-12 text-center pb-2 pt-0">
                         <hr class="sidebar-hr" />

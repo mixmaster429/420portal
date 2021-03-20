@@ -55,7 +55,7 @@
                                     <!-- <a class="category-link" :category-key="category.id" :category-slug="category.slug" style="color:#efa720;cursor:pointer;" @click="selectCategory(category)">{{`${category.name} (${category.posts_count})`}}</a> -->
                                 </p>
                                 <div class="marijuananews-admin">
-                                    <router-link :to="{name: 'admin.post'}" v-if="auth_user && (auth_user.name == '420portal' || auth_user.name == 'writer')">
+                                    <router-link :to="{name: 'admin.post'}" v-if="auth_user && (auth_user.id == 1 || auth_user.name == 'writer')">
                                         <img src="/imgs/add1.png" />
                                     </router-link>
                                 </div>
