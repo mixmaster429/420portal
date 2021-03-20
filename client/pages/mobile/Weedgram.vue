@@ -131,7 +131,7 @@
                 spinner="spiral" 
                 @infinite="getallposts"
                 force-use-infinite-wrapper="#media_scroll_wrapper"
-            ><div slot="no-more">No Posts</div></infinite-loading>
+            ><div slot="no-more" class="text-center">No Posts</div></infinite-loading>
         </div>
 
         <!-- <vue-bottom-dialog v-model="dialog" > -->
@@ -193,6 +193,7 @@
             this.posts = this.$route.params.allpost;
         },
         mounted() {
+            console.log(this.posts);
             if(!this.posts){
                 if(this.model == 'portal' || this.model == 'user') {
                     window.location.href = "/" + username;
