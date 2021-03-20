@@ -734,6 +734,7 @@ export default {
                             }
                         }
                     }
+                    this.portal.address = element.formatted_address;
                 });
             });
         },
