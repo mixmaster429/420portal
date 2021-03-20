@@ -231,8 +231,8 @@ class PortalController extends Controller
         $this->validate($request, [
             'name' => ['required', 'string', 'max:255'],
             'username' => ['required', 'string', 'max:25'],
-            'address_name' => ['required', 'string'],
-            'state_license' => ['required', 'string'],
+            // 'address_name' => ['required', 'string'],
+            // 'state_license' => ['required', 'string'],
         ]);
 
         $portal = User::find($request->get('id'));
