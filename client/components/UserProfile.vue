@@ -125,11 +125,6 @@
                                 <fa :icon="['fab', 'youtube-square']"></fa>
                             </a>
                         </span>
-                        <span v-if="userdata.email" class="email">
-                            <a :href="`mailto:${userdata.email}`">
-                                <fa icon="envelope"></fa>
-                            </a>
-                        </span>
                     </div>
                     <span class="mt-2" v-if="userdata.description" v-show="!is_private">{{userdata.description}}</span>
                 </div>
