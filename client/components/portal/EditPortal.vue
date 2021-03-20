@@ -716,14 +716,9 @@ export default {
         },
         getAddressFromCoordinates() {
             const lat = this.portal.latitude;
-            const lon = this.portal.longitude;
-            let url = `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lon}&sensor=true&key=AIzaSyAs_LAuZVVqNTEdv765oUp6arI5Tjxs43s`;
-            let config = {
-                    headers : {
-                        'Access-Control-Allow-Origin': '*',
-                    }
-                }
-            this.axios.get(url, config).then(response => {
+            const lng = this.portal.longitude;
+                     
+            this.axios.post('/get_address_from_coordinate', {lat: lat, lng: lng}).then(response => {
                 let add_components = response.data.results;
                 add_components.forEach(element => {
                     for (var i = 0; i < element.address_components.length; i++) {

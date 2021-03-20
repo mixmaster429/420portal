@@ -68,6 +68,7 @@ Route::any('/portals', 'PortalController@getAllPortals');
 Route::get('/portalswithbrand', 'PortalController@portalswithbrand');
 Route::get('/users', 'UserController@api');
 Route::get('/marijuana-strains', 'StrainController@api');
+Route::post('/get_address_from_coordinate', 'PortalController@getAddressFromCoordinate');
 
 // Sitemap Routes
 

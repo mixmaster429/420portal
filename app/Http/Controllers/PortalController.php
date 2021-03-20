@@ -231,8 +231,8 @@ class PortalController extends Controller
         $this->validate($request, [
             'name' => ['required', 'string', 'max:255'],
             'username' => ['required', 'string', 'max:25'],
-            // 'address_name' => ['required', 'string'],
-            // 'state_license' => ['required', 'string'],
+            'address_name' => ['required', 'string'],
+            'state_license' => ['required', 'string'],
         ]);
 
         $portal = User::find($request->get('id'));
@@ -345,6 +345,30 @@ class PortalController extends Controller
         $portal->save();
         
         return response()->json(['status' => 200, 'result' => $portal]);        
+    }
+
+    public function getAddressFromCoordinate(Request $request) {
+        $lat = $request->get('lat');
+        $lng = $request->get('lng');
+        $api_key = env('GOOGLE_MAP_API_KEY');
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$lng&sensor=true&key=AIzaSyAs_LAuZVVqNTEdv765oUp6arI5Tjxs43s",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'GET',
+            CURLOPT_HTTPHEADER => array(
+                'X-Requested-With: *'
+            ),
+        ));
+        $response = curl_exec($curl);
+        curl_close($curl);
+        return $response;
     }
 
     public function destroy($id) {
