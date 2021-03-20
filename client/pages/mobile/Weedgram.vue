@@ -206,7 +206,7 @@
                 let scroll_div = document.getElementById(this.start_index);
                 let offset = 63;
                 if(this.model == 'user' || this.model == 'portal') {
-                    // offset = 100;
+                    offset = 40;
                 } else if(this.model == 'strain') {
                     offset = 25;
                 }
