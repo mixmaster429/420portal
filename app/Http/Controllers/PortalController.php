@@ -424,7 +424,7 @@ class PortalController extends Controller
     }
 
     public function portalswithbrand() {
-        $portals = User::where('type', 'company')->orWhere('type', 'brand')->get(['id', 'name', 'username']);
+        $portals = User::where('type', 'company')->orWhere('type', 'brand')->get(['id', 'name', 'username'])->makeHidden(['profilePic', 'unread_message_user_count']);
         return response()->json($portals);
     }
 
