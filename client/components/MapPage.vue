@@ -671,7 +671,7 @@
                         }
                         this.loading = false;
                     });
-            }, 500),
+            }, 1000),
             tooglemap() {
                 $('.map-container .filter_mobile').hide();
                 this.show_mobile = false;
