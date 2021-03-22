@@ -143,7 +143,8 @@
                                             params: {allpost: posts, start_index: index+1, page: page, model: 'user', username: userdata.username, currentId : userdata.id}
                                         }">
                                         <img v-bind:src="serverUrl(item.url)" alt v-if="item.type == 'image'" />
-                                        <video v-bind:src="serverUrl(item.url)" alt v-if="item.type == 'video'" preload="yes" playsinline></video>
+                                        <img v-bind:src="getPosterUrl(item.url)" alt v-if="item.type == 'video' && $device.isIos" />
+                                        <video v-bind:src="serverUrl(item.url)" alt v-if="item.type == 'video' && $device.isAndroid"></video>
                                         <img class="video__tag__mobile" style="width:25px;" v-if="item.type==='video'" src="https://i.imgur.com/88aBgwi.png" alt="">
                                     </router-link>
                                 </client-only>
