@@ -522,6 +522,12 @@
                 } catch (error) {
                     return process.env.serverUrl + 'imgs/default.png';
                 }
+            },
+            getPosterUrl(url) {
+                var newUrl = url.replace("/video/", "/image/");
+                var pointPos = newUrl.lastIndexOf(".");
+                newUrl = newUrl.substring(0, pointPos) + ".jpg";
+                return process.env.serverUrl + newUrl;
             }
         },
     };
