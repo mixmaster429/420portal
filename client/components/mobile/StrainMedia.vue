@@ -7,7 +7,8 @@
                         <div class="media">
                             <router-link :to="{ name: 'weedgram', hash:`#${index+1}`, params: {allpost : posts, start_index: index+1, model:'strain', page: page, currentId: strain.id, url: `/strain-media/${strain.slug}`}}">
                                 <img v-bind:src="serverUrl(item.url)" :alt="strain.name + ' marijuana'" v-if="item.type == 'image'" />
-                                <video v-bind:src="serverUrl(item.url)" alt v-if="item.type == 'video'" preload="metadata" conrols disablepictureinpicture controlslist="nodownload"></video>
+                                <img v-bind:src="getPosterUrl(item.url)" alt v-if="item.type == 'video' && $device.isIos" />
+                                <video v-bind:src="serverUrl(item.url)" alt v-if="item.type == 'video' && $device.isAndroid"></video>
                                 <img class="video__tag__mobile" v-if="item.type==='video'" src="https://i.imgur.com/88aBgwi.png" alt />
                             </router-link>
                         </div>
@@ -85,6 +86,12 @@
                 } catch (error) {
                     return process.env.serverUrl + 'imgs/default.png';
                 }
+            },
+            getPosterUrl(url) {
+                var newUrl = url.replace("/video/", "/image/");
+                var pointPos = newUrl.lastIndexOf(".");
+                newUrl = newUrl.substring(0, pointPos) + ".jpg";
+                return process.env.serverUrl + newUrl;
             }
         },
 
