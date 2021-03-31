@@ -443,7 +443,7 @@ class PortalController extends Controller
     }
 
     public function getAllPortals() {
-        $portals = User::where('type', 'company')->get(['id', 'name', 'username']);
+        $portals = User::where('type', 'company')->get(['id', 'name', 'username'])->makeHidden(['profilePic', 'unread_message_user_count']);
         return response()->json($portals);
     }
 

@@ -94,6 +94,5 @@
                 return process.env.serverUrl + newUrl;
             }
         },
-
     };
 </script>
