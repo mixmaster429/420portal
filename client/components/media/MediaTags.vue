@@ -144,8 +144,6 @@ export default {
   },
   watch: {
     media: function(newVal, oldVal) {
-      console.log("------------");
-      console.log(newVal);
       this.mediadata = newVal;
       if (this.mediadata) {
         this.gettagged();

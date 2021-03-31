@@ -569,6 +569,7 @@
         width: 30px;
         height: 30px;
         border-radius: 50px;
+        object-fit: cover;
     }
 
     .v_comment_box {
