@@ -204,12 +204,12 @@
             if(process.client) {
                 let scroll_div = document.getElementById(this.start_index);
                 let offset = 63;
-                if(this.model == 'user' || this.model == 'portal' || this.model == 'strain') {
+                if(this.model == 'user' || this.model == 'portal') {
                     offset = 40;
                 } else if(this.model == 'strain') {
-                    offset = 25;
+                    offset = 82;
                 }
-
+                console.log(offset);
                 // // check iphone chrome
                 // if(/CriOS/i.test(navigator.userAgent) && /iphone|ipod|ipad/i.test(navigator.userAgent)){
                 //     offset = offset + 119;
