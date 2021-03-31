@@ -207,9 +207,8 @@
                 if(this.model == 'user' || this.model == 'portal') {
                     offset = 40;
                 } else if(this.model == 'strain') {
-                    offset = 82;
+                    offset = 160;
                 }
-                console.log(offset);
                 // // check iphone chrome
                 // if(/CriOS/i.test(navigator.userAgent) && /iphone|ipod|ipad/i.test(navigator.userAgent)){
                 //     offset = offset + 119;
