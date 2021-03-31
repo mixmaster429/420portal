@@ -4,8 +4,8 @@
         <div class="weedgram-header" id="weedgram-header" ref="weedgram_header" v-if="model == 'user' || model == 'portal' || model == 'strain'">
             <h4 class="my-1"><fa icon="arrow-left" fixed-width @click="goBack()" /> {{username}}</h4>
         </div>
-        <div id="media_scroll_wrapper" style="max-height:100vh;overflow-y: auto;" :style="{'padding-top': model == 'user' || model == 'portal' || model == 'brand' ? '40px' : 'unset'}" ref="scroll_wrapper" @scroll="handleScroll()">
-            <div :class="{header_show: prev_page == 'user_page' || prev_page == 'company_page' || prev_page == 'strain_page'}" ref="slide_container" id="slide_container">
+        <div id="media_scroll_wrapper" style="max-height:100vh;overflow-y: auto;" :style="{'padding-top': model == 'user' || model == 'portal' || model == 'strain' ? '40px' : 'unset'}" ref="scroll_wrapper" @scroll="handleScroll()">
+            <div :class="{header_show: model == 'user' || model == 'portal' || model == 'strain'}" ref="slide_container" id="slide_container">
                 <div class="slide_media" v-for="(item, index) in posts" :key="index" :id="index+1">
                     <div class="media_header">
                         <div class="user_logo">
@@ -179,7 +179,6 @@
                 currentId: this.$route.params.currentId,
                 category: this.$route.params.category,
                 initial: true,
-                prev_page : this.$route.params.prev_page,
                 username : this.$route.params.username,
                 comment_text : '',
                 focused_index : null,
@@ -193,7 +192,6 @@
             this.posts = this.$route.params.allpost;
         },
         mounted() {
-            console.log(this.posts);
             if(!this.posts){
                 if(this.model == 'portal' || this.model == 'user') {
                     window.location.href = "/" + username;
@@ -206,7 +204,7 @@
             if(process.client) {
                 let scroll_div = document.getElementById(this.start_index);
                 let offset = 63;
-                if(this.model == 'user' || this.model == 'portal') {
+                if(this.model == 'user' || this.model == 'portal' || this.model == 'strain') {
                     offset = 40;
                 } else if(this.model == 'strain') {
                     offset = 25;
@@ -485,26 +483,6 @@
             },
             goBack(){
                 this.$router.go(-1);
-            },
-            setScroll(){
-                let new_index = this.$route.params.start_index;
-                if(this.$refs.weedgram_header && (this.prev_page == 'user_page' || this.prev_page == 'company_page' || this.prev_page == 'strain_page')){
-                    // let header_bottom = this.$refs.weedgram_header.getBoundingClientRect().bottom;
-                    // if($("#"+new_index).offset()){
-                    //     let offset_top = $("#"+new_index).offset().top;
-                    //     console.log(offset_top);
-                    //     // window.scrollTo(0, offset_top - 101);
-                    //     $(document).scrollTop(offset_top - 101);
-                    // }
-                    this.$refs.slide_container.style.paddingTop = '40px';
-                    
-                } else {
-                    // if($("#"+new_index).offset()){
-                    //     let offset_top = $("#"+new_index).offset().top;
-                    //     console.log(offset_top);
-                    //     window.scrollTo(0, offset_top - 61);
-                    // }
-                }
             },
             postComment(id, index) {
                 if (this.user) {
