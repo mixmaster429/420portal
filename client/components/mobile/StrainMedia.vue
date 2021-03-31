@@ -5,7 +5,7 @@
                 <div class="row">
                     <div class="col-4 media_container" v-for="(item, index) in posts" :key="index">
                         <div class="media">
-                            <router-link :to="{ name: 'weedgram', hash:`#${index+1}`, params: {allpost : posts, start_index: index+1, model:'strain', page: page, currentId: strain.id, url: `/strain-media/${strain.slug}`}}">
+                            <router-link :to="{ name: 'weedgram', hash:`#${index+1}`, params: {allpost : posts, start_index: index+1, model:'strain', prev_page: 'strain_page', username: strain.name, page: page, currentId: strain.id, url: `/strain-media/${strain.slug}`}}">
                                 <img v-bind:src="serverUrl(item.url)" :alt="strain.name + ' marijuana'" v-if="item.type == 'image'" />
                                 <img v-bind:src="getPosterUrl(item.url)" alt v-if="item.type == 'video' && $device.isIos" />
                                 <video v-bind:src="serverUrl(item.url)" alt v-if="item.type == 'video' && $device.isAndroid"></video>

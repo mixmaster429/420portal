@@ -48,7 +48,11 @@
     >
       <p class="d-flex align-items-center">
         <a :href="'/' + item.username">
-          <img :src="serverUrl(item.profile_pic.url)" alt="Profile picture" v-if="item.profile_pic" />
+          <img
+            :src="serverUrl(item.profile_pic.url)"
+            alt="Profile Picture"
+            v-if="item.profile_pic"
+          />
           <img src="/imgs/default_sm.png" alt="Profile picture" v-else />
         </a>
         <a :href="'/' + item.username" class="username">{{ item.name }}</a>
@@ -83,7 +87,11 @@
     >
       <p class="d-flex align-items-center">
         <a :href="'/' + item.username">
-          <img :src="serverUrl(item.profile_pic.url)" alt="Profile picture" v-if="item.profile_pic" />
+          <img
+            :src="serverUrl(item.profile_pic.url)"
+            alt="Profile picture"
+            v-if="item.profile_pic"
+          />
           <img src="/imgs/default_sm.png" alt="Profile picture" v-else />
         </a>
         <span class="taged-company">
@@ -139,7 +147,7 @@ export default {
       console.log("------------");
       console.log(newVal);
       this.mediadata = newVal;
-      if(this.mediadata) {
+      if (this.mediadata) {
         this.gettagged();
       }
     }
@@ -228,7 +236,7 @@ export default {
     }
   },
   mounted() {
-    if(this.mediadata) {
+    if (this.mediadata) {
       this.gettagged();
     }
   }

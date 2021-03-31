@@ -232,7 +232,7 @@
                     <div class="row">
                         <div class="col-4 media_container" v-for="(item, index) of posts" :key="index">
                             <div v-if="$device.isMobile" class="media">
-                                <router-link :to="{ name: 'weedgram', hash:`#${index+1}`, params: {allpost : posts, start_index: index+1, page: page, model: 'portal', username: portal_detail.username, currentId : portal_detail.id}}" >
+                                <router-link :to="{ name: 'weedgram', hash:`#${index+1}`, params: {allpost : posts, start_index: index+1, page: page, model: 'portal', prev_page: 'portal_page', username: portal_detail.username, currentId : portal_detail.id}}" >
                                     <img v-bind:src="serverUrl(item.url)" alt v-if="item.type == 'image'" />
                                     <img v-bind:src="getPosterUrl(item.url)" alt v-if="item.type == 'video' && $device.isIos" />
                                     <video v-bind:src="serverUrl(item.url)" alt v-if="item.type == 'video' && $device.isAndroid"></video>

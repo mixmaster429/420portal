@@ -140,7 +140,7 @@
                                     <router-link :to="{ 
                                             name: 'weedgram', 
                                             hash:`#${index+1}`, 
-                                            params: {allpost: posts, start_index: index+1, page: page, model: 'user', username: userdata.username, currentId : userdata.id}
+                                            params: {allpost: posts, start_index: index+1, page: page, model: 'user', prev_page: 'user_page', username: userdata.username, currentId : userdata.id}
                                         }">
                                         <img v-bind:src="serverUrl(item.url)" alt v-if="item.type == 'image'" />
                                         <img v-bind:src="getPosterUrl(item.url)" alt v-if="item.type == 'video' && $device.isIos" />

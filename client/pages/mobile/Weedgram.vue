@@ -1,11 +1,11 @@
 <template>
   <!-- <div style="position: fixed"> -->
     <div class="slide_show">
-        <div class="weedgram-header" id="weedgram-header" ref="weedgram_header" v-if="model == 'user' || model == 'portal' || model == 'brand'">
+        <div class="weedgram-header" id="weedgram-header" ref="weedgram_header" v-if="model == 'user' || model == 'portal' || model == 'strain'">
             <h4 class="my-1"><fa icon="arrow-left" fixed-width @click="goBack()" /> {{username}}</h4>
         </div>
         <div id="media_scroll_wrapper" style="max-height:100vh;overflow-y: auto;" :style="{'padding-top': model == 'user' || model == 'portal' || model == 'brand' ? '40px' : 'unset'}" ref="scroll_wrapper" @scroll="handleScroll()">
-            <div :class="{header_show: prev_page == 'user_page' || prev_page == 'company_page'}" ref="slide_container" id="slide_container">
+            <div :class="{header_show: prev_page == 'user_page' || prev_page == 'company_page' || prev_page == 'strain_page'}" ref="slide_container" id="slide_container">
                 <div class="slide_media" v-for="(item, index) in posts" :key="index" :id="index+1">
                     <div class="media_header">
                         <div class="user_logo">
@@ -179,7 +179,7 @@
                 currentId: this.$route.params.currentId,
                 category: this.$route.params.category,
                 initial: true,
-                prev_page : '',
+                prev_page : this.$route.params.prev_page,
                 username : this.$route.params.username,
                 comment_text : '',
                 focused_index : null,
@@ -488,7 +488,7 @@
             },
             setScroll(){
                 let new_index = this.$route.params.start_index;
-                if(this.$refs.weedgram_header && (this.prev_page == 'user_page' || this.prev_page == 'company_page')){
+                if(this.$refs.weedgram_header && (this.prev_page == 'user_page' || this.prev_page == 'company_page' || this.prev_page == 'strain_page')){
                     // let header_bottom = this.$refs.weedgram_header.getBoundingClientRect().bottom;
                     // if($("#"+new_index).offset()){
                     //     let offset_top = $("#"+new_index).offset().top;
