@@ -139,10 +139,10 @@ Route::middleware(['auth:api'])->group(function ($router){
 
     $router->post('/media/api_store', 'MediaController@api_store');
     $router->post('/media', 'MediaController@store')->middleware('cors.api');
-    $router->post('/media/update', 'MediaController@api_update');    
     $router->get('/media/{media}', 'MediaController@destroy');   
     $router->put('/media/{media}', 'MediaController@update'); 
     $router->delete('/media/{media}', 'MediaController@destroy');
+    $router->post('/media/update', 'MediaController@api_update');
 
     $router->post('/users/list', 'UserController@list');  
     $router->delete('/user/{id}', 'UserController@destroy');
