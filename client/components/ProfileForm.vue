@@ -10,10 +10,10 @@
                 </label>
                 <label class="btn btn-sm btn-primary mt-1 btn-select" for="profileFile">Select</label>
                 <input type="file" hidden id="profileFile" ref="profileFile" name="profileFile" class="btn-file" @change="previewProfileImage" accept="image/*" />
-                
+
                 <a @click="logout($event)" href="javascript:;" class="btn-logout" v-if="mode == 'edit'">
                     <img src="/imgs/logout.png" alt />
-                </a>                
+                </a>
                 <img :src="is_active ? '/imgs/active.png' : '/imgs/inactive.png'" alt=" " class="btn-power" v-if="mode == 'edit'" @click="openActivatePopup = true">
             </div>
         </div>
@@ -28,7 +28,7 @@
             <label for="name" :class="{focused : email}">Email *</label>
         </div>
 
-        <div class="floating-label" style="height: 50px;" @click="handleScroll">
+        <div class="floating-label" style="min-height: 50px;" @click="handleScroll">
             <textarea v-model="description" class="form-control media-description floating-textarea" rows="2" placeholder=" " id="user_signature" ref="signature"></textarea>
             <label for="user_signature" :class="{focused : description}">Bio</label>
         </div>
@@ -129,7 +129,7 @@
             this.$root.$on("edit-profile", () => {
                 this.updateProfile();
             });
-            
+
             if(process.client && this.mode === 'edit') {
                 this.init();
             }

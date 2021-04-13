@@ -99,7 +99,6 @@ class UserController extends Controller
         $user_id = $request->get('currentId') ?? auth()->id();
         $auth_id = auth()->id();
         $user = User::find($user_id);
-        
         $model = $request->get('model');
         $target = $request->get('target_id');
 
@@ -235,10 +234,10 @@ class UserController extends Controller
         $user->username = $name;
         $user->name = $name;
         $user->email = $email;
-        $user->facebook_url = $request->get('facebook_url');
-        $user->twitter_url = $request->get('twitter_url');
-        $user->instagram_url = $request->get('instagram_url');
-        $user->youtube_url = $request->get('youtube_url');
+        $user->facebook_url = $request->get('facebook_url') != null ? $request->get('facebook_url') : '';
+        $user->twitter_url = $request->get('twitter_url') != null ? $request->get('twitter_url') : '';
+        $user->instagram_url = $request->get('instagram_url') != null ? $request->get('instagram_url') : '';
+        $user->youtube_url = $request->get('youtube_url') != null ? $request->get('youtube_url') : '';
         $user->is_private = $request->get('is_private');
 
         $user->save();
