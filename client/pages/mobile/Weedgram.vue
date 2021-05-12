@@ -38,14 +38,14 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                         </div>
                     </div>
                     <div class="media_body">
                         <div class="slide_image" @click="likeMedia(item)">
                             <img :src="serverUrl(item.url)" alt v-if="item.type == 'image'" />
-                            <video :src="serverUrl(item.url)" alt v-if="item.type == 'video' && ($route.params.start_index === index+1)"  onclick="this.paused ? this.play() : this.pause();" disablepictureinpicture controlslist="nodownload" autoplay></video>
-                            <video :src="serverUrl(item.url)" alt v-else-if="item.type == 'video'"  onclick="this.paused ? this.play() : this.pause();" disablepictureinpicture controlslist="nodownload"></video>
+                            <video :src="serverUrl(item.url)" alt v-if="item.type == 'video' && ($route.params.start_index === index+1)"  onclick="this.paused ? this.play() : this.pause();" disablepictureinpicture controlslist="nodownload" autoplay playsinline></video>
+                            <video :src="serverUrl(item.url)" alt v-else-if="item.type == 'video'"  onclick="this.paused ? this.play() : this.pause();" disablepictureinpicture controlslist="nodownload" playsinline></video>
                         </div>
                         <div class="menu-panel" v-if="item.menu && item.menu.is_active" :class="{'brand-menu': item.user.type == 'brand'}">
                             <p class="menu-category">
@@ -125,10 +125,10 @@
                     </div>
                 </div>
             </div>
-            <infinite-loading 
-                ref="infinite_loading" 
-                :distance="400" 
-                spinner="spiral" 
+            <infinite-loading
+                ref="infinite_loading"
+                :distance="400"
+                spinner="spiral"
                 @infinite="getallposts"
                 force-use-infinite-wrapper="#media_scroll_wrapper"
             ><div slot="no-more" class="text-center">No Posts</div></infinite-loading>
@@ -217,7 +217,7 @@
                 let scroll_to = scroll_div ? scroll_div.offsetTop - offset : 0;
 
                 if(this.posts.length > 20) scroll_to = scroll_to - 65
-                this.$refs.scroll_wrapper.scrollTo(0, scroll_to); 
+                this.$refs.scroll_wrapper.scrollTo(0, scroll_to);
             }
             if (this.user) {
                 this.logged_user_id = this.user.id;
@@ -247,7 +247,7 @@
                 this.dialog = true
                 this.selected = item;
             },
-            getallposts($state) {                
+            getallposts($state) {
                 let uri = '';
                 let params = {};
                 if(this.model) {
@@ -257,14 +257,14 @@
                             model : 'user',
                             currentId : this.currentId,
                             page : this.page,
-                        }; 
+                        };
                     } else if(this.model == 'portal') {
                         uri = "/profile/getallposts";
                         params = {
                             model : 'portal',
                             target_id : this.currentId,
                             page : this.page,
-                        }; 
+                        };
                     } else if(this.model == 'strain') {
                         uri = this.$route.params.url;
                         params = {
@@ -278,7 +278,7 @@
                             category: this.category,
                             page: this.page,
                         };
-                    }                       
+                    }
                 } else {
                     uri = "/post/allhomepost";
                     params = {
@@ -287,7 +287,7 @@
                         bookmark : this.bookmark,
                         per_page : 9,
                         page : this.page,
-                    }; 
+                    };
                 }
 
                 this.axios.post(uri, params)
@@ -328,7 +328,7 @@
                     this.axios.post(uri, params).then(response => {
                         this.posts[index].likes = response.data;
                         this.posts[index].user_liked = true;
-                        if(widnow.user != this.posts[index].user_id) {                            
+                        if(widnow.user != this.posts[index].user_id) {
                             let noti_fb = firebase.database().ref('notifications/' + this.posts[index].user_id).push();
                             noti_fb.set({
                                 notifier_id: this.user.id,
@@ -355,9 +355,9 @@
                     $("#loginmodal").modal("show");
                 }
             },
-            likeMedia(item) {                
+            likeMedia(item) {
                 if (this.user) {
-                    this.clicks++ 
+                    this.clicks++
                     if(this.clicks === 1) {
                         var self = this
                         this.timer = setTimeout(function() {
@@ -377,16 +377,16 @@
                                 item.user_liked = false;
                             } else {
                                 item.user_liked = true;
-                                if(this.user.id != item.user_id) {                           
+                                if(this.user.id != item.user_id) {
                                     let noti_fb = firebase.database().ref('notifications/' + item.user_id).push();
                                     noti_fb.set({
                                         notifier_id: this.user,
                                         type: 'like',
-                                    }); 
+                                    });
                                 }
                             }
                         });
-                    }                    
+                    }
                 } else {
                     $("#loginmodal").modal("show");
                 }
@@ -433,7 +433,7 @@
                         for (let i = 0; i < this.posts.length; i++) {
                             if (this.posts[i]['user']['id'] === id)
                                 this.posts[i]['isfollower'] = !this.posts[i]['isfollower'];
-                            
+
                         }
                     });
                 } else {
@@ -489,7 +489,7 @@
                     if (selected.comment_text == "") {
                         return true;
                     } else {
-                        const params = { 
+                        const params = {
                             text: selected.comment_text,
                             target_id: id,
                             target_model: "media",
@@ -499,8 +499,8 @@
                         let uri = "/comment/add";
 
                         this.axios.post(uri, params).then(response => {
-                            if(this.user != this.posts[index].user_id) {                                
-                                let noti_fb = firebase.database().ref('notifications/' + this.posts[index].user_id).push();                                
+                            if(this.user != this.posts[index].user_id) {
+                                let noti_fb = firebase.database().ref('notifications/' + this.posts[index].user_id).push();
                                 noti_fb.set({
                                     notifier_id: this.user.id,
                                     type: 'comment',
@@ -655,4 +655,3 @@
         padding-top: 37px;
     }
 </style>
- 
