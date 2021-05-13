@@ -1,6 +1,6 @@
 <template>
     <div class="layout" id="app" v-touch:swipe="toggleSidebar">
-        <left-sidebar :active="leftsidebarflag" class="left-sidebar"></left-sidebar>
+        <!-- <left-sidebar :active="leftsidebarflag" class="left-sidebar"></left-sidebar> -->
         <flatchat v-if="auth_user"></flatchat>
         <top-nav />
 
@@ -70,7 +70,7 @@ export default {
                 snapshot.forEach((doc) => {
                     _this.$store.dispatch('auth/getUnreadNotification');
                 });
-            });   
+            });
         }
     },
     methods: {
