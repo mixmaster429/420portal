@@ -31,7 +31,7 @@
                         <div class="form-group floating-label">
                             <input v-model="form.username" :class="{ 'is-invalid': form.errors.has('username') }" type="text" name="username" class="floating-input" placeholder=" " />
                             <label class="">Username</label>
-                            <has-error :form="form" field="username" />              
+                            <has-error :form="form" field="username" />
                         </div>
 
                         <!-- Email -->
@@ -124,23 +124,25 @@ export default {
     }),
     methods: {
         async register () {
+            if(!this.form.logo) {
+                this.$toast.error("Profile photo is required");
+                return false;
+            }
             // Register the user
             const { data } = await this.form.post('/register')
+            console.log(data);
             if (data) {
                 // Log in the user.
                 const { data: { token } } = await this.form.post('/login')
-
                 // Save the token.
                 this.$store.dispatch('auth/saveToken', { token })
-
                 // Update the user.
                 await this.$store.dispatch('auth/updateUser', { user: data })
-
                 // Redirect home.
                 window.location.href = "/";
             }
         },
-        
+
         inputFile(newFile, oldFile){
             let _this = this;
             this.$refs.upload.active = true;
