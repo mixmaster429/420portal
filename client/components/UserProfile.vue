@@ -8,7 +8,6 @@
                             <img :src="serverUrl(userdata.profile_pic ? userdata.profile_pic.url : '/imgs/default.png')" alt />
                         </div>
                     </div>
-                    
                     <div class="pf-details col-8 text-center">
                         <div class="info-container d-flex text-center justify-content-around">
                             <div class="info_posts">
@@ -137,9 +136,9 @@
                         <div class="col-4 media_container" v-for="(item, index) of posts" :key="index">
                             <div v-if="$device.isMobile" class="media">
                                 <client-only>
-                                    <router-link :to="{ 
-                                            name: 'weedgram', 
-                                            hash:`#${index+1}`, 
+                                    <router-link :to="{
+                                            name: 'weedgram',
+                                            hash:`#${index+1}`,
                                             params: {allpost: posts, start_index: index+1, page: page, model: 'user', prev_page: 'user_page', username: userdata.username, currentId : userdata.id}
                                         }">
                                         <img v-bind:src="serverUrl(item.url)" alt v-if="item.type == 'image'" />

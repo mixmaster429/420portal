@@ -42,7 +42,7 @@
                         </div>
                     </div>
                     <div class="media_body">
-                        <div class="slide_image" @click="likeMedia(item)">
+                        <div class="slide_image" @click="user ? likeMedia(item) : () => false">
                             <img :src="serverUrl(item.url)" alt v-if="item.type == 'image'" />
                             <video :src="serverUrl(item.url)" alt v-if="item.type == 'video' && ($route.params.start_index === index+1)"  onclick="this.paused ? this.play() : this.pause();" disablepictureinpicture controlslist="nodownload" autoplay playsinline></video>
                             <video :src="serverUrl(item.url)" alt v-else-if="item.type == 'video'"  onclick="this.paused ? this.play() : this.pause();" disablepictureinpicture controlslist="nodownload" playsinline></video>
