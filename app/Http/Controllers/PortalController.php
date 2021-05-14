@@ -167,7 +167,7 @@ class PortalController extends Controller
             $menu_mod = $menu_mod->where(function($query) use($strain_name, $strain_array) {
                     return $query->whereIn('strain_id', $strain_array)
                         ->orWhere('item_name', 'like', "%$strain_name%");
-                        // ->orWhereIn('portal_id',  $menu_strain_brands);                
+                        // ->orWhereIn('portal_id',  $menu_strain_brands);
                 });
         }
 
@@ -191,7 +191,7 @@ class PortalController extends Controller
             $item->distance = $item->get_distance($user_latitude, $user_longitude);
             $item->shop_status = $item->get_shop_status();
             $item->menus = [];
-            if($flag_show_menu) {                
+            if($flag_show_menu) {
                 $portal_menus = $menus->where('portal_id', $item->id)->all();
                 $portal_menus_array = [];
                 foreach ($portal_menus as $m_item) {
@@ -202,19 +202,19 @@ class PortalController extends Controller
         }
 
         if(in_array('open_now', $request->get('filters'))) {
-            $portals = $portals->where('shop_status', 2)->all();
-            $portals = array_values((array) $portals);
+            $portals = $portals->where('shop_status', 2);
+            // $portals = array_values((array) $portals);
         }
 
-        $portals->makeHidden(['created_at', 'updated_at', 'email', 'phone_number', 'description','package_level', 'state_license', 
+        $portals->makeHidden(['created_at', 'updated_at', 'email', 'phone_number', 'description','package_level', 'state_license',
                                 'website_url', 'facebook_url', 'twitter_url', 'instagram_url', 'youtube_url',
-                                'mon_open', 'mon_close', 'mon_closed', 
-                                'tue_open', 'tue_close', 'tue_closed', 
-                                'wed_open', 'wed_close', 'wed_closed', 
-                                'thu_open', 'thu_close', 'thu_closed', 
-                                'fri_open', 'fri_close', 'fri_closed', 
-                                'sat_open', 'sat_close', 'sat_closed', 
-                                'sun_open', 'sun_close', 'sun_closed', 
+                                'mon_open', 'mon_close', 'mon_closed',
+                                'tue_open', 'tue_close', 'tue_closed',
+                                'wed_open', 'wed_close', 'wed_closed',
+                                'thu_open', 'thu_close', 'thu_closed',
+                                'fri_open', 'fri_close', 'fri_closed',
+                                'sat_open', 'sat_close', 'sat_closed',
+                                'sun_open', 'sun_close', 'sun_closed',
                             ]);
 
         $data = [
