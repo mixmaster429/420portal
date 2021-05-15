@@ -343,10 +343,13 @@
             </div>
         </div>
         <div class="modal fade" id="mapinfowindow">
-            <div class="modal-dialog modal-dialog-centered" style="border: none;margin: auto" role="document" @click="goCompanyPage()">
-                <div class="modal-content">
-                    <div class="modal-body p-0" v-if="details">
-                        <div class="pt_list" v-if="details && details.menus.length == 0">
+            <div class="modal-dialog h-100 bg-black" style="border: none;margin: auto" role="document">
+                <div class="modal-content h-100">
+                    <div class="modal-header">
+                        <button type="button" class="close text-420" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body px-0" v-if="details">
+                        <div class="pt_list" v-if="details && details.menus.length == 0" @click="goPortal(details.username)">
                             <div class="pt_data">
                                 <div class="pt_logo">
                                     <img :src="details.profile_pic ? serverUrl(details.profile_pic.url) : default_logo">
@@ -591,7 +594,7 @@
             }
             if(this.$route.params.city) {
                 this.city = this.tocapitalize(this.$route.params.city)
-            }            
+            }
             this.init();
             var self = this;
             $(document).on('mouseleave', '.filter-dropdown-toggle', function(){
@@ -602,7 +605,7 @@
                 }
             });
             if (this.$device.isMobile && navigator.userAgent.search("Safari") >= 0 && navigator.userAgent.search("Chrome") < 0)  {
-                this.is_ios = true;        
+                this.is_ios = true;
             }
         },
         methods: {
@@ -765,9 +768,6 @@
             },
             selectPriceType(){
 
-            },
-            goCompanyPage(){
-                window.location.href = this.details.username;
             },
             searchPortalOpen(){
                 $("#app").addClass('focus_comment');
