@@ -343,8 +343,8 @@
             </div>
         </div>
         <div class="modal fade" id="mapinfowindow">
-            <div class="modal-dialog h-100 bg-black" style="border: none;margin: auto" role="document">
-                <div class="modal-content h-100">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="border: none;margin: auto" role="document">
+                <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close text-420" data-dismiss="modal">&times;</button>
                     </div>
@@ -354,7 +354,7 @@
                                 <div class="pt_logo">
                                     <img :src="details.profile_pic ? serverUrl(details.profile_pic.url) : default_logo">
                                 </div>
-                                <div class="pt_details">
+                                <div class="pt_details" style="width: calc(100% - 60px);">
                                     <p class="pt_name" style="font-size: 18px;">{{ details ? details.name : ""}}</p>
                                     <p class="pt_address" v-if="details.store_type == 2">Delivery</p>
                                     <p class="pt_address" v-else>{{ details ? details.address : ""}}</p>
@@ -1042,6 +1042,7 @@
         .result-data {
             flex-grow: 1;
             padding-left: 10px;
+            max-width: calc(100% - 100px);
             .category-strain {
                 color: gray;
                 margin-top: 0;
@@ -1100,6 +1101,18 @@
                         padding-left: 3px;
                     }
                 }
+            }
+        }
+    }
+    #mapinfowindow {
+        .modal-content {
+            background: transparent;
+            border: none;
+            max-height: calc(100% - 90px);
+            .modal-header {
+                position: fixed;
+                top: 0;
+                right: 0;
             }
         }
     }
