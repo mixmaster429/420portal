@@ -125,7 +125,7 @@ class PortalController extends Controller
         $type_array = $request->get('business_type');
         if(count($type_array) >= 1) {
             array_push($type_array, 3);
-        }        
+        }
         $mod = $mod->whereIn('store_type', $type_array);
 
         if(in_array('recreational', $request->get('filters')) && !in_array('medical', $request->get('filters'))) {
@@ -508,7 +508,7 @@ class PortalController extends Controller
         $item = new Menu();
         $item->portal_id = $request->get('portal_id');
         $item->category_id = $request->get('category');
-        $item->strain_id = $request->get('strain'); 
+        $item->strain_id = $request->get('strain');
         $item->item_name = $request->get('item_name');
         $item->price_gram = $request->get('price_gram');
         $item->price_half_gram = $request->get('price_half_gram');

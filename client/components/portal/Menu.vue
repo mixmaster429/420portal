@@ -61,7 +61,7 @@
                     </multiselect>
                     <label for="strain_add" :class="{focused : strain.name}">Tag Marijuana Strain</label>
                 </div>
-                
+
                 <div class="form-group floating-label mt-4" v-show="selected_category.id">
                     <textarea class="form-control floating-textarea description" name="description" rows="2" id="description_add" v-model="description"></textarea>
                     <label>Description</label>
@@ -107,7 +107,7 @@
                                 <div class="custom-control custom-radio filter-input" style="padding-top: 3px;" v-for="(item, c_index) in category" :key="c_index" v-show="getCategoryResults(item)">
                                     <input type="radio" class="custom-control-input" name="category" :id="'menu_category_' + item.slug" :value="item.id" v-model="menu_filter.category_id" @change="menu_filter.selected_category = item" />
                                     <label class="custom-control-label" :for="'menu_category_' + item.slug">{{item.price_type == 2 ? 'Flower - ' + item.name : item.name}}<span class="category-count"> ({{getCategoryResults(item)}})</span></label>
-                                </div>                              
+                                </div>
                             </div>
                             <div class="col-6">
                                 <div class="pt-5">
