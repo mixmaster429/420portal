@@ -138,7 +138,7 @@ class PortalController extends Controller
         $menu_mod = new Menu();
         $menu_mod = $menu_mod->where('is_active', 1)->whereIn('portal_id', $all_companies_array);
         $flag_show_menu = 0;
-        if($request->get('category') != '' && $request->get('menu_strain') == '') {
+        if($request->get('category') != '') {
             $flag_show_menu = 1;
             $category_id = $request->get('category');
             // $flower = [1,2,3];
@@ -147,7 +147,8 @@ class PortalController extends Controller
             // } else {
                 $menu_mod = $menu_mod->where('category_id', $category_id);
             // }
-
+        }
+        if($request->get('menu_strain') == '') {
             if($request->get('menu_price_type') != '') {
                 $price_type = $request->get('menu_price_type');
                 $menu_mod = $menu_mod->whereNotNull($price_type);
@@ -157,9 +158,7 @@ class PortalController extends Controller
                     $menu_mod = $menu_mod->where($price_type, '<=', $menu_price_max);
                 }
             }
-        }
-
-        if($request->get('menu_strain') != '') {
+        } else {
             $flag_show_menu = 1;
             $strain_name = $request->get('menu_strain');
             $strain_array = Strain::where('name', 'like', "%$strain_name%")->pluck('id');
