@@ -39,7 +39,7 @@ class PortalController extends Controller
         $portal->totalComments = Comment::where('target_id', $portal->id)->where('target_model', 'portal')->count();
         if($portal->type == 'company') {
             $portal->shop_status = $portal->get_shop_status();
-        }        
+        }
         return response()->json(['success' => true, 'data' => $portal]);
     }
 
@@ -271,7 +271,7 @@ class PortalController extends Controller
         ];
         return response()->json($data);
     }
-    
+
     public function get_all_menus(Request $request) {
         $id = $request->get('id');
         $category_id = $request->get('category_id');
@@ -408,7 +408,7 @@ class PortalController extends Controller
         } else {
             if($item->media) {
                 $item->media->delete();
-            }            
+            }
         }
 
         $item->save();
