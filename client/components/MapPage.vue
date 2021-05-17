@@ -345,10 +345,10 @@
         <div class="modal fade" id="mapinfowindow">
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="border: none;margin: auto" role="document">
                 <div class="modal-content">
-                    <div class="modal-header">
+                    <div class="modal-header" :style="{'background': details.menus.length > 0 ? '#000' : 'transparent'}">
                         <button type="button" class="close text-420" data-dismiss="modal">&times;</button>
                     </div>
-                    <div class="modal-body px-0" v-if="details">
+                    <div class="modal-body p-0" v-if="details">
                         <div class="pt_list" v-if="details && details.menus.length == 0" @click="goPortal(details.username)">
                             <div class="pt_data">
                                 <div class="pt_logo">
@@ -1105,6 +1105,10 @@
         }
     }
     #mapinfowindow {
+        .modal-header {
+            width: 100%;
+            height: 46px;
+        }
         .modal-content {
             background: transparent;
             border: none;
