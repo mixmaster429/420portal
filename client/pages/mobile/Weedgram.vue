@@ -44,8 +44,8 @@
                     <div class="media_body">
                         <div class="slide_image" @click="user ? likeMedia(item) : () => false">
                             <img :src="serverUrl(item.url)" alt v-if="item.type == 'image'" />
-                            <video :src="serverUrl(item.url)" alt v-if="item.type == 'video' && ($route.params.start_index === index+1)"  onclick="this.paused ? this.play() : this.pause();" disablepictureinpicture controlslist="nodownload" autoplay="autoplay" loop="loop" playsinline></video>
-                            <video :src="serverUrl(item.url)" alt v-else-if="item.type == 'video'"  onclick="this.paused ? this.play() : this.pause();" disablepictureinpicture controlslist="nodownload" autoplay="autoplay" loop="loop" playsinline></video>
+                            <video :src="serverUrl(item.url) + '#t=0.05'" alt v-if="item.type == 'video' && ($route.params.start_index === index+1)"  onclick="this.paused ? this.play() : this.pause();" disablepictureinpicture controlslist="nodownload" playsinline></video>
+                            <video :src="serverUrl(item.url) + '#t=0.05'" alt v-else-if="item.type == 'video'"  onclick="this.paused ? this.play() : this.pause();" disablepictureinpicture controlslist="nodownload" playsinline></video>
                         </div>
                         <div class="menu-panel" v-if="item.menu && item.menu.is_active" :class="{'brand-menu': item.user.type == 'brand'}">
                             <p class="menu-category">
