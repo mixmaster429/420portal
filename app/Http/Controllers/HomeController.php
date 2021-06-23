@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
-
+use Log;
 use Auth;
 use Mail;
 use App\Mail\ContactUsMail;
@@ -53,6 +53,7 @@ class HomeController extends Controller
             Mail::to('420portal@gmail.com')->send(new ContactUsMail($data));
         } catch (\Throwable $th) {
             //throw $th;
+          Log::error($th);
         }
         $return = array();
         $return['success'] = 'success';
