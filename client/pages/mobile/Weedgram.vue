@@ -619,7 +619,7 @@ export default {
     },
     showDescription(index) {
       this.posts[index].description_expanded = true
-      console.log(this.posts[index])
+      this.$forceUpdate()
     },
     hideFooter() {
       $('#app').addClass('focus_comment')
