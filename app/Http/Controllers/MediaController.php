@@ -128,7 +128,7 @@ class MediaController extends Controller
           $user_media_array = User::whereType('user')->pluck('media_id')->toArray();
           // $media_user_array = MediaUser::pluck('media_id')->toArray();
           // $type_mod = $type_mod->whereIn('id', array_merge($user_media_array, $media_user_array));
-          $type_mod = $type_mod->whereIn('model', ['logo', 'post']);
+          $type_mod = $type_mod->whereIn('model', ['logo', 'post', 'profile']);
         }
 
         if (in_array('brand', $account_type_array)) {
