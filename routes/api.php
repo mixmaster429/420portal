@@ -83,12 +83,12 @@ Route::get('/sitemap/get_modal_data', 'SitemapController@getModalData');
 
 // Forum
 
-Route::any('/topic/all','ForumsController@all');
-Route::any('/topic/detail/{forumid}','ForumsController@getdetail');
-Route::any('/topic/setkeyword','ForumsController@setkeyword');
-Route::any('/gettopicuser/{user_id}','ForumsController@gettopicuser');
-Route::any('/topic/getedittopic','ForumsController@getedittopic');
-Route::get('/marijuana-forums/{id}','ForumsController@detail');
+Route::any('/topic/all', 'ForumsController@all');
+Route::any('/topic/detail/{forumid}', 'ForumsController@getdetail');
+Route::any('/topic/setkeyword', 'ForumsController@setkeyword');
+Route::any('/gettopicuser/{user_id}', 'ForumsController@gettopicuser');
+Route::any('/topic/getedittopic', 'ForumsController@getedittopic');
+Route::get('/marijuana-forums/{id}', 'ForumsController@detail');
 
 Route::post('/portal/get_all_menus', 'PortalController@get_all_menus');
 
@@ -113,163 +113,162 @@ Route::post('/update_description', 'SettingController@updateDescription');
 // Contact us
 Route::post('/contact-us', 'HomeController@send_contact_message');
 
-Route::middleware(['auth:api'])->group(function ($router){
-    $router->post('/profile/like', 'LikeController@likeProfile');
-    $router->post('/profile/unlike', 'LikeController@unlikeProfile');
-    $router->post('/profile/update', 'UserController@update');
-    $router->post('/profile/getisfollower', 'UserController@getisfollower');
-    $router->post('/user/follow', 'UserController@follow');
-    $router->post('/user/unfollow', 'UserController@unfollow');
-    $router->post('/user/follow_request', 'UserController@followRequest');
-    $router->post('/user/accept_follow_request', 'UserController@acceptFollowRequest');
-    $router->post('/profile/getisfollower', 'UserController@getisfollower');
-    
-    $router->post('/marijuana-strains/like', 'StrainController@like');
-    
-    $router->post('/comment/add', 'CommentController@addcomment');
-    $router->post('/comment/update', 'CommentController@updatecomment');
-    $router->post('/comment/addlike', 'LikeController@addcommentlike');
-    $router->post('/comment/unlike', 'LikeController@deletecommentlike');
-    $router->post('/comment/deletecomment', 'CommentController@destroy');
-    
-    $router->post('/like/addlike', 'LikeController@create');
-    $router->post('/like/unlike', 'LikeController@delete');
-    $router->post('/bookmark/store', 'SaveController@store');
-    $router->post('/bookmark/delete', 'SaveController@destroy');
+Route::middleware(['auth:api'])->group(function ($router) {
+  $router->post('/profile/like', 'LikeController@likeProfile');
+  $router->post('/profile/unlike', 'LikeController@unlikeProfile');
+  $router->post('/profile/update', 'UserController@update');
+  $router->post('/profile/getisfollower', 'UserController@getisfollower');
+  $router->post('/user/follow', 'UserController@follow');
+  $router->post('/user/unfollow', 'UserController@unfollow');
+  $router->post('/user/follow_request', 'UserController@followRequest');
+  $router->post('/user/accept_follow_request', 'UserController@acceptFollowRequest');
+  $router->post('/profile/getisfollower', 'UserController@getisfollower');
 
-    $router->post('/media/api_store', 'MediaController@api_store');
-    $router->post('/media', 'MediaController@store')->middleware('cors.api');
-    $router->post('/media/update/api', 'MediaController@api_update');
-    $router->get('/media/{media}', 'MediaController@destroy');   
-    $router->put('/media/{media}', 'MediaController@update'); 
-    $router->delete('/media/{media}', 'MediaController@destroy');
+  $router->post('/marijuana-strains/like', 'StrainController@like');
 
-    $router->post('/users/list', 'UserController@list');  
-    $router->delete('/user/{id}', 'UserController@destroy');
-    $router->post('/user/activate', 'UserController@activate');      
-    
-    $router->post('/portals/update', 'PortalController@update');
-    $router->delete('/portals/{id}', 'PortalController@destroy');
-    
-    $router->post('/brand/update', 'BrandController@update');
-    $router->get('/brand/delete/{id}', 'BrandController@delete');
+  $router->post('/comment/add', 'CommentController@addcomment');
+  $router->post('/comment/update', 'CommentController@updatecomment');
+  $router->post('/comment/addlike', 'LikeController@addcommentlike');
+  $router->post('/comment/unlike', 'LikeController@deletecommentlike');
+  $router->post('/comment/deletecomment', 'CommentController@destroy');
+
+  $router->post('/like/addlike', 'LikeController@create');
+  $router->post('/like/unlike', 'LikeController@delete');
+  $router->post('/bookmark/store', 'SaveController@store');
+  $router->post('/bookmark/delete', 'SaveController@destroy');
+
+  $router->post('/media/api_store', 'MediaController@api_store');
+  $router->post('/media', 'MediaController@store')->middleware('cors.api');
+  $router->post('/media/update/api', 'MediaController@api_update');
+  $router->get('/media/{media}', 'MediaController@destroy');
+  $router->put('/media/{media}', 'MediaController@update');
+  $router->delete('/media/{media}', 'MediaController@destroy');
+
+  $router->post('/users/list', 'UserController@list');
+  $router->delete('/user/{id}', 'UserController@destroy');
+  $router->post('/user/activate', 'UserController@activate');
+
+  $router->post('/portals/update', 'PortalController@update');
+  $router->delete('/portals/{id}', 'PortalController@destroy');
+
+  $router->post('/brand/update', 'BrandController@update');
+  $router->get('/brand/delete/{id}', 'BrandController@delete');
 
 
-    $router->post('/coupon/store', 'CouponController@store');
-    $router->post('/coupon/{id}', 'CouponController@update');
-    $router->delete('/coupon/{id}', 'CouponController@destroy');
-    
-    // **** Forum Desktop ***
-    $router->any('/topic/create','ForumsController@create');
-    $router->any('/topic/delete','ForumsController@delete');
-    $router->any('/topic/edit','ForumsController@edit');
-    $router->any('/topicreply/create','ForumsController@replycreate');
-    $router->any('/topic/like','ForumsController@like');
-    $router->any('/topic/bookmark','ForumsController@bookmark');
+  $router->post('/coupon/store', 'CouponController@store');
+  $router->post('/coupon/{id}', 'CouponController@update');
+  $router->delete('/coupon/{id}', 'CouponController@destroy');
 
-    // App Forum
-    
-    $router->post('/app/topic/like','Api\ForumController@like');
-    $router->post('/app/topic/bookmark','Api\ForumController@bookmark');
-    $router->post('/app/topic/create','Api\ForumController@create');
-    $router->post('/app/topic/edit','Api\ForumController@edit');
-    $router->post('/app/topic/reply','Api\ForumController@reply');
-    $router->get('/app/topic/delete/{id}','Api\ForumController@delete');
-    $router->post('/marijuana-strains/follow', 'StrainController@follow');
-    $router->put('/marijuana-strains/modal/{id}', 'StrainController@updateModal');
-    $router->put('/marijuana-brands/modal/{id}', 'BrandController@updateModal');
-    $router->put('/sitemap/modal/{id}', 'SitemapController@updateModal');
+  // **** Forum Desktop ***
+  $router->any('/topic/create', 'ForumsController@create');
+  $router->any('/topic/delete', 'ForumsController@delete');
+  $router->any('/topic/edit', 'ForumsController@edit');
+  $router->any('/topicreply/create', 'ForumsController@replycreate');
+  $router->any('/topic/like', 'ForumsController@like');
+  $router->any('/topic/bookmark', 'ForumsController@bookmark');
 
-    $router->post('/notification/get_all', 'NotificationController@get_all');
-    $router->post('/email_notification_filter/save', 'NotificationFilterController@save');
-    $router->any('/email_notification_filter/get_value', 'NotificationFilterController@get_value');
-    $router->post('/notification/get_unreads', 'NotificationController@user_unreads');
+  // App Forum
 
-    // Menu
-    
-    $router->post('/menu/create', 'PortalController@create_menu')->name('menu.create');
-    $router->post('/menu/update', 'PortalController@update_menu')->name('menu.update');
-    $router->get('/menu/{id}/delete', 'PortalController@delete_menu')->name('menu.delete');
-    $router->get('/menu/{id}/deactive', 'PortalController@deactive_menu')->name('menu.deactive');
+  $router->post('/app/topic/like', 'Api\ForumController@like');
+  $router->post('/app/topic/bookmark', 'Api\ForumController@bookmark');
+  $router->post('/app/topic/create', 'Api\ForumController@create');
+  $router->post('/app/topic/edit', 'Api\ForumController@edit');
+  $router->post('/app/topic/reply', 'Api\ForumController@reply');
+  $router->get('/app/topic/delete/{id}', 'Api\ForumController@delete');
+  $router->post('/marijuana-strains/follow', 'StrainController@follow');
+  $router->put('/marijuana-strains/modal/{id}', 'StrainController@updateModal');
+  $router->put('/marijuana-brands/modal/{id}', 'BrandController@updateModal');
+  $router->put('/sitemap/modal/{id}', 'SitemapController@updateModal');
 
-    // Messenger    
-    $router->any('/user/chatlist', 'UserController@chatlist');
-    $router->any('/user/getmessengerstatus', 'UserController@getMessengerStatus');
-    $router->post('/user/searchuser', 'UserController@searchuser');
-    $router->get('/user/togglemessenger', 'UserController@togglemessenger');
-    $router->post('/user/deletemessage', 'UserController@deletemessage');
-    
-    $router->post('/user/block', 'UserController@block');
-    $router->get('/user/blockuserlist', 'UserController@blockuserlist');
-    $router->get('/user/blockuserlistonmobile', 'UserController@blockuserlistonmobile');
-    $router->post('/user/enableblock', 'UserController@enableblock');
-    $router->post('/user/isblockuser', 'UserController@isblockuser');
-    $router->post('/user/get_unreads', 'UserController@getUnreads');
+  $router->post('/notification/get_all', 'NotificationController@get_all');
+  $router->post('/email_notification_filter/save', 'NotificationFilterController@save');
+  $router->any('/email_notification_filter/get_value', 'NotificationFilterController@get_value');
+  $router->post('/notification/get_unreads', 'NotificationController@user_unreads');
 
-    $router->post('/usermessages/fetch', 'UserchatController@fetchMessages');
-    $router->post('/usermessages/send', 'UserchatController@sendMessage');
-    $router->post('/usermessages/readall', 'UserchatController@readall');
+  // Menu
 
-    // Admin Panel
+  $router->post('/menu/create', 'PortalController@create_menu')->name('menu.create');
+  $router->post('/menu/update', 'PortalController@update_menu')->name('menu.update');
+  $router->get('/menu/{id}/delete', 'PortalController@delete_menu')->name('menu.delete');
+  $router->get('/menu/{id}/deactive', 'PortalController@deactive_menu')->name('menu.deactive');
 
-    $router->any('/admin/post/all', 'AdminBlogController@index');
-    $router->get('/admin/post/add', 'AdminBlogController@create');
-    $router->post('/admin/post/add', 'AdminBlogController@store');
-    $router->post('/admin/post/{id}/update', 'AdminBlogController@update');
-    $router->get('/admin/post/{id}/delete', 'AdminBlogController@destroy');    
+  // Messenger    
+  $router->any('/user/chatlist', 'UserController@chatlist');
+  $router->any('/user/getmessengerstatus', 'UserController@getMessengerStatus');
+  $router->post('/user/searchuser', 'UserController@searchuser');
+  $router->get('/user/togglemessenger', 'UserController@togglemessenger');
+  $router->post('/user/deletemessage', 'UserController@deletemessage');
 
-    Route::get('/admin/category', 'AdminCategoryController@index');
-    Route::post('/admin/category/add', 'AdminCategoryController@store');
-    Route::post('/admin/category/{id}/update', 'AdminCategoryController@update');
-    Route::post('/admin/categoryremove/{id}', 'AdminCategoryController@delete');
-    Route::get('/admin/category/order/{id}/up', 'AdminCategoryController@upOrder');
-    Route::get('/admin/category/order/{id}/down', 'AdminCategoryController@downOrder');
+  $router->post('/user/block', 'UserController@block');
+  $router->get('/user/blockuserlist', 'UserController@blockuserlist');
+  $router->get('/user/blockuserlistonmobile', 'UserController@blockuserlistonmobile');
+  $router->post('/user/enableblock', 'UserController@enableblock');
+  $router->post('/user/isblockuser', 'UserController@isblockuser');
+  $router->post('/user/get_unreads', 'UserController@getUnreads');
+
+  $router->post('/usermessages/fetch', 'UserchatController@fetchMessages');
+  $router->post('/usermessages/send', 'UserchatController@sendMessage');
+  $router->post('/usermessages/readall', 'UserchatController@readall');
+
+  // Admin Panel
+
+  $router->any('/admin/post/all', 'AdminBlogController@index');
+  $router->get('/admin/post/add', 'AdminBlogController@create');
+  $router->post('/admin/post/add', 'AdminBlogController@store');
+  $router->post('/admin/post/{id}/update', 'AdminBlogController@update');
+  $router->get('/admin/post/{id}/delete', 'AdminBlogController@destroy');
+
+  Route::get('/admin/category', 'AdminCategoryController@index');
+  Route::post('/admin/category/add', 'AdminCategoryController@store');
+  Route::post('/admin/category/{id}/update', 'AdminCategoryController@update');
+  Route::post('/admin/categoryremove/{id}', 'AdminCategoryController@delete');
+  Route::get('/admin/category/order/{id}/up', 'AdminCategoryController@upOrder');
+  Route::get('/admin/category/order/{id}/down', 'AdminCategoryController@downOrder');
 });
 
 Route::group(['middleware' => 'auth:api'], function () {
-    Route::post('logout', 'Auth\LoginController@logout');
-    Route::any('/app/logout', 'Api\AuthController@logout');
+  Route::post('logout', 'Auth\LoginController@logout');
+  Route::any('/app/logout', 'Api\AuthController@logout');
 
-    Route::get('/user', function (Request $request) {
-        return $request->user();
-    });
+  Route::get('/user', function (Request $request) {
+    return $request->user();
+  });
 
-    Route::patch('settings/profile', 'Settings\ProfileController@update');
-    Route::patch('settings/password', 'Settings\PasswordController@update');
+  Route::patch('settings/profile', 'Settings\ProfileController@update');
+  Route::patch('settings/password', 'Settings\PasswordController@update');
 
-    // Custom Mobile Router
-    
-    Route::post('/app/portals/update', 'Api\PortalController@update');
-    Route::post('/app/profile/update', 'Api\UserController@update'); 
-    
-    Route::post('/app/menu/create', 'Api\PortalController@create_menu');
-    Route::post('/app/menu/update', 'Api\PortalController@update_menu');
+  // Custom Mobile Router
 
+  Route::post('/app/portals/update', 'Api\PortalController@update');
+  Route::post('/app/profile/update', 'Api\UserController@update');
+
+  Route::post('/app/menu/create', 'Api\PortalController@create_menu');
+  Route::post('/app/menu/update', 'Api\PortalController@update_menu');
 });
 
 Route::group(['middleware' => 'guest:api'], function () {
-    Route::post('login', 'Auth\LoginController@login');
-    Route::post('register', 'Auth\RegisterController@register');
+  Route::post('login', 'Auth\LoginController@login');
+  Route::post('register', 'Auth\RegisterController@register');
 
-    
-    Route::post('/portals/store', 'PortalController@store');
 
-    
-    Route::post('/password/email', 'Auth\PasswordController@validatePasswordRequest');
-    Route::post('/password/reset', 'Auth\PasswordController@resetPassword');
+  Route::post('/portals/store', 'PortalController@store');
 
-    // Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
-    // Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
-    Route::post('email/verify/{user}', 'Auth\VerificationController@verify')->name('verification.verify');
-    Route::post('email/resend', 'Auth\VerificationController@resend');
+  Route::post('/password/email', 'Auth\PasswordController@validatePasswordRequest');
+  Route::post('/password/reset', 'Auth\PasswordController@resetPassword');
 
-    Route::post('oauth/{driver}', 'Auth\OAuthController@redirectToProvider');
-    Route::get('oauth/{driver}/callback', 'Auth\OAuthController@handleProviderCallback')->name('oauth.callback');
+  // Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
+  // Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
-    // Custom Auth    
-    Route::post('/app/register', 'Api\AuthController@register');
-    Route::post('/app/login', 'Api\AuthController@login');
+  Route::post('email/verify/{user}', 'Auth\VerificationController@verify')->name('verification.verify');
+  Route::post('email/resend', 'Auth\VerificationController@resend');
+
+  Route::post('oauth/{driver}', 'Auth\OAuthController@redirectToProvider');
+  Route::get('oauth/{driver}/callback', 'Auth\OAuthController@handleProviderCallback')->name('oauth.callback');
+
+  // Custom Auth    
+  Route::post('/app/register', 'Api\AuthController@register');
+  Route::post('/app/login', 'Api\AuthController@login');
 });
 
 Route::get('/company/import', 'CompanyController@importCompany');
