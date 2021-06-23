@@ -4,10 +4,15 @@
     "parser": "babel-eslint",
     "sourceType": "module"
   },
-  "extends": [
-    "@nuxtjs"
-  ],
+  "extends": ["@nuxtjs"],
   "rules": {
-    "vue/max-attributes-per-line": "off"
+    "vue/max-attributes-per-line": "off",
+    "comma-dangle": ["off", "never"],
+    "space-before-function-paren": "off",
+    "vue/html-self-closing": "off",
+    "vue/attributes-order": "off",
+    "vue/singleline-html-element-content-newline": "off",
+    "vue/html-closing-bracket-newline": "off",
+    "vue/require-prop-types": "off"
   }
 }

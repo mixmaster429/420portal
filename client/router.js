@@ -4,14 +4,18 @@ import { scrollBehavior } from '~/utils'
 
 Vue.use(Router)
 
-const page = path => () => import(`~/pages/${path}`).then(m => m.default || m)
+const page = (path) => () => import(`~/pages/${path}`).then((m) => m.default || m)
 
 const routes = [
   { path: '/', name: 'home', component: page('Home.vue') },
 
   { path: '/marijuana-strains', name: 'strain_index', component: page('Strain.vue') },
   { path: '/marijuana-strains/:strain', name: 'strain_detail', component: page('StrainDetail.vue') },
-  { path: '/medical-recreational-marijuana-dispensary-delivery/:state?/:city?', name: 'map_page', component: page('MapPage.vue')},
+  {
+    path: '/medical-recreational-marijuana-dispensary-delivery/:state?/:city?',
+    name: 'map_page',
+    component: page('MapPage.vue'),
+  },
 
   { path: '/marijuana-coupons', name: 'coupon', component: page('Coupon.vue') },
   { path: '/marijuana-brands', name: 'brand', component: page('Brand.vue') },
@@ -21,7 +25,11 @@ const routes = [
 
   { path: '/marijuana-forums', name: 'forum', component: page('forum/ForumList.vue') },
   { path: '/marijuana-forums/:slug/:id', name: 'forum_detail', component: page('forum/ForumDetail.vue') },
-  { path: '/marijuana-forums/:slug/:origin_id/:id', name: 'forum_reply_detail', component: page('forum/ForumDetail.vue') },
+  {
+    path: '/marijuana-forums/:slug/:origin_id/:id',
+    name: 'forum_reply_detail',
+    component: page('forum/ForumDetail.vue'),
+  },
 
   { path: '/notification', name: 'notification', component: page('Notification.vue') },
 
@@ -45,35 +53,37 @@ const routes = [
   { path: '/email/verify/:id', name: 'verification.verify', component: page('auth/verification/verify.vue') },
   { path: '/email/resend', name: 'verification.resend', component: page('auth/verification/resend.vue') },
 
-  { path: '/contact-us', name: "contactus", component: page('Contact-us.vue')},
+  { path: '/contact-us', name: 'contactus', component: page('Contact-us.vue') },
 
-  { path: '/settings',
+  {
+    path: '/settings',
     component: page('settings/index.vue'),
     children: [
       { path: '', redirect: { name: 'settings.profile' } },
       { path: 'profile', name: 'settings.profile', component: page('settings/profile.vue') },
-      { path: 'password', name: 'settings.password', component: page('settings/password.vue') }
-    ] 
+      { path: 'password', name: 'settings.password', component: page('settings/password.vue') },
+    ],
   },
 
-  { path: '/admin',
+  {
+    path: '/admin',
     component: page('admin/Index.vue'),
     children: [
       { path: '', redirect: { name: 'admin.post' } },
       { path: 'post', name: 'admin.post', component: page('admin/post/Index.vue') },
       { path: 'post/:mode', name: 'admin.post_form', component: page('admin/post/Form.vue') },
       { path: 'category', name: 'admin.category', component: page('admin/Category.vue') },
-    ] 
+    ],
   },
 
   // { path: '/dashboard', name: 'dashboard', component: page('Dashboard.vue') },
   { path: '/:username', name: 'profile', component: page('Profile.vue') },
 ]
 
-export function createRouter () {
+export function createRouter() {
   return new Router({
     routes,
     scrollBehavior,
-    mode: 'history'
+    mode: 'history',
   })
 }
