@@ -66,7 +66,7 @@
                     </div>
 
                     <div class="floating-label">
-                        <input type="text" class="form-control floating-input" name="username" required v-model="portal.username" maxlength="25" autofocus placeholder=" ">
+                        <input type="text" class="form-control floating-input" name="username" required v-model="portal.username" maxlength="30" autofocus placeholder=" ">
                         <span class="invalid-feedback"><strong></strong></span>
                         <label for="name">Company Username *</label>
                     </div>
