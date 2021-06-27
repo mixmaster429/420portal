@@ -15,6 +15,11 @@ export default {
       title: 'Terms of Use and Privacy Policy',
       meta: [
         {
+          hid: 'title',
+          name: 'title',
+          content: 'Terms of Use and Privacy Policy',
+        },
+        {
           hid: 'description',
           name: 'description',
           content: "420Portal's Terms of Use and Privacy Policy",
