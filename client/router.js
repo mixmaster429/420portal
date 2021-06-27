@@ -54,6 +54,7 @@ const routes = [
   { path: '/email/resend', name: 'verification.resend', component: page('auth/verification/resend.vue') },
 
   { path: '/contact-us', name: 'contactus', component: page('Contact-us.vue') },
+  { path: '/privacy', name: 'privacy', component: page('Privacy.vue') },
 
   {
     path: '/settings',
