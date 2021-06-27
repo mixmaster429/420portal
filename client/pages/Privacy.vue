@@ -11,7 +11,21 @@ export default {
     Terms,
   },
   head() {
-    return { title: 'Privacy' }
+    return {
+      title: 'Terms of Use and Privacy Policy',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: "420Portal's Terms of Use and Privacy Policy",
+        },
+        {
+          hid: 'keywords',
+          name: 'keywords',
+          content: 'Terms of Use and Privacy Policy',
+        },
+      ],
+    }
   },
   data: () => ({}),
   methods: {},
