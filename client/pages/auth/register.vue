@@ -145,11 +145,6 @@ export default {
   head() {
     return { title: '420Portal - Register' }
   },
-  watch: {
-    'form.username': function (newName, oldName) {
-      this.form.name = newName
-    },
-  },
   data: () => ({
     form: new Form({
       logo: '',
@@ -164,6 +159,11 @@ export default {
     uploadProgress: 5,
     uploading: false,
   }),
+  watch: {
+    'form.username' (newName, oldName) {
+      this.form.name = newName
+    },
+  },
   methods: {
     async register() {
       if (!this.form.logo) {
@@ -172,7 +172,6 @@ export default {
       }
       // Register the user
       const { data } = await this.form.post('/register')
-      console.log(data)
       if (data) {
         // Log in the user.
         const {
@@ -188,7 +187,7 @@ export default {
     },
 
     inputFile(newFile, oldFile) {
-      let _this = this
+      const _this = this
       this.$refs.upload.active = true
       if (newFile && oldFile) {
         if (newFile.active !== oldFile.active) {
@@ -218,7 +217,7 @@ export default {
       }
     },
 
-    inputFilter: function (newFile, oldFile, prevent) {
+    inputFilter (newFile, oldFile, prevent) {
       if (newFile && !oldFile) {
         // Filter non-image file
         if (!/\.(jpeg|jpg|gif|png|webp)$/i.test(newFile.name)) {

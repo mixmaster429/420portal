@@ -1,14 +1,19 @@
 <template>
-  <div class="container privacy-content">
-    <Terms />
+  <div>
+    <div class="container privacy-content">
+      <Terms />
+    </div>
+    <page-footer></page-footer>
   </div>
 </template>
 
 <script>
 import Terms from './auth/terms'
+import PageFooter from '~/components/PageFooter'
 export default {
   components: {
     Terms,
+    PageFooter,
   },
   head() {
     return {
