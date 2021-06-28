@@ -3,7 +3,10 @@
     <div class="container privacy-content">
       <Terms />
     </div>
-    <page-footer></page-footer>
+
+    <div class="row">
+      <page-footer></page-footer>
+    </div>
   </div>
 </template>
 
@@ -45,10 +48,10 @@ export default {
 <style lang="scss">
 .privacy-content {
   color: whitesmoke;
-  padding: 50px 0 100px;
+  padding: 50px 0 30px;
 
   @media (max-width: 678px) {
-    padding: 30px 0 50px;
+    padding: 30px 0 20px;
   }
 }
 </style>
