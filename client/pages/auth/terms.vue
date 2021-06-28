@@ -2,7 +2,7 @@
 <template>
 <div>
         
-<h3>Terms of Use and Privacy Policy www.420Portal.com</h3>
+<h5>Terms of Use and Privacy Policy</h5>
 
 <p>This "Terms of Use and Privacy Policy" (the "Terms") explains the conditions by which you may use the website, located at www.420Portal.com (the "Site") or 420Portal Mobile App (the "App") on Google Play or Apple Store. You should read, understand and agree to all of the Terms prior to using any of the features on the Site or the App or browsing the Site. Downloading, installing or otherwise using (collectively "Use", "Used" or "Using") the Site Or the App constitutes your acceptance of all of these Terms. If you do not agree with the Terms, or any portion of the Terms, leave the Site or the App immediately.</p>
 
