@@ -14,7 +14,7 @@
                 id="search-users"
               />
               <label class="custom-control-label" :for="'search-users'"
-                >Users <img src="~assets/imgs/account.png" width="25" alt=""
+                >Users <img src="~assets/imgs/search_user.png" width="25" alt=""
               /></label>
             </div>
             <div class="custom-control custom-checkbox filter-input mt-2">
@@ -27,7 +27,7 @@
                 id="search-brand"
               />
               <label class="custom-control-label" :for="'search-brand'"
-                >Brands <img src="~assets/imgs/brand.png" width="25" alt=""
+                >Brands <img src="~assets/imgs/search_brand.png" width="25" alt=""
               /></label>
             </div>
             <div class="custom-control custom-checkbox filter-input mt-2">
