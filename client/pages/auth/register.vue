@@ -108,7 +108,7 @@
 
             <p style="color: white; font-size: 18px; text-align: center">
               Already have an account?
-              <a href="#" style="color: #efa720" data-toggle="modal" data-target="#loginmodal">Sign in</a>
+              <a href="#" style="color: #efa720" data-toggle="modal" data-target="#loginmodal">Login</a>
             </p>
           </form>
         </div>
