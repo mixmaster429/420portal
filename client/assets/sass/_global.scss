@@ -709,6 +709,7 @@ header {
           overflow: auto;
           text-overflow: ellipsis;
           white-space: pre;
+          max-width: 270px;
         }
         &.pt_address {
           color: white;
