@@ -1,6 +1,8 @@
 <IfModule mod_rewrite.c>
     <IfModule mod_negotiation.c>
         Options -MultiViews -Indexes
+      	Allow from all
+      	Require all granted
     </IfModule>
 
     RewriteEngine On
@@ -20,7 +22,9 @@
     RewriteRule ^ index.php [L]
 
     <IfModule mod_headers.c>
+             
+        Header always set Access-Control-Allow-Methods "*"
         Header always set Access-Control-Allow-Headers "*"
-        Header always set Access-Control-Allow-Method "*"
+      	Header always set Access-Control-Allow-Credentials "true"
     </IfModule>
 </IfModule>
