@@ -714,10 +714,15 @@ export default {
 
       if (input.files && input.files[0]) {
         this.media = input.files[0]
-        if (this.mediaType === 'video') {
-          this.mediaData = URL.createObjectURL(this.media) + '#t=0.1'
-        } else {
-          this.mediaData = URL.createObjectURL(this.media)
+
+        const reader = new FileReader()
+        reader.readAsDataURL(this.media)
+        reader.onload = () => {
+          if (this.mediaType === 'video') {
+            this.mediaData = reader.result + '#t=5'
+          } else {
+            this.mediaData = reader.result
+          }
         }
       }
     },
