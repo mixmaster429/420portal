@@ -14,6 +14,8 @@
           disablepictureinpicture
           controlslist="nodownload"
           preload="metadata"
+          autoplay
+          muted
         >
           <source :src="mediaData" type="video/mp4" />
           <source :src="mediaData" type="video/webm" />
