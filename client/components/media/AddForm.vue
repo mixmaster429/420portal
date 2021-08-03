@@ -13,6 +13,7 @@
           controls
           disablepictureinpicture
           controlslist="nodownload"
+          preload="metadata"
         >
           <source :src="mediaData" type="video/mp4" />
           <source :src="mediaData" type="video/webm" />
@@ -714,17 +715,7 @@ export default {
 
       if (input.files && input.files[0]) {
         this.media = input.files[0]
-
-        // const reader = new FileReader()
-        // reader.readAsDataURL(this.media)
-        // reader.onload = () => {
-        // }
-
-        if (this.mediaType === 'video') {
-          this.mediaData = URL.createObjectURL(this.media)
-        } else {
-          this.mediaData = URL.createObjectURL(this.media)
-        }
+        this.mediaData = URL.createObjectURL(this.media)
       }
     },
     handleScroll(e) {
@@ -938,6 +929,7 @@ export default {
       white-space: normal !important;
       padding-right: 0 !important;
       min-height: 60px !important;
+      font-size: 16px;
     }
     .emojionearea-button {
       div {

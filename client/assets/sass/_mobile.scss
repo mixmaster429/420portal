@@ -76,6 +76,15 @@
                 }
                 img {
                     object-fit: cover;
+
+                    &.video__tag__mobile {
+                      position: absolute;
+                      height: auto;
+                      width: 40px;
+                      left: unset;
+                      right: 10px;
+                      top: 10px;
+                    }
                 }
             }
         }
@@ -111,6 +120,8 @@
             margin-left: 10px;
             clear: both;
             p {
+                font-size: 16px;
+                
                 a {
                     color: #EFA720;
                 }

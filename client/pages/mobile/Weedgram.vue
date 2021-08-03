@@ -82,6 +82,7 @@
           <div class="media_body">
             <div class="slide_image" @click="user ? likeMedia(item) : () => false">
               <img :src="serverUrl(item.url)" alt v-if="item.type == 'image'" />
+              <img src="~assets/imgs/video_icon.png" alt="" class="video__tag__mobile" v-if="item.type === 'video'">
               <video
                 :src="serverUrl(item.url) + '#t=0.05'"
                 alt
