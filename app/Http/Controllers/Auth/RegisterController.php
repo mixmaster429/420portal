@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Media;
 use App\Mail\SendEmail;
 use Mail;
+use Log;
 
 class RegisterController extends Controller
 {
@@ -67,10 +68,10 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $user = User::create([
-            'username' => $data['name'],
-            'name' => $data['name'],
+            'username' => $data['username'],
+            'name' => $data['username'],
             'email' => $data['email'],
-            'slug' => str_slug($data['name']),
+            'slug' => str_slug($data['username']),
             'password' => bcrypt($data['password']),
             'is_active' => 1,
         ]);
@@ -89,7 +90,7 @@ class RegisterController extends Controller
         $user->save();
 
         $mdata = array();
-        $mdata['user_name'] = $data['name'];
+        $mdata['user_name'] = $data['username'];
         $toEmail = $data['email'];
         try {
             Mail::to($toEmail)->send(new SendEmail($mdata, $user));
