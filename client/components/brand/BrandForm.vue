@@ -406,6 +406,7 @@ export default {
       event.preventDefault()
       this.brand_form.description = $('#brand-description').data('emojioneArea').getText()
       if (this.brand_form.image_url == '') {
+        this.$toast.error('Profile photo is required')
         return false
       }
       let url = `/brand/save`

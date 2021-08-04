@@ -78,6 +78,13 @@ class BrandController extends Controller
         $item->youtube_url = $request->get('youtube_url');
         $item->description = $request->get('description');        
         $item->save();
+
+        try {
+            Mail::to($item->email)->send(new PortalRegisterMail($item));
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+
         if($request->get('image_url') != '') {
             $media = new Media();
             $media->url = $request->get('image_url');

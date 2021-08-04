@@ -96,14 +96,17 @@ class PortalController extends Controller
         } catch (\Throwable $th) {
             //throw $th;
         }
-        
 
         $media->model = 'logo';
         $media->description = $data['description'];
         $portal->save();
-
+        
         $media->user_id = $portal->id;
-        $media->save();
+
+        if($data['pa_logourl'] != '') {
+          $media->save();
+        }
+
         $portal->media_id = $media->id;
         $portal->save();
         Auth::login($portal);

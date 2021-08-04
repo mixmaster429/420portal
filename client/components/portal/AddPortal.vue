@@ -994,7 +994,10 @@ export default {
     async savePortal() {
       let url = `/portals/store`
       const form_data = new FormData($('#pa_addform')[0])
-      console.log(form_data)
+      if(!form_data.pa_logourl) {
+        this.$toast.error('Profile photo is required')
+        return false
+      }
       this.loading = true
       const { data } = await this.axios.post(url, form_data)
       this.loading = false
