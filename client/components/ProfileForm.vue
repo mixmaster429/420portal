@@ -430,7 +430,7 @@ export default {
       })
     },
     deleteUser() {
-      if (!window.confirm('Are you sure you want to delete your account?')) {
+      if (!window.confirm('Are you sure you want to delete account?')) {
         return false
       }
       let params = { id: this.mainData.id }
