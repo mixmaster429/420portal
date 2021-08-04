@@ -45,7 +45,7 @@
                 <tr>
                     <td style="padding-left:20px;">
                         <p style="margin:5px 0px 5px 0px;font-size:18px;color:#222;font-family: Montserrat;font-weight:500;">
-                            You can login here: <a href="{{site_url('/login')}}"><img src="{{asset('imgs/hand.png')}}"></a>                            
+                            You can login here: <a href="{{site_url('/')}}"><img src="{{asset('imgs/hand.png')}}"></a>                            
                         </p>                        
                     </td>
                 </tr>
