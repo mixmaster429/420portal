@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Validator;
 
 use App\Models\Media;
 use App\Mail\SendEmail;
-use Illuminate\Support\Facades\Mail;
+use Mail;
 
 class RegisterController extends Controller
 {
@@ -95,6 +95,7 @@ class RegisterController extends Controller
             Mail::to($toEmail)->send(new SendEmail($mdata, $user));
         } catch (\Throwable $th) {
             //throw $th;
+            Log::error($th);
         }
         return $user;
     }
