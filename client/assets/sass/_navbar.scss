@@ -1,101 +1,111 @@
 header {
-    // position: fixed;
-    // top: 0;
-    z-index: 10;
-    width: 100%;
-    height: 73px;
-    background-color: white;
-    .col {
+  // position: fixed;
+  // top: 0;
+  z-index: 10;
+  width: 100%;
+  height: 73px;
+  background-color: white;
+  .col {
+    text-align: center;
+  }
+  .logo_image {
+    padding: 10px;
+    img {
+      height: 50px;
+    }
+  }
+  .nav_bar {
+    ul {
+      display: flex;
+      padding: 3px;
+      margin: 0;
+      li {
+        display: inline-block;
         text-align: center;
-    }
-    .logo_image {
-        padding: 10px;
-        img {
-            height: 50px;
+        width: 16%;
+
+        &.right-padding {
+          padding-right: 25px;
         }
-    }
-    .nav_bar {
-        ul {
-            width: 100%;
-            padding: 3px;
+
+        a {
+          text-decoration: none;
+          img {
+            width: 50px;
+          }
+          p {
             margin: 0;
-            li {
-                display: inline-block;
-                text-align: center;
-                width: 16%;
-                a {
-                    text-decoration: none;
-                    img {
-                        width: 50px;
-                    }
-                    p {
-                        margin: 0;
-                        color: black;
-                    }
-                }
-            }
+            color: black;
+          }
         }
+
+        @media (max-width: 500px) {
+          width: unset;
+          padding: 0 3px;
+        }
+      }
     }
-    .auth_nav {
-        ul {
-            list-style-type: none;
+  }
+  .auth_nav {
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      li {
+        display: inline-block;
+        text-align: center;
+        padding: 29px 5px 0 5px;
+        &:hover {
+          background-color: #efa720;
+        }
+        a {
+          color: black;
+          text-decoration: none;
+          display: block;
+          p {
             margin: 0;
-            padding: 0;
-            li {
-                display: inline-block;
-                text-align: center;
-                padding: 29px 5px 0 5px;
-                &:hover {
-                    background-color: #EFA720;
-                }
-                a {
-                    color: black;
-                    text-decoration: none;
-                    display: block;
-                    p {
-                        margin: 0;
-                    }
-                    i {
-                        font-size: 18px;
-                    }
-                }
-            }
+          }
+          i {
+            font-size: 18px;
+          }
         }
+      }
     }
+  }
 }
 
 footer {
-    position: fixed;
-    bottom: 0;
-    background-color: white;
-    height: 70px;
+  position: fixed;
+  bottom: 0;
+  background-color: white;
+  height: 70px;
+  width: 100%;
+  z-index: 98;
+  border-top: 1px solid grey;
+  .footer_tollbar {
     width: 100%;
-    z-index: 98;
-    border-top: 1px solid grey;
-    .footer_tollbar {
-        width: 100%;
-        padding: 0;
-        margin: 0;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        li {
-            display: inline-block;
-            text-align: center;
-            cursor: pointer;
-            img {
-                width: 50px;
-                height: 50px;
-                object-fit: cover;
-            }
-            p {
-                color: black;
-            }
-            &.mycompany {
-                img {
-                    padding: 5px;
-                }
-            }
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    li {
+      display: inline-block;
+      text-align: center;
+      cursor: pointer;
+      img {
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+      }
+      p {
+        color: black;
+      }
+      &.mycompany {
+        img {
+          padding: 5px;
         }
+      }
     }
+  }
 }

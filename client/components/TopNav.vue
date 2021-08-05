@@ -110,7 +110,7 @@
                 <p>Forums</p>
               </a>
             </li>
-            <li class="nav-item">
+            <li :class="user ? 'nav-item': 'nav-item right-padding'">
               <a href="/marijuana-news">
                 <img src="~assets/imgs/news.png" alt="" />
                 <p>News</p>

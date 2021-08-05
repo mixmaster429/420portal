@@ -441,7 +441,7 @@ export default {
     },
     logout(event) {
       event.preventDefault()
-      if (window.confirm('Are you sure?')) {
+      if (window.confirm('Are you sure you want to log off?')) {
         this.$store.dispatch('auth/logout')
       }
     },
